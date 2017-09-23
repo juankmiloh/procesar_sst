@@ -1,0 +1,44 @@
+<?php
+
+namespace app\models;
+
+use Yii;
+
+/**
+ * This is the model class for table "departamento".
+ *
+ * @property integer $depa_id
+ * @property string $depa_nombre
+ */
+class Departamento extends \yii\db\ActiveRecord
+{
+    /**
+     * @inheritdoc
+     */
+    public static function tableName()
+    {
+        return 'departamento';
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function rules()
+    {
+        return [
+            [['depa_nombre'], 'required'],
+            [['depa_nombre'], 'string', 'max' => 55],
+        ];
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function attributeLabels()
+    {
+        return [
+            'depa_id' => 'PK',
+            'depa_nombre' => 'Nombre del departamento',
+        ];
+    }
+}

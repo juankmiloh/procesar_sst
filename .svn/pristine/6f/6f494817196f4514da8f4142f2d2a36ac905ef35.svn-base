@@ -1,0 +1,79 @@
+function asignarNumero(usu_id,id, e){
+	formato(id, e);	
+	$.ajax({
+		url: $("#urlAsignarNum").val(),
+		data: "usu_id="+usu_id+"&num="+$("#"+id).val()
+	});
+}
+
+function formato(id, e){	
+	var zeros = "";
+	if($("#"+id).val().length == 1){
+		zeros = "000";
+	}else if($("#"+id).val().length == 2){
+		zeros = "00";
+	}else if($("#"+id).val().length == 3){
+		zeros = "0";
+	}else{
+		zeros = "";
+	}
+	$("#"+id).val(zeros+$("#"+id).val());	
+}
+
+function validarNumero(e){
+    tecla = (document.all) ? e.keyCode : e.which;
+    //Tecla de retroceso para borrar, siempre la permite
+    if (tecla==8){
+        return true;
+    }
+    // Patron de entrada, en este caso solo acepta numeros
+    patron =/[0-9,-]/;
+    tecla_final = String.fromCharCode(tecla);
+    return patron.test(tecla_final);
+}
+
+function habilitarCampo(id){
+	if( $("#num"+id.replace("btn","")).is("[readonly]")){
+		$("#num"+id.replace("btn","")).prop('readonly',false);	
+		$("#"+id).css("filter","grayscale(100%)");
+	}else{
+		$("#num"+id.replace("btn","")).prop('readonly',true);
+		$("#"+id).css("filter","grayscale(0%)");
+	}	
+}
+
+function vaciarCampo(id){
+	$("#"+id.replace("btnd","num")).val("");
+}
+
+function listarMunicipios(id){	 
+	$.ajax({
+		url: $("#urlMunicipiosJugadores").val(),
+		data: "dpto_id="+id,
+		success:function(response){
+			var obj = jQuery.parseJSON( response ); 
+			var view = "<select style='width:100%;' id='municipios_id2' name='municipios_id2' class='form-control filter'><option value=''>"+TODO+"</option>";
+			var num = 0;
+			while(obj['muni'+num] != null){
+				view += "<option value='"+obj['muni'+num]['municipios_id']+"'>"+obj['muni'+num]['municipios_name']+"</option>";
+				num++;
+			}
+			
+			view +="</select>";
+			view = view.replace("/\r|\n/", "");			
+			$('#list-jugadores thead tr:eq(1) th:eq(1)').html(view);	
+			$('#municipios_id2').select2();
+			$('.filter, .select2').on('click', function(e){
+	            e.stopPropagation();    
+	        });		
+	        // Buscar los valores ingresados
+	        var table1 = $('#list-jugadores').DataTable();
+	        table1.columns().every(function (index) {
+	            $('#list-jugadores thead tr:eq(1) th:eq(' + index + ') select').on('change', function () {
+	                    table1.column($(this).parent().index() + ':visible')
+	                        .search(this.value).draw();
+	            });	            	                
+	        });
+		}
+	});
+}

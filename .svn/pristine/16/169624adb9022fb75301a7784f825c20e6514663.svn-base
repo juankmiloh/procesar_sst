@@ -1,0 +1,22 @@
+
+
+
+//Función para crear un evento nuevo
+function nuevoEvento(){
+    event.preventDefault();
+    var data = $("#nuevo_evento_form").serialize();
+    var url = $("#urlCrearEvento").val();
+    
+    $.ajax({
+        //type: "POST",
+        url: url,
+        data: "data=" + data,
+        success: function (response) {
+
+            
+        },
+        error: function (error) {
+            
+        }
+    });
+}

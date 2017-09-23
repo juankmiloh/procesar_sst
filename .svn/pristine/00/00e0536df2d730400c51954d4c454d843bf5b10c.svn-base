@@ -1,0 +1,143 @@
+<?php
+
+namespace app\models;
+
+use Yii;
+
+/**
+ * This is the model class for table "campeonato".
+ *
+ * @property integer $camp_id
+ * @property string $camp_nombre
+ * @property integer $genero_id
+ * @property integer $tipo_deporte_id
+ * @property integer $cat_id
+ * @property integer $dep_id
+ * @property integer $camp_estado
+ * @property integer $eve_id
+ * @property string $camp_fecha_inicio
+ * @property string $camp_fecha_fin
+ * @property integer $prueb_id
+ *
+ * @property Categoria $cat
+ * @property Deporte $dep
+ * @property Evento $eve
+ * @property Genero $genero
+ * @property Prueba $prueb
+ * @property TipoDeporte $tipoDeporte
+ * @property CampeonatoTieneFases[] $campeonatoTieneFases
+ * @property UsuarioTieneCampeonatos[] $usuarioTieneCampeonatos
+ */
+class Campeonato extends \yii\db\ActiveRecord
+{
+    /**
+     * @inheritdoc
+     */
+    public static function tableName()
+    {
+        return 'campeonato';
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function rules()
+    {
+        return [
+            [['camp_nombre', 'genero_id', 'tipo_deporte_id', 'cat_id', 'dep_id', 'eve_id', 'camp_fecha_inicio', 'camp_fecha_fin'], 'required'],
+            [['genero_id', 'tipo_deporte_id', 'cat_id', 'dep_id', 'camp_estado', 'eve_id', 'prueb_id'], 'integer'],
+            [['camp_fecha_inicio', 'camp_fecha_fin'], 'safe'],
+            [['camp_nombre'], 'string', 'max' => 255],
+            [['cat_id'], 'exist', 'skipOnError' => true, 'targetClass' => Categoria::className(), 'targetAttribute' => ['cat_id' => 'cat_id']],
+            [['dep_id'], 'exist', 'skipOnError' => true, 'targetClass' => Deporte::className(), 'targetAttribute' => ['dep_id' => 'dep_id']],
+            [['eve_id'], 'exist', 'skipOnError' => true, 'targetClass' => Evento::className(), 'targetAttribute' => ['eve_id' => 'eve_id']],
+            [['genero_id'], 'exist', 'skipOnError' => true, 'targetClass' => Genero::className(), 'targetAttribute' => ['genero_id' => 'gen_id']],
+            [['prueb_id'], 'exist', 'skipOnError' => true, 'targetClass' => Prueba::className(), 'targetAttribute' => ['prueb_id' => 'prueb_id']],
+            [['tipo_deporte_id'], 'exist', 'skipOnError' => true, 'targetClass' => TipoDeporte::className(), 'targetAttribute' => ['tipo_deporte_id' => 'td_id']],
+        ];
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function attributeLabels()
+    {
+        return [
+            'camp_id' => Yii::t('app', 'PK'),
+            'camp_nombre' => Yii::t('app', 'Nombre del campeonato'),
+            'genero_id' => Yii::t('app', 'Tabla Género FK'),
+            'tipo_deporte_id' => Yii::t('app', 'Tabla tipo de deporte FK'),
+            'cat_id' => Yii::t('app', 'Tabla categoria FK'),
+            'dep_id' => Yii::t('app', 'Tabla deportes FK'),
+            'camp_estado' => Yii::t('app', '1 - Activo, 0 - Inactivo'),
+            'eve_id' => Yii::t('app', 'Tabla Eventos FK'),
+            'camp_fecha_inicio' => Yii::t('app', 'Fecha de inicio'),
+            'camp_fecha_fin' => Yii::t('app', 'Fecha fin'),
+            'prueb_id' => Yii::t('app', 'Tabla pruebas FK'),
+        ];
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getCat()
+    {
+        return $this->hasOne(Categoria::className(), ['cat_id' => 'cat_id']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getDep()
+    {
+        return $this->hasOne(Deporte::className(), ['dep_id' => 'dep_id']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getEve()
+    {
+        return $this->hasOne(Evento::className(), ['eve_id' => 'eve_id']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getGenero()
+    {
+        return $this->hasOne(Genero::className(), ['gen_id' => 'genero_id']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getPrueb()
+    {
+        return $this->hasOne(Prueba::className(), ['prueb_id' => 'prueb_id']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getTipoDeporte()
+    {
+        return $this->hasOne(TipoDeporte::className(), ['td_id' => 'tipo_deporte_id']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getCampeonatoTieneFases()
+    {
+        return $this->hasMany(CampeonatoTieneFases::className(), ['camp_id' => 'camp_id']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getUsuarioTieneCampeonatos()
+    {
+        return $this->hasMany(UsuarioTieneCampeonatos::className(), ['camp_id' => 'camp_id']);
+    }
+}

@@ -1,0 +1,268 @@
+<?php
+
+use yii\helpers\Html;
+use yii\helpers\Url;
+?>
+
+<body class="background_images">
+
+    <div class="container-fluid">
+
+        <div class="dashboard-wrapper">
+
+            <!-- MIGA DE PAN -->
+            <nav class="navbar navbar-default">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                        <span class="sr-only">
+                            Toggle navigation</span>
+                        <span class="icon-bar">
+                        </span>
+                        <span class="icon-bar">
+                        </span>
+                        <span class="icon-bar">
+                        </span>
+                    </button>
+                </div>
+                <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                    <ul class="nav navbar-nav">
+                        <li>
+                            <?php
+                            echo Html::a('<i class="icon-graphic_eq"></i>' . Yii::t("app", "INICIO"), array("evento/index"));
+                            ?>
+                        </li>
+                        <li class="active">
+                            <?php
+                            echo Html::a('<i class="icon-graphic_eq"></i>' . Yii::t("app", "TORNEOS"), array("campeonato/torneos"));
+                            ?>
+                        </li>
+                        <li class="active">
+                            <?php
+                            echo Html::a('<i class="icon-graphic_eq"></i>' . Yii::t("app", "CAMPEONATO"), ["campeonato/listar", 'idDeporte' => $campeonato->dep_id]);
+                            ?>
+                        </li>
+                        <li class="active">
+                            <?php
+                            echo Html::a('<i class="icon-graphic_eq"></i>' . Yii::t("app", "FASES"), ["campeonato/listarfases", 'idCamp' => $fase->camp_id]);
+                            ?>
+                        </li>
+                        <li class="active">
+                            <?php
+                            echo Html::a('<i class="icon-graphic_eq"></i>' . Yii::t("app", "PROGRAMACION"), ["programacion/sorteo", 'ctf_id' => $fase->ctf_id]);
+                            ?>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+
+            <!-- Barra Azul -->
+            <div class="top-bar clearfix">
+            </div>
+
+            <div class="left-sidebar">
+		<div class="row gutter">
+			<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+				<div class="panel panel-light">
+					<div class="panel-body center-text">
+
+						<div class="row gutter">
+							<div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
+								<div class="panel panel-light">
+									<div class="panel-heading">
+										<h4>ENTIDADES PARTICIPANTES</h4>
+									</div>
+                                                                        <div class="panel panel-light">
+                                                                            <div class="panel-body" >
+                                                                                <div class="form-group">
+                                                                                    <div class="panel-body">
+                                                                                        <table class="mytable">
+                                                                                            <tbody class="connectedSortable" >
+                                                                                                <tr >
+                                                                                                    <th class="col-md-5 col-xs-5" style="width: 10px"><?= Yii::t("app", "ID") ?></th>
+                                                                                                    <th class="col-md-5 col-xs-5"><?= Yii::t("app", "DEPARTAMENTO") ?></th>
+                                                                                                    <th class="col-md-5 col-xs-5"><?= Yii::t("app", "CIUDAD") ?></th>
+                                                                                                    <th class="col-md-5 col-xs-5"><?= Yii::t("app", "EQUIPOS") ?></th>
+                                                                                                    <th class="col-md-5 col-xs-5"><?= Yii::t("app", "PUNTOS") ?></th>
+                                                                                                    <th class="col-md-5 col-xs-5"><?= Yii::t("app", "PG") ?></th>
+                                                                                                    <th class="col-md-5 col-xs-5"><?= Yii::t("app", "PE") ?></th>
+                                                                                                    <th class="col-md-5 col-xs-5"><?= Yii::t("app", "PP") ?></th>
+                                                                                                    <th class="col-md-5 col-xs-5"><?= Yii::t("app", "GF") ?></th>
+                                                                                                    <th class="col-md-5 col-xs-5"><?= Yii::t("app", "GE") ?></th>
+                                                                                                    <th class="col-md-5 col-xs-5"><?= Yii::t("app", "JL") ?></th>
+                                                                                                </tr>
+                                                                                                <?php
+                                                                                                        $connection = Yii::$app->getDb();
+                                                                                                        for ($i = 0; $i < count($equipos); $i++) {
+                                                                                                            
+                                                                                                            $sql = "SELECT sum(tfs_gf_1) as 'gf', sum(tfs_ge_1) as 'ge', sum(tfs_jl_1) as 'gl', sum(tfs_puntos_1) as 'pu' " 
+                                                                                                                . "FROM fase_tiene_encuentros fte WHERE fte.equi_id_1 = ".$equipos[$i]->getEqui()->one()->equi_id." AND fte.ctf_id = ".$fase->ctf_id;
+                                                                                                            $results1 = $connection->createCommand($sql)->queryAll();
+                                                                                                            $sql = "SELECT sum(tfs_gf_2) as 'gf', sum(tfs_ge_2) as 'ge', sum(tfs_jl_2) as 'gl', sum(tfs_puntos_2) as 'pu' "
+                                                                                                                    . "FROM fase_tiene_encuentros fte WHERE fte.equi_id_2 = ".$equipos[$i]->getEqui()->one()->equi_id." AND fte.ctf_id = ".$fase->ctf_id;
+                                                                                                            $results2 = $connection->createCommand($sql)->queryAll();
+                                                                                                            
+                                                                                                                $gf = (isset($results1[0]['gf']) ? intval($results1[0]['gf']) : 0) + (isset($results2[0]['gf']) ? intval($results2[0]['gf']) : 0);
+                                                                                                                $ge = (isset($results1[0]['ge']) ? intval($results1[0]['ge']) : 0) + (isset($results2[0]['ge']) ? intval($results2[0]['ge']) : 0);
+                                                                                                                $gl = (isset($results1[0]['gl']) ? intval($results1[0]['gl']) : 0) + (isset($results2[0]['gl']) ? intval($results2[0]['gl']) : 0);
+                                                                                                                $pu = (isset($results1[0]['pu']) ? intval($results1[0]['pu']) : 0) + (isset($results2[0]['pu']) ? intval($results2[0]['pu']) : 0);
+                                                                                                            //}
+                                                                                                            
+                                                                                                            echo "<tr>";
+                                                                                                            echo "<td>" . $equipos[$i]->getEqui()->one()->equi_id . "</td>";
+                                                                                                            echo "<td>" . $equipos[$i]->getEqui()->one()->getEnt()->one()->getEntDpto()->one()->dptos_name . "</td>";
+                                                                                                            echo "<td>" . $equipos[$i]->getEqui()->one()->getEnt()->one()->getEntMunicipio()->one()->municipios_name . "</td>";
+                                                                                                            echo "<td>" . $equipos[$i]->getEqui()->one()->getEnt()->one()->ent_nombre . "</td>";
+                                                                                                            echo "<td></td>";
+                                                                                                            echo "<td></td>";
+                                                                                                            echo "<td></td>";
+                                                                                                            echo "<td></td>";
+                                                                                                            echo "<td>".$gf."</td>";
+                                                                                                            echo "<td>".$ge."</td>";
+                                                                                                            echo "<td>".$gl."</td>";
+                                                                                                            echo "</tr>";
+                                                                                                        }
+                                                                                                ?>
+                                                                                            </tbody>
+                                                                                        </table>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                        <button class="btn btn-info" onclick="guardarSorteo()"><i class="icon-save2"></i> <?= Yii::t("app", "GUARDAR") ?></button>	
+								</div>
+							</div>
+                                                    
+                                                        <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+								<div class="panel panel-light">
+									<div class="panel-heading">
+										<h4>FASES</h4>
+									</div>
+									<div class="panel-body">
+										<ul class="list-group no-margin">
+											<li class="list-group-item">
+												<span class="badge"></span>	
+												<a class="btn btn-success" href="eventos_fin4-sub1.html" target="_self"><i class="icon-circle-plus"></i> AGREGAR FASE </a> 
+											</li>
+											<li class="list-group-item">
+												<span class="badge"></span>	
+												<a class="btn btn-danger"><i class="icon-circle-with-cross"></i> ELIMINAR FASE</a> 
+											</li>
+											<li class="list-group-item"> 
+												<span class="badge"></span>	
+												<a class="btn btn-warning"><i class="icon-edit"></i> EDITAR FASE</a>
+											</li>
+											<li class="list-group-item">
+												<span class="badge"></span>	
+												<a class="btn btn-info"><i class="icon-save2"></i> GUARDAR</a>	
+											</li>
+										</ul>
+									</div>
+								</div>
+							</div>
+						</div>					
+						
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>	
+            
+
+        </div>
+    </div>
+
+
+
+    
+
+
+</body>
+
+<style>
+    .mytable a:link {
+    color: #fff;
+    font-weight: bold;
+    text-decoration:none;
+}
+.mytable a:visited {
+    color: #fff;
+    font-weight:bold;
+    text-decoration:none;
+}
+.mytable a:active, .mytable a:hover {
+    color: #bd5a35;
+    text-decoration:underline;
+}
+table.mytable {
+    width:90%;
+    font-family:Arial, Helvetica, sans-serif;
+    color:#666;
+    margin-left:auto;
+    margin-right:auto;
+    font-size:12px;
+    background:#eaebec;
+    border:#ccc 1px solid;
+    -moz-border-radius:3px;
+    -webkit-border-radius:3px;
+    border-radius:3px;
+    -moz-box-shadow: 10px 10px 5px #888;
+    -webkit-box-shadow: 10px 10px 5px #888;
+    box-shadow: 10px 10px 5px #888;
+}
+.mytable th {
+    color:#fff;
+    padding:21px 25px 22px 25px;
+    border-top:1px solid #fafafa;
+    border-bottom:1px solid #e0e0e0;
+    background:#191970;
+}
+.mytable th:first-child {
+    text-align: center;
+    padding-left:20px;
+}
+.mytable tr {
+    text-align: center;
+    padding-left:20px;
+}
+.mytable tr td:first-child {
+    text-align: center;
+    padding-left:20px;
+    border-left: 0;
+}
+.mytable tr td {
+    padding:6px;
+    border-top: 1px solid #ffffff;
+    border-bottom:1px solid #e0e0e0;
+    border-left: 1px solid #e0e0e0;
+    background: #fafafa;
+    background: -webkit-gradient(linear, left top, left bottom, from(#fbfbfb), to(#fafa fa));
+    background: -moz-linear-gradient(top, #fbfbfb, #fafafa);
+}
+.mytable tr.even td {
+    background: #f6f6f6;
+    background: -webkit-gradient(linear, left top, left bottom, from(#f8f8f8), to(#f6f6 f6));
+    background: -moz-linear-gradient(top, #f8f8f8, #f6f6f6);
+}
+.mytable tr:last-child td {
+    border-bottom:0;
+}
+.mytable tr:last-child td:first-child {
+    -moz-border-radius-bottomleft:3px;
+    -webkit-border-bottom-left-radius:3px;
+    border-bottom-left-radius:3px;
+}
+.mytable tr:last-child td:last-child {
+    -moz-border-radius-bottomright:3px;
+    -webkit-border-bottom-right-radius:3px;
+    border-bottom-right-radius:3px;
+}
+.mytable tr:hover td {
+    background: #f2f2f2;
+    transform:scale(1.01);
+    padding-left:20px;
+    outline:1px solid #191970;
+    -moz-box-shadow: 10px 10px 5px #888;
+    -webkit-box-shadow: 10px 10px 5px #888;
+    box-shadow: 10px 10px 5px #888;
+}
+</style>

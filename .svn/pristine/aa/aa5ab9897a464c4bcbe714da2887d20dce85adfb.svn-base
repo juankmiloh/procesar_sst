@@ -1,0 +1,27 @@
+
+    /**
+     * Publica los resultados para el público 
+     */
+    function publicarResultados(id){
+        
+        var table = $('#mytable'+id).tableToJSON();
+        
+        for(var i = 0; i < table.length ; i++){
+            table[i]['AVANZA'] = $( "#check"+id+"_"+i ).prop( "checked");
+        }
+        
+        $.ajax({
+            url: $("#urlGuardar").val(),
+            data: {data : table},
+            success: function (response) {
+                $.LoadingOverlay('hide');
+            },
+            error: function (error, tx) {
+                $.LoadingOverlay('hide');
+                console.log(tx);
+            }
+        });
+        
+        
+        
+    }

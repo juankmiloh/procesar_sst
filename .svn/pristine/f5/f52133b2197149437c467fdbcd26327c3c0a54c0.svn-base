@@ -1,0 +1,46 @@
+<?php
+
+namespace app\models;
+
+use Yii;
+
+/**
+ * This is the model class for table "usuario_tiene_campeonatos".
+ *
+ * @property integer $utc_id
+ * @property integer $usu_id
+ * @property integer $camp_id
+ */
+class UsuarioTieneCampeonatos extends \yii\db\ActiveRecord
+{
+    /**
+     * @inheritdoc
+     */
+    public static function tableName()
+    {
+        return 'usuario_tiene_campeonatos';
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function rules()
+    {
+        return [
+            [['usu_id', 'camp_id'], 'required'],
+            [['usu_id', 'camp_id'], 'integer'],
+        ];
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function attributeLabels()
+    {
+        return [
+            'utc_id' => Yii::t('app', 'PK'),
+            'usu_id' => Yii::t('app', 'Tabla Usuarios FK'),
+            'camp_id' => Yii::t('app', 'Tabla campeonato FK'),
+        ];
+    }
+}

@@ -1,0 +1,153 @@
+<?php
+    use yii\helpers\Html;
+    use yii\helpers\Url;
+    use yii\helpers\ArrayHelper;
+?>
+
+
+<body class="background_images">
+
+    <div class="container-fluid">
+
+        <div class="dashboard-wrapper">
+            
+            <!-- MIGA DE PAN -->
+            <nav class="navbar navbar-default">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                        <span class="sr-only">
+                            Toggle navigation</span>
+                        <span class="icon-bar">
+                        </span>
+                        <span class="icon-bar">
+                        </span>
+                        <span class="icon-bar">
+                        </span>
+                    </button>
+                </div>
+                <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                    <ul class="nav navbar-nav">
+                        <li>
+                            <?php
+                            echo Html::a('<i class="icon-graphic_eq"></i>' . Yii::t("app", "INICIO"), array("evento/index"));
+                            ?>
+                        </li>
+                        <li class="active">
+                            <?php
+                            echo Html::a('<i class="icon-graphic_eq"></i>' . Yii::t("app", "PROMOCION_DEP_CONJUNTO"), array("promocion/listar"));
+                            ?>
+                        </li>
+                        <li class="active">
+                            <?php
+                            echo Html::a('<i class="icon-graphic_eq"></i>' . Yii::t("app", "EQUIPOS_PROMOCIONADOS"), array("promocion/verpromocionadosconjunto"));
+                            ?>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+            
+            <!-- Barra Azul -->
+            <div class="top-bar clearfix">
+            </div>
+            
+            <!-- Listado -->
+            <table id="list-datos" class="display" cellspacing="0" width="90%">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th><?php echo Yii::t("app", "PROMOCION"); ?></th>
+                        <th><?php echo Yii::t("app", "DEPARTAMENTO"); ?></th>
+                        <th><?php echo Yii::t("app", "CIUDAD"); ?></th>
+                        <th><?php echo Yii::t("app", "ENTIDAD"); ?></th>
+                        <th><?php echo Yii::t("app", "PRUEBA"); ?></th>
+                        <th></th>
+                    </tr>
+                    <tr>
+                        <th>#</th>
+                        <th><?php echo Yii::t("app", "PROMOCION"); ?></th>
+                        <th><?php echo Yii::t("app", "DEPARTAMENTO"); ?></th>
+                        <th><?php echo Yii::t("app", "CIUDAD"); ?></th>
+                        <th><?php echo Yii::t("app", "ENTIDAD"); ?></th>
+                        <th><?php echo Yii::t("app", "PRUEBA"); ?></th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tfoot>
+                    <tr>
+                        <th>#</th>
+                        <th><?php echo Yii::t("app", "PROMOCION"); ?></th>
+                        <th><?php echo Yii::t("app", "DEPARTAMENTO"); ?></th>
+                        <th><?php echo Yii::t("app", "CIUDAD"); ?></th>
+                        <th><?php echo Yii::t("app", "ENTIDAD"); ?></th>
+                        <th><?php echo Yii::t("app", "PRUEBA"); ?></th>
+                        <th></th>
+                    </tr>
+                </tfoot>
+                <tbody>
+                </tbody>
+            </table>
+            
+        </div>
+        
+    </div>
+    
+</body>
+
+
+<script>
+    
+    
+    var ERROR = '<?php echo Yii::t("app", "ERROR") ?>'; 
+    var PROMOCION_NOMBRE_MIN = '<?php echo Yii::t("app", "PROMOCION_NOMBRE_MIN") ?>'; 
+    var PROMOCION_NOMBRE_MAX = '<?php echo Yii::t("app", "PROMOCION_NOMBRE_MAX") ?>'; 
+    var PROMOCION_FASE = '<?php echo Yii::t("app", "PROMOCION_FASE") ?>'; 
+    var PROMOCION_PI = '<?php echo Yii::t("app", "PROMOCION_PI") ?>'; 
+    var PROMOCION_EXITO = '<?php echo Yii::t("app", "PROMOCION_EXITO") ?>'; 
+    
+    
+    $(document).ready(function () {
+
+//        //Data table, lista eventos
+        var table = $('#list-datos').DataTable({
+            "processing": true,
+            "serverSide": true,
+            "dom": 'lrtip', //Esconde el campo de busqueda
+            "order": [[ 0, "desc" ]],
+            "ajax": "<?php echo Url::toRoute(['promocion/datapromocionados']); ?>&idPromocion=<?php echo $promocion->prom_id; ?>",
+//            "columnDefs" : [
+//                { 
+//                    //Solo la columna 2 (usuario) es buscable
+//                    'searchable'    : false, 
+//                    'targets'       : [0,1,3,4] 
+//                },
+//                {
+//                    //Solo la columna 2 (usuario) es ordenable
+//                    'orderable' : false,
+//                    'targets'   : [1,4]
+//                }
+//            ],
+            "language": {
+                "lengthMenu": "<?php echo Yii::t("app", "DISPLAY_RESULT") ?>",
+                "zeroRecords": "<?php echo Yii::t("app", "NO_RESULT") ?>",
+                "info": "<?php echo Yii::t("app", "RES_PAG") ?>",
+                "infoEmpty": "<?php echo Yii::t("app", "NO_RESULT_SEARCH") ?>",
+                "infoFiltered": "<?php echo Yii::t("app", "FILTER_RESULT") ?>",
+                "loadingRecords": "<?php echo Yii::t("app", "CARGANDO") ?>",
+                "processing":     "<?php echo Yii::t("app", "PROCESANDO") ?>.",
+                "search":         "<?php echo Yii::t("app", "BUSCAR") ?>",
+                "zeroRecords":    "<?php echo Yii::t("app", "NO_RESULT_SEARCH") ?>",
+                "paginate": {
+                    "first":      "<?php echo Yii::t("app", "PRIMERO") ?>",
+                    "last":       "<?php echo Yii::t("app", "ULTIMO") ?>",
+                    "next":       "<?php echo Yii::t("app", "SIGUIENTE") ?>",
+                    "previous":   "<?php echo Yii::t("app", "ANTERIOR") ?>"
+                },
+
+            }
+        });
+        
+        
+    });
+    
+</script>
+<script src="../views/promocion/js/equipospromocionados.js"></script>

@@ -1,0 +1,844 @@
+<?php
+namespace app\controllers;
+
+use yii\filters\AccessControl;
+use yii\web\Controller;
+use yii\filters\VerbFilter;
+use yii\helpers\ArrayHelper;
+use yii\helpers\Html;
+use app\models\Escenario;
+use app\models\Deporte;
+use app\models\DisponibilidadEscenario;
+use app\models\DisponibilidadTieneHora;
+use app\models\Hora;
+use app\models\ContactoEscenario;
+use app\models\EscenarioTieneDeportes;
+use app\helpers\datatables;
+use yii\helpers\Url;
+
+class EscenarioController extends Controller{
+
+	public function behaviors()
+    {
+        return [
+            'access' => [
+                'class' => AccessControl::className(),
+                'rules' => [
+                    [
+                        'actions' => ['crearescenario','listardeportetipo','agregardisponibilidad','borrardisponibilidad','modificardisponibilidad','listarciudades','borrarescenario','conjuntoc','listar','escenarios','modaleditarescenario','agregarcontacto','modificarescenario','borrardeporteescenario','agregardeporteescenario','cambiarciudadescenario'], // add all actions to take guest to login page
+                        'allow' => true,
+                        'roles' => ['@'],
+                    ],
+                ],
+            ],
+            'verbs' => [
+                'class' => VerbFilter::className(),
+                'actions' => [
+                    'logout' => ['post'],
+                ],
+            ],
+        ];
+    }
+
+    public function actionConjuntoc(){
+        return $this->render('conjunto - copia');
+    }
+
+    /*
+        Renderiza la vista listar
+    */ 
+    public function actionListar(){
+        return $this->render('listar');
+    }
+
+    /*
+     * Retorna la lista de los escenarios existentes
+     */
+    public function actionEscenarios(){
+
+        //Columnas a consultar
+        $columns = array(
+            array('db' => 'esc_id', 'dt' => 0),
+            array('db' => 'esc_nombre', 'dt' => 1),
+            array('db' => 'esc_direccion', 'dt' => 2),
+            array('db' => 'loc_id', 'dt' => 3),
+            array('db' => 'ce_id', 'dt' => 4),
+            array('db' => 'esc_observaciones', 'dt' => 5),
+        );
+
+        //Indice
+        $primaryKey = "esc_id";
+        
+        //Tabla
+        $table = "escenario";
+
+        echo json_encode(
+            datatables::simple( $_GET,$table, $primaryKey, $columns)
+        );
+    }
+
+    public function actionCrearescenario(){
+        $esc_nombre = $_GET['esc_nombre'];
+        $esc_direccion = $_GET['esc_direccion'];        
+        $ciudad = $_GET['ciudad'];
+        $td_id = $_GET['td_id'];
+        $dep_id = $_GET['dep_id'];
+        $ce_nombre = $_GET['ce_nombre'];
+        $ce_apellidos = $_GET['ce_apellidos'];
+        $ce_telefono = $_GET['ce_telefono'];
+        $ce_celular = $_GET['ce_celular'];
+        $ce_email = $_GET['ce_email'];
+        $esc_observaciones = $_GET['esc_observaciones'];
+
+        // Se agregar el contacto tenieno en cuenta que se hallan llenado los datos de contacto
+        $contac = "";
+        if($ce_nombre != "" && $ce_apellidos != "" && $ce_celular != "" && $ce_email != ""){
+            $contacto = new ContactoEscenario();
+            $contacto->ce_nombre = $ce_nombre;
+            $contacto->ce_apellidos = $ce_apellidos;
+            $contacto->ce_telefono = $ce_telefono;
+            $contacto->ce_celular = $ce_celular;
+            $contacto->ce_email = $ce_email;
+            $contacto->insert();
+            $cs = ContactoEscenario::findBySql("SELECT ce_id FROM contacto_escenario ORDER BY ce_id DESC LIMIT 1")->all();
+            foreach ($cs as $c) {
+                $contac = $c->ce_id;
+            }
+        }
+
+        // Se registra nuevo un escenario
+        $escenario = new Escenario();
+        $escenario->esc_nombre = $esc_nombre;
+        $escenario->esc_direccion = $esc_direccion;
+        $escenario->loc_id = $ciudad;
+        $escenario->esc_observaciones = $esc_observaciones;
+        $escenario->ce_id = $contac;
+        $escenario->insert();     
+
+        $ultEsc = EscenarioController::ultimoEscenarioInsertado();
+        // Actualiza el valor del escenario recien ingresado en la disponibilidad
+        EscenarioController::actualizarDisponibilidadPorEscenario($ultEsc);                   
+        // Se agregan los deportes asociados al escenario
+        for($i = 0; $i < sizeof($dep_id); $i++){
+            $estd = new EscenarioTieneDeportes();
+            $estd->esc_id = $ultEsc;
+            $estd->dep_id = $dep_id[$i];
+            $estd->estd_activo = 1;
+            if($estd->insert()){
+                echo true;
+            }else{
+                echo false;
+            }
+        }        
+    }
+
+    /*
+    * Función para agregar una nueva funcionalidad ANTES
+    * de agregar un escenario determinado
+    */
+    public function actionAgregardisponibilidad(){
+        $fechaInicio = $_GET['fi'];
+        $fechaFin = $_GET['ff'];
+        $horas = [];
+        for($i = 1; $i <= 24; $i++){
+            if(isset($_GET['h'.$i])){
+                $horas[] = $_GET['h'.$i];
+            }
+        }  
+        $disponibilidad = new DisponibilidadEscenario();
+        $disponibilidad->de_fecha_ini = $fechaInicio;
+        $disponibilidad->de_fecha_fin = $fechaFin;
+        if($_GET['idEsc'] != 0){
+            $disponibilidad->esc_id = $_GET['idEsc'];
+        }
+        $validacion = $disponibilidad->validate();
+        if($validacion){
+            $insert = $disponibilidad->insert();
+            if($insert){
+                $ultimo = $this->listarDisponibilidad(0);
+                for($j = 0; $j < sizeof($horas); $j++){
+                    $disp_hora = new DisponibilidadTieneHora();
+                    $disp_hora->hor_id = $horas[$j];
+                    $disp_hora->de_id = $ultimo;
+                    $disp_hora->insert();                    
+                }
+                // Actualización de la visualización                                
+            }
+        }
+
+        if($_GET['idEsc'] == 0){
+            echo json_encode(EscenarioController::actualizarVisualizacion(-1));
+        }else{
+            echo json_encode(EscenarioController::actualizarVisualizacion($_GET['idEsc']));
+        }
+    }
+
+    /* 
+    * Lista los deportes por tipo y actualizasu respectiva visualización
+    * de acuerdo al desplegable en el cual se selecciona el tipo
+    */
+    public function actionListardeportetipo(){
+        $tipo = $_GET['tipo'];
+        $deportes = $this->listarDeportePorTipo($tipo);
+        $view = Html::CheckboxList('dep_id','dep_id', ArrayHelper::map($deportes,'dep_id','dep_nombre'),['id'=>'dep_id']);
+        echo json_encode($view);        
+    }
+
+    /* 
+    * Borra una disponibilidad (fechas de escenario) que se 
+    * observan en la pantalla de crear escenario
+    */
+    public function actionBorrardisponibilidad(){
+        $id = $_GET['idDis'];
+        $de = DisponibilidadEscenario::find()->where(['de_id'=> $id])->one();
+        if($_GET['idEsc'] == '0'){
+            DisponibilidadTieneHora::deleteAll('de_id = '.$id);
+            $disponibilidad = DisponibilidadEscenario::findOne($id);
+            $borrar = $disponibilidad->delete();                        
+            echo json_encode(EscenarioController::actualizarVisualizacion(-1));            
+        }else{
+            if(sizeof(DisponibilidadEscenario::find()->where(['esc_id'=>$_GET['idEsc']])->all())==1){
+                $msj = "<tr><td colspan='5'><p style='color:red;'>No puede eliminar la única disponibilidad del escenario</p><br></td></tr>";
+                $msj.=EscenarioController::actualizarVisualizacion($_GET['idEsc']);
+                echo json_encode($msj);
+            }else{
+                DisponibilidadTieneHora::deleteAll('de_id = '.$id);
+                $disponibilidad = DisponibilidadEscenario::findOne($id);
+                $borrar = $disponibilidad->delete();                        
+                echo json_encode(EscenarioController::actualizarVisualizacion($_GET['idEsc'])); 
+            }
+        }        
+    }
+
+    /*
+    *   Modifica una disponibilidad en la ventana crear escenarios
+    *   actualizando su fecha inicial, fecha final y horario
+    */
+    public function actionModificardisponibilidad(){
+        $id = $_GET['idDis'];
+        $fi = $_GET['fi'];
+        $ff = $_GET['ff'];
+        $horas = [];
+        $elim = [];
+        $add = [];
+        for($i = 1; $i <= 24; $i++){
+            if(isset($_GET['h'.$i])){
+                $horas[] = $_GET['h'.$i];
+            }
+        }
+        $disponiHora = DisponibilidadTieneHora::find()->where(['de_id'=>$id])->all();
+        // Elementos a eliminar de la tabla disponibilidad tiene hora
+        foreach ($disponiHora as $dh) {
+            $cond = false;
+            for($j = 0; $j < sizeof($horas); $j++){
+                if($dh->hor_id == $horas[$j]){
+                    $cond = true;
+                }    
+            } 
+            if($cond==false){
+                // $elim[] = $dh->hor_id;
+                DisponibilidadTieneHora::deleteAll('de_id = '.$id.' AND hor_id ='.$dh->hor_id);
+            }
+        }
+        // Elementos a agregar en la tabla disponibilidad tiene hora
+        for($j = 0; $j < sizeof($horas); $j++){
+            $cond = false;
+            foreach ($disponiHora as $dh) {
+                if($dh->hor_id == $horas[$j]){
+                    $cond = true;
+                }
+            }
+            if($cond==false){
+                $dth = new DisponibilidadTieneHora();
+                $dth->de_id = $id;
+                $dth->hor_id = $horas[$j];
+                $dth->insert();
+            }
+        }
+        $disponibilidad = DisponibilidadEscenario::findOne($id);
+        $disponibilidad->de_fecha_ini = $fi;
+        $disponibilidad->de_fecha_fin = $ff;
+        $disponibilidad->update();
+        if($_GET['idEsc'] == '0'){
+            echo json_encode(EscenarioController::actualizarVisualizacion(-1));
+        }else{
+            echo json_encode(EscenarioController::actualizarVisualizacion($_GET['idEsc']));
+        }                
+    }
+
+    /*
+    *   Función para listar las ciudades asociadas a un departamento
+    */
+    public function actionListarciudades(){
+        $id = $_GET['id'];
+        $ciu = ArrayHelper::map(\app\models\Locacion::find()->where(['loc_padre'=>$id])->all(),'loc_id','loc_nombre');
+        $msj = Html::dropDownList('ciudad', 'loc_id', $ciu, ['prompt'=>'Seleccione','class'=>'form-control','id'=>'ciud']);
+        echo json_encode($msj);
+    }
+
+    public function actionBorrarescenario(){
+        $id = $_GET['id'];
+    }
+
+    /*
+     * Función para agregar un nuevo contacto
+     * de un escenario ya existente
+     */
+    public function actionAgregarcontacto(){
+        if(sizeof(Escenario::find()->where('esc_id = :esc_id AND ce_id != :ce_id', array(':esc_id'=>$_GET['id'], ':ce_id'=>""))->all())==1){            
+            echo false;
+        }else{
+            $contacto = new ContactoEscenario();
+            $contacto->ce_nombre = $_GET['n'];
+            $contacto->ce_apellidos = $_GET['a'];
+            $contacto->ce_telefono = $_GET['t'];
+            $contacto->ce_celular = $_GET['c'];
+            $contacto->ce_email = $_GET['e'];
+            if($contacto->insert()){            
+                $escenario = Escenario::find()->where(['esc_id'=> $_GET['id']])->one();
+                $escenario->ce_id = ContactoEscenario::find()->orderBy('ce_id DESC')->one()->ce_id;
+                if($escenario->update()){
+                    echo true;
+                }else{
+                    echo false;
+                }
+            }else{
+                echo false;
+            }
+        }
+        
+    }
+
+    /*
+     * Función para editar los datos básicos de un escenario
+     */
+    public function actionModificarescenario(){
+        $escenario = Escenario::find()->where(['esc_id' => $_GET['idEsc']])->one();
+        $escenario->esc_nombre = $_GET['nombre_esc'];
+        $escenario->esc_direccion = $_GET['direccion_esc'];
+        $escenario->esc_observaciones = $_GET['observaciones_esc'];
+        $accionUpdateEsc = $escenario->update();
+        if($_GET['verificador'] == 1){
+            $contactoEsc = ContactoEscenario::find()->where(['ce_id' => $_GET['id_contact']])->one();
+            $contactoEsc->ce_nombre = $_GET['nombre_ce'];
+            $contactoEsc->ce_apellidos = $_GET['apellidos_ce'];
+            $contactoEsc->ce_telefono = $_GET['telefono_ce'];
+            $contactoEsc->ce_celular = $_GET['celular_ce'];
+            $contactoEsc->ce_email = $_GET['email_ce'];
+            $contactoEsc->update();            
+        }
+        echo true;
+    }
+
+    /*
+     * Función para borrar asociación de un deporte con un escenario
+     */
+    public function actionBorrardeporteescenario(){
+        if(sizeof(EscenarioTieneDeportes::find()->where(['esc_id'=>$_GET['idEsc'],'estd_activo'=>1])->all()) == 1){        
+            echo false;
+        }else{
+            $escTieneDep = EscenarioTieneDeportes::find()->where(['esc_id'=>$_GET['idEsc'], 'dep_id'=> $_GET['idDep']])->one();
+            $escTieneDep->estd_activo = 0;
+            if($escTieneDep->update()){
+                echo true;
+            }else{
+                echo false;
+            }
+        }
+        
+    }
+
+    /*
+     * Función para agregar deporte a escenario
+     */
+    public function actionAgregardeporteescenario(){
+        if(!EscenarioTieneDeportes::find()->where(['esc_id'=>$_GET['idEsc'],'dep_id'=>$_GET['idDep'],'estd_activo'=>1])->one()){
+            if(EscenarioTieneDeportes::find()->where(['esc_id'=>$_GET['idEsc'],'dep_id'=>$_GET['idDep'],'estd_activo'=>0])->one()){
+                $escenario = EscenarioTieneDeportes::find()->where(['esc_id'=>$_GET['idEsc'],'dep_id'=>$_GET['idDep'],'estd_activo'=>0])->one();
+                $escenario->estd_activo = 1;
+                if($escenario->update()){
+                    echo true;
+                }else{
+                    echo false;
+                }
+            }else{
+                $etd = new EscenarioTieneDeportes();
+                $etd->esc_id = $_GET['idEsc'];
+                $etd->dep_id = $_GET['idDep'];
+                $etd->estd_activo = 1;
+                if($etd->insert()){
+                    echo true;
+                }else{
+                    echo false;
+                }
+            }
+            
+        }else{
+            echo false;  
+        }
+    }
+
+    /*
+     * Función para cambiar la ciudad a la cual pertenece un escenario
+     */
+    public function actionCambiarciudadescenario(){
+        $escenario = Escenario::find()->where(['esc_id'=>$_GET['idEsc']])->one();
+        $escenario->loc_id = $_GET['idLoc'];
+        if($escenario->update()){
+            echo true;
+        }else{
+            echo false;
+        }
+    }
+
+    /*
+     *  Función para visualizar el modal de editar 
+     *  de acuerdo a cada escenario
+     */
+    public function actionModaleditarescenario(){        
+        $msj = "";
+        $escenarios = EscenarioController::listarEscenarios($_GET['id']);
+        foreach ($escenarios as $esc) {                            
+            $msj.="
+                <div class='panel'>                    
+                    <div class='panel-body'>
+                        <div class=row gutter'>
+                            <form id='form_escenario'>
+                            <input type='hidden' id='urlModificarEscenario' value='".Url::toRoute(['escenario/modificarescenario'])."'>
+                            <p id='msnModifEscenario'></p>
+                            <div class='col-xs-12'>
+                                <input type='text' class='form-control' name='nombre_esc' value='".strtoupper($esc->esc_nombre)."'>
+                            </div>                                                        
+                            <div class='col-lg-12 col-md-12 col-sm-12 col-xs-12'>
+                                <div class='panel'>
+                                    <div class='panel-body'>
+                                        <table class='table table-striped'>
+                                            <tbody>
+                                                <tr>  
+
+                                                    <td colspan='3'>
+                                                        <div class='panel-heading' role='tab' id='headingOne'>
+                                                            <h3 class='panel-title'>
+                                                                <a class='collapsed' role='button' data-toggle='collapse' data-parent='#leftSidebar' href='#collapseOne' aria-expanded='true' aria-controls='collapse'><i class='icon-room'></i> DIRECCIÓN</a>
+                                                            </h3>
+                                                        </div> 
+                                                        <div id='collapseOne' class='panel-collapse collapse' role='tabpanel' aria-labelledby='headingOne'>
+                                                            <span><input type='text' class='form-control' name='direccion_esc' value='$esc->esc_direccion'></span>                                                             
+                                                        </div>                                                                          
+                                                        <div class='panel-heading' role='tab' id='headingTwo'>
+                                                            <h3 class='panel-title'>
+                                                                <a class='collapsed' role='button' data-toggle='collapse' data-parent='#leftSidebar' href='#collapseTwo' aria-expanded='true' aria-controls='collapse'><i class='icon-person'></i>CONTÁCTO</a>
+                                                            </h3>
+                                                        </div>";
+            $contacto = EscenarioController::contactoEscenario($esc->ce_id);  
+            
+            if(sizeof($contacto) == 0){
+                $msj.=" <input type='hidden' id='urlNuevoContacto' value=".Url::toRoute(['escenario/agregarcontacto']).">
+                        <input type='hidden' name='verificador' value='0'>
+                        <div id='collapseTwo' class='panel-collapse collapse' role='tabpanel' aria-labelledby='headingTwo'>  
+                            <p id='msnNuevoContacto'></p>
+                            <p id='msnValidacionEmailmemail'></p>                                                          
+                            <div class ='row'>
+                                <div class='col-xs-4'>
+                                    <input id='nombre' type='text' class='form-control' placeholder='Nombre' maxlength='54'>
+                                </div>
+                                <div class='col-xs-4'>
+                                    <input id='apellido' type='text' class='form-control' placeholder='Apellidos' maxlength='54'>
+                                </div>
+                                <div class='col-xs-4'>
+                                    <input id='telefono' type='text' class='form-control' placeholder='Teléfono' maxlength='12' onkeypress='return validarNumero(event);'>
+                                </div>
+                            </div><br>
+                            <div class ='row'>
+                                <div class='col-xs-4'>
+                                    <input id='celular' type='text' class='form-control' placeholder='Celular' maxlength='12' onkeypress='return validarNumero(event);'>
+                                </div>
+                                <div class='col-xs-4'>
+                                    <input id='memail' type='text' class='form-control' placeholder='Email'maxlength='54' onchange='validarEmail(this.id);'>
+                                </div>
+                                <div class='col-xs-4'>
+                                    <center>
+                                        <span id='$esc->esc_id' class='label label-success b' onclick='agregarContacto(this.id);'>
+                                            <i class='icon-check_circle'></i>
+                                        </span>
+                                    </center>
+                                </div>                                
+                            </div>     
+                        </div>";
+            }                                
+            foreach ($contacto as $c) {
+                $msj.="                                 <div id='collapseTwo' class='panel-collapse collapse' role='tabpanel' aria-labelledby='headingTwo'>
+                                                            <p id='msnValidacionEmailmmail'></p>
+                                                            <input type='hidden' name='verificador' value='1'>
+                                                            <input type='hidden' name='id_contact' value='$c->ce_id'>
+                                                            <div class ='row'>
+                                                                <div class='col-xs-4'>
+                                                                    <input type='text' class='form-control' name='nombre_ce' value='$c->ce_nombre' maxlength='54'>
+                                                                </div>
+                                                                <div class='col-xs-4'>
+                                                                    <input type='text' class='form-control' name='apellidos_ce' value='$c->ce_apellidos' maxlength='54'>
+                                                                </div>
+                                                                <div class='col-xs-4'>
+                                                                    <input type='text' class='form-control' name='telefono_ce' value='$c->ce_telefono' maxlength='12' onkeypress='return validarNumero(event);'>
+                                                                </div>
+                                                            </div><br>
+                                                            <div class ='row'>
+                                                                <div class='col-xs-4'>
+                                                                    <input type='text' class='form-control' name='celular_ce' value='$c->ce_celular' maxlength='12' onkeypress='return validarNumero(event);'>
+                                                                </div>
+                                                                <div class='col-xs-4'>
+                                                                    <input type='text' id='mmail' class='form-control' name='email_ce' value='$c->ce_email' onchange='validarEmail(this.id);'>
+                                                                </div>
+                                                            </div>     
+                                                        </div>";
+            }
+                        $msj.="                         <div class='panel-heading' role='tab' id='headingThree'>
+                                                            <h3 class='panel-title'>
+                                                                <a class='collapsed' role='button' data-toggle='collapse' data-parent='#leftSidebar' href='#collapseThree' aria-expanded='true' aria-controls='collapse'><i class='icon-paper'></i>OBSERVACIONES</a>
+                                                            </h3>
+                                                        </div>
+                                                        <div id='collapseThree' class='panel-collapse collapse' role='tabpanel' aria-labelledby='headingThree'>
+                                                            <label>
+                                                                <textarea class='form-control' name='observaciones_esc'>$esc->esc_observaciones</textarea>
+                                                            </label>
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>  
+                                        <button id='$esc->esc_id' class='btn btn-info' onclick='editarEscenario(this.id);'><i class='icon-save'></i></button>  
+                                        </form>                                                   
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class='panel-body'>
+                        <div class='tabbable tabs-left clearfix'>
+                            <ul class='nav nav-tabs'>
+                                <li class=''><a href='#tabOne' data-toggle='tab' aria-expanded='false'>DEPORTES</a></li>
+                                <li class=''><a href='#tabTwo' data-toggle='tab' aria-expanded='false'>DISPONIBILIDAD</a></li>
+                                <li class=''><a href='#tabThree' data-toggle='tab' aria-expanded='false'>LOCACIÓN</a></li>                                               
+                                <li class=''><a href='#tabFour' data-toggle='tab' aria-expanded='false'>ENCUENTROS</a></li>
+                            </ul>
+                            <div class='tab-content'>                                                
+                                <div class='tab-pane' id='tabOne'>
+                                    <p id='msnDeportesEditar'></p>
+                                   <table class='table table-striped'>";
+
+            $deportes = EscenarioController::listarDeportesEscenario($esc->esc_id);
+            $dep = [];
+            $tipo = "";   
+            foreach ($deportes as $deporte) {
+                $tipo = $deporte->td_id;
+                $dep[$deporte->dep_id] = $deporte->dep_nombre; 
+                $msj.="                 <tr id='fila$deporte->dep_id'>
+
+                                            <td>".$deporte->dep_nombre."</td>
+                                            <td>
+                                                <input type='hidden' id='urlBorrarDeporteEsc' value='".Url::toRoute(['escenario/borrardeporteescenario'])."'>
+                                                <span id='$deporte->dep_id' class='b label label-danger' onclick='borrarDeporteEscenario(this.id,".$esc->esc_id.");'>
+                                                    <i class='icon-circle-with-cross'></i>
+                                                </span>
+                                            </td>
+                                        </tr>";
+            }                  
+            $msj.="                     <tr>
+                                            <td>            
+                                                <input type='hidden' id='urlAgregarDeporteEscenario' value='".Url::toRoute(['escenario/agregardeporteescenario'])."'>
+                                                <select class='form-control' onchange='agregarDeporteEscenario(this.value, $esc->esc_id);'>
+                                                    <option value='0'>Agregar deporte</option>";
+            $dep = EscenarioController::listarDeportePorTipo($tipo);
+            foreach ($dep as $d) {                  
+                $msj.="                             
+                                                    <option value='$d->dep_id'>$d->dep_nombre</option>";
+            }
+            $msj.="                             </select>   
+                                            </td>
+                                            
+                                       </tr>
+                                   </table>
+                                </div>
+                                <div class='tab-pane' id='tabTwo'>
+                                    <p id='msnFechasValidar'></p>
+                                    <table class='table table-striped'>
+                                        <thead>
+                                            <th>#</th>
+                                            <th>Fecha Inicio</th>
+                                            <th>Fecha Fin</th>
+                                            <th>Horario</th>
+                                            <th></th>
+                                        </thead>
+                                        <tbody class='cuerpo-diss'>
+                                            ".EscenarioController::actualizarVisualizacion($esc->esc_id)."
+                                        </tbody>
+                                    </table>
+                                    <table class='table success no-margin'> 
+                                        <tr>
+                                            <th scope='row'></th>
+                                            <td>
+                                                <div class='input-group'>
+                                                    <input type='text' id='fecha-inic' class='form-control fecha' placeholder='a-m-d' readonly onchange='activarFechaFin();'> 
+                                                    <span class='input-group-addon'>
+                                                        <span class='icon-calendar'></span>
+                                                    </span>
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class='input-group'>
+                                                    <input type='text' id='fecha-fina' class='form-control fecha' placeholder='a-m-d' readonly> 
+                                                    <span class='input-group-addon'>
+                                                        <span class='icon-calendar'></span>
+                                                    </span>
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <select id='horario' class='selector selectpicker' multiple title='Seleccione'>";
+            $horas = EscenarioController::listarHoras();
+            foreach ($horas as $hora) {            
+                $msj.=                              "<option id='ho$hora->hor_id' value='$hora->hor_id'>$hora->hor_nombre_12_horas</option>";                                    
+            }  
+            $msj.="                             </select>   
+                                            </td>
+                                            <td>                                                
+                                                <span class='icon-add_box b' onclick='agregarFecha($esc->esc_id)'></span>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </div>
+                                <div class='tab-pane' id='tabThree'>
+                                    <p id='msnLocacionEditar'></p>
+                                    <table class='table table-striped'>
+                                        <tr>
+                                            <td>";
+            $locacionCiudad = \app\models\Locacion::find()->where(['loc_id' => $esc->loc_id])->all();
+            foreach ($locacionCiudad as $lc) {
+                $msj.="                         <div class='row gutter'>
+                                                    <div>
+                                                        <strong>Ciudad: </strong> $lc->loc_nombre
+                                                    </div>
+                                                    <div>
+                                                        <strong>Departamento: </strong> ".$lc->locPadre->loc_nombre."
+                                                    </div>
+                                                </div>";                                            
+            }
+            $msj.=                          "</td>
+                                            <td>
+                                                <input type='hidden' id='urlModificarLocacion' value='".Url::toRoute(['escenario/cambiarciudadescenario'])."'>
+                                                <span id='$lc->loc_id' class='b label label-success' onclick='cambiarLocacion($esc->esc_id);'>
+                                                    <i class='icon-clock'></i>
+                                                </span>
+                                            </td>
+                                            <td>";
+            $items = ArrayHelper::map(\app\models\Locacion::find()->where(['tl_id'=>2])->all(), 'loc_id','loc_nombre');
+            $msj.=                              Html::dropDownList('locacion', 'loc_id', $items, ['class'=>'form-control', 'id'=>'locac'])."                            </td>
+                                        </tr>
+                                    </table>
+                                </div>
+                                <div class='tab-pane' id='tabFour'>
+                                   ENCUENTROS
+                                </div>                                                
+                            </div>
+                        </div>
+                    </div>                
+                </div>";
+        }
+        echo json_encode($msj);                                         
+    }
+   
+    /*
+        Actualiza la visualización después de agregar,
+        borrar o modificar fechas de disponibilidad
+    */
+    public static function actualizarVisualizacion($idEsc){
+        $msj = "";
+        $num = 1;
+        $disp = EscenarioController::listarDisponibilidad($idEsc);
+        foreach ($disp as $d) {
+            $esc = "";
+            if($d->esc_id == null){
+                $esc = 0;
+            }else{
+                $esc = $d->esc_id;
+            }
+            $msj.="<tr class='fil-disp'>
+                        <th scope='row'>$num</th>
+                        <td>
+                            <div class='input-group'>
+                                <input id='fi$d->de_id' class='form-control fecha' type=text value='$d->de_fecha_ini' readonly>
+                                <span class='input-group-addon'>
+                                    <span class='icon-calendar'></span>
+                                </span>
+                            </div>
+                        </td>
+                        <td>
+                            <div class='input-group'>
+                                <input id='ff$d->de_id' class='form-control fecha' type=text value='$d->de_fecha_fin' readonly>
+                                <span class='input-group-addon'>
+                                    <span class='icon-calendar'></span>
+                                </span>
+                            </div>
+                        </td>
+                        <td>
+                            <select id='sel$d->de_id' class='selectpicker sel' multiple multiple title='Seleccione'>
+                                ".EscenarioController::listarHorasPorFecha($d->de_id)."
+                            </select>
+                        </td>
+                        <td>
+                            <span id='modif$d->de_id'  class='b label label-success' onclick='modificarFecha(this.id,".$esc.");'>
+                                <i class='icon-clock'></i>
+                            </span>&nbsp;
+                            <span id='bor$d->de_id' class='b label label-danger' onclick='borrarFecha(this.id,".$esc.");'>
+                                <i class='icon-circle-with-cross'></i>
+                            </span>
+                        </td>
+                </tr>";
+            $num = $num+1;
+        }
+        return $msj;
+    }
+
+    /*
+        Lista la disponibilidad para cada caso, 1: todas las disponibilidades que no han
+        sido asignadas a un escenario, 2: el id de la última disponibilidad agregada, esto
+        con el fin de agregarle las horas relacionadas.
+    */
+    public static function listarDisponibilidad($opc){
+        if($opc == -1){
+            return DisponibilidadEscenario::find()->where(['esc_id' => null])->orderBy('de_id')->all();
+        }else if($opc == 0){
+            $val = DisponibilidadEscenario::findBySql("SELECT * FROM disponibilidad_escenario ORDER BY de_id DESC LIMIT 1")->all();
+            foreach ($val as $v) {
+                return $v->de_id;;
+            }
+        }else{
+            return DisponibilidadEscenario::find()->where(['esc_id' => $opc])->orderBy('de_id')->all();
+        }
+        
+    }
+
+    /*
+        Función que muestra el último escenario insertado en la base de datos
+    */
+    public static function ultimoEscenarioInsertado(){
+        $esc = Escenario::findBySql("SELECT esc_id FROM escenario ORDER BY esc_id DESC LIMIT 1")->all();
+        foreach ($esc as $e) {
+            return $e->esc_id;
+        }
+    }
+
+    /*
+        Borrar todas las fechas que no han sido asignadas a un escenario
+    */
+    public static function limpiarDisponibilidad(){
+        $disp = EscenarioController::listarDisponibilidad(-1);
+        foreach ($disp as $d) {
+            DisponibilidadTieneHora::deleteAll('de_id = '.$d->de_id);
+        }
+        $n = null;
+        DisponibilidadEscenario::deleteAll('esc_id is null ');   
+    }
+
+    /*
+    *   Función que asigna el escenario a las disponibilidades creadas
+    */
+    public static function actualizarDisponibilidadPorEscenario($idEsc){
+        $disponibilidad = DisponibilidadEscenario::find()->where(['esc_id'=>null])->all();
+        foreach ($disponibilidad as $d) {
+            $d->esc_id = $idEsc;
+            $d->update();
+        }
+    }
+
+    /* 
+        Lista los deportes de acuerdo a su tipo 
+        Conjunto/Individual
+    */
+    public static function listarDeportePorTipo($tipo){
+        return Deporte::find()->where(['td_id'=>$tipo])->all();
+    }
+
+    /*
+    *   Lista todas las horas existentes
+    */
+    public static function listarHoras(){
+        return Hora::find()->all();
+    }
+
+    /*
+    *   Muestra las horas asociadas a cada disponibilidad
+    */
+    public static function listarHorasPorFecha($id){
+        $vista ="";
+        $horas = EscenarioController::listarHoras();
+        $horasDisp = DisponibilidadTieneHora::find()->where(['de_id'=>$id])->all();
+        // $vista .= "<select class='selectpicker' multiple>";
+        foreach ($horas as $hora) {
+            $vista .= "<option id='".$id."hor$hora->hor_id' value='$hora->hor_id' ";
+            foreach ($horasDisp as $horaD) {
+                if($hora->hor_id == $horaD->hor_id){
+                    $vista.="selected";
+                }
+            }
+            $vista .= ">$hora->hor_nombre_12_horas</option>";
+        }
+        // $vista .= "</select>";
+        return $vista;
+    }
+
+    /*
+    *   Permite listar el contacto asociado al escenario
+    */
+    public static function contactoEscenario($id){
+        return ContactoEscenario::find()->where(['ce_id'=> $id])->all();
+    }
+
+    /*
+    *   Lista de deportes asociados a un escenario
+    */
+    public static function listarDeportesEscenario($id){
+        $escTieneDeport = EscenarioTieneDeportes::find()->where(['esc_id'=> $id,'estd_activo'=>1])->all();
+        $deportes = [];
+        foreach ($escTieneDeport as $etd) {
+            $deportes[$etd->dep_id] = $etd->dep;
+        }
+        return (object) $deportes;
+    }
+    /* 
+    * Listo los escenarios existentes
+    */
+    public static function listarEscenarios($id){
+        if($id == 0){
+            return Escenario::find()->orderBy('esc_id')->all();    
+        }else{
+            return Escenario::find()->where(['esc_id'=> $id])->orderBy('esc_id')->all();
+        }
+        
+    }
+
+    /*
+    *   Listar disponibilidades de un escenario específico
+    */
+    public static function listarDisponibilidadEscenario($id){
+        return DisponibilidadEscenario::find()->where(['esc_id'=> $id])->all();
+    }
+
+
+    /*  (NO USADA) */
+    public static function mostrarEscenarios(){
+        $items = ArrayHelper::map(Escenario::find()->all(),'esc_id','esc_direccion','esc_nombre');
+        return $items;
+    }
+
+    /*  (NO USADA)  */
+    public static function listarEscenarioPorId($id){
+        return Escenario::find()->where(['esc_id'=>$id])->orderBy('esc_id')->all();
+    }
+
+    
+    /*  (NO USADA)  */
+    public static function listarDeportes(){
+        return Deporte::find()->all();
+    }
+}
+?>

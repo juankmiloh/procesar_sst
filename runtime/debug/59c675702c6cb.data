@@ -1,0 +1,492 @@
+a:11:{s:6:"config";a:5:{s:10:"phpVersion";s:5:"7.0.5";s:10:"yiiVersion";s:6:"2.0.12";s:11:"application";a:8:{s:3:"yii";s:6:"2.0.12";s:4:"name";s:14:"My Application";s:7:"version";s:3:"1.0";s:8:"language";s:2:"es";s:14:"sourceLanguage";s:5:"en-US";s:7:"charset";s:5:"UTF-8";s:3:"env";s:3:"dev";s:5:"debug";b:1;}s:3:"php";a:5:{s:7:"version";s:5:"7.0.5";s:6:"xdebug";b:0;s:3:"apc";b:0;s:8:"memcache";b:0;s:9:"memcached";b:0;}s:10:"extensions";a:5:{s:24:"yiisoft/yii2-swiftmailer";a:3:{s:4:"name";s:24:"yiisoft/yii2-swiftmailer";s:7:"version";s:7:"2.0.7.0";s:5:"alias";a:1:{s:16:"@yii/swiftmailer";s:68:"C:\xampp\htdocs\COLDEPORTES-SUPERATE\vendor/yiisoft/yii2-swiftmailer";}}s:22:"yiisoft/yii2-bootstrap";a:3:{s:4:"name";s:22:"yiisoft/yii2-bootstrap";s:7:"version";s:7:"2.0.6.0";s:5:"alias";a:1:{s:14:"@yii/bootstrap";s:66:"C:\xampp\htdocs\COLDEPORTES-SUPERATE\vendor/yiisoft/yii2-bootstrap";}}s:18:"yiisoft/yii2-debug";a:3:{s:4:"name";s:18:"yiisoft/yii2-debug";s:7:"version";s:7:"2.0.9.0";s:5:"alias";a:1:{s:10:"@yii/debug";s:62:"C:\xampp\htdocs\COLDEPORTES-SUPERATE\vendor/yiisoft/yii2-debug";}}s:16:"yiisoft/yii2-gii";a:3:{s:4:"name";s:16:"yiisoft/yii2-gii";s:7:"version";s:7:"2.0.5.0";s:5:"alias";a:1:{s:8:"@yii/gii";s:60:"C:\xampp\htdocs\COLDEPORTES-SUPERATE\vendor/yiisoft/yii2-gii";}}s:18:"yiisoft/yii2-faker";a:3:{s:4:"name";s:18:"yiisoft/yii2-faker";s:7:"version";s:7:"2.0.3.0";s:5:"alias";a:1:{s:10:"@yii/faker";s:62:"C:\xampp\htdocs\COLDEPORTES-SUPERATE\vendor/yiisoft/yii2-faker";}}}}s:7:"request";a:14:{s:7:"flashes";a:0:{}s:10:"statusCode";i:200;s:14:"requestHeaders";a:9:{s:4:"host";s:9:"localhost";s:10:"connection";s:10:"keep-alive";s:6:"accept";s:3:"*/*";s:16:"x-requested-with";s:14:"XMLHttpRequest";s:10:"user-agent";s:114:"Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/60.0.3112.113 Safari/537.36";s:7:"referer";s:72:"http://localhost/COLDEPORTES-SUPERATE/web/index.php?r=escenario%2Flistar";s:15:"accept-encoding";s:17:"gzip, deflate, br";s:15:"accept-language";s:14:"es-ES,es;q=0.8";s:6:"cookie";s:384:"_ga=GA1.1.215866375.1502557059; _csrf=%03%1A%8A%5D%9F%2B%03%E2u%5B%BA%BF%5D%0B%27%BC%D8%13%13%D6%5B%D7e3%3AM%F4%1C%16%86Si; PHPSESSID=koibllaf7gdc0b80a9mppi17d3; _identity=%5B1%2C%22bKKo1F36bcgKgVzCzz1%2FQ557jZd5cFNtcsWj9xmWmrqbUtyYPPm08PqV%2FTFxQ9LIMntNijrSsTJ44dz0Gh8u%2FBeT3MMH0lSB98wsarMyT68%2F261isD8XFv%2BfBExIW2bn97ARwHdE0NjPkBaM%2BEFVncSVQCEo1otAgcLm1hl478c%3D%22%2C2592000%5D";}s:15:"responseHeaders";a:9:{s:12:"X-Powered-By";s:9:"PHP/7.0.5";s:7:"Expires";s:29:"Thu, 19 Nov 1981 08:52:00 GMT";s:13:"Cache-Control";s:35:"no-store, no-cache, must-revalidate";s:6:"Pragma";s:8:"no-cache";s:12:"Content-Type";s:24:"text/html; charset=UTF-8";s:11:"X-Debug-Tag";s:13:"59c675702c6cb";s:16:"X-Debug-Duration";s:3:"309";s:12:"X-Debug-Link";s:78:"/COLDEPORTES-SUPERATE/web/index.php?r=debug%2Fdefault%2Fview&tag=59c675702c6cb";s:10:"Set-Cookie";s:296:"_identity=%5B1%2C%22bKKo1F36bcgKgVzCzz1%2FQ557jZd5cFNtcsWj9xmWmrqbUtyYPPm08PqV%2FTFxQ9LIMntNijrSsTJ44dz0Gh8u%2FBeT3MMH0lSB98wsarMyT68%2F261isD8XFv%2BfBExIW2bn97ARwHdE0NjPkBaM%2BEFVncSVQCEo1otAgcLm1hl478c%3D%22%2C2592000%5D; expires=Mon, 23-Oct-2017 14:53:36 GMT; Max-Age=2592000; path=/; HttpOnly";}s:5:"route";s:24:"escenario/modalescenario";s:6:"action";s:59:"app\controllers\EscenarioController::actionModalescenario()";s:12:"actionParams";a:0:{}s:11:"requestBody";a:0:{}s:6:"SERVER";a:42:{s:7:"MIBDIRS";s:24:"C:/xampp/php/extras/mibs";s:10:"MYSQL_HOME";s:16:"\xampp\mysql\bin";s:12:"OPENSSL_CONF";s:31:"C:/xampp/apache/bin/openssl.cnf";s:20:"PHP_PEAR_SYSCONF_DIR";s:10:"\xampp\php";s:5:"PHPRC";s:10:"\xampp\php";s:3:"TMP";s:10:"\xampp\tmp";s:9:"HTTP_HOST";s:9:"localhost";s:15:"HTTP_CONNECTION";s:10:"keep-alive";s:11:"HTTP_ACCEPT";s:3:"*/*";s:21:"HTTP_X_REQUESTED_WITH";s:14:"XMLHttpRequest";s:15:"HTTP_USER_AGENT";s:114:"Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/60.0.3112.113 Safari/537.36";s:12:"HTTP_REFERER";s:72:"http://localhost/COLDEPORTES-SUPERATE/web/index.php?r=escenario%2Flistar";s:20:"HTTP_ACCEPT_ENCODING";s:17:"gzip, deflate, br";s:20:"HTTP_ACCEPT_LANGUAGE";s:14:"es-ES,es;q=0.8";s:11:"HTTP_COOKIE";s:384:"_ga=GA1.1.215866375.1502557059; _csrf=%03%1A%8A%5D%9F%2B%03%E2u%5B%BA%BF%5D%0B%27%BC%D8%13%13%D6%5B%D7e3%3AM%F4%1C%16%86Si; PHPSESSID=koibllaf7gdc0b80a9mppi17d3; _identity=%5B1%2C%22bKKo1F36bcgKgVzCzz1%2FQ557jZd5cFNtcsWj9xmWmrqbUtyYPPm08PqV%2FTFxQ9LIMntNijrSsTJ44dz0Gh8u%2FBeT3MMH0lSB98wsarMyT68%2F261isD8XFv%2BfBExIW2bn97ARwHdE0NjPkBaM%2BEFVncSVQCEo1otAgcLm1hl478c%3D%22%2C2592000%5D";s:4:"PATH";s:543:"C:\oraclexe\app\oracle\product\11.2.0\server\bin;C:\ProgramData\Oracle\Java\javapath;C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem;C:\Windows\System32\WindowsPowerShell\v1.0\;C:\Program Files\MATLAB\R2013b\runtime\win64;C:\Program Files\MATLAB\R2013b\bin;C:\Program Files\MATLAB\R2013b\polyspace\bin;C:\Program Files\Java\jdk1.8.0_65\bin;C:\Program Files (x86)\Skype\Phone\;C:\Program Files\Microsoft SQL Server\130\Tools\Binn\;C:\Program Files\nodejs\;C:\Program Files\Git\cmd;C:\Ruby24-x64\bin;C:\Users\Cristian\AppData\Roaming\npm";s:10:"SystemRoot";s:10:"C:\Windows";s:7:"COMSPEC";s:27:"C:\Windows\system32\cmd.exe";s:7:"PATHEXT";s:62:".COM;.EXE;.BAT;.CMD;.VBS;.VBE;.JS;.JSE;.WSF;.WSH;.MSC;.RB;.RBW";s:6:"WINDIR";s:10:"C:\Windows";s:16:"SERVER_SIGNATURE";s:94:"<address>Apache/2.4.18 (Win32) OpenSSL/1.0.2e PHP/7.0.5 Server at localhost Port 80</address>
+";s:15:"SERVER_SOFTWARE";s:46:"Apache/2.4.18 (Win32) OpenSSL/1.0.2e PHP/7.0.5";s:11:"SERVER_NAME";s:9:"localhost";s:11:"SERVER_ADDR";s:3:"::1";s:11:"SERVER_PORT";s:2:"80";s:11:"REMOTE_ADDR";s:3:"::1";s:13:"DOCUMENT_ROOT";s:15:"C:/xampp/htdocs";s:14:"REQUEST_SCHEME";s:4:"http";s:14:"CONTEXT_PREFIX";s:0:"";s:21:"CONTEXT_DOCUMENT_ROOT";s:15:"C:/xampp/htdocs";s:12:"SERVER_ADMIN";s:20:"postmaster@localhost";s:15:"SCRIPT_FILENAME";s:50:"C:/xampp/htdocs/COLDEPORTES-SUPERATE/web/index.php";s:11:"REMOTE_PORT";s:5:"54076";s:17:"GATEWAY_INTERFACE";s:7:"CGI/1.1";s:15:"SERVER_PROTOCOL";s:8:"HTTP/1.1";s:14:"REQUEST_METHOD";s:3:"GET";s:12:"QUERY_STRING";s:34:"r=escenario%2Fmodalescenario&id=50";s:11:"REQUEST_URI";s:70:"/COLDEPORTES-SUPERATE/web/index.php?r=escenario%2Fmodalescenario&id=50";s:11:"SCRIPT_NAME";s:35:"/COLDEPORTES-SUPERATE/web/index.php";s:8:"PHP_SELF";s:35:"/COLDEPORTES-SUPERATE/web/index.php";s:18:"REQUEST_TIME_FLOAT";d:1506178415.9690001;s:12:"REQUEST_TIME";i:1506178415;}s:3:"GET";a:2:{s:1:"r";s:24:"escenario/modalescenario";s:2:"id";s:2:"50";}s:4:"POST";a:0:{}s:6:"COOKIE";a:4:{s:3:"_ga";s:26:"GA1.1.215866375.1502557059";s:5:"_csrf";s:32:"Š]Ÿ+âu[º¿]'¼ØÖ[×e3:Mô†Si";s:9:"PHPSESSID";s:26:"koibllaf7gdc0b80a9mppi17d3";s:9:"_identity";s:186:"[1,"bKKo1F36bcgKgVzCzz1/Q557jZd5cFNtcsWj9xmWmrqbUtyYPPm08PqV/TFxQ9LIMntNijrSsTJ44dz0Gh8u/BeT3MMH0lSB98wsarMyT68/261isD8XFv+fBExIW2bn97ARwHdE0NjPkBaM+EFVncSVQCEo1otAgcLm1hl478c=",2592000]";}s:5:"FILES";a:0:{}s:7:"SESSION";a:3:{s:7:"__flash";a:0:{}s:4:"__id";i:1;s:8:"language";s:2:"es";}}s:3:"log";a:1:{s:8:"messages";a:33:{i:0;a:6:{i:0;s:33:"Bootstrap with yii\log\Dispatcher";i:1;i:8;i:2;s:31:"yii\base\Application::bootstrap";i:3;d:1506178416.149961;i:4;a:0:{}i:5;i:1832000;}i:1;a:6:{i:0;s:21:"Loading module: debug";i:1;i:8;i:2;s:26:"yii\base\Module::getModule";i:3;d:1506178416.149961;i:4;a:0:{}i:5;i:1833056;}i:2;a:6:{i:0;s:44:"Bootstrap with yii\debug\Module::bootstrap()";i:1;i:8;i:2;s:31:"yii\base\Application::bootstrap";i:3;d:1506178416.1799631;i:4;a:0:{}i:5;i:2140288;}i:3;a:6:{i:0;s:19:"Loading module: gii";i:1;i:8;i:2;s:26:"yii\base\Module::getModule";i:3;d:1506178416.1839631;i:4;a:0:{}i:5;i:2231856;}i:4;a:6:{i:0;s:42:"Bootstrap with yii\gii\Module::bootstrap()";i:1;i:8;i:2;s:31:"yii\base\Application::bootstrap";i:3;d:1506178416.1859629;i:4;a:0:{}i:5;i:2253536;}i:6;a:6:{i:0;s:43:"Route requested: 'escenario/modalescenario'";i:1;i:8;i:2;s:34:"yii\web\Application::handleRequest";i:3;d:1506178416.1959641;i:4;a:0:{}i:5;i:2481424;}i:7;a:6:{i:0;s:38:"Route to run: escenario/modalescenario";i:1;i:8;i:2;s:30:"yii\base\Controller::runAction";i:3;d:1506178416.2179649;i:4;a:0:{}i:5;i:2861832;}i:8;a:6:{i:0;s:15:"Session started";i:1;i:4;i:2;s:21:"yii\web\Session::open";i:3;d:1506178416.222965;i:4;a:0:{}i:5;i:2950976;}i:9;a:6:{i:0;s:32:"SHOW FULL COLUMNS FROM `usuario`";i:1;i:4;i:2;s:21:"yii\db\Command::query";i:3;d:1506178416.2759681;i:4;a:1:{i:0;a:5:{s:4:"file";s:55:"C:\xampp\htdocs\COLDEPORTES-SUPERATE\models\Usuario.php";s:4:"line";i:89;s:8:"function";s:7:"findOne";s:5:"class";s:23:"yii\db\BaseActiveRecord";s:4:"type";s:2:"::";}}i:5;i:4261032;}i:10;a:6:{i:0;s:58:"Opening DB connection: mysql:host=localhost;dbname=ejemplo";i:1;i:4;i:2;s:23:"yii\db\Connection::open";i:3;d:1506178416.2759681;i:4;a:1:{i:0;a:5:{s:4:"file";s:55:"C:\xampp\htdocs\COLDEPORTES-SUPERATE\models\Usuario.php";s:4:"line";i:89;s:8:"function";s:7:"findOne";s:5:"class";s:23:"yii\db\BaseActiveRecord";s:4:"type";s:2:"::";}}i:5;i:4263416;}i:15;a:6:{i:0;s:601:"SELECT
+    kcu.constraint_name,
+    kcu.column_name,
+    kcu.referenced_table_name,
+    kcu.referenced_column_name
+FROM information_schema.referential_constraints AS rc
+JOIN information_schema.key_column_usage AS kcu ON
+    (
+        kcu.constraint_catalog = rc.constraint_catalog OR
+        (kcu.constraint_catalog IS NULL AND rc.constraint_catalog IS NULL)
+    ) AND
+    kcu.constraint_schema = rc.constraint_schema AND
+    kcu.constraint_name = rc.constraint_name
+WHERE rc.constraint_schema = database() AND kcu.table_schema = database()
+AND rc.table_name = 'usuario' AND kcu.table_name = 'usuario'";i:1;i:4;i:2;s:21:"yii\db\Command::query";i:3;d:1506178416.2919691;i:4;a:1:{i:0;a:5:{s:4:"file";s:55:"C:\xampp\htdocs\COLDEPORTES-SUPERATE\models\Usuario.php";s:4:"line";i:89;s:8:"function";s:7:"findOne";s:5:"class";s:23:"yii\db\BaseActiveRecord";s:4:"type";s:2:"::";}}i:5;i:4303632;}i:18;a:6:{i:0;s:40:"SELECT * FROM `usuario` WHERE `usu_id`=1";i:1;i:4;i:2;s:21:"yii\db\Command::query";i:3;d:1506178416.30197;i:4;a:1:{i:0;a:5:{s:4:"file";s:55:"C:\xampp\htdocs\COLDEPORTES-SUPERATE\models\Usuario.php";s:4:"line";i:89;s:8:"function";s:7:"findOne";s:5:"class";s:23:"yii\db\BaseActiveRecord";s:4:"type";s:2:"::";}}i:5;i:4540408;}i:21;a:6:{i:0;s:75:"Running action: app\controllers\EscenarioController::actionModalescenario()";i:1;i:8;i:2;s:36:"yii\base\InlineAction::runWithParams";i:3;d:1506178416.3039701;i:4;a:0:{}i:5;i:4557488;}i:22;a:6:{i:0;s:45:"SELECT * FROM `escenario` WHERE `esc_id`='50'";i:1;i:4;i:2;s:21:"yii\db\Command::query";i:3;d:1506178416.30597;i:4;a:1:{i:0;a:5:{s:4:"file";s:72:"C:\xampp\htdocs\COLDEPORTES-SUPERATE\controllers\EscenarioController.php";s:4:"line";i:67;s:8:"function";s:3:"one";s:5:"class";s:18:"yii\db\ActiveQuery";s:4:"type";s:2:"->";}}i:5;i:4588792;}i:25;a:6:{i:0;s:34:"SHOW FULL COLUMNS FROM `escenario`";i:1;i:4;i:2;s:21:"yii\db\Command::query";i:3;d:1506178416.3069699;i:4;a:1:{i:0;a:5:{s:4:"file";s:72:"C:\xampp\htdocs\COLDEPORTES-SUPERATE\controllers\EscenarioController.php";s:4:"line";i:67;s:8:"function";s:3:"one";s:5:"class";s:18:"yii\db\ActiveQuery";s:4:"type";s:2:"->";}}i:5;i:4595792;}i:28;a:6:{i:0;s:605:"SELECT
+    kcu.constraint_name,
+    kcu.column_name,
+    kcu.referenced_table_name,
+    kcu.referenced_column_name
+FROM information_schema.referential_constraints AS rc
+JOIN information_schema.key_column_usage AS kcu ON
+    (
+        kcu.constraint_catalog = rc.constraint_catalog OR
+        (kcu.constraint_catalog IS NULL AND rc.constraint_catalog IS NULL)
+    ) AND
+    kcu.constraint_schema = rc.constraint_schema AND
+    kcu.constraint_name = rc.constraint_name
+WHERE rc.constraint_schema = database() AND kcu.table_schema = database()
+AND rc.table_name = 'escenario' AND kcu.table_name = 'escenario'";i:1;i:4;i:2;s:21:"yii\db\Command::query";i:3;d:1506178416.314971;i:4;a:1:{i:0;a:5:{s:4:"file";s:72:"C:\xampp\htdocs\COLDEPORTES-SUPERATE\controllers\EscenarioController.php";s:4:"line";i:67;s:8:"function";s:3:"one";s:5:"class";s:18:"yii\db\ActiveQuery";s:4:"type";s:2:"->";}}i:5;i:4608584;}i:31;a:6:{i:0;s:56:"SELECT * FROM `contacto_escenario` WHERE `ce_id` IS NULL";i:1;i:4;i:2;s:21:"yii\db\Command::query";i:3;d:1506178416.317971;i:4;a:1:{i:0;a:5:{s:4:"file";s:72:"C:\xampp\htdocs\COLDEPORTES-SUPERATE\controllers\EscenarioController.php";s:4:"line";i:68;s:8:"function";s:3:"one";s:5:"class";s:18:"yii\db\ActiveQuery";s:4:"type";s:2:"->";}}i:5;i:4621488;}i:34;a:6:{i:0;s:84:"SELECT * FROM `escenario_tiene_deportes` WHERE (`esc_id`='50') AND (`estd_activo`=1)";i:1;i:4;i:2;s:21:"yii\db\Command::query";i:3;d:1506178416.3189709;i:4;a:2:{i:0;a:5:{s:4:"file";s:72:"C:\xampp\htdocs\COLDEPORTES-SUPERATE\controllers\EscenarioController.php";s:4:"line";i:707;s:8:"function";s:3:"all";s:5:"class";s:18:"yii\db\ActiveQuery";s:4:"type";s:2:"->";}i:1;a:5:{s:4:"file";s:72:"C:\xampp\htdocs\COLDEPORTES-SUPERATE\controllers\EscenarioController.php";s:4:"line";i:69;s:8:"function";s:23:"listarDeportesEscenario";s:5:"class";s:35:"app\controllers\EscenarioController";s:4:"type";s:2:"::";}}i:5;i:4644232;}i:37;a:6:{i:0;s:49:"SHOW FULL COLUMNS FROM `escenario_tiene_deportes`";i:1;i:4;i:2;s:21:"yii\db\Command::query";i:3;d:1506178416.3189709;i:4;a:2:{i:0;a:5:{s:4:"file";s:72:"C:\xampp\htdocs\COLDEPORTES-SUPERATE\controllers\EscenarioController.php";s:4:"line";i:707;s:8:"function";s:3:"all";s:5:"class";s:18:"yii\db\ActiveQuery";s:4:"type";s:2:"->";}i:1;a:5:{s:4:"file";s:72:"C:\xampp\htdocs\COLDEPORTES-SUPERATE\controllers\EscenarioController.php";s:4:"line";i:69;s:8:"function";s:23:"listarDeportesEscenario";s:5:"class";s:35:"app\controllers\EscenarioController";s:4:"type";s:2:"::";}}i:5;i:4652424;}i:40;a:6:{i:0;s:635:"SELECT
+    kcu.constraint_name,
+    kcu.column_name,
+    kcu.referenced_table_name,
+    kcu.referenced_column_name
+FROM information_schema.referential_constraints AS rc
+JOIN information_schema.key_column_usage AS kcu ON
+    (
+        kcu.constraint_catalog = rc.constraint_catalog OR
+        (kcu.constraint_catalog IS NULL AND rc.constraint_catalog IS NULL)
+    ) AND
+    kcu.constraint_schema = rc.constraint_schema AND
+    kcu.constraint_name = rc.constraint_name
+WHERE rc.constraint_schema = database() AND kcu.table_schema = database()
+AND rc.table_name = 'escenario_tiene_deportes' AND kcu.table_name = 'escenario_tiene_deportes'";i:1;i:4;i:2;s:21:"yii\db\Command::query";i:3;d:1506178416.3259709;i:4;a:2:{i:0;a:5:{s:4:"file";s:72:"C:\xampp\htdocs\COLDEPORTES-SUPERATE\controllers\EscenarioController.php";s:4:"line";i:707;s:8:"function";s:3:"all";s:5:"class";s:18:"yii\db\ActiveQuery";s:4:"type";s:2:"->";}i:1;a:5:{s:4:"file";s:72:"C:\xampp\htdocs\COLDEPORTES-SUPERATE\controllers\EscenarioController.php";s:4:"line";i:69;s:8:"function";s:23:"listarDeportesEscenario";s:5:"class";s:35:"app\controllers\EscenarioController";s:4:"type";s:2:"::";}}i:5;i:4664648;}i:43;a:6:{i:0;s:41:"SELECT * FROM `deporte` WHERE `dep_id`=13";i:1;i:4;i:2;s:21:"yii\db\Command::query";i:3;d:1506178416.3289709;i:4;a:2:{i:0;a:5:{s:4:"file";s:72:"C:\xampp\htdocs\COLDEPORTES-SUPERATE\controllers\EscenarioController.php";s:4:"line";i:710;s:8:"function";s:5:"__get";s:5:"class";s:23:"yii\db\BaseActiveRecord";s:4:"type";s:2:"->";}i:1;a:5:{s:4:"file";s:72:"C:\xampp\htdocs\COLDEPORTES-SUPERATE\controllers\EscenarioController.php";s:4:"line";i:69;s:8:"function";s:23:"listarDeportesEscenario";s:5:"class";s:35:"app\controllers\EscenarioController";s:4:"type";s:2:"::";}}i:5;i:4688968;}i:46;a:6:{i:0;s:32:"SHOW FULL COLUMNS FROM `deporte`";i:1;i:4;i:2;s:21:"yii\db\Command::query";i:3;d:1506178416.3299711;i:4;a:2:{i:0;a:5:{s:4:"file";s:72:"C:\xampp\htdocs\COLDEPORTES-SUPERATE\controllers\EscenarioController.php";s:4:"line";i:710;s:8:"function";s:5:"__get";s:5:"class";s:23:"yii\db\BaseActiveRecord";s:4:"type";s:2:"->";}i:1;a:5:{s:4:"file";s:72:"C:\xampp\htdocs\COLDEPORTES-SUPERATE\controllers\EscenarioController.php";s:4:"line";i:69;s:8:"function";s:23:"listarDeportesEscenario";s:5:"class";s:35:"app\controllers\EscenarioController";s:4:"type";s:2:"::";}}i:5;i:4696704;}i:49;a:6:{i:0;s:601:"SELECT
+    kcu.constraint_name,
+    kcu.column_name,
+    kcu.referenced_table_name,
+    kcu.referenced_column_name
+FROM information_schema.referential_constraints AS rc
+JOIN information_schema.key_column_usage AS kcu ON
+    (
+        kcu.constraint_catalog = rc.constraint_catalog OR
+        (kcu.constraint_catalog IS NULL AND rc.constraint_catalog IS NULL)
+    ) AND
+    kcu.constraint_schema = rc.constraint_schema AND
+    kcu.constraint_name = rc.constraint_name
+WHERE rc.constraint_schema = database() AND kcu.table_schema = database()
+AND rc.table_name = 'deporte' AND kcu.table_name = 'deporte'";i:1;i:4;i:2;s:21:"yii\db\Command::query";i:3;d:1506178416.339972;i:4;a:2:{i:0;a:5:{s:4:"file";s:72:"C:\xampp\htdocs\COLDEPORTES-SUPERATE\controllers\EscenarioController.php";s:4:"line";i:710;s:8:"function";s:5:"__get";s:5:"class";s:23:"yii\db\BaseActiveRecord";s:4:"type";s:2:"->";}i:1;a:5:{s:4:"file";s:72:"C:\xampp\htdocs\COLDEPORTES-SUPERATE\controllers\EscenarioController.php";s:4:"line";i:69;s:8:"function";s:23:"listarDeportesEscenario";s:5:"class";s:35:"app\controllers\EscenarioController";s:4:"type";s:2:"::";}}i:5;i:4709840;}i:52;a:6:{i:0;s:53:"SELECT * FROM `municipios` WHERE `municipios_id`=1085";i:1;i:4;i:2;s:21:"yii\db\Command::query";i:3;d:1506178416.342972;i:4;a:1:{i:0;a:5:{s:4:"file";s:72:"C:\xampp\htdocs\COLDEPORTES-SUPERATE\controllers\EscenarioController.php";s:4:"line";i:70;s:8:"function";s:3:"one";s:5:"class";s:18:"yii\db\ActiveQuery";s:4:"type";s:2:"->";}}i:5;i:4726904;}i:55;a:6:{i:0;s:35:"SHOW FULL COLUMNS FROM `municipios`";i:1;i:4;i:2;s:21:"yii\db\Command::query";i:3;d:1506178416.343972;i:4;a:1:{i:0;a:5:{s:4:"file";s:72:"C:\xampp\htdocs\COLDEPORTES-SUPERATE\controllers\EscenarioController.php";s:4:"line";i:70;s:8:"function";s:3:"one";s:5:"class";s:18:"yii\db\ActiveQuery";s:4:"type";s:2:"->";}}i:5;i:4733728;}i:58;a:6:{i:0;s:607:"SELECT
+    kcu.constraint_name,
+    kcu.column_name,
+    kcu.referenced_table_name,
+    kcu.referenced_column_name
+FROM information_schema.referential_constraints AS rc
+JOIN information_schema.key_column_usage AS kcu ON
+    (
+        kcu.constraint_catalog = rc.constraint_catalog OR
+        (kcu.constraint_catalog IS NULL AND rc.constraint_catalog IS NULL)
+    ) AND
+    kcu.constraint_schema = rc.constraint_schema AND
+    kcu.constraint_name = rc.constraint_name
+WHERE rc.constraint_schema = database() AND kcu.table_schema = database()
+AND rc.table_name = 'municipios' AND kcu.table_name = 'municipios'";i:1;i:4;i:2;s:21:"yii\db\Command::query";i:3;d:1506178416.349973;i:4;a:1:{i:0;a:5:{s:4:"file";s:72:"C:\xampp\htdocs\COLDEPORTES-SUPERATE\controllers\EscenarioController.php";s:4:"line";i:70;s:8:"function";s:3:"one";s:5:"class";s:18:"yii\db\ActiveQuery";s:4:"type";s:2:"->";}}i:5;i:4744664;}i:61;a:6:{i:0;s:75:"SELECT * FROM `disponibilidad_escenario` WHERE `esc_id`=50 ORDER BY `de_id`";i:1;i:4;i:2;s:21:"yii\db\Command::query";i:3;d:1506178416.3519731;i:4;a:2:{i:0;a:5:{s:4:"file";s:72:"C:\xampp\htdocs\COLDEPORTES-SUPERATE\controllers\EscenarioController.php";s:4:"line";i:638;s:8:"function";s:3:"all";s:5:"class";s:18:"yii\db\ActiveQuery";s:4:"type";s:2:"->";}i:1;a:5:{s:4:"file";s:72:"C:\xampp\htdocs\COLDEPORTES-SUPERATE\controllers\EscenarioController.php";s:4:"line";i:71;s:8:"function";s:20:"listarDisponibilidad";s:5:"class";s:35:"app\controllers\EscenarioController";s:4:"type";s:2:"::";}}i:5;i:4761264;}i:64;a:6:{i:0;s:20:"SELECT * FROM `hora`";i:1;i:4;i:2;s:21:"yii\db\Command::query";i:3;d:1506178416.3539729;i:4;a:1:{i:0;a:5:{s:4:"file";s:72:"C:\xampp\htdocs\COLDEPORTES-SUPERATE\controllers\EscenarioController.php";s:4:"line";i:72;s:8:"function";s:3:"all";s:5:"class";s:18:"yii\db\ActiveQuery";s:4:"type";s:2:"->";}}i:5;i:4776672;}i:67;a:6:{i:0;s:29:"SHOW FULL COLUMNS FROM `hora`";i:1;i:4;i:2;s:21:"yii\db\Command::query";i:3;d:1506178416.3539729;i:4;a:1:{i:0;a:5:{s:4:"file";s:72:"C:\xampp\htdocs\COLDEPORTES-SUPERATE\controllers\EscenarioController.php";s:4:"line";i:72;s:8:"function";s:3:"all";s:5:"class";s:18:"yii\db\ActiveQuery";s:4:"type";s:2:"->";}}i:5;i:4795552;}i:70;a:6:{i:0;s:595:"SELECT
+    kcu.constraint_name,
+    kcu.column_name,
+    kcu.referenced_table_name,
+    kcu.referenced_column_name
+FROM information_schema.referential_constraints AS rc
+JOIN information_schema.key_column_usage AS kcu ON
+    (
+        kcu.constraint_catalog = rc.constraint_catalog OR
+        (kcu.constraint_catalog IS NULL AND rc.constraint_catalog IS NULL)
+    ) AND
+    kcu.constraint_schema = rc.constraint_schema AND
+    kcu.constraint_name = rc.constraint_name
+WHERE rc.constraint_schema = database() AND kcu.table_schema = database()
+AND rc.table_name = 'hora' AND kcu.table_name = 'hora'";i:1;i:4;i:2;s:21:"yii\db\Command::query";i:3;d:1506178416.361973;i:4;a:1:{i:0;a:5:{s:4:"file";s:72:"C:\xampp\htdocs\COLDEPORTES-SUPERATE\controllers\EscenarioController.php";s:4:"line";i:72;s:8:"function";s:3:"all";s:5:"class";s:18:"yii\db\ActiveQuery";s:4:"type";s:2:"->";}}i:5;i:4806104;}i:73;a:6:{i:0;s:49:"SELECT * FROM `departamentos` WHERE `dptos_id`=27";i:1;i:4;i:2;s:21:"yii\db\Command::query";i:3;d:1506178416.3649731;i:4;a:1:{i:0;a:5:{s:4:"file";s:72:"C:\xampp\htdocs\COLDEPORTES-SUPERATE\controllers\EscenarioController.php";s:4:"line";i:86;s:8:"function";s:5:"__get";s:5:"class";s:23:"yii\db\BaseActiveRecord";s:4:"type";s:2:"->";}}i:5;i:4831672;}i:76;a:6:{i:0;s:38:"SHOW FULL COLUMNS FROM `departamentos`";i:1;i:4;i:2;s:21:"yii\db\Command::query";i:3;d:1506178416.365973;i:4;a:1:{i:0;a:5:{s:4:"file";s:72:"C:\xampp\htdocs\COLDEPORTES-SUPERATE\controllers\EscenarioController.php";s:4:"line";i:86;s:8:"function";s:5:"__get";s:5:"class";s:23:"yii\db\BaseActiveRecord";s:4:"type";s:2:"->";}}i:5;i:4838488;}i:79;a:6:{i:0;s:613:"SELECT
+    kcu.constraint_name,
+    kcu.column_name,
+    kcu.referenced_table_name,
+    kcu.referenced_column_name
+FROM information_schema.referential_constraints AS rc
+JOIN information_schema.key_column_usage AS kcu ON
+    (
+        kcu.constraint_catalog = rc.constraint_catalog OR
+        (kcu.constraint_catalog IS NULL AND rc.constraint_catalog IS NULL)
+    ) AND
+    kcu.constraint_schema = rc.constraint_schema AND
+    kcu.constraint_name = rc.constraint_name
+WHERE rc.constraint_schema = database() AND kcu.table_schema = database()
+AND rc.table_name = 'departamentos' AND kcu.table_name = 'departamentos'";i:1;i:4;i:2;s:21:"yii\db\Command::query";i:3;d:1506178416.3709741;i:4;a:1:{i:0;a:5:{s:4:"file";s:72:"C:\xampp\htdocs\COLDEPORTES-SUPERATE\controllers\EscenarioController.php";s:4:"line";i:86;s:8:"function";s:5:"__get";s:5:"class";s:23:"yii\db\BaseActiveRecord";s:4:"type";s:2:"->";}}i:5;i:4849408;}}}s:9:"profiling";a:3:{s:6:"memory";i:4981008;s:4:"time";d:0.31601786613464355;s:8:"messages";a:48:{i:11;a:6:{i:0;s:58:"Opening DB connection: mysql:host=localhost;dbname=ejemplo";i:1;i:80;i:2;s:23:"yii\db\Connection::open";i:3;d:1506178416.2759681;i:4;a:1:{i:0;a:5:{s:4:"file";s:55:"C:\xampp\htdocs\COLDEPORTES-SUPERATE\models\Usuario.php";s:4:"line";i:89;s:8:"function";s:7:"findOne";s:5:"class";s:23:"yii\db\BaseActiveRecord";s:4:"type";s:2:"::";}}i:5;i:4264424;}i:12;a:6:{i:0;s:58:"Opening DB connection: mysql:host=localhost;dbname=ejemplo";i:1;i:96;i:2;s:23:"yii\db\Connection::open";i:3;d:1506178416.2819691;i:4;a:1:{i:0;a:5:{s:4:"file";s:55:"C:\xampp\htdocs\COLDEPORTES-SUPERATE\models\Usuario.php";s:4:"line";i:89;s:8:"function";s:7:"findOne";s:5:"class";s:23:"yii\db\BaseActiveRecord";s:4:"type";s:2:"::";}}i:5;i:4278512;}i:13;a:6:{i:0;s:32:"SHOW FULL COLUMNS FROM `usuario`";i:1;i:80;i:2;s:21:"yii\db\Command::query";i:3;d:1506178416.2819691;i:4;a:1:{i:0;a:5:{s:4:"file";s:55:"C:\xampp\htdocs\COLDEPORTES-SUPERATE\models\Usuario.php";s:4:"line";i:89;s:8:"function";s:7:"findOne";s:5:"class";s:23:"yii\db\BaseActiveRecord";s:4:"type";s:2:"::";}}i:5;i:4278320;}i:14;a:6:{i:0;s:32:"SHOW FULL COLUMNS FROM `usuario`";i:1;i:96;i:2;s:21:"yii\db\Command::query";i:3;d:1506178416.289969;i:4;a:1:{i:0;a:5:{s:4:"file";s:55:"C:\xampp\htdocs\COLDEPORTES-SUPERATE\models\Usuario.php";s:4:"line";i:89;s:8:"function";s:7:"findOne";s:5:"class";s:23:"yii\db\BaseActiveRecord";s:4:"type";s:2:"::";}}i:5;i:4289336;}i:16;a:6:{i:0;s:601:"SELECT
+    kcu.constraint_name,
+    kcu.column_name,
+    kcu.referenced_table_name,
+    kcu.referenced_column_name
+FROM information_schema.referential_constraints AS rc
+JOIN information_schema.key_column_usage AS kcu ON
+    (
+        kcu.constraint_catalog = rc.constraint_catalog OR
+        (kcu.constraint_catalog IS NULL AND rc.constraint_catalog IS NULL)
+    ) AND
+    kcu.constraint_schema = rc.constraint_schema AND
+    kcu.constraint_name = rc.constraint_name
+WHERE rc.constraint_schema = database() AND kcu.table_schema = database()
+AND rc.table_name = 'usuario' AND kcu.table_name = 'usuario'";i:1;i:80;i:2;s:21:"yii\db\Command::query";i:3;d:1506178416.2919691;i:4;a:1:{i:0;a:5:{s:4:"file";s:55:"C:\xampp\htdocs\COLDEPORTES-SUPERATE\models\Usuario.php";s:4:"line";i:89;s:8:"function";s:7:"findOne";s:5:"class";s:23:"yii\db\BaseActiveRecord";s:4:"type";s:2:"::";}}i:5;i:4305864;}i:17;a:6:{i:0;s:601:"SELECT
+    kcu.constraint_name,
+    kcu.column_name,
+    kcu.referenced_table_name,
+    kcu.referenced_column_name
+FROM information_schema.referential_constraints AS rc
+JOIN information_schema.key_column_usage AS kcu ON
+    (
+        kcu.constraint_catalog = rc.constraint_catalog OR
+        (kcu.constraint_catalog IS NULL AND rc.constraint_catalog IS NULL)
+    ) AND
+    kcu.constraint_schema = rc.constraint_schema AND
+    kcu.constraint_name = rc.constraint_name
+WHERE rc.constraint_schema = database() AND kcu.table_schema = database()
+AND rc.table_name = 'usuario' AND kcu.table_name = 'usuario'";i:1;i:96;i:2;s:21:"yii\db\Command::query";i:3;d:1506178416.2939689;i:4;a:1:{i:0;a:5:{s:4:"file";s:55:"C:\xampp\htdocs\COLDEPORTES-SUPERATE\models\Usuario.php";s:4:"line";i:89;s:8:"function";s:7:"findOne";s:5:"class";s:23:"yii\db\BaseActiveRecord";s:4:"type";s:2:"::";}}i:5;i:4308208;}i:19;a:6:{i:0;s:40:"SELECT * FROM `usuario` WHERE `usu_id`=1";i:1;i:80;i:2;s:21:"yii\db\Command::query";i:3;d:1506178416.30197;i:4;a:1:{i:0;a:5:{s:4:"file";s:55:"C:\xampp\htdocs\COLDEPORTES-SUPERATE\models\Usuario.php";s:4:"line";i:89;s:8:"function";s:7:"findOne";s:5:"class";s:23:"yii\db\BaseActiveRecord";s:4:"type";s:2:"::";}}i:5;i:4541592;}i:20;a:6:{i:0;s:40:"SELECT * FROM `usuario` WHERE `usu_id`=1";i:1;i:96;i:2;s:21:"yii\db\Command::query";i:3;d:1506178416.30197;i:4;a:1:{i:0;a:5:{s:4:"file";s:55:"C:\xampp\htdocs\COLDEPORTES-SUPERATE\models\Usuario.php";s:4:"line";i:89;s:8:"function";s:7:"findOne";s:5:"class";s:23:"yii\db\BaseActiveRecord";s:4:"type";s:2:"::";}}i:5;i:4544512;}i:23;a:6:{i:0;s:45:"SELECT * FROM `escenario` WHERE `esc_id`='50'";i:1;i:80;i:2;s:21:"yii\db\Command::query";i:3;d:1506178416.30597;i:4;a:1:{i:0;a:5:{s:4:"file";s:72:"C:\xampp\htdocs\COLDEPORTES-SUPERATE\controllers\EscenarioController.php";s:4:"line";i:67;s:8:"function";s:3:"one";s:5:"class";s:18:"yii\db\ActiveQuery";s:4:"type";s:2:"->";}}i:5;i:4590000;}i:24;a:6:{i:0;s:45:"SELECT * FROM `escenario` WHERE `esc_id`='50'";i:1;i:96;i:2;s:21:"yii\db\Command::query";i:3;d:1506178416.30597;i:4;a:1:{i:0;a:5:{s:4:"file";s:72:"C:\xampp\htdocs\COLDEPORTES-SUPERATE\controllers\EscenarioController.php";s:4:"line";i:67;s:8:"function";s:3:"one";s:5:"class";s:18:"yii\db\ActiveQuery";s:4:"type";s:2:"->";}}i:5;i:4591848;}i:26;a:6:{i:0;s:34:"SHOW FULL COLUMNS FROM `escenario`";i:1;i:80;i:2;s:21:"yii\db\Command::query";i:3;d:1506178416.3069699;i:4;a:1:{i:0;a:5:{s:4:"file";s:72:"C:\xampp\htdocs\COLDEPORTES-SUPERATE\controllers\EscenarioController.php";s:4:"line";i:67;s:8:"function";s:3:"one";s:5:"class";s:18:"yii\db\ActiveQuery";s:4:"type";s:2:"->";}}i:5;i:4596872;}i:27;a:6:{i:0;s:34:"SHOW FULL COLUMNS FROM `escenario`";i:1;i:96;i:2;s:21:"yii\db\Command::query";i:3;d:1506178416.314971;i:4;a:1:{i:0;a:5:{s:4:"file";s:72:"C:\xampp\htdocs\COLDEPORTES-SUPERATE\controllers\EscenarioController.php";s:4:"line";i:67;s:8:"function";s:3:"one";s:5:"class";s:18:"yii\db\ActiveQuery";s:4:"type";s:2:"->";}}i:5;i:4604496;}i:29;a:6:{i:0;s:605:"SELECT
+    kcu.constraint_name,
+    kcu.column_name,
+    kcu.referenced_table_name,
+    kcu.referenced_column_name
+FROM information_schema.referential_constraints AS rc
+JOIN information_schema.key_column_usage AS kcu ON
+    (
+        kcu.constraint_catalog = rc.constraint_catalog OR
+        (kcu.constraint_catalog IS NULL AND rc.constraint_catalog IS NULL)
+    ) AND
+    kcu.constraint_schema = rc.constraint_schema AND
+    kcu.constraint_name = rc.constraint_name
+WHERE rc.constraint_schema = database() AND kcu.table_schema = database()
+AND rc.table_name = 'escenario' AND kcu.table_name = 'escenario'";i:1;i:80;i:2;s:21:"yii\db\Command::query";i:3;d:1506178416.3159709;i:4;a:1:{i:0;a:5:{s:4:"file";s:72:"C:\xampp\htdocs\COLDEPORTES-SUPERATE\controllers\EscenarioController.php";s:4:"line";i:67;s:8:"function";s:3:"one";s:5:"class";s:18:"yii\db\ActiveQuery";s:4:"type";s:2:"->";}}i:5;i:4610832;}i:30;a:6:{i:0;s:605:"SELECT
+    kcu.constraint_name,
+    kcu.column_name,
+    kcu.referenced_table_name,
+    kcu.referenced_column_name
+FROM information_schema.referential_constraints AS rc
+JOIN information_schema.key_column_usage AS kcu ON
+    (
+        kcu.constraint_catalog = rc.constraint_catalog OR
+        (kcu.constraint_catalog IS NULL AND rc.constraint_catalog IS NULL)
+    ) AND
+    kcu.constraint_schema = rc.constraint_schema AND
+    kcu.constraint_name = rc.constraint_name
+WHERE rc.constraint_schema = database() AND kcu.table_schema = database()
+AND rc.table_name = 'escenario' AND kcu.table_name = 'escenario'";i:1;i:96;i:2;s:21:"yii\db\Command::query";i:3;d:1506178416.3159709;i:4;a:1:{i:0;a:5:{s:4:"file";s:72:"C:\xampp\htdocs\COLDEPORTES-SUPERATE\controllers\EscenarioController.php";s:4:"line";i:67;s:8:"function";s:3:"one";s:5:"class";s:18:"yii\db\ActiveQuery";s:4:"type";s:2:"->";}}i:5;i:4613136;}i:32;a:6:{i:0;s:56:"SELECT * FROM `contacto_escenario` WHERE `ce_id` IS NULL";i:1;i:80;i:2;s:21:"yii\db\Command::query";i:3;d:1506178416.317971;i:4;a:1:{i:0;a:5:{s:4:"file";s:72:"C:\xampp\htdocs\COLDEPORTES-SUPERATE\controllers\EscenarioController.php";s:4:"line";i:68;s:8:"function";s:3:"one";s:5:"class";s:18:"yii\db\ActiveQuery";s:4:"type";s:2:"->";}}i:5;i:4622616;}i:33;a:6:{i:0;s:56:"SELECT * FROM `contacto_escenario` WHERE `ce_id` IS NULL";i:1;i:96;i:2;s:21:"yii\db\Command::query";i:3;d:1506178416.317971;i:4;a:1:{i:0;a:5:{s:4:"file";s:72:"C:\xampp\htdocs\COLDEPORTES-SUPERATE\controllers\EscenarioController.php";s:4:"line";i:68;s:8:"function";s:3:"one";s:5:"class";s:18:"yii\db\ActiveQuery";s:4:"type";s:2:"->";}}i:5;i:4624832;}i:35;a:6:{i:0;s:84:"SELECT * FROM `escenario_tiene_deportes` WHERE (`esc_id`='50') AND (`estd_activo`=1)";i:1;i:80;i:2;s:21:"yii\db\Command::query";i:3;d:1506178416.3189709;i:4;a:2:{i:0;a:5:{s:4:"file";s:72:"C:\xampp\htdocs\COLDEPORTES-SUPERATE\controllers\EscenarioController.php";s:4:"line";i:707;s:8:"function";s:3:"all";s:5:"class";s:18:"yii\db\ActiveQuery";s:4:"type";s:2:"->";}i:1;a:5:{s:4:"file";s:72:"C:\xampp\htdocs\COLDEPORTES-SUPERATE\controllers\EscenarioController.php";s:4:"line";i:69;s:8:"function";s:23:"listarDeportesEscenario";s:5:"class";s:35:"app\controllers\EscenarioController";s:4:"type";s:2:"::";}}i:5;i:4645776;}i:36;a:6:{i:0;s:84:"SELECT * FROM `escenario_tiene_deportes` WHERE (`esc_id`='50') AND (`estd_activo`=1)";i:1;i:96;i:2;s:21:"yii\db\Command::query";i:3;d:1506178416.3189709;i:4;a:2:{i:0;a:5:{s:4:"file";s:72:"C:\xampp\htdocs\COLDEPORTES-SUPERATE\controllers\EscenarioController.php";s:4:"line";i:707;s:8:"function";s:3:"all";s:5:"class";s:18:"yii\db\ActiveQuery";s:4:"type";s:2:"->";}i:1;a:5:{s:4:"file";s:72:"C:\xampp\htdocs\COLDEPORTES-SUPERATE\controllers\EscenarioController.php";s:4:"line";i:69;s:8:"function";s:23:"listarDeportesEscenario";s:5:"class";s:35:"app\controllers\EscenarioController";s:4:"type";s:2:"::";}}i:5;i:4648032;}i:38;a:6:{i:0;s:49:"SHOW FULL COLUMNS FROM `escenario_tiene_deportes`";i:1;i:80;i:2;s:21:"yii\db\Command::query";i:3;d:1506178416.3199711;i:4;a:2:{i:0;a:5:{s:4:"file";s:72:"C:\xampp\htdocs\COLDEPORTES-SUPERATE\controllers\EscenarioController.php";s:4:"line";i:707;s:8:"function";s:3:"all";s:5:"class";s:18:"yii\db\ActiveQuery";s:4:"type";s:2:"->";}i:1;a:5:{s:4:"file";s:72:"C:\xampp\htdocs\COLDEPORTES-SUPERATE\controllers\EscenarioController.php";s:4:"line";i:69;s:8:"function";s:23:"listarDeportesEscenario";s:5:"class";s:35:"app\controllers\EscenarioController";s:4:"type";s:2:"::";}}i:5;i:4653968;}i:39;a:6:{i:0;s:49:"SHOW FULL COLUMNS FROM `escenario_tiene_deportes`";i:1;i:96;i:2;s:21:"yii\db\Command::query";i:3;d:1506178416.3259709;i:4;a:2:{i:0;a:5:{s:4:"file";s:72:"C:\xampp\htdocs\COLDEPORTES-SUPERATE\controllers\EscenarioController.php";s:4:"line";i:707;s:8:"function";s:3:"all";s:5:"class";s:18:"yii\db\ActiveQuery";s:4:"type";s:2:"->";}i:1;a:5:{s:4:"file";s:72:"C:\xampp\htdocs\COLDEPORTES-SUPERATE\controllers\EscenarioController.php";s:4:"line";i:69;s:8:"function";s:23:"listarDeportesEscenario";s:5:"class";s:35:"app\controllers\EscenarioController";s:4:"type";s:2:"::";}}i:5;i:4658920;}i:41;a:6:{i:0;s:635:"SELECT
+    kcu.constraint_name,
+    kcu.column_name,
+    kcu.referenced_table_name,
+    kcu.referenced_column_name
+FROM information_schema.referential_constraints AS rc
+JOIN information_schema.key_column_usage AS kcu ON
+    (
+        kcu.constraint_catalog = rc.constraint_catalog OR
+        (kcu.constraint_catalog IS NULL AND rc.constraint_catalog IS NULL)
+    ) AND
+    kcu.constraint_schema = rc.constraint_schema AND
+    kcu.constraint_name = rc.constraint_name
+WHERE rc.constraint_schema = database() AND kcu.table_schema = database()
+AND rc.table_name = 'escenario_tiene_deportes' AND kcu.table_name = 'escenario_tiene_deportes'";i:1;i:80;i:2;s:21:"yii\db\Command::query";i:3;d:1506178416.3269711;i:4;a:2:{i:0;a:5:{s:4:"file";s:72:"C:\xampp\htdocs\COLDEPORTES-SUPERATE\controllers\EscenarioController.php";s:4:"line";i:707;s:8:"function";s:3:"all";s:5:"class";s:18:"yii\db\ActiveQuery";s:4:"type";s:2:"->";}i:1;a:5:{s:4:"file";s:72:"C:\xampp\htdocs\COLDEPORTES-SUPERATE\controllers\EscenarioController.php";s:4:"line";i:69;s:8:"function";s:23:"listarDeportesEscenario";s:5:"class";s:35:"app\controllers\EscenarioController";s:4:"type";s:2:"::";}}i:5;i:4667352;}i:42;a:6:{i:0;s:635:"SELECT
+    kcu.constraint_name,
+    kcu.column_name,
+    kcu.referenced_table_name,
+    kcu.referenced_column_name
+FROM information_schema.referential_constraints AS rc
+JOIN information_schema.key_column_usage AS kcu ON
+    (
+        kcu.constraint_catalog = rc.constraint_catalog OR
+        (kcu.constraint_catalog IS NULL AND rc.constraint_catalog IS NULL)
+    ) AND
+    kcu.constraint_schema = rc.constraint_schema AND
+    kcu.constraint_name = rc.constraint_name
+WHERE rc.constraint_schema = database() AND kcu.table_schema = database()
+AND rc.table_name = 'escenario_tiene_deportes' AND kcu.table_name = 'escenario_tiene_deportes'";i:1;i:96;i:2;s:21:"yii\db\Command::query";i:3;d:1506178416.327971;i:4;a:2:{i:0;a:5:{s:4:"file";s:72:"C:\xampp\htdocs\COLDEPORTES-SUPERATE\controllers\EscenarioController.php";s:4:"line";i:707;s:8:"function";s:3:"all";s:5:"class";s:18:"yii\db\ActiveQuery";s:4:"type";s:2:"->";}i:1;a:5:{s:4:"file";s:72:"C:\xampp\htdocs\COLDEPORTES-SUPERATE\controllers\EscenarioController.php";s:4:"line";i:69;s:8:"function";s:23:"listarDeportesEscenario";s:5:"class";s:35:"app\controllers\EscenarioController";s:4:"type";s:2:"::";}}i:5;i:4670072;}i:44;a:6:{i:0;s:41:"SELECT * FROM `deporte` WHERE `dep_id`=13";i:1;i:80;i:2;s:21:"yii\db\Command::query";i:3;d:1506178416.3299711;i:4;a:2:{i:0;a:5:{s:4:"file";s:72:"C:\xampp\htdocs\COLDEPORTES-SUPERATE\controllers\EscenarioController.php";s:4:"line";i:710;s:8:"function";s:5:"__get";s:5:"class";s:23:"yii\db\BaseActiveRecord";s:4:"type";s:2:"->";}i:1;a:5:{s:4:"file";s:72:"C:\xampp\htdocs\COLDEPORTES-SUPERATE\controllers\EscenarioController.php";s:4:"line";i:69;s:8:"function";s:23:"listarDeportesEscenario";s:5:"class";s:35:"app\controllers\EscenarioController";s:4:"type";s:2:"::";}}i:5;i:4690128;}i:45;a:6:{i:0;s:41:"SELECT * FROM `deporte` WHERE `dep_id`=13";i:1;i:96;i:2;s:21:"yii\db\Command::query";i:3;d:1506178416.3299711;i:4;a:2:{i:0;a:5:{s:4:"file";s:72:"C:\xampp\htdocs\COLDEPORTES-SUPERATE\controllers\EscenarioController.php";s:4:"line";i:710;s:8:"function";s:5:"__get";s:5:"class";s:23:"yii\db\BaseActiveRecord";s:4:"type";s:2:"->";}i:1;a:5:{s:4:"file";s:72:"C:\xampp\htdocs\COLDEPORTES-SUPERATE\controllers\EscenarioController.php";s:4:"line";i:69;s:8:"function";s:23:"listarDeportesEscenario";s:5:"class";s:35:"app\controllers\EscenarioController";s:4:"type";s:2:"::";}}i:5;i:4692288;}i:47;a:6:{i:0;s:32:"SHOW FULL COLUMNS FROM `deporte`";i:1;i:80;i:2;s:21:"yii\db\Command::query";i:3;d:1506178416.3299711;i:4;a:2:{i:0;a:5:{s:4:"file";s:72:"C:\xampp\htdocs\COLDEPORTES-SUPERATE\controllers\EscenarioController.php";s:4:"line";i:710;s:8:"function";s:5:"__get";s:5:"class";s:23:"yii\db\BaseActiveRecord";s:4:"type";s:2:"->";}i:1;a:5:{s:4:"file";s:72:"C:\xampp\htdocs\COLDEPORTES-SUPERATE\controllers\EscenarioController.php";s:4:"line";i:69;s:8:"function";s:23:"listarDeportesEscenario";s:5:"class";s:35:"app\controllers\EscenarioController";s:4:"type";s:2:"::";}}i:5;i:4698208;}i:48;a:6:{i:0;s:32:"SHOW FULL COLUMNS FROM `deporte`";i:1;i:96;i:2;s:21:"yii\db\Command::query";i:3;d:1506178416.3389721;i:4;a:2:{i:0;a:5:{s:4:"file";s:72:"C:\xampp\htdocs\COLDEPORTES-SUPERATE\controllers\EscenarioController.php";s:4:"line";i:710;s:8:"function";s:5:"__get";s:5:"class";s:23:"yii\db\BaseActiveRecord";s:4:"type";s:2:"->";}i:1;a:5:{s:4:"file";s:72:"C:\xampp\htdocs\COLDEPORTES-SUPERATE\controllers\EscenarioController.php";s:4:"line";i:69;s:8:"function";s:23:"listarDeportesEscenario";s:5:"class";s:35:"app\controllers\EscenarioController";s:4:"type";s:2:"::";}}i:5;i:4704744;}i:50;a:6:{i:0;s:601:"SELECT
+    kcu.constraint_name,
+    kcu.column_name,
+    kcu.referenced_table_name,
+    kcu.referenced_column_name
+FROM information_schema.referential_constraints AS rc
+JOIN information_schema.key_column_usage AS kcu ON
+    (
+        kcu.constraint_catalog = rc.constraint_catalog OR
+        (kcu.constraint_catalog IS NULL AND rc.constraint_catalog IS NULL)
+    ) AND
+    kcu.constraint_schema = rc.constraint_schema AND
+    kcu.constraint_name = rc.constraint_name
+WHERE rc.constraint_schema = database() AND kcu.table_schema = database()
+AND rc.table_name = 'deporte' AND kcu.table_name = 'deporte'";i:1;i:80;i:2;s:21:"yii\db\Command::query";i:3;d:1506178416.339972;i:4;a:2:{i:0;a:5:{s:4:"file";s:72:"C:\xampp\htdocs\COLDEPORTES-SUPERATE\controllers\EscenarioController.php";s:4:"line";i:710;s:8:"function";s:5:"__get";s:5:"class";s:23:"yii\db\BaseActiveRecord";s:4:"type";s:2:"->";}i:1;a:5:{s:4:"file";s:72:"C:\xampp\htdocs\COLDEPORTES-SUPERATE\controllers\EscenarioController.php";s:4:"line";i:69;s:8:"function";s:23:"listarDeportesEscenario";s:5:"class";s:35:"app\controllers\EscenarioController";s:4:"type";s:2:"::";}}i:5;i:4712496;}i:51;a:6:{i:0;s:601:"SELECT
+    kcu.constraint_name,
+    kcu.column_name,
+    kcu.referenced_table_name,
+    kcu.referenced_column_name
+FROM information_schema.referential_constraints AS rc
+JOIN information_schema.key_column_usage AS kcu ON
+    (
+        kcu.constraint_catalog = rc.constraint_catalog OR
+        (kcu.constraint_catalog IS NULL AND rc.constraint_catalog IS NULL)
+    ) AND
+    kcu.constraint_schema = rc.constraint_schema AND
+    kcu.constraint_name = rc.constraint_name
+WHERE rc.constraint_schema = database() AND kcu.table_schema = database()
+AND rc.table_name = 'deporte' AND kcu.table_name = 'deporte'";i:1;i:96;i:2;s:21:"yii\db\Command::query";i:3;d:1506178416.3409719;i:4;a:2:{i:0;a:5:{s:4:"file";s:72:"C:\xampp\htdocs\COLDEPORTES-SUPERATE\controllers\EscenarioController.php";s:4:"line";i:710;s:8:"function";s:5:"__get";s:5:"class";s:23:"yii\db\BaseActiveRecord";s:4:"type";s:2:"->";}i:1;a:5:{s:4:"file";s:72:"C:\xampp\htdocs\COLDEPORTES-SUPERATE\controllers\EscenarioController.php";s:4:"line";i:69;s:8:"function";s:23:"listarDeportesEscenario";s:5:"class";s:35:"app\controllers\EscenarioController";s:4:"type";s:2:"::";}}i:5;i:4714808;}i:53;a:6:{i:0;s:53:"SELECT * FROM `municipios` WHERE `municipios_id`=1085";i:1;i:80;i:2;s:21:"yii\db\Command::query";i:3;d:1506178416.342972;i:4;a:1:{i:0;a:5:{s:4:"file";s:72:"C:\xampp\htdocs\COLDEPORTES-SUPERATE\controllers\EscenarioController.php";s:4:"line";i:70;s:8:"function";s:3:"one";s:5:"class";s:18:"yii\db\ActiveQuery";s:4:"type";s:2:"->";}}i:5;i:4728112;}i:54;a:6:{i:0;s:53:"SELECT * FROM `municipios` WHERE `municipios_id`=1085";i:1;i:96;i:2;s:21:"yii\db\Command::query";i:3;d:1506178416.342972;i:4;a:1:{i:0;a:5:{s:4:"file";s:72:"C:\xampp\htdocs\COLDEPORTES-SUPERATE\controllers\EscenarioController.php";s:4:"line";i:70;s:8:"function";s:3:"one";s:5:"class";s:18:"yii\db\ActiveQuery";s:4:"type";s:2:"->";}}i:5;i:4729704;}i:56;a:6:{i:0;s:35:"SHOW FULL COLUMNS FROM `municipios`";i:1;i:80;i:2;s:21:"yii\db\Command::query";i:3;d:1506178416.343972;i:4;a:1:{i:0;a:5:{s:4:"file";s:72:"C:\xampp\htdocs\COLDEPORTES-SUPERATE\controllers\EscenarioController.php";s:4:"line";i:70;s:8:"function";s:3:"one";s:5:"class";s:18:"yii\db\ActiveQuery";s:4:"type";s:2:"->";}}i:5;i:4734808;}i:57;a:6:{i:0;s:35:"SHOW FULL COLUMNS FROM `municipios`";i:1;i:96;i:2;s:21:"yii\db\Command::query";i:3;d:1506178416.349973;i:4;a:1:{i:0;a:5:{s:4:"file";s:72:"C:\xampp\htdocs\COLDEPORTES-SUPERATE\controllers\EscenarioController.php";s:4:"line";i:70;s:8:"function";s:3:"one";s:5:"class";s:18:"yii\db\ActiveQuery";s:4:"type";s:2:"->";}}i:5;i:4739360;}i:59;a:6:{i:0;s:607:"SELECT
+    kcu.constraint_name,
+    kcu.column_name,
+    kcu.referenced_table_name,
+    kcu.referenced_column_name
+FROM information_schema.referential_constraints AS rc
+JOIN information_schema.key_column_usage AS kcu ON
+    (
+        kcu.constraint_catalog = rc.constraint_catalog OR
+        (kcu.constraint_catalog IS NULL AND rc.constraint_catalog IS NULL)
+    ) AND
+    kcu.constraint_schema = rc.constraint_schema AND
+    kcu.constraint_name = rc.constraint_name
+WHERE rc.constraint_schema = database() AND kcu.table_schema = database()
+AND rc.table_name = 'municipios' AND kcu.table_name = 'municipios'";i:1;i:80;i:2;s:21:"yii\db\Command::query";i:3;d:1506178416.349973;i:4;a:1:{i:0;a:5:{s:4:"file";s:72:"C:\xampp\htdocs\COLDEPORTES-SUPERATE\controllers\EscenarioController.php";s:4:"line";i:70;s:8:"function";s:3:"one";s:5:"class";s:18:"yii\db\ActiveQuery";s:4:"type";s:2:"->";}}i:5;i:4746912;}i:60;a:6:{i:0;s:607:"SELECT
+    kcu.constraint_name,
+    kcu.column_name,
+    kcu.referenced_table_name,
+    kcu.referenced_column_name
+FROM information_schema.referential_constraints AS rc
+JOIN information_schema.key_column_usage AS kcu ON
+    (
+        kcu.constraint_catalog = rc.constraint_catalog OR
+        (kcu.constraint_catalog IS NULL AND rc.constraint_catalog IS NULL)
+    ) AND
+    kcu.constraint_schema = rc.constraint_schema AND
+    kcu.constraint_name = rc.constraint_name
+WHERE rc.constraint_schema = database() AND kcu.table_schema = database()
+AND rc.table_name = 'municipios' AND kcu.table_name = 'municipios'";i:1;i:96;i:2;s:21:"yii\db\Command::query";i:3;d:1506178416.3509729;i:4;a:1:{i:0;a:5:{s:4:"file";s:72:"C:\xampp\htdocs\COLDEPORTES-SUPERATE\controllers\EscenarioController.php";s:4:"line";i:70;s:8:"function";s:3:"one";s:5:"class";s:18:"yii\db\ActiveQuery";s:4:"type";s:2:"->";}}i:5;i:4748832;}i:62;a:6:{i:0;s:75:"SELECT * FROM `disponibilidad_escenario` WHERE `esc_id`=50 ORDER BY `de_id`";i:1;i:80;i:2;s:21:"yii\db\Command::query";i:3;d:1506178416.3519731;i:4;a:2:{i:0;a:5:{s:4:"file";s:72:"C:\xampp\htdocs\COLDEPORTES-SUPERATE\controllers\EscenarioController.php";s:4:"line";i:638;s:8:"function";s:3:"all";s:5:"class";s:18:"yii\db\ActiveQuery";s:4:"type";s:2:"->";}i:1;a:5:{s:4:"file";s:72:"C:\xampp\htdocs\COLDEPORTES-SUPERATE\controllers\EscenarioController.php";s:4:"line";i:71;s:8:"function";s:20:"listarDisponibilidad";s:5:"class";s:35:"app\controllers\EscenarioController";s:4:"type";s:2:"::";}}i:5;i:4762936;}i:63;a:6:{i:0;s:75:"SELECT * FROM `disponibilidad_escenario` WHERE `esc_id`=50 ORDER BY `de_id`";i:1;i:96;i:2;s:21:"yii\db\Command::query";i:3;d:1506178416.352973;i:4;a:2:{i:0;a:5:{s:4:"file";s:72:"C:\xampp\htdocs\COLDEPORTES-SUPERATE\controllers\EscenarioController.php";s:4:"line";i:638;s:8:"function";s:3:"all";s:5:"class";s:18:"yii\db\ActiveQuery";s:4:"type";s:2:"->";}i:1;a:5:{s:4:"file";s:72:"C:\xampp\htdocs\COLDEPORTES-SUPERATE\controllers\EscenarioController.php";s:4:"line";i:71;s:8:"function";s:20:"listarDisponibilidad";s:5:"class";s:35:"app\controllers\EscenarioController";s:4:"type";s:2:"::";}}i:5;i:4764608;}i:65;a:6:{i:0;s:20:"SELECT * FROM `hora`";i:1;i:80;i:2;s:21:"yii\db\Command::query";i:3;d:1506178416.3539729;i:4;a:1:{i:0;a:5:{s:4:"file";s:72:"C:\xampp\htdocs\COLDEPORTES-SUPERATE\controllers\EscenarioController.php";s:4:"line";i:72;s:8:"function";s:3:"all";s:5:"class";s:18:"yii\db\ActiveQuery";s:4:"type";s:2:"->";}}i:5;i:4780024;}i:66;a:6:{i:0;s:20:"SELECT * FROM `hora`";i:1;i:96;i:2;s:21:"yii\db\Command::query";i:3;d:1506178416.3539729;i:4;a:1:{i:0;a:5:{s:4:"file";s:72:"C:\xampp\htdocs\COLDEPORTES-SUPERATE\controllers\EscenarioController.php";s:4:"line";i:72;s:8:"function";s:3:"all";s:5:"class";s:18:"yii\db\ActiveQuery";s:4:"type";s:2:"->";}}i:5;i:4790400;}i:68;a:6:{i:0;s:29:"SHOW FULL COLUMNS FROM `hora`";i:1;i:80;i:2;s:21:"yii\db\Command::query";i:3;d:1506178416.3539729;i:4;a:1:{i:0;a:5:{s:4:"file";s:72:"C:\xampp\htdocs\COLDEPORTES-SUPERATE\controllers\EscenarioController.php";s:4:"line";i:72;s:8:"function";s:3:"all";s:5:"class";s:18:"yii\db\ActiveQuery";s:4:"type";s:2:"->";}}i:5;i:4796616;}i:69;a:6:{i:0;s:29:"SHOW FULL COLUMNS FROM `hora`";i:1;i:96;i:2;s:21:"yii\db\Command::query";i:3;d:1506178416.361973;i:4;a:1:{i:0;a:5:{s:4:"file";s:72:"C:\xampp\htdocs\COLDEPORTES-SUPERATE\controllers\EscenarioController.php";s:4:"line";i:72;s:8:"function";s:3:"all";s:5:"class";s:18:"yii\db\ActiveQuery";s:4:"type";s:2:"->";}}i:5;i:4800552;}i:71;a:6:{i:0;s:595:"SELECT
+    kcu.constraint_name,
+    kcu.column_name,
+    kcu.referenced_table_name,
+    kcu.referenced_column_name
+FROM information_schema.referential_constraints AS rc
+JOIN information_schema.key_column_usage AS kcu ON
+    (
+        kcu.constraint_catalog = rc.constraint_catalog OR
+        (kcu.constraint_catalog IS NULL AND rc.constraint_catalog IS NULL)
+    ) AND
+    kcu.constraint_schema = rc.constraint_schema AND
+    kcu.constraint_name = rc.constraint_name
+WHERE rc.constraint_schema = database() AND kcu.table_schema = database()
+AND rc.table_name = 'hora' AND kcu.table_name = 'hora'";i:1;i:80;i:2;s:21:"yii\db\Command::query";i:3;d:1506178416.361973;i:4;a:1:{i:0;a:5:{s:4:"file";s:72:"C:\xampp\htdocs\COLDEPORTES-SUPERATE\controllers\EscenarioController.php";s:4:"line";i:72;s:8:"function";s:3:"all";s:5:"class";s:18:"yii\db\ActiveQuery";s:4:"type";s:2:"->";}}i:5;i:4808336;}i:72;a:6:{i:0;s:595:"SELECT
+    kcu.constraint_name,
+    kcu.column_name,
+    kcu.referenced_table_name,
+    kcu.referenced_column_name
+FROM information_schema.referential_constraints AS rc
+JOIN information_schema.key_column_usage AS kcu ON
+    (
+        kcu.constraint_catalog = rc.constraint_catalog OR
+        (kcu.constraint_catalog IS NULL AND rc.constraint_catalog IS NULL)
+    ) AND
+    kcu.constraint_schema = rc.constraint_schema AND
+    kcu.constraint_name = rc.constraint_name
+WHERE rc.constraint_schema = database() AND kcu.table_schema = database()
+AND rc.table_name = 'hora' AND kcu.table_name = 'hora'";i:1;i:96;i:2;s:21:"yii\db\Command::query";i:3;d:1506178416.362973;i:4;a:1:{i:0;a:5:{s:4:"file";s:72:"C:\xampp\htdocs\COLDEPORTES-SUPERATE\controllers\EscenarioController.php";s:4:"line";i:72;s:8:"function";s:3:"all";s:5:"class";s:18:"yii\db\ActiveQuery";s:4:"type";s:2:"->";}}i:5;i:4809616;}i:74;a:6:{i:0;s:49:"SELECT * FROM `departamentos` WHERE `dptos_id`=27";i:1;i:80;i:2;s:21:"yii\db\Command::query";i:3;d:1506178416.3649731;i:4;a:1:{i:0;a:5:{s:4:"file";s:72:"C:\xampp\htdocs\COLDEPORTES-SUPERATE\controllers\EscenarioController.php";s:4:"line";i:86;s:8:"function";s:5:"__get";s:5:"class";s:23:"yii\db\BaseActiveRecord";s:4:"type";s:2:"->";}}i:5;i:4832880;}i:75;a:6:{i:0;s:49:"SELECT * FROM `departamentos` WHERE `dptos_id`=27";i:1;i:96;i:2;s:21:"yii\db\Command::query";i:3;d:1506178416.3649731;i:4;a:1:{i:0;a:5:{s:4:"file";s:72:"C:\xampp\htdocs\COLDEPORTES-SUPERATE\controllers\EscenarioController.php";s:4:"line";i:86;s:8:"function";s:5:"__get";s:5:"class";s:23:"yii\db\BaseActiveRecord";s:4:"type";s:2:"->";}}i:5;i:4834464;}i:77;a:6:{i:0;s:38:"SHOW FULL COLUMNS FROM `departamentos`";i:1;i:80;i:2;s:21:"yii\db\Command::query";i:3;d:1506178416.365973;i:4;a:1:{i:0;a:5:{s:4:"file";s:72:"C:\xampp\htdocs\COLDEPORTES-SUPERATE\controllers\EscenarioController.php";s:4:"line";i:86;s:8:"function";s:5:"__get";s:5:"class";s:23:"yii\db\BaseActiveRecord";s:4:"type";s:2:"->";}}i:5;i:4839568;}i:78;a:6:{i:0;s:38:"SHOW FULL COLUMNS FROM `departamentos`";i:1;i:96;i:2;s:21:"yii\db\Command::query";i:3;d:1506178416.3709741;i:4;a:1:{i:0;a:5:{s:4:"file";s:72:"C:\xampp\htdocs\COLDEPORTES-SUPERATE\controllers\EscenarioController.php";s:4:"line";i:86;s:8:"function";s:5:"__get";s:5:"class";s:23:"yii\db\BaseActiveRecord";s:4:"type";s:2:"->";}}i:5;i:4844104;}i:80;a:6:{i:0;s:613:"SELECT
+    kcu.constraint_name,
+    kcu.column_name,
+    kcu.referenced_table_name,
+    kcu.referenced_column_name
+FROM information_schema.referential_constraints AS rc
+JOIN information_schema.key_column_usage AS kcu ON
+    (
+        kcu.constraint_catalog = rc.constraint_catalog OR
+        (kcu.constraint_catalog IS NULL AND rc.constraint_catalog IS NULL)
+    ) AND
+    kcu.constraint_schema = rc.constraint_schema AND
+    kcu.constraint_name = rc.constraint_name
+WHERE rc.constraint_schema = database() AND kcu.table_schema = database()
+AND rc.table_name = 'departamentos' AND kcu.table_name = 'departamentos'";i:1;i:80;i:2;s:21:"yii\db\Command::query";i:3;d:1506178416.3709741;i:4;a:1:{i:0;a:5:{s:4:"file";s:72:"C:\xampp\htdocs\COLDEPORTES-SUPERATE\controllers\EscenarioController.php";s:4:"line";i:86;s:8:"function";s:5:"__get";s:5:"class";s:23:"yii\db\BaseActiveRecord";s:4:"type";s:2:"->";}}i:5;i:4851656;}i:81;a:6:{i:0;s:613:"SELECT
+    kcu.constraint_name,
+    kcu.column_name,
+    kcu.referenced_table_name,
+    kcu.referenced_column_name
+FROM information_schema.referential_constraints AS rc
+JOIN information_schema.key_column_usage AS kcu ON
+    (
+        kcu.constraint_catalog = rc.constraint_catalog OR
+        (kcu.constraint_catalog IS NULL AND rc.constraint_catalog IS NULL)
+    ) AND
+    kcu.constraint_schema = rc.constraint_schema AND
+    kcu.constraint_name = rc.constraint_name
+WHERE rc.constraint_schema = database() AND kcu.table_schema = database()
+AND rc.table_name = 'departamentos' AND kcu.table_name = 'departamentos'";i:1;i:96;i:2;s:21:"yii\db\Command::query";i:3;d:1506178416.371974;i:4;a:1:{i:0;a:5:{s:4:"file";s:72:"C:\xampp\htdocs\COLDEPORTES-SUPERATE\controllers\EscenarioController.php";s:4:"line";i:86;s:8:"function";s:5:"__get";s:5:"class";s:23:"yii\db\BaseActiveRecord";s:4:"type";s:2:"->";}}i:5;i:4853544;}}}s:2:"db";a:1:{s:8:"messages";a:46:{i:13;a:6:{i:0;s:32:"SHOW FULL COLUMNS FROM `usuario`";i:1;i:80;i:2;s:21:"yii\db\Command::query";i:3;d:1506178416.2819691;i:4;a:1:{i:0;a:5:{s:4:"file";s:55:"C:\xampp\htdocs\COLDEPORTES-SUPERATE\models\Usuario.php";s:4:"line";i:89;s:8:"function";s:7:"findOne";s:5:"class";s:23:"yii\db\BaseActiveRecord";s:4:"type";s:2:"::";}}i:5;i:4278320;}i:14;a:6:{i:0;s:32:"SHOW FULL COLUMNS FROM `usuario`";i:1;i:96;i:2;s:21:"yii\db\Command::query";i:3;d:1506178416.289969;i:4;a:1:{i:0;a:5:{s:4:"file";s:55:"C:\xampp\htdocs\COLDEPORTES-SUPERATE\models\Usuario.php";s:4:"line";i:89;s:8:"function";s:7:"findOne";s:5:"class";s:23:"yii\db\BaseActiveRecord";s:4:"type";s:2:"::";}}i:5;i:4289336;}i:16;a:6:{i:0;s:601:"SELECT
+    kcu.constraint_name,
+    kcu.column_name,
+    kcu.referenced_table_name,
+    kcu.referenced_column_name
+FROM information_schema.referential_constraints AS rc
+JOIN information_schema.key_column_usage AS kcu ON
+    (
+        kcu.constraint_catalog = rc.constraint_catalog OR
+        (kcu.constraint_catalog IS NULL AND rc.constraint_catalog IS NULL)
+    ) AND
+    kcu.constraint_schema = rc.constraint_schema AND
+    kcu.constraint_name = rc.constraint_name
+WHERE rc.constraint_schema = database() AND kcu.table_schema = database()
+AND rc.table_name = 'usuario' AND kcu.table_name = 'usuario'";i:1;i:80;i:2;s:21:"yii\db\Command::query";i:3;d:1506178416.2919691;i:4;a:1:{i:0;a:5:{s:4:"file";s:55:"C:\xampp\htdocs\COLDEPORTES-SUPERATE\models\Usuario.php";s:4:"line";i:89;s:8:"function";s:7:"findOne";s:5:"class";s:23:"yii\db\BaseActiveRecord";s:4:"type";s:2:"::";}}i:5;i:4305864;}i:17;a:6:{i:0;s:601:"SELECT
+    kcu.constraint_name,
+    kcu.column_name,
+    kcu.referenced_table_name,
+    kcu.referenced_column_name
+FROM information_schema.referential_constraints AS rc
+JOIN information_schema.key_column_usage AS kcu ON
+    (
+        kcu.constraint_catalog = rc.constraint_catalog OR
+        (kcu.constraint_catalog IS NULL AND rc.constraint_catalog IS NULL)
+    ) AND
+    kcu.constraint_schema = rc.constraint_schema AND
+    kcu.constraint_name = rc.constraint_name
+WHERE rc.constraint_schema = database() AND kcu.table_schema = database()
+AND rc.table_name = 'usuario' AND kcu.table_name = 'usuario'";i:1;i:96;i:2;s:21:"yii\db\Command::query";i:3;d:1506178416.2939689;i:4;a:1:{i:0;a:5:{s:4:"file";s:55:"C:\xampp\htdocs\COLDEPORTES-SUPERATE\models\Usuario.php";s:4:"line";i:89;s:8:"function";s:7:"findOne";s:5:"class";s:23:"yii\db\BaseActiveRecord";s:4:"type";s:2:"::";}}i:5;i:4308208;}i:19;a:6:{i:0;s:40:"SELECT * FROM `usuario` WHERE `usu_id`=1";i:1;i:80;i:2;s:21:"yii\db\Command::query";i:3;d:1506178416.30197;i:4;a:1:{i:0;a:5:{s:4:"file";s:55:"C:\xampp\htdocs\COLDEPORTES-SUPERATE\models\Usuario.php";s:4:"line";i:89;s:8:"function";s:7:"findOne";s:5:"class";s:23:"yii\db\BaseActiveRecord";s:4:"type";s:2:"::";}}i:5;i:4541592;}i:20;a:6:{i:0;s:40:"SELECT * FROM `usuario` WHERE `usu_id`=1";i:1;i:96;i:2;s:21:"yii\db\Command::query";i:3;d:1506178416.30197;i:4;a:1:{i:0;a:5:{s:4:"file";s:55:"C:\xampp\htdocs\COLDEPORTES-SUPERATE\models\Usuario.php";s:4:"line";i:89;s:8:"function";s:7:"findOne";s:5:"class";s:23:"yii\db\BaseActiveRecord";s:4:"type";s:2:"::";}}i:5;i:4544512;}i:23;a:6:{i:0;s:45:"SELECT * FROM `escenario` WHERE `esc_id`='50'";i:1;i:80;i:2;s:21:"yii\db\Command::query";i:3;d:1506178416.30597;i:4;a:1:{i:0;a:5:{s:4:"file";s:72:"C:\xampp\htdocs\COLDEPORTES-SUPERATE\controllers\EscenarioController.php";s:4:"line";i:67;s:8:"function";s:3:"one";s:5:"class";s:18:"yii\db\ActiveQuery";s:4:"type";s:2:"->";}}i:5;i:4590000;}i:24;a:6:{i:0;s:45:"SELECT * FROM `escenario` WHERE `esc_id`='50'";i:1;i:96;i:2;s:21:"yii\db\Command::query";i:3;d:1506178416.30597;i:4;a:1:{i:0;a:5:{s:4:"file";s:72:"C:\xampp\htdocs\COLDEPORTES-SUPERATE\controllers\EscenarioController.php";s:4:"line";i:67;s:8:"function";s:3:"one";s:5:"class";s:18:"yii\db\ActiveQuery";s:4:"type";s:2:"->";}}i:5;i:4591848;}i:26;a:6:{i:0;s:34:"SHOW FULL COLUMNS FROM `escenario`";i:1;i:80;i:2;s:21:"yii\db\Command::query";i:3;d:1506178416.3069699;i:4;a:1:{i:0;a:5:{s:4:"file";s:72:"C:\xampp\htdocs\COLDEPORTES-SUPERATE\controllers\EscenarioController.php";s:4:"line";i:67;s:8:"function";s:3:"one";s:5:"class";s:18:"yii\db\ActiveQuery";s:4:"type";s:2:"->";}}i:5;i:4596872;}i:27;a:6:{i:0;s:34:"SHOW FULL COLUMNS FROM `escenario`";i:1;i:96;i:2;s:21:"yii\db\Command::query";i:3;d:1506178416.314971;i:4;a:1:{i:0;a:5:{s:4:"file";s:72:"C:\xampp\htdocs\COLDEPORTES-SUPERATE\controllers\EscenarioController.php";s:4:"line";i:67;s:8:"function";s:3:"one";s:5:"class";s:18:"yii\db\ActiveQuery";s:4:"type";s:2:"->";}}i:5;i:4604496;}i:29;a:6:{i:0;s:605:"SELECT
+    kcu.constraint_name,
+    kcu.column_name,
+    kcu.referenced_table_name,
+    kcu.referenced_column_name
+FROM information_schema.referential_constraints AS rc
+JOIN information_schema.key_column_usage AS kcu ON
+    (
+        kcu.constraint_catalog = rc.constraint_catalog OR
+        (kcu.constraint_catalog IS NULL AND rc.constraint_catalog IS NULL)
+    ) AND
+    kcu.constraint_schema = rc.constraint_schema AND
+    kcu.constraint_name = rc.constraint_name
+WHERE rc.constraint_schema = database() AND kcu.table_schema = database()
+AND rc.table_name = 'escenario' AND kcu.table_name = 'escenario'";i:1;i:80;i:2;s:21:"yii\db\Command::query";i:3;d:1506178416.3159709;i:4;a:1:{i:0;a:5:{s:4:"file";s:72:"C:\xampp\htdocs\COLDEPORTES-SUPERATE\controllers\EscenarioController.php";s:4:"line";i:67;s:8:"function";s:3:"one";s:5:"class";s:18:"yii\db\ActiveQuery";s:4:"type";s:2:"->";}}i:5;i:4610832;}i:30;a:6:{i:0;s:605:"SELECT
+    kcu.constraint_name,
+    kcu.column_name,
+    kcu.referenced_table_name,
+    kcu.referenced_column_name
+FROM information_schema.referential_constraints AS rc
+JOIN information_schema.key_column_usage AS kcu ON
+    (
+        kcu.constraint_catalog = rc.constraint_catalog OR
+        (kcu.constraint_catalog IS NULL AND rc.constraint_catalog IS NULL)
+    ) AND
+    kcu.constraint_schema = rc.constraint_schema AND
+    kcu.constraint_name = rc.constraint_name
+WHERE rc.constraint_schema = database() AND kcu.table_schema = database()
+AND rc.table_name = 'escenario' AND kcu.table_name = 'escenario'";i:1;i:96;i:2;s:21:"yii\db\Command::query";i:3;d:1506178416.3159709;i:4;a:1:{i:0;a:5:{s:4:"file";s:72:"C:\xampp\htdocs\COLDEPORTES-SUPERATE\controllers\EscenarioController.php";s:4:"line";i:67;s:8:"function";s:3:"one";s:5:"class";s:18:"yii\db\ActiveQuery";s:4:"type";s:2:"->";}}i:5;i:4613136;}i:32;a:6:{i:0;s:56:"SELECT * FROM `contacto_escenario` WHERE `ce_id` IS NULL";i:1;i:80;i:2;s:21:"yii\db\Command::query";i:3;d:1506178416.317971;i:4;a:1:{i:0;a:5:{s:4:"file";s:72:"C:\xampp\htdocs\COLDEPORTES-SUPERATE\controllers\EscenarioController.php";s:4:"line";i:68;s:8:"function";s:3:"one";s:5:"class";s:18:"yii\db\ActiveQuery";s:4:"type";s:2:"->";}}i:5;i:4622616;}i:33;a:6:{i:0;s:56:"SELECT * FROM `contacto_escenario` WHERE `ce_id` IS NULL";i:1;i:96;i:2;s:21:"yii\db\Command::query";i:3;d:1506178416.317971;i:4;a:1:{i:0;a:5:{s:4:"file";s:72:"C:\xampp\htdocs\COLDEPORTES-SUPERATE\controllers\EscenarioController.php";s:4:"line";i:68;s:8:"function";s:3:"one";s:5:"class";s:18:"yii\db\ActiveQuery";s:4:"type";s:2:"->";}}i:5;i:4624832;}i:35;a:6:{i:0;s:84:"SELECT * FROM `escenario_tiene_deportes` WHERE (`esc_id`='50') AND (`estd_activo`=1)";i:1;i:80;i:2;s:21:"yii\db\Command::query";i:3;d:1506178416.3189709;i:4;a:2:{i:0;a:5:{s:4:"file";s:72:"C:\xampp\htdocs\COLDEPORTES-SUPERATE\controllers\EscenarioController.php";s:4:"line";i:707;s:8:"function";s:3:"all";s:5:"class";s:18:"yii\db\ActiveQuery";s:4:"type";s:2:"->";}i:1;a:5:{s:4:"file";s:72:"C:\xampp\htdocs\COLDEPORTES-SUPERATE\controllers\EscenarioController.php";s:4:"line";i:69;s:8:"function";s:23:"listarDeportesEscenario";s:5:"class";s:35:"app\controllers\EscenarioController";s:4:"type";s:2:"::";}}i:5;i:4645776;}i:36;a:6:{i:0;s:84:"SELECT * FROM `escenario_tiene_deportes` WHERE (`esc_id`='50') AND (`estd_activo`=1)";i:1;i:96;i:2;s:21:"yii\db\Command::query";i:3;d:1506178416.3189709;i:4;a:2:{i:0;a:5:{s:4:"file";s:72:"C:\xampp\htdocs\COLDEPORTES-SUPERATE\controllers\EscenarioController.php";s:4:"line";i:707;s:8:"function";s:3:"all";s:5:"class";s:18:"yii\db\ActiveQuery";s:4:"type";s:2:"->";}i:1;a:5:{s:4:"file";s:72:"C:\xampp\htdocs\COLDEPORTES-SUPERATE\controllers\EscenarioController.php";s:4:"line";i:69;s:8:"function";s:23:"listarDeportesEscenario";s:5:"class";s:35:"app\controllers\EscenarioController";s:4:"type";s:2:"::";}}i:5;i:4648032;}i:38;a:6:{i:0;s:49:"SHOW FULL COLUMNS FROM `escenario_tiene_deportes`";i:1;i:80;i:2;s:21:"yii\db\Command::query";i:3;d:1506178416.3199711;i:4;a:2:{i:0;a:5:{s:4:"file";s:72:"C:\xampp\htdocs\COLDEPORTES-SUPERATE\controllers\EscenarioController.php";s:4:"line";i:707;s:8:"function";s:3:"all";s:5:"class";s:18:"yii\db\ActiveQuery";s:4:"type";s:2:"->";}i:1;a:5:{s:4:"file";s:72:"C:\xampp\htdocs\COLDEPORTES-SUPERATE\controllers\EscenarioController.php";s:4:"line";i:69;s:8:"function";s:23:"listarDeportesEscenario";s:5:"class";s:35:"app\controllers\EscenarioController";s:4:"type";s:2:"::";}}i:5;i:4653968;}i:39;a:6:{i:0;s:49:"SHOW FULL COLUMNS FROM `escenario_tiene_deportes`";i:1;i:96;i:2;s:21:"yii\db\Command::query";i:3;d:1506178416.3259709;i:4;a:2:{i:0;a:5:{s:4:"file";s:72:"C:\xampp\htdocs\COLDEPORTES-SUPERATE\controllers\EscenarioController.php";s:4:"line";i:707;s:8:"function";s:3:"all";s:5:"class";s:18:"yii\db\ActiveQuery";s:4:"type";s:2:"->";}i:1;a:5:{s:4:"file";s:72:"C:\xampp\htdocs\COLDEPORTES-SUPERATE\controllers\EscenarioController.php";s:4:"line";i:69;s:8:"function";s:23:"listarDeportesEscenario";s:5:"class";s:35:"app\controllers\EscenarioController";s:4:"type";s:2:"::";}}i:5;i:4658920;}i:41;a:6:{i:0;s:635:"SELECT
+    kcu.constraint_name,
+    kcu.column_name,
+    kcu.referenced_table_name,
+    kcu.referenced_column_name
+FROM information_schema.referential_constraints AS rc
+JOIN information_schema.key_column_usage AS kcu ON
+    (
+        kcu.constraint_catalog = rc.constraint_catalog OR
+        (kcu.constraint_catalog IS NULL AND rc.constraint_catalog IS NULL)
+    ) AND
+    kcu.constraint_schema = rc.constraint_schema AND
+    kcu.constraint_name = rc.constraint_name
+WHERE rc.constraint_schema = database() AND kcu.table_schema = database()
+AND rc.table_name = 'escenario_tiene_deportes' AND kcu.table_name = 'escenario_tiene_deportes'";i:1;i:80;i:2;s:21:"yii\db\Command::query";i:3;d:1506178416.3269711;i:4;a:2:{i:0;a:5:{s:4:"file";s:72:"C:\xampp\htdocs\COLDEPORTES-SUPERATE\controllers\EscenarioController.php";s:4:"line";i:707;s:8:"function";s:3:"all";s:5:"class";s:18:"yii\db\ActiveQuery";s:4:"type";s:2:"->";}i:1;a:5:{s:4:"file";s:72:"C:\xampp\htdocs\COLDEPORTES-SUPERATE\controllers\EscenarioController.php";s:4:"line";i:69;s:8:"function";s:23:"listarDeportesEscenario";s:5:"class";s:35:"app\controllers\EscenarioController";s:4:"type";s:2:"::";}}i:5;i:4667352;}i:42;a:6:{i:0;s:635:"SELECT
+    kcu.constraint_name,
+    kcu.column_name,
+    kcu.referenced_table_name,
+    kcu.referenced_column_name
+FROM information_schema.referential_constraints AS rc
+JOIN information_schema.key_column_usage AS kcu ON
+    (
+        kcu.constraint_catalog = rc.constraint_catalog OR
+        (kcu.constraint_catalog IS NULL AND rc.constraint_catalog IS NULL)
+    ) AND
+    kcu.constraint_schema = rc.constraint_schema AND
+    kcu.constraint_name = rc.constraint_name
+WHERE rc.constraint_schema = database() AND kcu.table_schema = database()
+AND rc.table_name = 'escenario_tiene_deportes' AND kcu.table_name = 'escenario_tiene_deportes'";i:1;i:96;i:2;s:21:"yii\db\Command::query";i:3;d:1506178416.327971;i:4;a:2:{i:0;a:5:{s:4:"file";s:72:"C:\xampp\htdocs\COLDEPORTES-SUPERATE\controllers\EscenarioController.php";s:4:"line";i:707;s:8:"function";s:3:"all";s:5:"class";s:18:"yii\db\ActiveQuery";s:4:"type";s:2:"->";}i:1;a:5:{s:4:"file";s:72:"C:\xampp\htdocs\COLDEPORTES-SUPERATE\controllers\EscenarioController.php";s:4:"line";i:69;s:8:"function";s:23:"listarDeportesEscenario";s:5:"class";s:35:"app\controllers\EscenarioController";s:4:"type";s:2:"::";}}i:5;i:4670072;}i:44;a:6:{i:0;s:41:"SELECT * FROM `deporte` WHERE `dep_id`=13";i:1;i:80;i:2;s:21:"yii\db\Command::query";i:3;d:1506178416.3299711;i:4;a:2:{i:0;a:5:{s:4:"file";s:72:"C:\xampp\htdocs\COLDEPORTES-SUPERATE\controllers\EscenarioController.php";s:4:"line";i:710;s:8:"function";s:5:"__get";s:5:"class";s:23:"yii\db\BaseActiveRecord";s:4:"type";s:2:"->";}i:1;a:5:{s:4:"file";s:72:"C:\xampp\htdocs\COLDEPORTES-SUPERATE\controllers\EscenarioController.php";s:4:"line";i:69;s:8:"function";s:23:"listarDeportesEscenario";s:5:"class";s:35:"app\controllers\EscenarioController";s:4:"type";s:2:"::";}}i:5;i:4690128;}i:45;a:6:{i:0;s:41:"SELECT * FROM `deporte` WHERE `dep_id`=13";i:1;i:96;i:2;s:21:"yii\db\Command::query";i:3;d:1506178416.3299711;i:4;a:2:{i:0;a:5:{s:4:"file";s:72:"C:\xampp\htdocs\COLDEPORTES-SUPERATE\controllers\EscenarioController.php";s:4:"line";i:710;s:8:"function";s:5:"__get";s:5:"class";s:23:"yii\db\BaseActiveRecord";s:4:"type";s:2:"->";}i:1;a:5:{s:4:"file";s:72:"C:\xampp\htdocs\COLDEPORTES-SUPERATE\controllers\EscenarioController.php";s:4:"line";i:69;s:8:"function";s:23:"listarDeportesEscenario";s:5:"class";s:35:"app\controllers\EscenarioController";s:4:"type";s:2:"::";}}i:5;i:4692288;}i:47;a:6:{i:0;s:32:"SHOW FULL COLUMNS FROM `deporte`";i:1;i:80;i:2;s:21:"yii\db\Command::query";i:3;d:1506178416.3299711;i:4;a:2:{i:0;a:5:{s:4:"file";s:72:"C:\xampp\htdocs\COLDEPORTES-SUPERATE\controllers\EscenarioController.php";s:4:"line";i:710;s:8:"function";s:5:"__get";s:5:"class";s:23:"yii\db\BaseActiveRecord";s:4:"type";s:2:"->";}i:1;a:5:{s:4:"file";s:72:"C:\xampp\htdocs\COLDEPORTES-SUPERATE\controllers\EscenarioController.php";s:4:"line";i:69;s:8:"function";s:23:"listarDeportesEscenario";s:5:"class";s:35:"app\controllers\EscenarioController";s:4:"type";s:2:"::";}}i:5;i:4698208;}i:48;a:6:{i:0;s:32:"SHOW FULL COLUMNS FROM `deporte`";i:1;i:96;i:2;s:21:"yii\db\Command::query";i:3;d:1506178416.3389721;i:4;a:2:{i:0;a:5:{s:4:"file";s:72:"C:\xampp\htdocs\COLDEPORTES-SUPERATE\controllers\EscenarioController.php";s:4:"line";i:710;s:8:"function";s:5:"__get";s:5:"class";s:23:"yii\db\BaseActiveRecord";s:4:"type";s:2:"->";}i:1;a:5:{s:4:"file";s:72:"C:\xampp\htdocs\COLDEPORTES-SUPERATE\controllers\EscenarioController.php";s:4:"line";i:69;s:8:"function";s:23:"listarDeportesEscenario";s:5:"class";s:35:"app\controllers\EscenarioController";s:4:"type";s:2:"::";}}i:5;i:4704744;}i:50;a:6:{i:0;s:601:"SELECT
+    kcu.constraint_name,
+    kcu.column_name,
+    kcu.referenced_table_name,
+    kcu.referenced_column_name
+FROM information_schema.referential_constraints AS rc
+JOIN information_schema.key_column_usage AS kcu ON
+    (
+        kcu.constraint_catalog = rc.constraint_catalog OR
+        (kcu.constraint_catalog IS NULL AND rc.constraint_catalog IS NULL)
+    ) AND
+    kcu.constraint_schema = rc.constraint_schema AND
+    kcu.constraint_name = rc.constraint_name
+WHERE rc.constraint_schema = database() AND kcu.table_schema = database()
+AND rc.table_name = 'deporte' AND kcu.table_name = 'deporte'";i:1;i:80;i:2;s:21:"yii\db\Command::query";i:3;d:1506178416.339972;i:4;a:2:{i:0;a:5:{s:4:"file";s:72:"C:\xampp\htdocs\COLDEPORTES-SUPERATE\controllers\EscenarioController.php";s:4:"line";i:710;s:8:"function";s:5:"__get";s:5:"class";s:23:"yii\db\BaseActiveRecord";s:4:"type";s:2:"->";}i:1;a:5:{s:4:"file";s:72:"C:\xampp\htdocs\COLDEPORTES-SUPERATE\controllers\EscenarioController.php";s:4:"line";i:69;s:8:"function";s:23:"listarDeportesEscenario";s:5:"class";s:35:"app\controllers\EscenarioController";s:4:"type";s:2:"::";}}i:5;i:4712496;}i:51;a:6:{i:0;s:601:"SELECT
+    kcu.constraint_name,
+    kcu.column_name,
+    kcu.referenced_table_name,
+    kcu.referenced_column_name
+FROM information_schema.referential_constraints AS rc
+JOIN information_schema.key_column_usage AS kcu ON
+    (
+        kcu.constraint_catalog = rc.constraint_catalog OR
+        (kcu.constraint_catalog IS NULL AND rc.constraint_catalog IS NULL)
+    ) AND
+    kcu.constraint_schema = rc.constraint_schema AND
+    kcu.constraint_name = rc.constraint_name
+WHERE rc.constraint_schema = database() AND kcu.table_schema = database()
+AND rc.table_name = 'deporte' AND kcu.table_name = 'deporte'";i:1;i:96;i:2;s:21:"yii\db\Command::query";i:3;d:1506178416.3409719;i:4;a:2:{i:0;a:5:{s:4:"file";s:72:"C:\xampp\htdocs\COLDEPORTES-SUPERATE\controllers\EscenarioController.php";s:4:"line";i:710;s:8:"function";s:5:"__get";s:5:"class";s:23:"yii\db\BaseActiveRecord";s:4:"type";s:2:"->";}i:1;a:5:{s:4:"file";s:72:"C:\xampp\htdocs\COLDEPORTES-SUPERATE\controllers\EscenarioController.php";s:4:"line";i:69;s:8:"function";s:23:"listarDeportesEscenario";s:5:"class";s:35:"app\controllers\EscenarioController";s:4:"type";s:2:"::";}}i:5;i:4714808;}i:53;a:6:{i:0;s:53:"SELECT * FROM `municipios` WHERE `municipios_id`=1085";i:1;i:80;i:2;s:21:"yii\db\Command::query";i:3;d:1506178416.342972;i:4;a:1:{i:0;a:5:{s:4:"file";s:72:"C:\xampp\htdocs\COLDEPORTES-SUPERATE\controllers\EscenarioController.php";s:4:"line";i:70;s:8:"function";s:3:"one";s:5:"class";s:18:"yii\db\ActiveQuery";s:4:"type";s:2:"->";}}i:5;i:4728112;}i:54;a:6:{i:0;s:53:"SELECT * FROM `municipios` WHERE `municipios_id`=1085";i:1;i:96;i:2;s:21:"yii\db\Command::query";i:3;d:1506178416.342972;i:4;a:1:{i:0;a:5:{s:4:"file";s:72:"C:\xampp\htdocs\COLDEPORTES-SUPERATE\controllers\EscenarioController.php";s:4:"line";i:70;s:8:"function";s:3:"one";s:5:"class";s:18:"yii\db\ActiveQuery";s:4:"type";s:2:"->";}}i:5;i:4729704;}i:56;a:6:{i:0;s:35:"SHOW FULL COLUMNS FROM `municipios`";i:1;i:80;i:2;s:21:"yii\db\Command::query";i:3;d:1506178416.343972;i:4;a:1:{i:0;a:5:{s:4:"file";s:72:"C:\xampp\htdocs\COLDEPORTES-SUPERATE\controllers\EscenarioController.php";s:4:"line";i:70;s:8:"function";s:3:"one";s:5:"class";s:18:"yii\db\ActiveQuery";s:4:"type";s:2:"->";}}i:5;i:4734808;}i:57;a:6:{i:0;s:35:"SHOW FULL COLUMNS FROM `municipios`";i:1;i:96;i:2;s:21:"yii\db\Command::query";i:3;d:1506178416.349973;i:4;a:1:{i:0;a:5:{s:4:"file";s:72:"C:\xampp\htdocs\COLDEPORTES-SUPERATE\controllers\EscenarioController.php";s:4:"line";i:70;s:8:"function";s:3:"one";s:5:"class";s:18:"yii\db\ActiveQuery";s:4:"type";s:2:"->";}}i:5;i:4739360;}i:59;a:6:{i:0;s:607:"SELECT
+    kcu.constraint_name,
+    kcu.column_name,
+    kcu.referenced_table_name,
+    kcu.referenced_column_name
+FROM information_schema.referential_constraints AS rc
+JOIN information_schema.key_column_usage AS kcu ON
+    (
+        kcu.constraint_catalog = rc.constraint_catalog OR
+        (kcu.constraint_catalog IS NULL AND rc.constraint_catalog IS NULL)
+    ) AND
+    kcu.constraint_schema = rc.constraint_schema AND
+    kcu.constraint_name = rc.constraint_name
+WHERE rc.constraint_schema = database() AND kcu.table_schema = database()
+AND rc.table_name = 'municipios' AND kcu.table_name = 'municipios'";i:1;i:80;i:2;s:21:"yii\db\Command::query";i:3;d:1506178416.349973;i:4;a:1:{i:0;a:5:{s:4:"file";s:72:"C:\xampp\htdocs\COLDEPORTES-SUPERATE\controllers\EscenarioController.php";s:4:"line";i:70;s:8:"function";s:3:"one";s:5:"class";s:18:"yii\db\ActiveQuery";s:4:"type";s:2:"->";}}i:5;i:4746912;}i:60;a:6:{i:0;s:607:"SELECT
+    kcu.constraint_name,
+    kcu.column_name,
+    kcu.referenced_table_name,
+    kcu.referenced_column_name
+FROM information_schema.referential_constraints AS rc
+JOIN information_schema.key_column_usage AS kcu ON
+    (
+        kcu.constraint_catalog = rc.constraint_catalog OR
+        (kcu.constraint_catalog IS NULL AND rc.constraint_catalog IS NULL)
+    ) AND
+    kcu.constraint_schema = rc.constraint_schema AND
+    kcu.constraint_name = rc.constraint_name
+WHERE rc.constraint_schema = database() AND kcu.table_schema = database()
+AND rc.table_name = 'municipios' AND kcu.table_name = 'municipios'";i:1;i:96;i:2;s:21:"yii\db\Command::query";i:3;d:1506178416.3509729;i:4;a:1:{i:0;a:5:{s:4:"file";s:72:"C:\xampp\htdocs\COLDEPORTES-SUPERATE\controllers\EscenarioController.php";s:4:"line";i:70;s:8:"function";s:3:"one";s:5:"class";s:18:"yii\db\ActiveQuery";s:4:"type";s:2:"->";}}i:5;i:4748832;}i:62;a:6:{i:0;s:75:"SELECT * FROM `disponibilidad_escenario` WHERE `esc_id`=50 ORDER BY `de_id`";i:1;i:80;i:2;s:21:"yii\db\Command::query";i:3;d:1506178416.3519731;i:4;a:2:{i:0;a:5:{s:4:"file";s:72:"C:\xampp\htdocs\COLDEPORTES-SUPERATE\controllers\EscenarioController.php";s:4:"line";i:638;s:8:"function";s:3:"all";s:5:"class";s:18:"yii\db\ActiveQuery";s:4:"type";s:2:"->";}i:1;a:5:{s:4:"file";s:72:"C:\xampp\htdocs\COLDEPORTES-SUPERATE\controllers\EscenarioController.php";s:4:"line";i:71;s:8:"function";s:20:"listarDisponibilidad";s:5:"class";s:35:"app\controllers\EscenarioController";s:4:"type";s:2:"::";}}i:5;i:4762936;}i:63;a:6:{i:0;s:75:"SELECT * FROM `disponibilidad_escenario` WHERE `esc_id`=50 ORDER BY `de_id`";i:1;i:96;i:2;s:21:"yii\db\Command::query";i:3;d:1506178416.352973;i:4;a:2:{i:0;a:5:{s:4:"file";s:72:"C:\xampp\htdocs\COLDEPORTES-SUPERATE\controllers\EscenarioController.php";s:4:"line";i:638;s:8:"function";s:3:"all";s:5:"class";s:18:"yii\db\ActiveQuery";s:4:"type";s:2:"->";}i:1;a:5:{s:4:"file";s:72:"C:\xampp\htdocs\COLDEPORTES-SUPERATE\controllers\EscenarioController.php";s:4:"line";i:71;s:8:"function";s:20:"listarDisponibilidad";s:5:"class";s:35:"app\controllers\EscenarioController";s:4:"type";s:2:"::";}}i:5;i:4764608;}i:65;a:6:{i:0;s:20:"SELECT * FROM `hora`";i:1;i:80;i:2;s:21:"yii\db\Command::query";i:3;d:1506178416.3539729;i:4;a:1:{i:0;a:5:{s:4:"file";s:72:"C:\xampp\htdocs\COLDEPORTES-SUPERATE\controllers\EscenarioController.php";s:4:"line";i:72;s:8:"function";s:3:"all";s:5:"class";s:18:"yii\db\ActiveQuery";s:4:"type";s:2:"->";}}i:5;i:4780024;}i:66;a:6:{i:0;s:20:"SELECT * FROM `hora`";i:1;i:96;i:2;s:21:"yii\db\Command::query";i:3;d:1506178416.3539729;i:4;a:1:{i:0;a:5:{s:4:"file";s:72:"C:\xampp\htdocs\COLDEPORTES-SUPERATE\controllers\EscenarioController.php";s:4:"line";i:72;s:8:"function";s:3:"all";s:5:"class";s:18:"yii\db\ActiveQuery";s:4:"type";s:2:"->";}}i:5;i:4790400;}i:68;a:6:{i:0;s:29:"SHOW FULL COLUMNS FROM `hora`";i:1;i:80;i:2;s:21:"yii\db\Command::query";i:3;d:1506178416.3539729;i:4;a:1:{i:0;a:5:{s:4:"file";s:72:"C:\xampp\htdocs\COLDEPORTES-SUPERATE\controllers\EscenarioController.php";s:4:"line";i:72;s:8:"function";s:3:"all";s:5:"class";s:18:"yii\db\ActiveQuery";s:4:"type";s:2:"->";}}i:5;i:4796616;}i:69;a:6:{i:0;s:29:"SHOW FULL COLUMNS FROM `hora`";i:1;i:96;i:2;s:21:"yii\db\Command::query";i:3;d:1506178416.361973;i:4;a:1:{i:0;a:5:{s:4:"file";s:72:"C:\xampp\htdocs\COLDEPORTES-SUPERATE\controllers\EscenarioController.php";s:4:"line";i:72;s:8:"function";s:3:"all";s:5:"class";s:18:"yii\db\ActiveQuery";s:4:"type";s:2:"->";}}i:5;i:4800552;}i:71;a:6:{i:0;s:595:"SELECT
+    kcu.constraint_name,
+    kcu.column_name,
+    kcu.referenced_table_name,
+    kcu.referenced_column_name
+FROM information_schema.referential_constraints AS rc
+JOIN information_schema.key_column_usage AS kcu ON
+    (
+        kcu.constraint_catalog = rc.constraint_catalog OR
+        (kcu.constraint_catalog IS NULL AND rc.constraint_catalog IS NULL)
+    ) AND
+    kcu.constraint_schema = rc.constraint_schema AND
+    kcu.constraint_name = rc.constraint_name
+WHERE rc.constraint_schema = database() AND kcu.table_schema = database()
+AND rc.table_name = 'hora' AND kcu.table_name = 'hora'";i:1;i:80;i:2;s:21:"yii\db\Command::query";i:3;d:1506178416.361973;i:4;a:1:{i:0;a:5:{s:4:"file";s:72:"C:\xampp\htdocs\COLDEPORTES-SUPERATE\controllers\EscenarioController.php";s:4:"line";i:72;s:8:"function";s:3:"all";s:5:"class";s:18:"yii\db\ActiveQuery";s:4:"type";s:2:"->";}}i:5;i:4808336;}i:72;a:6:{i:0;s:595:"SELECT
+    kcu.constraint_name,
+    kcu.column_name,
+    kcu.referenced_table_name,
+    kcu.referenced_column_name
+FROM information_schema.referential_constraints AS rc
+JOIN information_schema.key_column_usage AS kcu ON
+    (
+        kcu.constraint_catalog = rc.constraint_catalog OR
+        (kcu.constraint_catalog IS NULL AND rc.constraint_catalog IS NULL)
+    ) AND
+    kcu.constraint_schema = rc.constraint_schema AND
+    kcu.constraint_name = rc.constraint_name
+WHERE rc.constraint_schema = database() AND kcu.table_schema = database()
+AND rc.table_name = 'hora' AND kcu.table_name = 'hora'";i:1;i:96;i:2;s:21:"yii\db\Command::query";i:3;d:1506178416.362973;i:4;a:1:{i:0;a:5:{s:4:"file";s:72:"C:\xampp\htdocs\COLDEPORTES-SUPERATE\controllers\EscenarioController.php";s:4:"line";i:72;s:8:"function";s:3:"all";s:5:"class";s:18:"yii\db\ActiveQuery";s:4:"type";s:2:"->";}}i:5;i:4809616;}i:74;a:6:{i:0;s:49:"SELECT * FROM `departamentos` WHERE `dptos_id`=27";i:1;i:80;i:2;s:21:"yii\db\Command::query";i:3;d:1506178416.3649731;i:4;a:1:{i:0;a:5:{s:4:"file";s:72:"C:\xampp\htdocs\COLDEPORTES-SUPERATE\controllers\EscenarioController.php";s:4:"line";i:86;s:8:"function";s:5:"__get";s:5:"class";s:23:"yii\db\BaseActiveRecord";s:4:"type";s:2:"->";}}i:5;i:4832880;}i:75;a:6:{i:0;s:49:"SELECT * FROM `departamentos` WHERE `dptos_id`=27";i:1;i:96;i:2;s:21:"yii\db\Command::query";i:3;d:1506178416.3649731;i:4;a:1:{i:0;a:5:{s:4:"file";s:72:"C:\xampp\htdocs\COLDEPORTES-SUPERATE\controllers\EscenarioController.php";s:4:"line";i:86;s:8:"function";s:5:"__get";s:5:"class";s:23:"yii\db\BaseActiveRecord";s:4:"type";s:2:"->";}}i:5;i:4834464;}i:77;a:6:{i:0;s:38:"SHOW FULL COLUMNS FROM `departamentos`";i:1;i:80;i:2;s:21:"yii\db\Command::query";i:3;d:1506178416.365973;i:4;a:1:{i:0;a:5:{s:4:"file";s:72:"C:\xampp\htdocs\COLDEPORTES-SUPERATE\controllers\EscenarioController.php";s:4:"line";i:86;s:8:"function";s:5:"__get";s:5:"class";s:23:"yii\db\BaseActiveRecord";s:4:"type";s:2:"->";}}i:5;i:4839568;}i:78;a:6:{i:0;s:38:"SHOW FULL COLUMNS FROM `departamentos`";i:1;i:96;i:2;s:21:"yii\db\Command::query";i:3;d:1506178416.3709741;i:4;a:1:{i:0;a:5:{s:4:"file";s:72:"C:\xampp\htdocs\COLDEPORTES-SUPERATE\controllers\EscenarioController.php";s:4:"line";i:86;s:8:"function";s:5:"__get";s:5:"class";s:23:"yii\db\BaseActiveRecord";s:4:"type";s:2:"->";}}i:5;i:4844104;}i:80;a:6:{i:0;s:613:"SELECT
+    kcu.constraint_name,
+    kcu.column_name,
+    kcu.referenced_table_name,
+    kcu.referenced_column_name
+FROM information_schema.referential_constraints AS rc
+JOIN information_schema.key_column_usage AS kcu ON
+    (
+        kcu.constraint_catalog = rc.constraint_catalog OR
+        (kcu.constraint_catalog IS NULL AND rc.constraint_catalog IS NULL)
+    ) AND
+    kcu.constraint_schema = rc.constraint_schema AND
+    kcu.constraint_name = rc.constraint_name
+WHERE rc.constraint_schema = database() AND kcu.table_schema = database()
+AND rc.table_name = 'departamentos' AND kcu.table_name = 'departamentos'";i:1;i:80;i:2;s:21:"yii\db\Command::query";i:3;d:1506178416.3709741;i:4;a:1:{i:0;a:5:{s:4:"file";s:72:"C:\xampp\htdocs\COLDEPORTES-SUPERATE\controllers\EscenarioController.php";s:4:"line";i:86;s:8:"function";s:5:"__get";s:5:"class";s:23:"yii\db\BaseActiveRecord";s:4:"type";s:2:"->";}}i:5;i:4851656;}i:81;a:6:{i:0;s:613:"SELECT
+    kcu.constraint_name,
+    kcu.column_name,
+    kcu.referenced_table_name,
+    kcu.referenced_column_name
+FROM information_schema.referential_constraints AS rc
+JOIN information_schema.key_column_usage AS kcu ON
+    (
+        kcu.constraint_catalog = rc.constraint_catalog OR
+        (kcu.constraint_catalog IS NULL AND rc.constraint_catalog IS NULL)
+    ) AND
+    kcu.constraint_schema = rc.constraint_schema AND
+    kcu.constraint_name = rc.constraint_name
+WHERE rc.constraint_schema = database() AND kcu.table_schema = database()
+AND rc.table_name = 'departamentos' AND kcu.table_name = 'departamentos'";i:1;i:96;i:2;s:21:"yii\db\Command::query";i:3;d:1506178416.371974;i:4;a:1:{i:0;a:5:{s:4:"file";s:72:"C:\xampp\htdocs\COLDEPORTES-SUPERATE\controllers\EscenarioController.php";s:4:"line";i:86;s:8:"function";s:5:"__get";s:5:"class";s:23:"yii\db\BaseActiveRecord";s:4:"type";s:2:"->";}}i:5;i:4853544;}}}s:6:"assets";a:0:{}s:4:"mail";a:0:{}s:8:"timeline";a:3:{s:5:"start";d:1506178416.069957;s:3:"end";d:1506178416.387975;s:6:"memory";i:4981008;}s:4:"user";a:4:{s:8:"identity";a:12:{s:6:"usu_id";i:1;s:14:"usu_contrasena";s:44:"qkrNVhfPiUeyIz6cuPdFY3dCK52LceP5btw9FDukEK8=";s:11:"usu_nombres";s:11:"Mauricio A.";s:13:"usu_apellidos";s:12:"Coral Lozada";s:12:"usu_tipo_doc";i:3;s:11:"usu_num_doc";s:5:"admin";s:12:"usu_hash_key";s:172:"bKKo1F36bcgKgVzCzz1/Q557jZd5cFNtcsWj9xmWmrqbUtyYPPm08PqV/TFxQ9LIMntNijrSsTJ44dz0Gh8u/BeT3MMH0lSB98wsarMyT68/261isD8XFv+fBExIW2bn97ARwHdE0NjPkBaM+EFVncSVQCEo1otAgcLm1hl478c=";s:18:"usu_fecha_creacion";s:19:"2017-06-22 05:29:59";s:10:"usu_estado";i:1;s:22:"usu_cambiar_contrasena";i:1;s:10:"usu_correo";N;s:12:"usu_telefono";N;}s:10:"attributes";a:12:{i:0;s:6:"usu_id";i:1;s:14:"usu_contrasena";i:2;s:11:"usu_nombres";i:3;s:13:"usu_apellidos";i:4;s:12:"usu_tipo_doc";i:5;s:11:"usu_num_doc";i:6;s:12:"usu_hash_key";i:7;s:18:"usu_fecha_creacion";i:8;s:10:"usu_estado";i:9;s:22:"usu_cambiar_contrasena";i:10;s:10:"usu_correo";i:11;s:12:"usu_telefono";}s:13:"rolesProvider";N;s:19:"permissionsProvider";N;}s:6:"router";a:1:{s:8:"messages";a:1:{i:5;a:6:{i:0;s:56:"Pretty URL not enabled. Using default URL parsing logic.";i:1;i:8;i:2;s:32:"yii\web\UrlManager::parseRequest";i:3;d:1506178416.1959641;i:4;a:0:{}i:5;i:2481560;}}}s:7:"summary";a:9:{s:3:"tag";s:13:"59c675702c6cb";s:3:"url";s:86:"http://localhost/COLDEPORTES-SUPERATE/web/index.php?r=escenario%2Fmodalescenario&id=50";s:4:"ajax";i:1;s:6:"method";s:3:"GET";s:2:"ip";s:3:"::1";s:4:"time";d:1506178415.9690001;s:10:"statusCode";i:200;s:8:"sqlCount";i:23;s:9:"mailCount";i:0;}}

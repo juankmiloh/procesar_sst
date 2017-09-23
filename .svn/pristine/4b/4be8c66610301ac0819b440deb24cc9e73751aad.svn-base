@@ -1,0 +1,805 @@
+<?php
+    use yii\helpers\Html;
+    use yii\helpers\Url;
+    use yii\helpers\ArrayHelper;
+    use app\models\TipoDocumento;
+    use app\controllers\EscenarioController;
+
+?>
+
+<link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+  <link rel="stylesheet" href="../css/style.css">
+  <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
+
+<body class="background_images">
+
+    <div class="container-fluid">
+
+        <div class="dashboard-wrapper">
+            <nav class="navbar navbar-default">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                        <span class="sr-only">
+                            Toggle navigation</span>
+                        <span class="icon-bar">
+                        </span>
+                        <span class="icon-bar">
+                        </span>
+                        <span class="icon-bar">
+                        </span>
+                    </button>
+                </div>
+                <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                    <ul class="nav navbar-nav">
+                        <li class="active">
+                            <?php 
+                                echo Html::a('<i class="icon-graphic_eq"></i>'. Yii::t("app", "INICIO") ,array("evento/index"));
+                            ?>
+                        </li>
+                        <li class="active">
+                            <?php 
+                                // echo Html::a('<i class="icon-graphic_eq"></i>'. Yii::t("app", "Ejemplo") ,array("evento/ej"));
+                            ?>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+            <div class="top-bar clearfix">
+                <div class="container-fluid">
+                    <div class="row gutter">
+                        <div class="col-md-8 col-sm-6 col-xs-12">
+                            <h3 class="page-title"><?= Yii::t('app', "SISTEMA_COMPETENCIA") ?></h3>
+                        </div>
+                        <div class="col-md-4 col-sm-6 col-xs-12">
+                            <ul class="tasks pull-right clearfix">
+                                <li>
+                                    <a href="#"><div class="task-num">21</div>
+                                        <p class="task-type"><?= Yii::t('app', "EVENTOS") ?></p>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#"><div class="task-num">15</div>
+                                        <p class="task-type"><?= Yii::t('app', "ESCENARIOS") ?></p>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#"><div class="task-num">6</div>
+                                        <p class="task-type"><?= Yii::t('app', "CAMPEONATOS") ?></p>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="main-container panel-body icons">
+                <div class="row gutter">
+                    <div class="col-lg-2 col-md-2 col-sm-2 col-xs-6 block-195 green-bg">
+                        <img src="../img/torch.png" alt="EVENTOS">
+                        <h3><?= Yii::t('app', "EVENTOS") ?></h3>
+                        <div class="demo-btn-group">
+                            <button type="button" class="btn teal-bg btn-block" data-toggle="modal" data-target="#modalForm"><i class="icon-circle-plus icon-left"></i> Crear Evento</button>
+                        </div>
+                    </div>
+                    <div class="col-lg-2 col-md-2 col-sm-2 col-xs-6 block-195 yellow-bg">
+                        <img src="../img/flag.png" alt="ESCENARIOS">
+                        <h3><?= Yii::t('app', "ESCENARIOS") ?></h3>	
+                        <div class="demo-btn-group">
+                            <button type="button" class="btn teal-bg btn-block" data-toggle="modal" data-target="#modalForm2"><i class="icon-circle-plus icon-left"></i> Crear Escenario</button>
+                        </div>			
+                    </div>
+                    <div class="col-lg-2 col-md-2 col-sm-2 col-xs-6 block-195 orange-bg">
+                        <img src="../img/campeonato.png" alt="CAMPEONATOS">
+                        <h3><?= Yii::t('app', "CAMPEONATOS") ?></h3>
+                        <div class="demo-btn-group">
+                            <button type="button" class="btn teal-bg btn-block" data-toggle="modal" data-target="#modalForm3"><i class="icon-circle-plus icon-left"></i> Crear Campeonato</button>
+                        </div>			
+                    </div>
+                    <div class="col-lg-2 col-md-2 col-sm-2 col-xs-6 block-195 red-bg">
+                        <img src="../img/medal-1.png" alt="PROGRAMACION">
+                        <h3><?= Yii::t('app', "PROGRAMACION") ?></h3>
+                        <div class="demo-btn-group">
+                            <button type="button" class="btn teal-bg btn-block" data-toggle="modal" data-target="#modalForm4"><i class="icon-circle-plus icon-left"></i> Crear Programación</button>
+                        </div>			
+                    </div>
+                    <div class="col-lg-2 col-md-2 col-sm-2 col-xs-6 block-195 tw-bg">
+                        <img src="../img/trophy.png" alt="REGISTRO DE RESULTADOS">
+                        <h3><?= Yii::t('app', "REG_RESULTADOS") ?></h3>
+                        <div class="demo-btn-group">
+                            <button type="button" class="btn teal-bg btn-block" data-toggle="modal" data-target="#modalForm5"><i class="icon-circle-plus icon-left"></i> Crear Resultados</button>
+                        </div>			
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+    <!-- CREAR EVENTO MODAL -->
+    <input id="urlCrearEvento" type="hidden" value="<?= Url::toRoute(['evento/crearevento']); ?>">
+    <div class="modal fade" id="modalForm" tabindex="-1" role="dialog" aria-labelledby="modalForm">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    <h4 class="modal-title"><?= Yii::t('app', "NUEVO_EVENTO") ?></h4>
+                </div>
+                <div class="modal-body">
+                    <form id="nuevo_evento_form">
+                        <div class="form-group">
+                            <div class="row gutter">
+                                <div class="col-md-6">
+                                    <label class="control-label"><?= Yii::t('app', "NOMBRE") ?></label>
+                                    <input type="text" class="form-control" id="nombre_evento" name="nombre_evento">
+
+                                    <label class="control-label"><?= Yii::t('app', "SEDE") ?></label>
+                                    <input type="text" class="form-control" id="sede_evento" name="sede_evento">
+
+                                    <label class="control-label"><?= Yii::t('app', "TIPO_EVENTO") ?></label>
+                                    <?php 
+                                        $items = ArrayHelper::map(\app\models\TipoEventos::find()->all(), 'te_id', 'te_nombre');
+                                        echo Html::dropDownList('tipo_doc', 'tipo_doc', $items, ['prompt'=>'Seleccione','class'=>'form-control']);
+                                    ?>
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="control-label"><?= Yii::t('app', "FECHA_INICIO") ?></label>
+                                    <div class="input-group">
+                                        <input type="text" class="form-control" id="date_inicio" name="date_inicio" placeholder="dd/mm/aaaa"> <span class="input-group-addon"><span class="icon-calendar"></span></span>
+                                    </div>
+
+                                    <label class="control-label"><?= Yii::t('app', "FECHA_FIN") ?></label>
+                                    <div class="input-group">
+                                        <input type="text" class="form-control" placeholder="dd/mm/aaaa"> <span class="input-group-addon"><span class="icon-calendar"></span></span>
+                                    </div>
+
+                                    <label class="control-label"><?= Yii::t('app', "REGION") ?></label>
+                                    <?php 
+                                        $items = ArrayHelper::map(\app\models\Region::find()->all(), 'reg_id', 'reg_nombre');
+                                        echo Html::dropDownList('region_id', 'region_id', $items, ['prompt'=>'Seleccione','class'=>'form-control']); 
+                                    ?>
+                                </div>
+                            </div>
+                            <div class="row gutter">
+                                <div class="col-md-6">
+                                    <label class="control-label"><?= Yii::t('app', "PARTICIPANTES") ?></label>
+                                    <div class="checkbox">
+                                        <input type="checkbox" id="region" checked="checked"> <label for="region">Región 1</label> <br/>
+                                        <input type="checkbox" id="region" checked="checked"> <label for="region">Región 2</label> <br/>
+                                        <input type="checkbox" id="region" checked="checked"> <label for="region">Región 3</label> <br/>
+                                        <input type="checkbox" id="region" checked="checked"> <label for="region">Región 4</label> 
+                                    </div>
+
+
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="control-label"><?= Yii::t('app', "DEPORTES") ?></label>
+                                    <div class="checkbox">
+                                        <input type="checkbox" id="deporte" checked="checked"> <label for="deporte">Deporte 1</label> <br/>
+                                        <input type="checkbox" id="deporte" checked="checked"> <label for="deporte">Deporte 2</label> <br/>
+                                        <input type="checkbox" id="deporte" checked="checked"> <label for="deporte">Deporte 3</label> <br/>
+                                        <input type="checkbox" id="deporte" checked="checked"> <label for="deporte">Deporte 4</label> 
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="message-texta" class="control-label"><?= Yii::t('app', "DETALLE_EVENTO") ?></label>
+                            <textarea class="form-control" id="message-texta"></textarea>
+                        </div>
+
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal"><i class="icon-circle-with-cross icon-left"></i> Cerrar</button>
+                            <button type="button" class="btn btn-info" data-dismiss="modal" onclick="nuevoEvento();"><i class="icon-save icon-left"></i> Guardar</button>
+                        </div>
+                    </form>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <!-- CREAR ESCENARIO MODAL -->
+    <div class="modal fade" id="modalForm2" tabindex="-1" role="dialog" aria-labelledby="modalForm2">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    <h4 class="modal-title">NUEVO ESCENARIO</h4>
+                </div>
+                <div class="modal-body">
+                    <form id="form-add-escenario" action="eventos_fin3.html" onsubmit="return confirm('Desea enviar formulario)">
+                        <div class="form-group">
+                            <div class="row gutter">
+                                <div class="col-md-6">
+                                    <label class="control-label">Nombre</label>
+                                    <input type="url" class="form-control" id="esc_nombre" name="esc_nombre">
+
+                                    <label class="control-label">Dirección</label>
+                                    <input type="url" class="form-control" id="esc_direccion" name="esc_direccion">
+                                </div>
+                                <div class="col-md-6">
+                                	<input id="urlMostrarCiudad" type="hidden" value="<?= Url::toRoute(['escenario/listarciudades']); ?>">
+                                	<label class="control-label"><?= Yii::t('app',"DEPARTAMENTO") ?></label>
+                                    <?php
+                                    	$items = ArrayHelper::map(\app\models\Locacion::find()->where(['tl_id'=>1])->all(), 'loc_id','loc_nombre');
+                                    	echo Html::dropDownList('departamento', 'loc_id', $items, ['prompt'=>'Seleccione','class'=>'form-control', 'onchange'=>'mostrarCiudad(this.value);','id'=>'depa']);
+                                    ?>
+                                    <label class="control-label"><?= Yii::t('app',"CIUDAD") ?></label>
+                                    <div class="ciudad">
+                                    	<select class="form-control"><option>Seleccione</option></select>
+                                    </div>                            
+                                </div>
+                            </div>
+                            <div class="row gutter">
+                                <div class="col-md-6">
+                                    <label class="control-label"><?= Yii::t('app',"DEPORTES") ?></label>
+                                    <?php
+                                    	$items = ArrayHelper::map(\app\models\TipoDeporte::find()->all(), 'td_id','td_nombre');
+                                    	echo Html::dropDownList('td_id', 'td_id', $items, ['prompt' =>'Seleccione', 'class'=>'form-control','onchange'=>'mostrarDeporte(this.value);','id'=>'depor']); 
+                                    ?>
+                                </div>
+                                <div class="col-md-6">
+
+                                <input id="urlTipoDeporte" type="hidden" value="<?= Url::toRoute(['escenario/listardeportetipo']); ?>">
+                                    <div class="checkbox deportes">                                      
+                                        
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="form-group"><br> 
+                                        <label class="control-label">Contácto</label>
+                                        <div class="row gutter">
+                                            <div class="col-md-4">
+                                                <label class="control-label">Nombre</label>
+                                                <input type="text" class="form-control" name="ce_nombre">
+                                            </div>
+                                            <div class="col-md-4">
+                                                <label class="control-label">Apellidos</label>
+                                                <input type="text" class="form-control" name="ce_apellidos">
+                                            </div>
+                                            <div class="col-md-4">
+                                                <label class="control-label">Teléfono</label>
+                                                <input type="text" class="form-control" name="ce_telefono">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row gutter">
+                                        <div class="col-md-6">
+                                            <label class="control-label">Celular</label>
+                                            <input type="text" class="form-control" name="ce_celular">
+                                        </div>
+                                        <div class="col-md-6">
+                                            <label class="control-label">Email</label>
+                                            <input type="email" class="form-control" name="ce_email">
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="message-texta" class="control-label">Observaciones:</label>
+                            <textarea class="form-control" id="message-texta" name="esc_observaciones"></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label for="message-texta" class="control-label">Disponibilidad:</label>
+                            <div class="panel-body">
+                                <table class="table table-striped success no-margin">
+                                    <thead>
+                                        <tr>
+                                            <th>#</th>
+                                            <th class="col-md-5 col-xs-5">FECHA INICIO</th>
+                                            <th class="col-md-5 col-xs-5">FECHA FIN</th>
+                                            <th class="col-md-4 col-xs-4">HORARIO</th>
+                                            <th class="col-md-5 col-xs-5">OPCIONES</th>
+                                        </tr>
+                                    </thead>                                    
+                                    <input id="urlBorrarDisp" type="hidden" value="<?= Url::toRoute(['escenario/borrardisponibilidad']);?>">
+                                    <input id="urlModifDisp" type="hidden" value="<?= Url::toRoute(['escenario/modificardisponibilidad']); ?>">
+                                    <tbody class="cuerpo-dis">
+                                    	<?php
+                                    		EscenarioController::limpiarDisponibilidad();
+                                    	?>
+                                    </tbody>
+                                </table>
+                                <table class="table success no-margin"> 
+                                	<tr>
+                                        <th scope="row"></th>
+                                        <td>
+                                        	<div class="input-group">
+                                        		<input type="text" id="fecha-ini" class="form-control fecha" placeholder="aaaa-mm-dd"> 
+                                        		<span class="input-group-addon">
+                                        			<span class="icon-calendar"></span>
+                                        		</span>
+                                        	</div>
+                                        </td>
+                                        <td>
+                                        	<div class="input-group">
+                                        		<input type="text" id="fecha-fin" class="form-control fecha" placeholder="aaaa-mm-dd"> 
+                                        		<span class="input-group-addon">
+                                        			<span class="icon-calendar"></span>
+                                        		</span>
+                                        	</div>
+                                        </td>
+                                        <td>
+                                        	<?php
+                                        		 
+                                    			$horas = EscenarioController::listarHoras();
+                                        		?>
+                                        		<select class="selector selectpicker" multiple>
+                                        		<?php
+                                        		foreach ($horas as $hora) {
+                                        			?>
+                                        			<option id="hor<?php echo $hora->hor_id ?>" value="<?php echo $hora->hor_id ?>"><?php echo $hora->hor_nombre_12_horas ?></option>
+                                        			<?php
+                                        		}                                        		
+                                        	?>
+                                        		</select>	
+                                        </td>
+                                        <td>
+                                            <input id="urlNuevaDisponibilidad" type="hidden" value="<?= Url::toRoute(['escenario/agregardisponibilidad'])?>">
+                                        	<span class="glyphicon glyphicon-plus b" onclick="agregarFecha()"></span>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
+                        
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal"><i class="icon-circle-with-cross icon-left"></i> Cerrar</button>
+                            <input id="urlNuevoEscenario" type="hidden" value="<?= Url::toRoute(['escenario/crearescenario'])?>">
+                            <button type="button" class="btn btn-info"  onclick="guardarEscenario();"><i class="icon-save icon-left"></i> Guardar</button>
+                            <!-- data-dismiss="modal" -->
+                        </div>
+                    </form>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <!-- CREAR ESCENARIO MODAL -->
+    <div class="modal fade" id="modalForm3" tabindex="-1" role="dialog" aria-labelledby="modalForm3">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    <h4 class="modal-title">NUEVO CAMPEONATO</h4>
+                </div>
+                <div class="modal-body">
+                    <form action="eventos_fin4.html" onsubmit="return confirm('Desea enviar formulario')">
+                        <div class="form-group">
+                            <div class="row gutter">
+                                <div class="col-md-6">
+                                    <label class="control-label">Evento</label>
+                                    <select class="form-control" name="Evento">
+                                        <option value="Region 1">Evento 1
+                                        <option value="Region 2">Evento 2
+                                    </select>
+
+                                    <label class="control-label">Tipo</label>
+                                    <select class="form-control" name="Tipo">
+                                        <option value="Region 1">Tipo 1
+                                        <option value="Region 2">Tipo 2
+                                    </select>
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="control-label">Género</label>
+                                    <select class="form-control" name="Género">
+                                        <option value="Region 1">Género 1
+                                        <option value="Region 2">Género 2
+                                    </select>
+
+                                    <label class="control-label">Categoría</label>
+                                    <select class="form-control" name="Categoría">
+                                        <option value="Region 1">Categoría 1
+                                        <option value="Region 2">Categoría 2
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="row gutter">
+                                <div class="col-md-12">
+                                    <label class="control-label">Deportes</label>								
+                                </div>
+                                <div class="form-group">
+                                    <label class="radio-inline"><input type="radio" name="inlineRadioOptions" id="inlineRadio1"> Deporte 1</label>
+                                    <label class="radio-inline"><input type="radio" name="inlineRadioOptions" id="inlineRadio2"> Deporte 2</label>
+                                    <label class="radio-inline"><input type="radio" checked="checked" name="inlineRadioOptions" id="inlineRadio3"> Deporte 3</label>
+                                    <label class="radio-inline"><input type="radio" name="inlineRadioOptions" id="inlineRadio4"> Deporte 4</label>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="form-group">
+                            <label for="message-texta" class="control-label">Disponibilidad:</label>
+                            <div class="panel-body">
+                                <table class="table table-striped success no-margin">
+                                    <thead>
+                                        <tr>
+                                            <th>#</th>
+                                            <th class="col-md-5 col-xs-5"><input type="checkbox" name="inlineRadioOptions" id="check1"></th>
+                                            <th class="col-md-5 col-xs-5">ESCENARIOS</th>
+                                            <th class="col-md-4 col-xs-4"></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <th scope="row">1</th>
+                                            <td><input type="checkbox" name="inlineRadioOptions" id="check1"></td>
+                                            <td>ESCENARIOS 1</td>
+                                            <td><span class="label label-success"><i class="icon-circle-plus"></i></span> 
+                                                <span class="label label-warning"><i class="icon-edit"></i></span>
+                                                <span class="label label-danger"><i class="icon-circle-with-cross"></i></span>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <th scope="row">2</th>
+                                            <td><input type="checkbox" name="inlineRadioOptions" id="check1"></td>
+                                            <td>ESCENARIOS 2</td>
+                                            <td><span class="label label-success"><i class="icon-circle-plus"></i></span> 
+                                                <span class="label label-warning"><i class="icon-edit"></i></span>
+                                                <span class="label label-danger"><i class="icon-circle-with-cross"></i></span>
+                                            </td>
+                                        </tr>
+
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="message-texta" class="control-label">Observaciones:</label>
+                            <textarea class="form-control" id="message-texta"></textarea>
+                        </div>
+
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal"><i class="icon-circle-with-cross icon-left"></i> Cerrar</button>
+                            <button type="button" class="btn btn-info" data-dismiss="modal" onclick=" location.href = 'eventos_fin4.html'"><i class="icon-save icon-left"></i> Sistema de Campeonato</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+        </div>
+    </div>
+	
+	
+	
+	<!-- CREAR usuario modal -->
+    <div class="modal fade" id="crear_usuario" tabindex="-1" role="dialog" aria-labelledby="crear_usuario">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    <h4 class="modal-title">CREAR USUARIO</h4>
+                </div>
+                <div class="modal-body">
+                    <form action="eventos_fin2.html" onsubmit="return confirm('Desea enviar formulario)">
+					<div class="form-group">
+						<div class="row gutter">
+							<div class="col-md-6">
+								<label class="control-label">Nombres</label>
+								<input type="url" class="form-control" name="website">
+
+								<label class="control-label">Apellidos</label>
+								<input type="url" class="form-control" name="website">
+
+								<label class="control-label">Tipo de Documento</label>
+								<select class="form-control" name="tipo de evento">
+									<option value="SELECCIONE">SELECCIONE
+									<option value="TARJETA DE IDENTIDAD">TI
+									<option value="REGISTRO CIVIL">RC
+									<option value="CEDULA DE CIUDADANIA">CC
+									<option value="CEDULA EXTRANJERIA">CE
+									<option value="PASAPORTE">PT
+								</select>
+								
+								<label class="control-label">Número de Documento</label>
+								<input type="url" class="form-control" name="website">
+							</div>
+							<div class="col-md-6">
+								<div class="row gutter">
+									<div class="col-md-6">
+										<label class="control-label">Fecha de Nacimiento</label>
+										<div class="input-group">
+											<input type="text" class="form-control" placeholder="dd/mm/aaaa"/> 
+										</div>
+									</div>
+									<div class="col-md-6">
+										<label class="control-label">Fecha de Inscripción</label>
+										<div class="input-group">
+											<input type="text" class="form-control" placeholder="dd/mm/aaaa"/> 
+										</div>
+									</div>
+								</div>
+								
+								<label class="control-label">Ciudad</label>
+								<select class="form-control" name="Ciudad">
+									<option value="Ciudad 1">Ciudad 1
+									<option value="Ciudad 2">Ciudad 2
+									<option value="Ciudad 3">Ciudad 3
+									<option value="Ciudad 4">Ciudad 4
+								</select>
+								
+								<label class="control-label">Departamento</label>
+								<select class="form-control" name="Departamento">
+									<option value="Departamento 1">Departamento 1
+									<option value="Departamento 2">Departamento 2
+									<option value="Departamento 3">Departamento 3
+									<option value="Departamento 4">Departamento 4
+								</select>
+
+								
+								
+								<label class="control-label">Rol</label>
+								<select class="form-control" name="Region">
+									<option value="Rol 1">Rol 1
+									<option value="Rol 2">Rol 2
+									<option value="Rol 3">Rol 3
+									<option value="Rol 4">Rol 4
+								</select>
+							</div>
+						</div>
+						<div class="row gutter">
+							<div class="col-md-6">
+								<label class="control-label">Contraseña</label>
+								<input type="password" class="form-control" name="website">
+
+								
+							</div>
+							<div class="col-md-6">
+								<label class="control-label">Confirmar Contraseña</label>
+								<input type="password" class="form-control" name="website">
+							</div>
+						</div>
+						<div class="row gutter">
+							<div class="form-group">
+								<div class="col-md-6">
+									<label for="message-texta" class="control-label">Avatar de usuario:</label>
+									<input type="file" name="fileupload" value="fileupload" id="fileupload">
+								</div>
+								<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+									<div class="panel-no-padding pink-bg center-text">
+										<a class="user-profile block-195">
+											<img src="../img/gold-medal.png" class="profile-thumb" alt="AVATAR DEL USUARIO">
+										</a>
+									</div>
+								</div>
+							</div>
+						</div>	
+					</div>
+
+					
+					<div class="modal-footer">
+						<button type="button" class="btn btn-default" data-dismiss="modal"><i class="icon-circle-with-cross icon-left"></i> Cerrar</button>
+						<button type="button" class="btn btn-info" data-dismiss="modal" onclick=" location.href='#'"><i class="icon-save icon-left"></i> Guardar</button>
+					</div>
+				</form>
+                </div>
+            </div>
+
+        </div>
+    </div>
+	<!-- fin CREAR usuario modal -->
+	<!-- EDITAR usuario modal -->
+    <div class="modal fade" id="editar_usuario" tabindex="-1" role="dialog" aria-labelledby="editar_usuario">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    <h4 class="modal-title">CREAR USUARIO</h4>
+                </div>
+                <div class="modal-body">
+                   <div class="main-container">
+		<div class="row gutter">
+		<!-- tabla de usuarios -->
+			<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+				<div class="panel panel-light">
+					<div class="panel-heading">
+						<h4>LISTADO DE USUARIOS</h4>
+					</div>
+					<div class="panel-body">
+						<div class="table-responsive">
+							<table id="basicExample" class="table table-striped table-condensed table-bordered no-margin">
+								<thead>
+									<tr>
+										<th>#</th>
+										<th><input type="checkbox" id="deporte" ></th>
+										<th>Nombre</th>
+										<th>Rol</th>
+										<th>Ciudad</th>
+										<th>Edad</th>
+										<th>Fecha Nacimiento</th>
+										<th>Campos de Seleccion</th>
+									</tr>
+								</thead>
+								<tfoot>
+									<tr>
+										<th>Numero</th>
+										<th>Selección</th>
+										<th>Nombre</th>
+										<th>Rol</th>
+										<th>Ciudad</th>
+										<th>Edad</th>
+										<th>Fecha Nacimiento</th>
+										<th>Campos de Seleccion</th>
+									</tr>
+								</tfoot>
+								<tbody>
+									<tr>
+										<td>1</td>
+										<td><input type="checkbox" id="deporte"></td>
+										<td>Tiger Nvimn</td>
+										<td>System Architect</td>
+										<td>Edinburgh</td>
+										<td>61</td>
+										<td>2011/04/25</td>
+										<td>
+											
+											<span class="label label-warning"><a href="eventos_fin2-sub1.html"><i class="icon-mode_edit"></i></a></span> 
+											<span class="label label-danger"><i class="icon-circle-with-cross"></i></span>
+										</td>
+									</tr>
+									<tr>
+										<td>2</td>
+										<td><input type="checkbox" id="deporte" ></td>									
+										<td>Nebrett Remters</td>
+										<td>Accountant</td>
+										<td>Tokyo</td>
+										<td>63</td>
+										<td>2011/07/25</td>
+										<td>
+											
+											<span class="label label-warning"><a href="eventos_fin2-sub1.html"><i class="icon-mode_edit"></i></a></span> 
+											<span class="label label-danger"><i class="icon-circle-with-cross"></i></span>
+										</td>
+									</tr>
+									<tr>
+										<td>3</td>
+										<td><input type="checkbox" id="deporte" ></td>									
+										<td>Ashton Cox</td>
+										<td>Junior Technical Author</td>
+										<td>San Francisco</td>
+										<td>66</td>
+										<td>2009/01/12</td>
+										<td>
+											
+											<span class="label label-warning"><a href="eventos_fin2-sub1.html"><i class="icon-mode_edit"></i></a></span> 
+											<span class="label label-danger"><i class="icon-circle-with-cross"></i></span>
+										</td>
+									</tr>
+									<tr>
+										<td>4</td>
+										<td><input type="checkbox" id="deporte" ></td>									
+										<td>Cedric Kelly</td>
+										<td>Senior Javascript Developer</td>
+										<td>Edinburgh</td>
+										<td>22</td>
+										<td>2012/03/29</td>
+										<td>
+											
+											<span class="label label-warning"><a href="eventos_fin2-sub1.html"><i class="icon-mode_edit"></i></a></span> 
+											<span class="label label-danger"><i class="icon-circle-with-cross"></i></span>
+										</td>
+									</tr>
+									<tr>
+										<td>5</td>
+										<td><input type="checkbox" id="deporte" ></td>									
+										<td>Airi Satou</td>
+										<td>Accountant</td>
+										<td>Tokyo</td>
+										<td>33</td>
+										<td>2008/11/28</td>
+										<td>
+											
+											<span class="label label-warning"><a href="eventos_fin2-sub1.html"><i class="icon-mode_edit"></i></a></span> 
+											<span class="label label-danger"><i class="icon-circle-with-cross"></i></span>
+										</td>
+									</tr>
+									<tr>
+										<td>6</td>
+										<td><input type="checkbox" id="deporte" ></td>									
+										<td>Brielle Williamson</td>
+										<td>Integration Specialist</td>
+										<td>New York</td>
+										<td>61</td>
+										<td>2012/12/02</td>
+										<td>
+											
+											<span class="label label-warning"><a href="eventos_fin2-sub1.html"><i class="icon-mode_edit"></i></a></span> 
+											<span class="label label-danger"><i class="icon-circle-with-cross"></i></span>
+										</td>
+									</tr>
+									<tr>
+										<td>7</td>
+										<td><input type="checkbox" id="deporte" ></td>									
+										<td>Senrod Cvgedler</td>
+										<td>Sales Assistant</td>
+										<td>San Francisco</td>
+										<td>59</td>
+										<td>2012/08/06</td>
+										<td>
+											
+											<span class="label label-warning"><a href="eventos_fin2-sub1.html"><i class="icon-mode_edit"></i></a></span> 
+											<span class="label label-danger"><i class="icon-circle-with-cross"></i></span>
+										</td>
+									</tr>
+									<tr>
+										<td>8</td>
+										<td><input type="checkbox" id="deporte" ></td>									
+										<td>Luna Zohndson</td>
+										<td>Integration Specialist</td>
+										<td>Tokyo</td>
+										<td>55</td>
+										<td>2010/10/14</td>
+										<td>
+											
+											<span class="label label-warning"><a href="eventos_fin2-sub1.html"><i class="icon-mode_edit"></i></a></span> 
+											<span class="label label-danger"><i class="icon-circle-with-cross"></i></span>
+										</td>
+									</tr>
+									<tr>
+										<td>9</td>
+										<td><input type="checkbox" id="deporte" ></td>									
+										<td>Caleen Hujst</td>
+										<td>Javascript Developer</td>
+										<td>San Francisco</td>
+										<td>39</td>
+										<td>2009/09/15</td>
+										<td>
+											
+											<span class="label label-warning"><a href="eventos_fin2-sub1.html"><i class="icon-mode_edit"></i></a></span> 
+											<span class="label label-danger"><i class="icon-circle-with-cross"></i></span>
+										</td>
+									</tr>
+									<tr>
+										<td>10</td>
+										<td><input type="checkbox" id="deporte" ></td>									
+										<td>Seknya Ferost</td>
+										<td>Software Engineer</td>
+										<td>Edinburgh</td>
+										<td>23</td>
+										<td>2008/12/13</td>
+										<td>
+											
+											<span class="label label-warning"><a href="eventos_fin2-sub1.html"><i class="icon-mode_edit"></i></a></span> 
+											<span class="label label-danger"><i class="icon-circle-with-cross"></i></span>
+										</td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+					</div>
+				</div>
+			</div>
+			<!-- fin tabla de usuarios -->
+		</div>
+	</div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+	<!-- FIN EDITAR usuario modal -->
+     <script src="../views/evento/js/evento.js"></script>
+     <script src="../views/escenario/js/escenario.js"></script>
+     <script type="text/javascript">
+        //Datepicker
+        $(function () {
+            $(".fecha").datepicker({
+            	format:'yyyy-mm-dd'
+            });
+        });
+    </script>
+</body>

@@ -1,0 +1,49 @@
+<?php
+
+namespace app\models;
+
+use Yii;
+
+/**
+ * This is the model class for table "disponibilidad_escenario".
+ *
+ * @property integer $de_id
+ * @property string $de_fecha_ini
+ * @property string $de_fecha_fin
+ * @property integer $esc_id
+ */
+class DisponibilidadEscenario extends \yii\db\ActiveRecord
+{
+    /**
+     * @inheritdoc
+     */
+    public static function tableName()
+    {
+        return 'disponibilidad_escenario';
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function rules()
+    {
+        return [
+            [['de_fecha_ini', 'de_fecha_fin'], 'required'],
+            [['de_fecha_ini', 'de_fecha_fin'], 'safe'],
+            [['esc_id'], 'integer'],
+        ];
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function attributeLabels()
+    {
+        return [
+            'de_id' => 'PK',
+            'de_fecha_ini' => 'Fecha inicial',
+            'de_fecha_fin' => 'Fecha final',
+            'esc_id' => 'Escenario asociado',
+        ];
+    }
+}

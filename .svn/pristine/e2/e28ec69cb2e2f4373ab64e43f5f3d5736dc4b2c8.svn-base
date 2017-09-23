@@ -1,0 +1,109 @@
+<?php
+namespace app\controllers;
+
+use yii\filters\AccessControl;
+use yii\web\Controller;
+use yii\filters\VerbFilter;
+use yii\helpers\ArrayHelper;
+use yii\helpers\Html;
+use app\models\Escenario;
+use app\models\Deporte;
+
+class EscenarioController extends Controller{
+
+	public function behaviors()
+    {
+        return [
+            'access' => [
+                'class' => AccessControl::className(),
+                'rules' => [
+                    [
+                        'actions' => ['crearescenario','ej','borrarescenario','listardeportetipo'], // add all actions to take guest to login page
+                        'allow' => true,
+                        'roles' => ['@'],
+                    ],
+                ],
+            ],
+            'verbs' => [
+                'class' => VerbFilter::className(),
+                'actions' => [
+                    'logout' => ['post'],
+                ],
+            ],
+        ];
+    }
+
+    public function actionEj(){
+        return $this->render('ej');
+    }
+
+    public function actionCrearescenario(){
+        // Valores traidos por medio de Ajax 
+    		$nombre = $_GET['nombre'];
+    		$direccion = $_GET['direccion'];
+    		$ciudad = $_GET['ciudad'];
+    		$depto = $_GET['depto'];
+
+        // Se asignan los valores recibidos por medio del modelo
+            $escenario = new Escenario();
+            $escenario->esc_nombre = $nombre;
+            $escenario->esc_direccion = $direccion;
+            $escenario->ciu_id = $ciudad;
+            $escenario->depa_id = $depto;
+            $validacion = $escenario->validate();
+            
+        // Se valida que los datos recibidos cumplan las reglas del modelo
+            if($validacion){
+                // Se guarda un registro por medio de la funcion insert() de Yii2
+            	$insert = $escenario->insert();
+            	if($insert){
+            		 echo "Guardado";
+            	}else{
+            		echo "Error al guardar";
+            	}
+            }else{
+                echo "Algún dato no es válido";
+            	// print_r($escenario->errors);
+            }
+    }
+
+    public function actionBorrarescenario(){
+        $id = $_GET['id'];
+        $escenario = Escenario::findOne($id);
+        $accion = $escenario->delete();
+        if($accion){
+            echo "1";
+        }else{
+            echo "0";
+        }
+    }
+
+    public function actionListardeportetipo(){
+        $tipo = $_GET['tipo'];
+        $deportes = $this->listarDeportePorTipo($tipo);
+        $view = Html::CheckboxList('dep_nombre','dep_id', ArrayHelper::map($deportes,'dep_id','dep_nombre'));
+        echo json_encode($view);        
+    }
+
+    public static function mostrarEscenarios(){
+        $items = ArrayHelper::map(Escenario::find()->all(),'esc_id','esc_direccion','esc_nombre');
+        return $items;
+    }
+
+    public static function listarEscenarios(){
+        return Escenario::find()->orderBy('esc_id')->all();
+    }
+
+    public static function listarEscenarioPorId($id){
+        return Escenario::find()->where(['esc_id'=>$id])->orderBy('esc_id')->all();
+    }
+
+    public static function listarDeportePorTipo($tipo){
+        return Deporte::find()->where(['td_id'=>$tipo])->all();
+    }
+
+    public static function listarDeportes(){
+        return Deporte::find()->all();
+    }
+}
+?>

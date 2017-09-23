@@ -1,0 +1,57 @@
+<?php
+
+namespace app\models;
+
+use Yii;
+
+/**
+ * This is the model class for table "deporte".
+ *
+ * @property integer $dep_id
+ * @property string $dep_nombre
+ * @property string $dep_descripcion
+ *
+ * @property EventoTieneDeportes[] $eventoTieneDeportes
+ */
+class Deporte extends \yii\db\ActiveRecord
+{
+    /**
+     * @inheritdoc
+     */
+    public static function tableName()
+    {
+        return 'deporte';
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function rules()
+    {
+        return [
+            [['dep_nombre'], 'required'],
+            [['dep_descripcion'], 'string'],
+            [['dep_nombre'], 'string', 'max' => 25],
+        ];
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function attributeLabels()
+    {
+        return [
+            'dep_id' => Yii::t('app', 'Dep ID'),
+            'dep_nombre' => Yii::t('app', 'Nombre del deporte'),
+            'dep_descripcion' => Yii::t('app', 'Descripción del deporte'),
+        ];
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getEventoTieneDeportes()
+    {
+        return $this->hasMany(EventoTieneDeportes::className(), ['dep_id' => 'dep_id']);
+    }
+}

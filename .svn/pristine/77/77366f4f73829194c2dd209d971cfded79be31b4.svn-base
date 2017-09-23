@@ -1,0 +1,137 @@
+<?php
+
+namespace app\controllers;
+
+use yii\web\Controller;
+use Yii;
+
+class HelperController extends Controller
+{
+
+    /**
+     * Escribe en la bitacora del sistema. 
+     * @param type $model
+     * @param type $msnEs
+     */
+    public static function writetolog($model, $msn, $usuid){
+        $bitacora = new \app\models\Bitacora();
+        $bitacora->usu_id = $usuid;
+        $bitacora->bit_model = $model;
+        $bitacora->bit_descripcion = $msn;
+        
+        $bitacora->save();
+    }
+    
+    
+    /**
+     * Envia correo electronico con los datos suminstrados
+     */
+    public static function sendMail($msn, $to, $asunto){
+        Yii::$app->mailer->compose()
+            ->setFrom('no-reply@coldeportes.gov.co')
+            ->setTo($to)
+            ->setSubject($asunto)
+            ->setHtmlBody($msn)
+            ->send();
+    }
+    
+    /**
+     * Consulta los municipios de un departamento dado
+     */
+    public function actionGetmunicipios(){
+ 
+        $id = $_GET['id'];
+        
+        $posts = \app\models\Municipios::find()
+                ->where(['municipios_dptos_code' => $id])
+                ->orderBy('municipios_name ASC')
+                ->all();
+ 
+        echo "<option>".Yii::t('app', "SELECCIONE")."</option>";
+        if($posts != null){
+            foreach($posts as $post){
+                echo "<option value='".$post->municipios_id."'>".$post->municipios_name."</option>";
+            }
+        }
+        
+    }
+    
+    /**
+     * Retorna los deportes dado el tipo de deporte
+     */
+    public function actionGetdeportes(){
+        $id = $_GET['id'];
+        
+        $posts = \app\models\Deporte::find()
+                ->where(['td_id' => $id])
+                ->orderBy('dep_nombre ASC')
+                ->all();
+ 
+        echo "<option>".Yii::t('app', "SELECCIONE")."</option>";
+        if($posts != null){
+            foreach($posts as $post){
+                echo "<option value='".$post->dep_id."'>".$post->dep_nombre."</option>";
+            }
+        }
+    }
+    
+    /**
+     * Consulta los deportistas de un equipo dado. 
+     */
+    public function actionGetdeportistasequipo(){
+        $id = $_GET['id'];
+        
+        $posts = \app\models\Deportistas::find()
+                ->leftJoin("equipo_tiene_deportistas", "equipo_tiene_deportistas.dep_id = deportistas.dep_id")
+                ->where(['equipo_tiene_deportistas.equi_id' => $id])
+                ->orderBy('datos_participante ASC')
+                ->all();
+ 
+        echo "<option value=''>".Yii::t('app', "SELECCIONE")."</option>";
+        if($posts != null){
+            foreach($posts as $post){
+                echo "<option value='".$post->dep_id."'>".$post->datos_participante."</option>";
+            }
+        }
+    }
+    
+    /**
+     * Retorna las pruebas de un deporte, genero, categoria, tipo de deporte seleccionado
+     */
+    public function actionGetpruebas(){
+        $deporte = $_GET['idDeporte'];
+        $genero = $_GET['idGenero'];
+        $categoria = $_GET['idCategoria'];
+        $tipodeporte = $_GET['tipoDeporte'];
+        
+        $posts = \app\models\Prueba::find()
+                ->where(['dep_id' => $deporte, 'prueb_genero' => $genero, 'cat_id' => $categoria, 'tipo_deporte_id' => $tipodeporte])
+                ->orderBy('prueb_nombre ASC')
+                ->all();
+ 
+        echo "<option>".Yii::t('app', "SELECCIONE")."</option>";
+        if($posts != null){
+            foreach($posts as $post){
+                echo "<option value='".$post->prueb_id."'>".$post->prueb_nombre."</option>";
+            }
+        }
+    }
+    
+    
+    static function mkRange($start,$end) {
+	$count = HelperController::strToInt($end) - HelperController::strToInt($start);
+	$r = array();
+	do {$r[] = $start++;} while ($count--);
+	return $r;
+}
+ 
+    static function strToInt($str) {
+            $str = strrev($str);
+            $dec = 0;
+            for ($i = 0; $i < strlen($str); $i++) {
+                    $dec += (base_convert($str[$i],36,10)-9) * pow(26,$i);
+            }
+            return $dec;
+    }
+    
+}

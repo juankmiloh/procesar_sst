@@ -1,0 +1,47 @@
+<?php
+
+namespace app\models;
+
+use Yii;
+
+/**
+ * This is the model class for table "{{%grupo_campeonato}}".
+ *
+ * @property integer $gru_id
+ * @property string $gru_nombre
+ * @property integer $gru_estado
+ */
+class GrupoCampeonato extends \yii\db\ActiveRecord
+{
+    /**
+     * @inheritdoc
+     */
+    public static function tableName()
+    {
+        return '{{%grupo_campeonato}}';
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function rules()
+    {
+        return [
+            [['gru_id', 'gru_nombre', 'gru_estado'], 'required'],
+            [['gru_id', 'gru_estado'], 'integer'],
+            [['gru_nombre'], 'string', 'max' => 55],
+        ];
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function attributeLabels()
+    {
+        return [
+            'gru_id' => 'Gru ID',
+            'gru_nombre' => 'Gru Nombre',
+            'gru_estado' => 'Gru Estado',
+        ];
+    }
+}

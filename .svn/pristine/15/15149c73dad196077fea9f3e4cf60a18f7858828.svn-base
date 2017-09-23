@@ -1,0 +1,237 @@
+<?php
+    use yii\helpers\Html;
+    use yii\helpers\Url;
+    use yii\helpers\ArrayHelper;
+?>
+
+
+<body class="background_images">
+
+    <div class="container-fluid">
+
+        <div class="dashboard-wrapper">
+            
+            <!-- MIGA DE PAN -->
+            <nav class="navbar navbar-default">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                        <span class="sr-only">
+                            Toggle navigation</span>
+                        <span class="icon-bar">
+                        </span>
+                        <span class="icon-bar">
+                        </span>
+                        <span class="icon-bar">
+                        </span>
+                    </button>
+                </div>
+                <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                    <ul class="nav navbar-nav">
+                        <li>
+                            <?php
+                            echo Html::a('<i class="icon-graphic_eq"></i>' . Yii::t("app", "INICIO"), array("evento/index"));
+                            ?>
+                        </li>
+                        <li>
+                            <?php
+                            echo Html::a('<i class="icon-graphic_eq"></i>' . Yii::t("app", "CONJUNTO"), array("evento/conjunto"));
+                            ?>
+                        </li>
+                        <li class="active">
+                            <?php
+                            echo Html::a('<i class="icon-graphic_eq"></i>' . Yii::t("app", "EVENTOS"), array("evento/listar"));
+                            ?>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+            
+            <!-- Barra Azul -->
+            <div class="top-bar clearfix">
+            </div>
+
+            <!-- Botón CREAR -->
+            <div class="container-fluid">
+                <div class="row gutter">
+                    <div class="col-md-10 col-sm-6 col-xs-12">
+                        <h3 class="page-title"><?= Yii::t('app', "SISTEMA_COMPETENCIA") ?></h3>
+                    </div>
+                    <div class="col-md-2 col-sm-6 col-xs-12">
+                        <ul class="tasks pull-right clearfix">
+                            <button type="button" class="btn teal-bg btn-block" onclick="cleanEvento()" data-toggle="modal" data-target="#modalForm"><i class="icon-circle-plus icon-left"></i> Crear Evento</button>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Listado -->
+            <table id="list-evento" class="display" cellspacing="0" width="90%">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th><?php echo Yii::t("app", "EVENTO"); ?></th>
+                        <th><?php echo Yii::t("app", "FECHA_INICIO"); ?></th>
+                        <th><?php echo Yii::t("app", "FECHA_FINAL"); ?></th>
+                        <th><?php echo Yii::t("app", "SEDE"); ?></th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tfoot>
+                    <tr>
+                        <th>#</th>
+                        <th><?php echo Yii::t("app", "EVENTO"); ?></th>
+                        <th><?php echo Yii::t("app", "FECHA_INICIO"); ?></th>
+                        <th><?php echo Yii::t("app", "FECHA_FINAL"); ?></th>
+                        <th><?php echo Yii::t("app", "SEDE"); ?></th>
+                        <th></th>
+                    </tr>
+                </tfoot>
+                <tbody>
+                </tbody>
+            </table>
+            
+        </div>
+
+
+
+    </div>
+    
+    
+    <!-- CREAR EVENTO MODAL -->
+    <input id="urlCrearEvento" type="hidden" value="<?= Url::toRoute(['evento/crearevento']); ?>">
+    <input id="urlEditarEvento" type="hidden" value="<?= Url::toRoute(['evento/editarevento']); ?>">
+    
+    <div class="modal fade" id="modalForm" tabindex="-1" role="dialog" aria-labelledby="modalForm">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    <h4 class="modal-title"><?= Yii::t('app', "NUEVO_EVENTO") ?></h4>
+                </div>
+                <div class="modal-body">
+                    <p id="msnEvento"></p> 
+                    <form id="nuevo_evento_form">
+                        <input id="idEvento" name="idEvento" type="hidden" value="0">
+                        <div class="form-group">
+                            <div class="row gutter">
+                                <div class="col-md-6">
+                                    <label class="control-label"><?= Yii::t('app', "NOMBRE") ?></label>
+                                    <input type="text" class="form-control" id="nombre_evento" name="nombre_evento">
+
+                                    <label class="control-label"><?= Yii::t('app', "FECHA_INICIO") ?></label>
+                                    <div class="input-group">
+                                        <input type="text" class="form-control" id="date_inicio" name="date_inicio" placeholder="dd/mm/aaaa" readonly> <span class="input-group-addon"><span class="icon-calendar"></span></span>
+                                    </div>
+
+                                    <label class="control-label"><?= Yii::t('app', "PROMOCION") ?></label>
+                                    <?php
+                                    $items = ArrayHelper::map(\app\models\Promocion::find()->where(['prom_activo' => ESTADO_ACTIVO])->all(), 'prom_id', 'prom_nombre');
+                                    echo Html::dropDownList('promocion', 'promocion', $items, ['prompt' => 'Seleccione', 'class' => 'form-control', 'id' => 'promocion']);
+                                    ?>
+                                </div>
+                                <div class="col-md-6">
+
+                                    <label class="control-label"><?= Yii::t('app', "SEDE") ?></label>
+                                    <input type="text" class="form-control" id="sede_evento" name="sede_evento">
+
+                                    <label class="control-label"><?= Yii::t('app', "FECHA_FIN") ?></label>
+                                    <div class="input-group">
+                                        <input type="text" class="form-control" id="date_final" name="date_final" placeholder="dd/mm/aaaa" readonly> <span class="input-group-addon"><span class="icon-calendar"></span></span>
+                                    </div>
+
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="form-group">
+                            <label for="message-texta" class="control-label"><?= Yii::t('app', "DETALLE_EVENTO") ?></label>
+                            <textarea class="form-control" id="detalle_evento" name="detalle_evento"></textarea>
+                        </div>
+
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal"><i class="icon-circle-with-cross icon-left"></i> Cerrar</button>
+                            <button type="button" class="btn btn-info" onclick="nuevoEvento();" id="crearEventoBtn"><i class="icon-save icon-left"></i> Guardar</button>
+                        </div>
+                    </form>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    
+</body>
+
+<script type="text/javascript">
+    var MAX_NOMBRE_EVENTO = '<?php echo Yii::t("app", "MAX_NOMBRE_EVENTO") ?>';
+    var MIN_NOMBRE_EVENTO = '<?php echo Yii::t("app", "MIN_NOMBRE_EVENTO") ?>';
+    var MAX_SEDE_EVENTO = '<?php echo Yii::t("app", "MAX_SEDE_EVENTO") ?>';
+    var MIN_SEDE_EVENTO = '<?php echo Yii::t("app", "MIN_SEDE_EVENTO") ?>';
+    var FECHA_INICIO_EVENTO = '<?php echo Yii::t("app", "FECHA_INICIO_EVENTO") ?>';
+    var FECHA_FINAL_EVENTO = '<?php echo Yii::t("app", "FECHA_FINAL_EVENTO") ?>';
+    var PROMOCION_EVENTO = '<?php echo Yii::t("app", "PROMOCION_EVENTO") ?>';
+    var DETALLE_EVENTO_MSN = '<?php echo Yii::t("app", "DETALLE_EVENTO_MSN") ?>';
+    var EVENTO_EXITO = '<?php echo Yii::t("app", "EVENTO_EXITO") ?>';
+    var ERROR = '<?php echo Yii::t("app", "ERROR") ?>'; 
+    var EVENTO_EXITO_EDICION = '<?php echo Yii::t("app", "EVENTO_EXITO_EDICION") ?>'; 
+</script>
+
+<script src="../views/evento/js/evento.js"></script>
+<script>
+    $(document).ready(function () {
+
+//        //Data table, lista eventos
+        $('#list-evento').DataTable({
+            "processing": true,
+            "serverSide": true,
+            "order": [[ 0, "desc" ]],
+            "ajax": "<?php echo Url::toRoute(['evento/eventos']); ?>",
+            "language": {
+                "lengthMenu": "<?php echo Yii::t("app", "DISPLAY_RESULT") ?>",
+                "zeroRecords": "<?php echo Yii::t("app", "NO_RESULT") ?>",
+                "info": "<?php echo Yii::t("app", "RES_PAG") ?>",
+                "infoEmpty": "<?php echo Yii::t("app", "NO_RESULT_SEARCH") ?>",
+                "infoFiltered": "<?php echo Yii::t("app", "FILTER_RESULT") ?>",
+                "loadingRecords": "<?php echo Yii::t("app", "CARGANDO") ?>",
+                "processing":     "<?php echo Yii::t("app", "PROCESANDO") ?>.",
+                "search":         "<?php echo Yii::t("app", "BUSCAR") ?>",
+                "zeroRecords":    "<?php echo Yii::t("app", "NO_RESULT_SEARCH") ?>",
+                "paginate": {
+                    "first":      "<?php echo Yii::t("app", "PRIMERO") ?>",
+                    "last":       "<?php echo Yii::t("app", "ULTIMO") ?>",
+                    "next":       "<?php echo Yii::t("app", "SIGUIENTE") ?>",
+                    "previous":   "<?php echo Yii::t("app", "ANTERIOR") ?>"
+                },
+
+            }
+        });
+        
+        //Fecha inicial (Crear evento)
+        $("#date_inicio").datepicker({
+            format:'yyyy-mm-dd',
+                autoclose: true,
+                todayBtn: 'linked',
+                changeMonth: true,
+                changeYear: true,
+                startDate: new Date(),
+        }).on('changeDate', function (selected) {
+            var minDate = new Date(selected.date.valueOf());
+            $('#date_final').datepicker('setStartDate', minDate);
+        });
+
+        //Fecha final (Crear evento)
+        $("#date_final").datepicker({
+            format:'yyyy-mm-dd',
+                autoclose: true,
+                changeMonth: true,
+                changeYear: true,
+                startDate: $("#date_inicio").datepicker("getDate"),
+        }).on('changeDate', function (selected) {
+            var maxDate = new Date(selected.date.valueOf());
+            $('#date_inicio').datepicker('setEndDate', maxDate);
+        });
+
+    });
+    
+</script>

@@ -1,0 +1,376 @@
+<?php
+
+    use yii\helpers\Html;
+    use app\assets\AppAsset;
+    use yii\helpers\Url;
+
+    AppAsset::register($this);
+?>
+
+<!DOCTYPE html>
+<html lang="<?= Yii::$app->language ?>"> 
+    <head>
+        <meta charset="UTF-8"/>
+        <meta name="viewport" content="width=device-width,initial-scale=1"/>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+        <meta name="description" content="Esquare Admin Panel"/>
+        <meta name="keywords" content="Admin, Dashboard, Bootstrap3, Sass, transform, CSS3, HTML5, Web design, UI Design, Responsive Dashboard, Responsive Admin, Admin Template, Best Admin UI, Bootstrap Template, Wrapbootstrap, Bootstrap">
+		<meta name="author" content="Bootstrap Gallery"/>
+        <link rel="shortcut icon" href="../img/favicon.ico"/>
+        <title><?= Yii::t('app', "TITLE_EVENTO") ?></title>
+       <link href="../css/bootstrap.min.css" rel="stylesheet" media="screen"/>
+        <link href="../css/main.css" rel="stylesheet"/>
+        <link href="../css/main.css" rel="stylesheet" id="themeSwitcher"/>
+        <link href="../fonts/icomoon/icomoon.css" rel="stylesheet"/>
+        <link rel="stylesheet" href="../css/datepicker/datepicker.css"/>
+        <link href="../css/c3/c3.css" rel="stylesheet"/>
+        <link href="../css/datatables/dataTables.bs.min.css" rel="stylesheet"/>
+        <link href="../css/datatables/autoFill.bs.min.css" rel="stylesheet"/>
+        <link href="../css/datatables/fixedHeader.bs.css" rel="stylesheet"/>
+        <link href="../css/bootstrap-select/bootstrap-select.css" rel="stylesheet">
+        <link href="../css/gallery.css" rel="stylesheet" media="screen">
+        <link href="../css/jquery.datetimepicker.css" rel="stylesheet">
+        <link href="../css/dropzone.css" rel="stylesheet">
+        
+        
+		
+         <!-- Pushy CSS  -->
+        <link type='text/css' rel="stylesheet" href="../css/pushy.css">
+        
+        <link type='text/css' rel="stylesheet" href="../css/percircle.css">
+        <link type='text/css' rel="stylesheet" href="../css/percircle-rtl.css">
+		
+         <script src="http://code.jquery.com/jquery-1.9.1.js"></script>       
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+        <script src="http://www.developerdan.com/table-to-json/javascripts/jquery.tabletojson.min.js"></script>
+        
+  
+        <!-- loading page -->
+        <script src="https://cdn.jsdelivr.net/jquery.loadingoverlay/latest/loadingoverlay.min.js"></script>     
+        <script src="https://cdn.jsdelivr.net/jquery.loadingoverlay/latest/loadingoverlay_progress.min.js"></script>     
+        
+        <script src="../js/validaciones/validaciones.js"></script>
+
+    </head>
+
+    <body>
+        <?php $this->beginBody() ?>
+        
+        <input id="csrf" type="hidden" value="<?=\Yii::$app->request->csrfToken?>" >
+
+        <!-- Menu horizontal -->
+        <header class="clearfix">
+			<!-- Menu Button -->
+        
+		<!-- inicio menu colapsable  -->
+            <div class="logo">
+                <button class="menu-btn">&#9776;</button> <img src="../img/logo.png" alt="Logo">
+            </div>
+			
+            <div class="pull-right">
+                <ul id="header-actions" class="clearfix">
+					<li class="list-box dropdown">
+						 <a href="#" role="button" class="dropdown-toggle" data-toggle="dropdown">
+                            <span class="info-label" onclick="setLanguage('es')">ESP</span>
+							<img src="../img/colombia.png"/>
+                        </a>
+					</li>
+					<li class="list-box dropdown">
+						<a href="#" role="button" class="dropdown-toggle" data-toggle="dropdown">
+                            <span class="info-label" onclick="setLanguage('en')">ENG</span>
+							<img src="../img/usa.png"/>
+                        </a>
+					</li>
+					
+                    <li class="list-box dropdown">
+                        <a id="drop1" href="#" role="button" class="dropdown-toggle" data-toggle="dropdown">
+                            <span class="info-label">0</span>
+                            <i class="icon-calendar2 info-icon text-success">
+                            </i>
+                        </a>
+                        <ul class="dropdown-menu imp-notify">
+                            <li>
+                                <div class="thumb">
+                                    <i class="icon-warning2"></i>
+                                </div>
+                                <div class="details">
+                                    <strong>ALERTAS DE CAMPEONATOS</strong>
+                                    <p>se cargan mensajes de campeonatos</p>
+                                    <small class="date">7 days ago at 5:15 pm</small>
+                                </div>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="list-box dropdown">
+                        <a id="drop10" href="#" role="button" class="dropdown-toggle" data-toggle="dropdown">
+                            <span class="info-label">0</span>
+                            <i class="icon-paper-clip info-icon text-warning">
+                            </i>
+                        </a>
+                        <div class="dropdown-menu">
+                            <section class="todo">
+                                <fieldset class="todo-list">
+                                    <label class="todo-list-item">
+                                        <input type="checkbox" class="todo-list-cb">
+                                        <span class="todo-list-mark">
+                                        </span>
+                                        <span class="todo-list-desc">HABILITAR EVENTOS</span>
+                                        <small class="scheduled">se habilitan las ventanas de  eventos</small>
+                                    </label>
+                                </fieldset>
+                            </section>
+                        </div>
+                    </li>
+                    <li class="list-box user-admin dropdown">
+                        <div class="admin-details">
+                            <div class="name"><?= Yii::$app->user->identity->usu_apellidos." ".Yii::$app->user->identity->usu_nombres ?></div>
+                            <div class="designation"><?= Yii::$app->user->identity->getRol(); ?></div>
+                        </div>
+                        <a id="drop4" href="#" role="button" class="dropdown-toggle" data-toggle="dropdown">
+                            <i class="icon-account_circle">
+                            </i>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li class="dropdown-content">
+                                <a href="#">
+                                    <i class="icon-warning2"></i><?=Yii::t('app', "ACCIONES")?><br>
+                                    <!--span>TIENE EVENTOS SIN REGISTRAR.</span-->
+                                </a>
+                                <a><?= Html::beginForm(['/site/logout'], 'post')
+                                    . Html::submitButton(
+                                        Yii::t('app', "CERRAR_SESION").' (' . Yii::$app->user->identity->usu_num_doc . ')',
+                                        ['class' => 'btn teal-bg btn-block']
+                                    )
+                                    . Html::endForm() ?>
+                                </a>
+                                <button type="button" class="btn teal-bg btn-block" data-toggle="modal" data-target="#editar_clave"><i class="icon-circle-plus icon-left"></i> <?= Yii::t('app', "CAMBIAR_CLAVE") ?></button>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+            <a href="http://helpdesk-coldeportes.camaleon.com.co/" target="_blank" class="support"><?= Yii::t('app', "MESA_AYUDA") ?></a>
+            <div class="custom-search">
+                <input type="text" class="search-query" placeholder="<?= Yii::t('app', "BUSCAR") ?>">
+                <i class="icon-search4">
+                </i>
+            </div>
+        </header>
+		
+        <!-- MENU LATERAL IZQUIERDO DINAMICO  Pushy Menu -->
+        <nav class="pushy pushy-left" data-focus="#first-link">
+            <div class="pushy-content">
+                <ul>
+                    
+                        
+                        <?php 
+                            $roles = Yii::$app->user->identity->getUsuarioTieneRols()->all();
+                            for($ii = 0; $ii < count($roles); $ii++){
+                                $menus = app\models\RoleTieneMenu::find()->where('rol_id = '.$roles[$ii]->rol_id)->all();
+                                for($jj = 0; $jj < count($menus); $jj++){
+                                    echo "<li class='pushy-submenu'>";
+                                    $enlaces = app\models\MenuTieneOpciones::find()->where('menu_id = '.$menus[$jj]->menu_id)->leftJoin('enlace', '`enlace`.`enl_id` = `menu_tiene_opciones`.`enl_id`')->orderBy("enlace.enl_orden asc")->all();
+                                    echo "<button id='first-link'>".$menus[$jj]->getMenu()->one()->menu_nombre."</button>";
+                                    echo "<ul>";
+                                    echo "<li class='pushy-link'>";
+                                    for($li = 0; $li < count($enlaces); $li++){
+                                        echo Html::a($enlaces[$li]->getEnl()->one()->enl_nombre, array($enlaces[$li]->getEnl()->one()->enl_url));
+                                    }
+                                    echo "</li>";
+                                    echo "</ul>";
+                                    echo "</li>";
+                                }
+                            }
+                        ?>
+                   
+                   
+                    <!--li class="pushy-link"><a href="#">Item 1</a></li-->
+                </ul>
+            </div>
+        </nav>
+        
+        <!-- Site Overlay -->
+        <div class="site-overlay"></div>
+        <!-- fin del menu lateral colapsable -->
+        
+        <!-- EDITAR CLAVE -->
+        <div class="modal fade" id="editar_clave" tabindex="-1" role="dialog" aria-labelledby="editar_clave">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                        <h4 class="modal-title"><?= Yii::t('app', "CAMBIAR_CLAVE") ?></h4>
+                    </div>
+                    <div class="modal-body">
+                       <div class="main-container">
+                                <div class="row gutter">
+                                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                            <div class="panel panel-light">
+
+                                                <div class="panel-body ">
+                                                    <div id="login-wrapper">
+                                                            <div class="login-user">
+                                                                    <i class="icon-account_circle" style="font-size:48px;"></i>
+                                                            </div>
+                                                            <h5><?= Yii::t('app', "NUEVA_CONTRASENA") ?></h5>
+                                                            <div id="inputs">
+                                                                    <strong><div id="msn_result" style="display:none; font-size: 18; "></div></strong>
+                                                                    <div class="form-block">
+                                                                            <input type="password" id="password_actual" placeholder="<?= Yii::t('app', "CONTRASENA_ACUTAL") ?>">
+                                                                            <i class="icon-account_circle"></i>
+                                                                    </div>
+                                                                    <div class="form-block">
+                                                                            <input type="password" id="password" placeholder="<?= Yii::t('app', "NUEVA_CONTRASENA") ?>">
+                                                                            <i class="icon-account_circle"></i>
+                                                                    </div>
+                                                                    <div class="form-block">
+                                                                            <input type="password" id="password2" placeholder="<?= Yii::t('app', "PASSWORD2") ?>">
+                                                                            <i class="icon-account_circle"></i>
+                                                                    </div>
+                                                                <input type="submit" onclick="updatePass()" id="buttonChange" value="<?= Yii::t('app', "CAMBIAR_CLAVE") ?>">
+                                                            </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- FIN EDITAR CLAVE -->
+		
+		
+        <?= $content ?>
+
+        <footer class="footer">
+            <div class="footer"></div>
+            <div class="copy"><?= Yii::t('app', "CREADO_POR") ?> <a href="http://www.camaleon.com.co">Camaleon Multimedia SAS</a> V 1.1<span> 2017</span>.</div>
+        </footer>
+                
+                
+                
+        
+
+        <?php $this->endBody() ?>
+                
+    <!-- Data tables -->
+    <link href="//cdn.datatables.net/1.10.15/css/jquery.dataTables.min.css" rel="stylesheet">
+    <script src="//cdn.datatables.net/1.10.15/js/jquery.dataTables.min.js"></script>
+    
+    <!-- datetime picker -->
+    <script src="../js/jquery.datetimepicker.full.js"></script>
+    
+    <!--  scrip del menu lateral colapsable -->
+    <script src="../js/pushy.min.js"></script>
+    
+    <script src="../js/percircle.js"></script>
+    
+    <script src="../js/datepicker/datepicker.js"></script>
+    
+    <script src="../js/bootstrap-select/bootstrap-select.js"></script>
+    
+    <script src="../js/multiselect.js"></script>
+    
+    <link href="../css/select2.min.css" rel="stylesheet" />
+    <script src="../js/select2.min.js"></script>
+    <script src="../js/dropzone.js"></script>
+    
+    <script>
+        
+        /**
+         * Función para cambiar el idioma de la plataforma
+         * @param {type} lg
+         * @returns {undefined}
+         */
+        function setLanguage(lg){
+            jQuery.ajax({
+                url: '<?php echo Url::toRoute('site/language') ?>',
+                //type:'post',
+                data: {lg: lg},
+                success:function(data){
+                    location.reload();
+                }
+            });
+        }
+        
+        /**
+        * Función para cambiar la contraseña del usuario autenticado
+         * @returns {undefined}         */
+        function updatePass(){
+            $("#buttonChange").css("display", "none");
+            var pass = $("#password_actual").val();
+            var pass1 = $("#password").val();
+            var pass2 = $("#password2").val();
+            $("#msn_result").css("display", "none");
+            
+            if(pass.trim() == ""){
+                $("#msn_result").css("display", "block");
+                $("#msn_result").css("color", "red");
+                $("#msn_result").text("Por favor ingrese su contraseña actual");
+                $("#buttonChange").css("display", "block");
+            } else if(pass1.length < 8){
+                $("#msn_result").css("display", "block");
+                $("#msn_result").css("color", "red");
+                $("#msn_result").text("La contraseña debe tener al menos 8 caracteres");
+                $("#buttonChange").css("display", "block");
+            } else if(pass1 != pass2){
+                $("#msn_result").css("display", "block");
+                $("#msn_result").css("color", "red");
+                $("#msn_result").text("La contraseña y su confirmación no coinciden");
+                $("#buttonChange").css("display", "block");
+            } else {
+                jQuery.ajax({
+                    url: '<?php echo Url::toRoute('administracion/updatepassword') ?>',
+                    //type:'post',
+                    data: {actual: pass, nuevo : pass1},
+                    success:function(data){
+                        if(data == "true"){
+                            $("#msn_result").css("display", "block");
+                            $("#msn_result").css("color", "green");
+                            $("#msn_result").text("Contraseña actualizada exitosamente");
+                        } else {
+                            $("#msn_result").css("display", "block");
+                            $("#msn_result").css("color", "red");
+                            $("#msn_result").text(data);
+                            $("#buttonChange").css("display", "block");
+                        }
+                    }
+                });
+            }
+        }
+        
+    </script>
+	<script>
+	
+	/* ---------------------------------------------------------------------- */
+	/*	Sticky header
+	/* ---------------------------------------------------------------------- */
+	if($('#bs-example-navbar-collapse-1').length){
+		// grab the initial top offset of the navigation 
+		//var stickyNavTop = $('#mainbanner').offset().top;
+		var stickyNavTop = 40;
+		// our function that decides weather the navigation bar should have "fixed" css position or not.
+		var stickyNav = function(){
+			var scrollTop = $(window).scrollTop(); // our current vertical position from the top
+			// if we've scrolled more than the navigation, change its position to fixed to stick to top,
+			// otherwise change it back to relative
+			if (scrollTop > stickyNavTop) { 
+				$('#bs-example-navbar-collapse-1').addClass('kf_sticky');
+			} else {
+				$('#bs-example-navbar-collapse-1').removeClass('kf_sticky'); 
+			}
+		};
+		stickyNav();
+		// and run it again every time you scroll
+		$(window).scroll(function() {
+			stickyNav();
+		});
+	}
+	</script>
+		
+    </body>
+</html>

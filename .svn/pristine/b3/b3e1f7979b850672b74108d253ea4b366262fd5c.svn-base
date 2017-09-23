@@ -1,0 +1,51 @@
+<?php
+
+namespace app\models;
+
+use Yii;
+
+/**
+ * This is the model class for table "{{%escenario}}".
+ *
+ * @property integer $esc_id
+ * @property string $esc_nombre
+ * @property string $esc_direccion
+ * @property integer $ciu_id
+ * @property integer $dep_id
+ */
+class Escenario extends \yii\db\ActiveRecord
+{
+    /**
+     * @inheritdoc
+     */
+    public static function tableName()
+    {
+        return '{{%escenario}}';
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function rules()
+    {
+        return [
+            [['esc_id', 'esc_nombre', 'esc_direccion'], 'required'],
+            [['esc_id', 'ciu_id', 'dep_id'], 'integer'],
+            [['esc_nombre', 'esc_direccion'], 'string', 'max' => 55],
+        ];
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function attributeLabels()
+    {
+        return [
+            'esc_id' => 'Esc ID',
+            'esc_nombre' => 'Esc Nombre',
+            'esc_direccion' => 'Esc Direccion',
+            'ciu_id' => 'Ciu ID',
+            'dep_id' => 'Dep ID',
+        ];
+    }
+}

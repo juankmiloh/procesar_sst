@@ -1,0 +1,169 @@
+    /**
+     * Función para cargar y poder editar un evento
+     * @returns {undefined}
+     */
+    function editRow(id){
+        
+         //Esta linea remueve todo los roles asignados.... 
+        document.getElementById("multiselect_leftAll").click();
+        
+        $("#crearEventoBtn").prop("disabled",true);
+        $('#modalForm').modal();
+        
+        var url = $("#urlGuardar").val();
+        
+        var idPromocion = $("#idRegistro").val();
+        
+        $("#msnEvento").text("");
+        $.ajax({
+                //type: 'POST',
+                url: url,
+                data: {id : idPromocion},
+                success: function (response) {
+                    
+                    /**
+                     * Llena la lista con los equipos promocionados
+                     */
+                    var equipos = jQuery.parseJSON( response );
+                    for(var i = 0; i < equipos.length; i++){
+                        var html = "<option data-toggle='tooltip"+i+"' data-container='#tooltip_container' title='"+equipos[i]["prueb_nombre"]+"' value='"+equipos[i]['equi_id']+"'>"+equipos[i]['ent_nombre']+ " - " + equipos[i]['prueb_nombre']+"</option>";
+                        $('#multiselect_to').append(html);
+                        $('[data-toggle="tooltip'+i+'"]').tooltip();
+                    }
+                    
+                    $("#crearEventoBtn").prop("disabled",false);
+                    
+                },
+                error: function (error, tx) {
+                        console.log(tx);
+                }
+        });
+    }
+    
+    /**
+    * Modifica el estado de la promoción. 
+    * @returns {undefined}
+    */
+    function buscarPromociones(idPeriodo){
+        
+        $.LoadingOverlay('show');
+        
+       var url = $("#urlConsultarEquipos").val();
+       var dpto = $("#dpto_id").val();
+       var muni = $("#muni_id").val();
+       
+       $.ajax({
+               url: url,
+               data: {idPeriodo : idPeriodo, dpto : dpto, muni : muni},
+               success: function (response) {
+                    $("#multiselect").html(response);
+                    var size = $('#multiselect option').size(); ;
+                    for(var i = 0; i < size; i++){
+                        $('[data-toggle="tooltip'+i+'"]').tooltip();
+                    }
+                    $.LoadingOverlay('hide');
+               },
+               error: function (error, tx) {
+                   $.LoadingOverlay('hide');
+                       console.log(tx);
+               }
+       });
+    }
+  
+    
+    /**
+     * Limpia el formulario de eventos
+     * @returns {undefined}
+     */
+    function cleanForm(){
+        
+         var $inputs = $('#formulario  :input');
+         $inputs.each(function ()
+         {
+             $(this).val("");
+         });
+         
+        $("#dpto_id").val("").change();
+        $("#muni_id").val("").change();
+        
+        $("#multiselect_to").html("");
+        
+         $("#msn").text("");
+    }
+
+    /*
+     * Función para crear un nuevo registro
+     * @returns {undefined}
+     */
+    function nuevoRegistro(idPromocion){
+        
+        $.LoadingOverlay('show');
+        
+        event.preventDefault();
+        var msn = "";
+        
+        //Deshabilita el botón de guardar
+        $("#botonCrear").prop("disabled",true);
+        
+        /*
+         * Validaciones del formulario
+         */
+        if(validarListaMultipleSeleccionada("multiselect_to")){
+            msn = ENTIDAD_SEL;
+        }  
+        
+        
+        if(msn != ""){ //SI hubo errores muestre las alertas
+            $("#msn").css('color', 'red');
+            $("#msn").css('font-weight', 'bold');
+            $("#msn").text(msn);
+            
+            //Habilita el botón de guardar
+            $("#botonCrear").prop("disabled",false);
+            $.LoadingOverlay('hide');
+            return;
+        } else { //Si no hubo errores envie el formulario
+            
+            var data = $('select#multiselect_to').val();
+            var url = $("#urlGuardar").val();
+            var csrf = $("#csrf").val();
+            var idRegistro = $("#idRegistro").val();
+
+            $.ajax({
+                url: url,
+                data: {data : data, _csrf: csrf, idRegistro : idRegistro},
+                type: 'POST',
+                success: function (response) {
+                    $.LoadingOverlay('hide');
+                    if(response == true){
+                        $("#msn").css('color', 'green');
+                        $("#msn").css('font-weight', 'bold');
+                        $("#msn").css('font-size', '22px');
+                        
+                        $("#msn").text(EQUPOS_PROMOCIONADOS);
+                        
+                        setTimeout(function(){
+                            $('#list-datos').DataTable().ajax.reload();
+                            $('#modalForm').modal("hide");
+                            cleanForm();
+                            $("#botonCrear").prop("disabled",false);
+                        }, 1000);
+                    } else {
+                        $("#botonCrear").prop("disabled",false);
+                        $("#msn").css('color', 'red');
+                        $("#msn").css('font-weight', 'bold');
+                        $("#msn").css('font-size', '22px');
+                        $("#msn").text(response);
+                    }
+                },
+                error: function (error, tx) {
+                        $.LoadingOverlay('hide');
+                        $("#msn").css('color', 'red');
+                        $("#msn").css('font-weight', 'bold');
+                        $("#msn").css('font-size', '22px');
+                        $("#msn").text(ERROR);
+                }
+            });
+        }
+    }
+   

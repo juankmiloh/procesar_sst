@@ -1,0 +1,369 @@
+<?php
+namespace app\controllers;
+
+use yii\filters\AccessControl;
+use yii\web\Controller;
+use yii\filters\VerbFilter;
+use yii\helpers\ArrayHelper;
+use yii\helpers\Html;
+use app\models\Escenario;
+use app\models\Deporte;
+use app\models\DisponibilidadEscenario;
+use app\models\DisponibilidadTieneHora;
+use app\models\Hora;
+use app\models\ContactoEscenario;
+use app\models\EscenarioTieneDeportes;
+
+class EscenarioController extends Controller{
+
+	public function behaviors()
+    {
+        return [
+            'access' => [
+                'class' => AccessControl::className(),
+                'rules' => [
+                    [
+                        'actions' => ['crearescenario','listardeportetipo','agregardisponibilidad','borrardisponibilidad','modificardisponibilidad','listarciudades'], // add all actions to take guest to login page
+                        'allow' => true,
+                        'roles' => ['@'],
+                    ],
+                ],
+            ],
+            'verbs' => [
+                'class' => VerbFilter::className(),
+                'actions' => [
+                    'logout' => ['post'],
+                ],
+            ],
+        ];
+    }
+
+    public function actionCrearescenario(){
+        $esc_nombre = $_GET['esc_nombre'];
+        $esc_direccion = $_GET['esc_direccion'];        
+        $ciudad = $_GET['ciudad'];
+        $td_id = $_GET['td_id'];
+        $dep_id = $_GET['dep_id'];
+        $ce_nombre = $_GET['ce_nombre'];
+        $ce_apellidos = $_GET['ce_apellidos'];
+        $ce_telefono = $_GET['ce_telefono'];
+        $ce_celular = $_GET['ce_celular'];
+        $ce_email = $_GET['ce_email'];
+        $esc_observaciones = $_GET['esc_observaciones'];
+
+        // Se agregar el contacto tenieno en cuenta que se hallan llenado los datos de contacto
+        $contac = "";
+        if($ce_nombre != "" && $ce_apellidos != "" && $ce_celular != "" && $ce_email != ""){
+            $contacto = new ContactoEscenario();
+            $contacto->ce_nombre = $ce_nombre;
+            $contacto->ce_apellidos = $ce_apellidos;
+            $contacto->ce_telefono = $ce_telefono;
+            $contacto->ce_celular = $ce_celular;
+            $contacto->ce_email = $ce_email;
+            $contacto->insert();
+            $cs = ContactoEscenario::findBySql("SELECT ce_id FROM contacto_escenario ORDER BY ce_id DESC LIMIT 1")->all();
+            foreach ($cs as $c) {
+                $contac = $c->ce_id;
+            }
+        }
+
+        // Se registra nuevo un escenario
+        $escenario = new Escenario();
+        $escenario->esc_nombre = $esc_nombre;
+        $escenario->esc_direccion = $esc_direccion;
+        $escenario->loc_id = $ciudad;
+        $escenario->esc_observaciones = $esc_observaciones;
+        $escenario->ce_id = $contac;
+        $escenario->insert();     
+
+        $ultEsc = EscenarioController::ultimoEscenarioInsertado();
+        // Actualiza el valor del escenario recien ingresado en la disponibilidad
+        EscenarioController::actualizarDisponibilidadPorEscenario($ultEsc);                   
+        // Se agregan los deportes asociados al escenario
+        for($i = 0; $i < sizeof($dep_id); $i++){
+            $estd = new EscenarioTieneDeportes();
+            $estd->esc_id = $ultEsc;
+            $estd->dep_id = $dep_id[$i];
+            $estd->insert();
+        }
+        echo "Escenario Guardado correctamente";
+    }
+
+    /*
+    * Función para agregar una nueva funcionalidad ANTES
+    * de agregar un escenario determinado
+    */
+    public function actionAgregardisponibilidad(){
+        $fechaInicio = $_GET['fi'];
+        $fechaFin = $_GET['ff'];
+        $horas = [];
+        for($i = 1; $i <= 24; $i++){
+            if(isset($_GET['h'.$i])){
+                $horas[] = $_GET['h'.$i];
+            }
+        }  
+        $disponibilidad = new DisponibilidadEscenario();
+        $disponibilidad->de_fecha_ini = $fechaInicio;
+        $disponibilidad->de_fecha_fin = $fechaFin;
+        $validacion = $disponibilidad->validate();
+        if($validacion){
+            $insert = $disponibilidad->insert();
+            if($insert){
+                $ultimo = $this->listarDisponibilidad(2);
+                for($j = 0; $j < sizeof($horas); $j++){
+                    $disp_hora = new DisponibilidadTieneHora();
+                    $disp_hora->hor_id = $horas[$j];
+                    $disp_hora->de_id = $ultimo;
+                    $disp_hora->insert();                    
+                }
+                // Actualización de la visualización                
+                echo json_encode(EscenarioController::actualizarVisualizacion());
+            }else{
+                echo "Error al guardar";
+            }
+        }else{
+            echo "Algún dato no es válido";
+        }
+    }
+
+    /* 
+    * Lista los deportes por tipo y actualizasu respectiva visualización
+    * de acuerdo al desplegable en el cual se selecciona el tipo
+    */
+    public function actionListardeportetipo(){
+        $tipo = $_GET['tipo'];
+        $deportes = $this->listarDeportePorTipo($tipo);
+        $view = Html::CheckboxList('dep_id','dep_id', ArrayHelper::map($deportes,'dep_id','dep_nombre'),['id'=>'dep_id']);
+        echo json_encode($view);        
+    }
+
+    /* 
+    * Borra una disponibilidad (fechas de escenario) que se 
+    * observan en la pantalla de crear escenario
+    */
+    public function actionBorrardisponibilidad(){
+        $id = $_GET['id'];
+        DisponibilidadTieneHora::deleteAll('de_id = '.$id);
+        $disponibilidad = DisponibilidadEscenario::findOne($id);
+        $borrar = $disponibilidad->delete();
+        if($borrar){
+            // Actualización de la visualización
+            echo json_encode(EscenarioController::actualizarVisualizacion());
+        }else{
+            echo "Fallo al borrar";
+        }
+    }
+
+    /*
+    *   Modifica una disponibilidad en la ventana crear escenarios
+    *   actualizando su fecha inicial, fecha final y horario
+    */
+    public function actionModificardisponibilidad(){
+        $id = $_GET['id'];
+        $fi = $_GET['fi'];
+        $ff = $_GET['ff'];
+        $horas = [];
+        // $elim = [];
+        $add = [];
+        for($i = 1; $i <= 24; $i++){
+            if(isset($_GET['h'.$i])){
+                $horas[] = $_GET['h'.$i];
+            }
+        }
+        $disponiHora = DisponibilidadTieneHora::find()->where(['de_id'=>$id])->all();
+        // Elementos a eliminar de la tabla disponibilidad tiene hora
+        foreach ($disponiHora as $dh) {
+            $cond = false;
+            for($j = 0; $j < sizeof($horas); $j++){
+                if($dh->hor_id == $horas[$j]){
+                    $cond = true;
+                }    
+            } 
+            if($cond==false){
+                // $elim[] = $dh->hor_id;
+                DisponibilidadTieneHora::deleteAll('de_id = '.$id.' AND hor_id ='.$dh->hor_id);
+            }
+        }
+        // Elementos a agregar en la tabla disponibilidad tiene hora
+        for($j = 0; $j < sizeof($horas); $j++){
+            $cond = false;
+            foreach ($disponiHora as $dh) {
+                if($dh->hor_id == $horas[$j]){
+                    $cond = true;
+                }
+            }
+            if($cond==false){
+                $dth = new DisponibilidadTieneHora();
+                $dth->de_id = $id;
+                $dth->hor_id = $horas[$j];
+                $dth->insert();
+            }
+        }
+        $disponibilidad = DisponibilidadEscenario::findOne($id);
+        $disponibilidad->de_fecha_ini = $fi;
+        $disponibilidad->de_fecha_fin = $ff;
+        $disponibilidad->update();
+        echo json_encode(EscenarioController::actualizarVisualizacion());
+    }
+
+    public function actionListarciudades(){
+        $id = $_GET['id'];
+        $ciu = ArrayHelper::map(\app\models\Locacion::find()->where(['loc_padre'=>$id])->all(),'loc_id','loc_nombre');
+        $msj = Html::dropDownList('ciudad', 'loc_id', $ciu, ['prompt'=>'Seleccione','class'=>'form-control','id'=>'ciud']);
+        echo json_encode($msj);
+    }
+   
+    /*
+        Actualiza la visualización después de agregar,
+        borrar o modificar fechas de disponibilidad
+    */
+    public static function actualizarVisualizacion(){
+        $msj = "";
+        $num = 1;
+        $disp = EscenarioController::listarDisponibilidad(1);
+        foreach ($disp as $d) {
+            $msj.="<tr>
+                        <th scope='row'>$num</th>
+                        <td>
+                            <div class='input-group'>
+                                <input id='fi$d->de_id' class='form-control fecha' type=text value='$d->de_fecha_ini'>
+                                <span class='input-group-addon'>
+                                    <span class='icon-calendar'></span>
+                                </span>
+                            </div>
+                        </td>
+                        <td>
+                            <div class='input-group'>
+                                <input id='ff$d->de_id' class='form-control fecha' type=text value='$d->de_fecha_fin'>
+                                <span class='input-group-addon'>
+                                    <span class='icon-calendar'></span>
+                                </span>
+                            </div>
+                        </td>
+                        <td>
+                            <select id='sel$d->de_id' class='selectpicker sel' multiple>
+                                ".EscenarioController::listarHorasPorFecha($d->de_id)."
+                            </select>
+                        </td>
+                        <td>
+                            <span id='modif$d->de_id'  class='b label label-success' onclick='modificarFecha(this.id);'>
+                                <i class='icon-clock'></i>
+                            </span>&nbsp;
+                            <span id='bor$d->de_id' class='b label label-danger' onclick='borrarFecha(this.id);'>
+                                <i class='icon-circle-with-cross'></i>
+                            </span>
+                        </td>
+                </tr>";
+            $num = $num+1;
+        }
+        return $msj;
+    }
+
+    /*
+        Lista la disponibilidad para cada caso, 1: todas las disponibilidades que no han
+        sido asignadas a un escenario, 2: el id de la última disponibilidad agregada, esto
+        con el fin de agregarle las horas relacionadas.
+    */
+    public static function listarDisponibilidad($opc){
+        if($opc == 1){
+            return DisponibilidadEscenario::find()->where(['esc_id' => null])->orderBy('de_id')->all();
+        }else if($opc == 2){
+            $val = DisponibilidadEscenario::findBySql("SELECT * FROM disponibilidad_escenario ORDER BY de_id DESC LIMIT 1")->all();
+            foreach ($val as $v) {
+                return $v->de_id;;
+            }
+        }else{
+            return null;
+        }
+        
+    }
+
+    public static function ultimoEscenarioInsertado(){
+        $esc = Escenario::findBySql("SELECT esc_id FROM escenario ORDER BY esc_id DESC LIMIT 1")->all();
+        foreach ($esc as $e) {
+            return $e->esc_id;
+        }
+    }
+
+    /*
+        Borrar todas las fechas que no han sido asignadas a un escenario
+    */
+    public static function limpiarDisponibilidad(){
+        $disp = EscenarioController::listarDisponibilidad(1);
+        foreach ($disp as $d) {
+            DisponibilidadTieneHora::deleteAll('de_id = '.$d->de_id);
+        }
+        $n = null;
+        DisponibilidadEscenario::deleteAll('esc_id is null ');   
+    }
+
+    /*
+    *   Función que asigna el escenario a las disponibilidades creadas
+    */
+    public static function actualizarDisponibilidadPorEscenario($idEsc){
+        $disponibilidad = DisponibilidadEscenario::find()->where(['esc_id'=>null])->all();
+        foreach ($disponibilidad as $d) {
+            $d->esc_id = $idEsc;
+            $d->update();
+        }
+    }
+
+    /* 
+        Lista los deportes de acuerdo a su tipo 
+        Conjunto/Individual
+    */
+    public static function listarDeportePorTipo($tipo){
+        return Deporte::find()->where(['td_id'=>$tipo])->all();
+    }
+
+    /*
+    *   Lista todas las horas existentes
+    */
+    public static function listarHoras(){
+        return Hora::find()->all();
+    }
+
+    /*
+    *   Muestra las horas asociadas a cada disponibilidad
+    */
+    public static function listarHorasPorFecha($id){
+        $vista ="";
+        $horas = EscenarioController::listarHoras();
+        $horasDisp = DisponibilidadTieneHora::find()->where(['de_id'=>$id])->all();
+        // $vista .= "<select class='selectpicker' multiple>";
+        foreach ($horas as $hora) {
+            $vista .= "<option id='".$id."hor$hora->hor_id' value='$hora->hor_id' ";
+            foreach ($horasDisp as $horaD) {
+                if($hora->hor_id == $horaD->hor_id){
+                    $vista.="selected";
+                }
+            }
+            $vista .= ">$hora->hor_nombre_12_horas</option>";
+        }
+        // $vista .= "</select>";
+        return $vista;
+    }
+
+    /*  (NO USADA) */
+    public static function mostrarEscenarios(){
+        $items = ArrayHelper::map(Escenario::find()->all(),'esc_id','esc_direccion','esc_nombre');
+        return $items;
+    }
+
+    /*  (NO USADA)  */
+    public static function listarEscenarios(){
+        return Escenario::find()->orderBy('esc_id')->all();
+    }
+
+    /*  (NO USADA)  */
+    public static function listarEscenarioPorId($id){
+        return Escenario::find()->where(['esc_id'=>$id])->orderBy('esc_id')->all();
+    }
+
+    
+    /*  (NO USADA)  */
+    public static function listarDeportes(){
+        return Deporte::find()->all();
+    }
+}
+?>

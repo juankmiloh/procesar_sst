@@ -1,0 +1,227 @@
+﻿<?php
+
+use yii\helpers\Url;
+use yii\helpers\Html;
+?>  
+<div class="kode-subheader subheader-height">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6">
+                <h1>RESULTADOS POR DEPORTE - Fixture</h1>
+            </div>
+            <div class="col-md-6">
+                <ul class="kode-breadcrumb">
+                    <li><a href="#">Inicio</a></li>
+                    <li><a href="#">Fixture</a></li>
+                    <li><a href="#">Resultado por Deporte</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+<!--// SubHeader //-->
+
+<!--// Main Content //-->
+<div class="kode-content">
+
+    <!--// Page Content //-->
+    <section class="kode-pagesection kode-pagecontent kode-result-list shape-view margin-bottom-40">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="heading heading-12 margin-top10-bottom-80" style="margin-bottom:80px;">
+                        <p style="margin-bottom: 40px;font-weight: bold;font-size: 20px;">RESULTADOS</p>
+
+                        <section class="pick-event padding-30-topbottom margin-top-minus-40">
+                            <div class="container">
+
+                                <div class="form">
+                                    <div class="cover">
+                                        <label>Evento:</label>
+                                        <?php
+                                        echo Html::dropDownList('eve_id', 'eve_id', $eventos, [ 'prompt' => "SELECCIONE",
+                                            'class' => "form-control",
+                                            'id' => 'eve_id',
+                                            'style' => 'width: 280px',
+                                            'onchange' => '
+                                                $("#ctf_id").html("");
+                                                $.ajax({
+                                                        url: "' . Url::toRoute('helper/getcampeonatos') . '",
+                                                        data: {id : $("#eve_id").val()},
+                                                        success: function (response) {
+                                                            $("#camp_id").html(response);
+                                                        },
+                                                })',
+                                        ]);
+                                        ?>
+                                    </div>
+                                    <div class="cover">
+                                        <label>Campeonato</label>
+                                        <?php
+                                        $items = array();
+                                        echo Html::dropDownList('camp_id', 'camp_id', $items, [ 'prompt' => 'Seleccione',
+                                            'class' => "form-control",
+                                            'style' => 'width: 280px',
+                                            'id' => 'camp_id',
+                                            'onchange' => '
+                                                $.ajax({
+                                                        url: "' . Url::toRoute('helper/getfases') . '",
+                                                        data: {id : $("#camp_id").val()},
+                                                        success: function (response) {
+                                                            $("#ctf_id").html(response);
+                                                        },
+                                                })'
+                                        ]);
+                                        ?>
+                                    </div>
+                                    
+                                    <div class="cover">
+                                        <label>Fase</label>
+                                        <?php
+                                        $items = array();
+                                        echo Html::dropDownList('ctf_id', 'ctf_id', $items, [ 'prompt' => 'Seleccione',
+                                            'class' => "form-control",
+                                            'style' => 'width: 280px',
+                                            'id' => 'ctf_id'
+                                        ]);
+                                        ?>
+                                    </div>
+
+                                    <div class="cover">
+                                        <a class="kode-modren-btn thbg-colortwo" style="margin-top: 26px;" onclick="buscar()">Buscar</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </section>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-md-12">
+                <!-- RESUTLADOS -->
+                <div class="row" id="resultados">
+                </div>
+            </div>
+            
+        </div>
+    </section>
+    <!--// Page Content //-->
+
+</div>
+<!--// Main Content //-->
+
+<!--// NewsLatter //-->
+<div class="kode-newslatter kode-bg-color">
+    <span class="kode-halfbg thbg-color"></span>
+    <div class="container">
+        <div class="row">
+
+        </div>
+    </div>
+</div>
+<!--// NewsLatter //-->
+
+
+<script>
+    
+    /**
+     * Consulta los resultados acorde a los filtros. 
+     * @returns {undefined}
+     */
+    function buscar(){
+        
+        var evento = $("#eve_id").val();
+        var campeonato = $("#camp_id").val();
+        var fase = $("#ctf_id").val();
+        
+        if(evento == "" || evento == undefined){
+            alert("Seleccione un evento");
+        } else if(campeonato == "" || campeonato == undefined){
+            alert("Seleccione un campeonato");
+        } else if(fase == "" || fase == undefined){
+            alert("Seleccione una fase");
+        } 
+        
+        var urlFile = "<?php echo Url::toRoute(['resultados/descargararchivo']); ?>";
+        
+            $.ajax({
+                    url: "<?php echo Url::toRoute('helper/buscarresultados'); ?>",
+                    data: {fase : fase},
+                    success: function (response) {
+                        var obj = jQuery.parseJSON( response );
+                        
+                        var html = $("#resultados");
+                        
+                        var temp = '';
+                        for(var i = 0; i < obj.length-1; i++){
+                            
+                            temp += '<div class="row">';
+                            temp += '<div class="col-md-6">';
+                            temp += '    <article>';
+                            temp += '        <span class="kode-result-count thbg-colortwo">'+obj[i]['tfs_gf_1']+'</span>';
+                            temp += '        <div class="kode-result-thumb">';
+                            temp += '            <a href="#"><img src="../views/resultados/images/coldeportes.png" alt=""></a>';
+                            temp += '        </div>';
+                            temp += '       <div class="kode-result-info">';
+                            temp += '            <h2><a href="#">'+obj[i]['equip1']+'</a> <span>'+obj[i]['fts_grupo']+'</span><br><font color="white" size="1px">'+obj[i]['dp1']+'</font></h2>';
+                            temp += '            <ul>';
+                            for(var j = 0; j < obj[i][0].length; j++){
+                                
+                                var tiempo1 = obj[i][0][j]['pts_suceso'].split(" ");
+                                var tiempo = tiempo1[0].charAt(0);
+                                if(tiempo1.length == 2){
+                                    tiempo += tiempo1[1].charAt(0);
+                                }
+                                tiempo = " - " + tiempo;
+                                
+                                //Autogol 
+                                if(obj[i][0][j]['autogol'] == "`1`"){
+                                    tiempo = " AG " + tiempo;
+                                }
+                                
+                                temp += '                <li><font color="white" size="1px">'+obj[i][0][j]['usu_nombres']+" "+obj[i][0][j]['usu_apellidos']+' <span>('+obj[i][0][j]['etr_minuto']+'’'+ tiempo.toUpperCase() +')</span></font></li>';
+                            }
+                            temp += '            </ul>';
+                            temp += '        </div>';
+                            temp += '    </article>';
+                            temp += '</div>';
+                            temp += '<div class="col-md-6">';
+                            temp += '    <article class="kode-even">';
+                            temp += '        <span class="kode-result-count thbg-colortwo">'+obj[i]['tfs_gf_2']+'</span>';
+                            temp += '        <div class="kode-result-thumb">';
+                            temp += '            <a href="#"><img src="../views/resultados/images/coldeportes.png" alt=""></a>';
+                            temp += '        </div>';
+                            temp += '        <div class="kode-result-info">';
+                            temp += '            <h2><a href="#">'+obj[i]['equip2']+'</a> <span>'+obj[i]['fts_grupo']+'</span><br><font color="white" size="1px">'+obj[i]['dp2']+'</font></h2>';
+                            temp += '            <ul>';
+                            for(var j = 0; j < obj[i][1].length; j++){
+                                var tiempo2 = obj[i][1][j]['pts_suceso'].split(" ");
+                                var tiempo = tiempo2[0].charAt(0);
+                                if(tiempo2.length == 2){
+                                    tiempo += tiempo2[1].charAt(0);
+                                }
+                                tiempo = " - " + tiempo;
+                                
+                                //Autogol 
+                                if(obj[i][1][j]['autogol'] == "`1`"){
+                                    tiempo = " AG " + tiempo;
+                                }
+                                
+                                temp += '                <li><font color="white" size="1px">'+obj[i][1][j]['usu_nombres']+" "+obj[i][1][j]['usu_apellidos']+' <span>('+obj[i][1][j]['etr_minuto']+'’'+ tiempo.toUpperCase() +')</span></font></li>';
+                            }
+                            temp += '            </ul>';
+                            temp += '        </div>';
+                            temp += '    </article>';
+                            temp += '</div>';  
+                            temp += '</div>';
+                            if(obj[i]['tfs_archivo_resultado'] != null){
+                                temp += '<a href ="'+urlFile+"&ctf="+obj[i]['fts_id']+'">Descargar archivo de resultados</a>';
+                            }
+                            temp += '<div class="clearfix clear">&nbsp;</div><br/><br/>';
+                        }
+                        html.html(temp);
+                        
+                    }
+            });
+        }
+</script>

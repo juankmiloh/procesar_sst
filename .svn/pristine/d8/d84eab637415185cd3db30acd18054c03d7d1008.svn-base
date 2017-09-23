@@ -1,0 +1,252 @@
+﻿ <?php
+	use yii\helpers\Url;
+?>
+ <div class="kode-subheader subheader-height">
+        <div class="container">
+          <div class="row">
+            <div class="col-md-6">
+              <h1>PROGRAMACION Y RESULTADOS - Fixture</h1>
+            </div>
+            <div class="col-md-6">
+              <ul class="kode-breadcrumb">
+                <li><a href="#">Inicio</a></li>
+                <li><a href="#">Fixture</a></li>
+                <li><a href="#">Todos Los Partidos</a></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+		
+      </div>
+      <!--// SubHeader //-->
+
+      <!--// Main Content //-->
+      <div class="kode-content">
+
+        <!--// Page Content //-->
+        <section class="kode-pagesection margin-bottom-40">
+          <div class="container">
+		  <div class="row">
+				<div class="col-md-12">
+					<div class="heading heading-12 margin-top10-bottom-80" style="margin-bottom:80px;">
+						<p>RESULTADOS ENTREGADOS</p>
+						<h2><span class="left"></span>PRÓXIMOS ENCUENTROS<span class="right"></span></h2>
+						
+						<section class="pick-event padding-30-topbottom margin-top-minus-40">
+        	<div class="container">
+            	<div class="heading">
+                    <h2>Buscar Deporte</h2>
+                </div>
+                <div class="form">
+                	<div class="cover">
+                    	<input type="text">
+                        <i class="fa fa-search"></i>
+                    </div>
+                    <div class="cover">
+                    	<input type="text">
+                        <i class="fa fa-calendar"></i>
+                    </div>
+                    <div class="cover">
+                        <div class="dropdown">
+                            <button aria-expanded="true" data-toggle="dropdown" id="dropdownMenu1" type="button" class="dropdown-toggle">
+                            Listado de Deporte
+                            <i class="fa fa-bars"></i>
+                            </button>
+                            <ul aria-labelledby="dropdownMenu1" role="menu" class="dropdown-menu">
+                                <li role="presentation"><a href="#" tabindex="-1" role="menuitem"><img src="../views/resultados/images/BALONCESTO.png"> Baloncesto</a></li>
+								<li role="presentation"><a href="#" tabindex="-1" role="menuitem"><img src="../views/resultados/images/FUTBOL.png"> Fútbol</a></li>
+                                <li role="presentation"><a href="#" tabindex="-1" role="menuitem"><img src="../views/resultados/images/FUTBOL_SALA.png"> Fútbol de Salón</a></li>
+                                <li role="presentation"><a href="#" tabindex="-1" role="menuitem"><img src="../views/resultados/images/FUTBOL_SALA.png"> Fútbol Sala</a></li>
+								<li role="presentation"><a href="#" tabindex="-1" role="menuitem"><img src="../views/resultados/images/VOLEIBOL.png"> Voleibol Coliseo</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="cover">
+                    	<a class="kode-modren-btn thbg-colortwo">Buscar</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+					</div>
+				</div>
+			</div>
+		  
+		  
+		  
+            <div class="row">
+                <div class="kode-pagecontent col-md-8">
+				<div class="kode-section-title"> <h2>PROXIMOS ENCUENTROS EN:  AGOSTO</h2> </div>
+                  <div class="kode-fixer-list">
+                    <ul class="table-head thbg-color">
+                      <li><h5>Próximos partidos</h5></li>
+                      <li> <h5>Fecha & Hora</h5> </li>
+                      <li> <h5>Lugar</h5> </li>
+                      <li class="fixer-pagination"> <a href="#" class="fa fa-angle-right"></a> <a href="#" class="fa fa-angle-left"></a> </li>
+                    </ul>
+                    <ul class="table-body">
+                      <li>
+                        <a href="#" class="list-thumb"><img src="../views/resultados/extra-images/fixer-logo3.png" alt=""> Equipo 1</a>
+                        <span>vs</span>
+                        <a href="#" class="list-thumb"><img src="../views/resultados/extra-images/fixer-logo4.png" alt=""> Equipo 2</a>
+                      </li>
+                      <li><small>18/08/2017  4:30 - 6:00</small></li>
+                      <li><small>Estadio 1</small></li>
+                      <li class="fixer-btn">
+                        <a href="#">Informe del partido</a>
+                      </li>
+                    </ul>
+                    <ul class="table-body">
+                      <li>
+                        <a href="#" class="list-thumb"><img src="../views/resultados/extra-images/fixer-logo3.png" alt=""> Equipo 1</a>
+                        <span>vs</span>
+                        <a href="#" class="list-thumb"><img src="../views/resultados/extra-images/fixer-logo4.png" alt=""> Equipo 2</a>
+                      </li>
+                      <li><small>18/08/2017  4:30 - 6:00</small></li>
+                      <li><small>Estadio 1</small></li>
+                      <li class="fixer-btn">
+                        <a href="#">Informe del partido</a>
+                      </li>
+                    </ul>
+                    <ul class="table-body">
+                      <li>
+                        <a href="#" class="list-thumb"><img src="../views/resultados/extra-images/fixer-logo3.png" alt=""> Equipo 1</a>
+                        <span>vs</span>
+                        <a href="#" class="list-thumb"><img src="../views/resultados/extra-images/fixer-logo4.png" alt=""> Equipo 2</a>
+                      </li>
+                      <li><small>18/08/2017  4:30 - 6:00</small></li>
+                      <li><small>Estadio 1</small></li>
+                      <li class="fixer-btn">
+                        <a href="#">Informe del partido</a>
+                      </li>
+                    </ul>
+                    <ul class="table-body">
+                      <li>
+                        <a href="#" class="list-thumb"><img src="../views/resultados/extra-images/fixer-logo3.png" alt=""> Equipo 1</a>
+                        <span>vs</span>
+                        <a href="#" class="list-thumb"><img src="../views/resultados/extra-images/fixer-logo4.png" alt=""> Equipo 2</a>
+                      </li>
+                      <li><small>18/08/2017  4:30 - 6:00</small></li>
+                      <li><small>Estadio 1</small></li>
+                      <li class="fixer-btn">
+                        <a href="#">Informe del partido</a>
+                      </li>
+                    </ul>
+                  </div>
+				
+				
+				
+                  
+                  <!-- <div class="kode-inner-fixer margin-none padding-none">
+                    <div class="kode-fixer-counter">
+                      <h2 class="thbg-color">PROXIMO PARTIDO</h2>
+                      <div id="kodeCountdown"></div>
+                    </div>
+                    <div class="kode-team-match">
+                      <ul>
+                        <li><a href="#"><!--<img src="../views/resultados/extra-images/fixer-logo1.png" alt="">EQUIPO 1</a></li>-->
+                        <!-- <li class="home-kode-vs"><a href="#" class="kode-modren-btn thbg-colortwo">vs</a></li>
+                        <li><a href="#"><!--<img src="../views/resultados/extra-images/fixer-logo2.png" alt=""> EQUIPO 2</a></li>-->
+                     <!--  </ul>
+                      <div class="clearfix"></div>
+                      <span class="kode-subtitle">POR DEFINIR</span>
+                    </div>
+                  </div> -->
+
+                </div>
+                <div class="col-md-4">
+                   <table class="kode-table kode-table-v2">
+                    <thead>
+                      <tr>
+						<th>#</th>
+                        <th>Organizaciones</th>
+                        <th><img src="../views/resultados/images/oro.png" alt="Medalla"></th>
+                        <th><img src="../views/resultados/images/plata.png" alt="Medalla"></th>
+                        <th><img src="../views/resultados/images/bronce.png" alt="Medalla"></th>
+                        <th>T</th>
+                      </tr>
+                    </thead>
+                   <tbody>
+                      <tr>
+						<td>1</td>
+                        <td>AMAZONAS</td>
+                        <td>0</td>
+                        <td>0</td>
+                        <td>0</td>
+                        <td>0</td>
+                      </tr>
+                       <tr>
+						<td>2</td>
+                        <td>ARAUCA</td>
+                        <td>0</td>
+                        <td>0</td>
+                        <td>0</td>
+                        <td>0</td>
+                      </tr>
+                      <tr>
+						<td>3</td>
+                        <td>CASANARE</td>
+                        <td>0</td>
+                        <td>0</td>
+                        <td>0</td>
+                        <td>0</td>
+                      </tr>
+                      <tr>
+						<td>4</td>
+                        <td>GUANIA</td>
+                        <td>0</td>
+                        <td>0</td>
+                        <td>0</td>
+                        <td>0</td>
+                      </tr>
+                      <tr>
+						<td>5</td>
+                        <td>GUAVIARE</td>
+                        <td>0</td>
+                        <td>0</td>
+                        <td>0</td>
+                        <td>0</td>
+                      </tr>
+					  <tr>
+						<td>6</td>
+                        <td>VAUPÉS</td>
+                        <td>0</td>
+                        <td>0</td>
+                        <td>0</td>
+                        <td>0</td>
+                      </tr>
+					  <tr>
+						<td>7</td>
+                        <td>VICHADA</td>
+                        <td>0</td>
+                        <td>0</td>
+                        <td>0</td>
+                        <td>0</td>
+                      </tr>
+                    </tbody>
+                 </table>
+                </div>
+
+                <div class="col-md-12">
+                  
+                </div>
+
+              </div>
+            </div>
+        </section>
+        <!--// Page Content //-->
+
+      </div>
+      <!--// Main Content //-->
+
+          <!--// NewsLatter //-->
+      <div class="kode-newslatter kode-bg-color">
+        <span class="kode-halfbg thbg-color"></span>
+        <div class="container">
+          <div class="row">
+
+          </div>
+        </div>
+      </div>
+      <!--// NewsLatter //-->
+
+       

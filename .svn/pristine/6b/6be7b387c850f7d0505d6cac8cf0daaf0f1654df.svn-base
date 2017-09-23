@@ -1,0 +1,327 @@
+<?php
+    use yii\helpers\Html;
+    use yii\helpers\Url;
+    use yii\helpers\ArrayHelper;
+    use app\controllers\EscenarioController;
+?>
+
+<link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+  <link rel="stylesheet" href="../css/style.css">
+  <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
+
+<body class="background_images">
+
+    <!-- Navegación -->
+    <div class="container-fluid">
+        <div class="dashboard-wrapper">
+            
+            <!-- Barra Azul -->
+            <div class="top-bar clearfix">
+                <div class="container-fluid">
+                    <div class="row gutter">
+                        <div class="col-md-7 col-sm-6 col-xs-12">
+                            <h3 class="page-title"><?= Yii::t('app', "SISTEMA_COMPETENCIA") ?></h3>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="main-container panel-body icons">
+                <div class="row gutter">
+                    <div class="col-lg-2 col-md-2 col-sm-2 col-xs-6 block-195 yellow-bg">
+                        <?php 
+                            echo Html::a('<img src="../img/flag.png" alt="'.Yii::t('app', "ESCENARIOS") .'">
+                                <h3>'.Yii::t('app', "ESCENARIOS") .'</h3> 
+                                <div class="demo-btn-group">
+                                    <button type="button" class="btn teal-bg btn-block"><i class="icon-circle-plus icon-left"></i>'.Yii::t('app', "LISTAR_ESCENARIOS").'</button>
+                                </div>',array("escenario/listar"));
+                        ?>
+                    </div>
+                    <div class="col-lg-2 col-md-2 col-sm-2 col-xs-6 block-195 green-bg">
+                        <?php 
+                            echo Html::a('<img src="../img/torch.png" alt="'.Yii::t('app', "EVENTOS") .'">
+                                <h3>'.Yii::t('app', "EVENTOS") .'</h3>
+                                <div class="demo-btn-group">
+                                    <button type="button" class="btn teal-bg btn-block"><i class="icon-circle-plus icon-left"></i>'.Yii::t('app', "LISTAR_EVENTOS").'</button>
+                                </div>',array("evento/listar"));
+                        ?>
+                    </div>
+                    
+                    <div class="col-lg-2 col-md-2 col-sm-2 col-xs-6 block-195 orange-bg">
+                        <?php 
+                            echo Html::a('<img src="../img/campeonato.png" alt="'.Yii::t('app', "CAMPEONATOS") .'">
+                                <h3>'.Yii::t('app', "CAMPEONATOS") .'</h3>
+                                <div class="demo-btn-group">
+                                    <button type="button" class="btn teal-bg btn-block"><i class="icon-circle-plus icon-left"></i>'.Yii::t('app', "LISTAR_CAMPEONATOS").'</button>
+                                </div>',array("campeonato/torneos"));
+                        ?>
+                    </div>
+                    <div class="col-lg-2 col-md-2 col-sm-2 col-xs-6 block-195 red-bg">
+              
+                        <?php 
+                            echo Html::a('<img src="../img/medal-1.png" alt="'.Yii::t('app', "PROGRAMACION") .'">
+                                <h3>'.Yii::t('app', "PROGRAMACION") .'</h3>
+                                <div class="demo-btn-group">
+                                    <button type="button" class="btn teal-bg btn-block"><i class="icon-circle-plus icon-left"></i>'.Yii::t('app', "LISTAR_PROGRAMACION").'</button>
+                                </div>',array("programacion/index"));
+                        ?>
+                    </div>
+                    <div class="col-lg-2 col-md-2 col-sm-2 col-xs-6 block-195 tw-bg">
+                        <img src="../img/trophy.png" alt="REGISTRO DE RESULTADOS">
+                        <h3><?= Yii::t('app', "REG_RESULTADOS") ?></h3>
+                        <div class="demo-btn-group">
+                            <button type="button" class="btn teal-bg btn-block" data-toggle="modal" data-target="#modalRegResul"><i class="icon-circle-plus icon-left"></i> Crear Resultados</button>
+                        </div>			
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+    
+	
+    <!-- CREAR ESCENARIO MODAL -->
+    <div class="modal fade" id="modalRegResul" tabindex="-1" role="dialog" aria-labelledby="modalRegResul">
+        <div class="modal-dialog" role="document" STYLE="width:1024px!important;">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    <h4 class="modal-title">RESULTADOS</h4>
+                </div>
+                <div class="modal-body">
+                    <form action="eventos_fin4.html" onsubmit="return confirm('Desea enviar formulario')">
+                        <div class="form-group">
+                            <label for="message-texta" class="control-label">Disponibilidad:</label>
+                            <div class="panel-body">
+                                <table class="table table-striped success no-margin">
+                                    <thead>
+                                        <tr>
+                                            <th class="col-md-1 col-xs-1">FECHA</th>
+											<th class="col-md-1 col-xs-1">EQUIPO 1</th>
+											<th class="col-md-1 col-xs-1">MARCADOR</th>
+											<th class="col-md-1 col-xs-1">VS</th>
+											<th class="col-md-1 col-xs-1">EQUIPO 2</th>
+											<th class="col-md-1 col-xs-1">MARCADOR</th>
+											<th class="col-md-1 col-xs-1">HORA</th>
+											<th class="col-md-1 col-xs-1">FECHA</th>
+											<th class="col-md-1 col-xs-1">ESCENARIOS</th>
+                                            <th class="col-md-1 col-xs-1">OPCIONES</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        
+                                        <tr>
+                                            <th scope="row">1</th>
+                                            <td>EQUIPO 1</td>
+                                            <td>3</td>
+											<td>VS</td>
+											<td>EQUIPO 2</td>
+                                            <td>2</td>
+											<td>12:00</td>
+                                            <td>31-12-2017</td>
+											<td>CAMPIN</td>
+                                            <td> 
+                                                <span class="label label-warning"><i class="icon-edit"></i></span>
+                                                <span class="label label-danger"><i class="icon-circle-with-cross"></i></span>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <th scope="row">2</th>
+                                            <td>EQUIPO 1</td>
+                                            <td><a href="javascript:MostrarOcultar('marcadorequipo1');"><span class="label label-warning"><i class="icon-edit"></i></span></a></td>
+											<td>VS</td>
+											<td>EQUIPO 2</td>
+                                            <td><a href="javascript:MostrarOcultar('marcadorequipo1');"><span class="label label-warning"><i class="icon-edit"></i></span></a></td>
+											<td>12:00</td>
+                                            <td>31-12-2017</td>
+											<td>CAMPIN</td>
+                                            <td> 
+                                                <span class="label label-warning"><i class="icon-edit"></i></span>
+                                                <span class="label label-danger"><i class="icon-circle-with-cross"></i></span>
+                                            </td>
+                                        </tr> 
+										<tr>
+                                            <th scope="row">2</th>
+                                            <td>EQUIPO 1</td>
+                                            <td><a href="javascript:MostrarOcultar('marcadorequipo1');"><span class="label label-warning"><i class="icon-edit"></i></span></a></td>
+											<td>VS</td>
+											<td>EQUIPO 2</td>
+                                            <td><a href="javascript:MostrarOcultar('marcadorequipo1');"><span class="label label-warning"><i class="icon-edit"></i></span></a></td>
+											<td>12:00</td>
+                                            <td>31-12-2017</td>
+											<td>CAMPIN</td>
+                                            <td> 
+                                                <span class="label label-warning"><i class="icon-edit"></i></span>
+                                                <span class="label label-danger"><i class="icon-circle-with-cross"></i></span>
+                                            </td>
+                                        </tr> 
+                                    </tbody>
+                                </table>
+                            </div>
+							<div class="cp_oculta" id="marcadorequipo1">
+								<!--  EMPIEZA EL  TAB DE CADA  MENU INTERNEO -->
+									<div class="row gutter">
+										<div class="panel panel-light">
+											
+											<table class="table table-striped success no-margin">
+													<thead>
+														<tr>
+															<th>#</th>
+															<th class="col-md-5 col-xs-5">JUGADORES</th>
+															<th class="col-md-4 col-xs-4">GOLES</th>
+															<th class="col-md-4 col-xs-4">FALTAS</th>
+															<th class="col-md-4 col-xs-4">AUTOGOLES</th>
+															<th class="col-md-4 col-xs-4">TIEMPOS/EXTRAS</th>
+														</tr>
+													</thead>
+													<tbody>
+														<tr>
+															<th scope="row">1</th>
+															<td><select class="form-control"><option>Seleccione</option></select></td>
+															<td><select class="form-control"><option>1</option></select></td>
+															<td><a href="javascript:MostrarOcultar('faltas2');"><span class="label label-warning"><img src="../img/whistle.png" alt="Faltas"/></span></a></td>
+															<td><select class="form-control"><option>1</option></select></td>
+															<td>
+																<select class="form-control">
+																	<option>1 TIEMPO</option>
+																	<option>2 TIEMPO</option>
+																	<option>3 TIEMPO</option>
+																	<option>4 TIEMPO</option>
+																	<option>EXTRA TIEMPO</option>
+																	<option>PENALTIES</option>
+																	<option>MUERTE SUBITA</option>
+																</select>
+															</td>
+														</tr>
+														<tr>
+															<th scope="row">2</th>
+															<td><select class="form-control"><option>Seleccione</option></select></td>
+															<td><select class="form-control"><option>1</option></select></td>
+															<td><a href="javascript:MostrarOcultar('faltas2');"><span class="label label-warning"><img src="../img/whistle.png" alt="Faltas"/></span></a></td>
+															<td><select class="form-control"><option>1</option></select></td>
+															<td>
+																<select class="form-control">
+																	<option>1 TIEMPO</option>
+																	<option>2 TIEMPO</option>
+																	<option>3 TIEMPO</option>
+																	<option>4 TIEMPO</option>
+																	<option>EXTRA TIEMPO</option>
+																	<option>PENALTIES</option>
+																	<option>MUERTE SUBITA</option>
+																</select>
+															</td>
+														</tr>
+														<tr>
+															<th scope="row">3</th>
+															<td><select class="form-control"><option>Seleccione</option></select></td>
+															<td><select class="form-control"><option>1</option></select></td>
+															<td><a href="javascript:MostrarOcultar('faltas2');"><span class="label label-warning"><img src="../img/whistle.png" alt="Faltas"/></span></a></td>
+															<td><select class="form-control"><option>1</option></select></td>
+															<td>
+																<select class="form-control">
+																	<option>1 TIEMPO</option>
+																	<option>2 TIEMPO</option>
+																	<option>3 TIEMPO</option>
+																	<option>4 TIEMPO</option>
+																	<option>EXTRA TIEMPO</option>
+																	<option>PENALTIES</option>
+																	<option>MUERTE SUBITA</option>
+																</select>
+															</td>
+														</tr>
+													</tbody>
+												</table>
+										</div>
+									</div>
+								<!--  FIN  DEL  TAB DE CADA  MENU INTERNEO -->
+							</div>	
+							<div class="cp_oculta" id="faltas2">
+								<div class="row gutter">
+									<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+										<div class="panel panel-light">
+											<FORM>
+												<div class="panel-body">
+													<h2>FALTAS Y SANCIONES</h2>
+													<H1 for="message-texta" class="control-label">JUAN PEREZ:</H1>
+													<table class="table table-striped success no-margin">
+														<thead>
+															<tr>
+																<th>#</th>
+																<th class="col-md-5 col-xs-5">AMONESTACIÓN</th>
+																<th class="col-md-4 col-xs-4">MINUTO</th>
+																<th class="col-md-4 col-xs-4">CANTIDAD</th>
+																<th class="col-md-4 col-xs-4">OBSERVACIÓN</th>
+																<th class="col-md-4 col-xs-4">OPCIONES</th>
+															</tr>
+														</thead>
+														<tbody>
+															<tr>
+																<th scope="row">1</th>
+																<td><select class="form-control"><option>Seleccione</option></select></td>
+																<td><input type="text"/></td>
+																<td><select class="form-control"><option>1</option></select></td>
+																<td><select class="form-control"><option>1</option></select></td>
+																<td><span class="label label-warning"><i class="icon-edit"></i></span><span class="label label-danger"><i class="icon-circle-with-cross"></i></span></td>
+															</tr>
+															<tr>
+																<th scope="row">1</th>
+																<td><select class="form-control"><option>Seleccione</option></select></td>
+																<td><input type="text"/></td>
+																<td><select class="form-control"><option>1</option></select></td>
+																<td><select class="form-control"><option>1</option></select></td>
+																<td><span class="label label-warning"><i class="icon-edit"></i></span><span class="label label-danger"><i class="icon-circle-with-cross"></i></span></td>
+															</tr>
+															<tr>
+																<th scope="row">1</th>
+																<td><select class="form-control"><option>Seleccione</option></select></td>
+																<td><input type="text"/></td>
+																<td><select class="form-control"><option>1</option></select></td>
+																<td><select class="form-control"><option>1</option></select></td>
+																<td><span class="label label-warning"><i class="icon-edit"></i></span><span class="label label-danger"><i class="icon-circle-with-cross"></i></span></td>
+															</tr>
+														</tbody>
+													</table>
+												</div>
+												<button type="button" class="btn btn-success"><i class="icon-save icon-left"></i> Guardar</button>
+											</FORM>
+										</div>
+									</div>
+								</div>
+							</div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal"><i class="icon-circle-with-cross icon-left"></i> Cerrar</button>
+                            <button type="button" class="btn btn-info" data-dismiss="modal" onclick=" location.href = 'eventos_fin4.html'"><i class="icon-save icon-left"></i> Guardar Resultados</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+        </div>
+    </div>
+	
+    
+    <!-- FIN EDITAR usuario modal -->
+    <script src="../views/evento/js/evento.js"></script>
+    <script src="../views/escenario/js/escenario.js"></script>
+	
+    <!-- SCRIP PARA OCULTAR DIV-->
+    <script languaje="Javascript">   
+	document.write('<style type="text/css">div.cp_oculta{display: none;}</style>');  
+	function MostrarOcultar(capa,enlace)  
+	{  
+		if (document.getElementById)  
+		{  
+			var aux = document.getElementById(capa).style;  
+			aux.display = aux.display? "":"block";  
+		}  
+	}  
+    </script>
+	
+	
+</body>

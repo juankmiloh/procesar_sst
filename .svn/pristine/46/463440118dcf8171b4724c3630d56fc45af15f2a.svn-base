@@ -1,0 +1,422 @@
+<?php
+
+namespace app\controllers;
+
+use yii\filters\AccessControl;
+use yii\web\Controller;
+use app\helpers\datatables;
+use yii\helpers\Url;
+use yii\helpers\ArrayHelper;
+use Yii;
+
+
+class CampeonatoController extends Controller
+{
+    public $escenario;
+    
+    /**
+     * Control de acceso
+     * @return type
+     */
+    public function behaviors()
+    {
+        return [
+            'access' => [
+                'class' => AccessControl::className(),
+                'rules' => [
+                    [
+                        'actions' => ['listar', 'data', 'editar', 'torneos', 'listarfases', 'datafases', 'editarfases', 'editarfasesestado'], // add all actions to take guest to login page
+                        'allow' => true,
+                        'roles' => ['@'],
+                    ],
+                ],
+                'denyCallback' => function ($rule, $action) {
+                        $user = "NO AUTH USER";
+                        if(Yii::$app->user->identity != null){
+                            $user = Yii::$app->user->identity->usu_num_doc;
+                        }
+                    throw new \Exception('User '. $user .', not allowed to access controller: "'.$action->controller->id.'", action: '.$action->actionMethod);
+                }
+            ],
+        ];
+    }
+    
+     /*
+     * Renderiza la vista torneos
+     */
+    public function actionTorneos(){
+        $deportes = \app\models\Deporte::find()->where('dep_estado = '.ESTADO_ACTIVO)->all();
+        return $this->render('torneos',  array('deportes' => $deportes));
+    }
+    
+    /*
+     * Renderiza la vista listar
+     */
+    public function actionListar(){
+        
+        $deporte = \app\models\Deporte::find()->where('dep_id = '.$_GET['idDeporte'])->one();
+        $eventos = ArrayHelper::map(\app\models\Evento::find()->where('eve_activo ='. ESTADO_ACTIVO)->orderBy('eve_id desc')->all(),'eve_id','eve_nombre');
+        $categorias = ArrayHelper::map(\app\models\Categoria::find()->all(),'cat_id','cat_nombre');
+        $tipoDeporte = ArrayHelper::map(\app\models\TipoDeporte::find()->all(),'td_id','td_nombre');
+        //$deportes = ArrayHelper::map(\app\models\Deporte::find()->all(),'dep_id','dep_nombre');
+        $genero = ArrayHelper::map(\app\models\Genero::find()->all(),'gen_id','gen_nombre');
+        $pruebas = ArrayHelper::map(\app\models\Prueba::find()->all(),'prueb_id','prueb_nombre');
+        $escenarios = ArrayHelper::map(\app\models\Escenario::find()->where('esc_activo = '.ESTADO_ACTIVO)->all(),'esc_id','esc_nombre');
+        
+        return $this->render('listar', 
+                array(
+                        'idDeporte' => $_GET['idDeporte'], 
+                        'eventos' => $eventos, 
+                        'categorias' => $categorias,
+                        'deporte' => $deporte,
+                        //'deportes' => $deportes,
+                        'tipoDeporte' => $tipoDeporte,
+                        'genero' => $genero,
+                        'pruebas' => $pruebas,
+                        'escenarios' => $escenarios,
+                    )
+            );
+    }
+    
+    /**
+     * Retorna lista con los registros. 
+     */
+    public function actionData(){
+        
+        //Columnas a consultar
+        $columns = array(
+            array( 'db' => 'camp_id', 'dt' => 0),
+            array( 'db' => 'eve_id', 'dt' => 1 ,
+                    'formatter' => function( $d, $row ) {
+                            return \app\models\Evento::find()->where('eve_id = '.$d)->one()->eve_nombre;
+                    }
+                ),
+            array( 'db' => 'camp_nombre', 'dt' => 2 ),
+            array( 'db' => 'cat_id', 'dt' => 3,
+                    'formatter' => function( $d, $row ) {
+                            return \app\models\Categoria::find()->where('cat_id = '.$d)->one()->cat_nombre;
+                    }
+                ),
+            array( 'db' => 'tipo_deporte_id', 'dt' => 4,
+                'formatter' => function( $d, $row ) {
+                        return \app\models\TipoDeporte::find()->where('td_id = '.$d)->one()->td_nombre;
+                }
+            ),
+            array( 'db' => 'dep_id', 'dt' => 5,
+                'formatter' => function( $d, $row ) {
+                        return \app\models\Deporte::find()->where('dep_id = '.$d)->one()->dep_nombre;
+                }
+            ),
+            array( 'db' => 'genero_id', 'dt' => 6,
+                'formatter' => function( $d, $row ) {
+                        return \app\models\Genero::find()->where('gen_id = '. $d)->one()->gen_nombre;
+                }
+            ),
+            array( 'db' => 'prueb_id', 'dt' => 7,
+                'formatter' => function( $d, $row ) {
+                        return \app\models\Prueba::find()->where('prueb_id = '. $d)->one()->prueb_nombre;
+                }
+            ),
+            array( 'db' => 'camp_id', 'dt' => 8,
+                'formatter' => function( $d, $row ) {
+                        if($row['camp_estado'] == ESTADO_ACTIVO){
+                            return '<button class="btn btn-danger" onclick="listarFases('.$row['camp_id'].')">'.Yii::t('app',"FASES").'</button>';
+                        } else {
+                            return "";
+                        }
+                }
+            ),
+            array( 'db' => 'camp_estado', 'dt' => 9, 
+                'formatter' => function( $d, $row ) {
+                    if($d == ESTADO_ACTIVO){
+                        return '<button class="btn btn-success" onclick="cambiarEstado('.$row['camp_id'].','.ESTADO_INACTIVO.')">'.Yii::t('app',"ACTIVO").'</button>';
+                    }else{
+                        return '<button class="btn btn-warning" onclick="cambiarEstado('.$row['camp_id'].','.ESTADO_ACTIVO.')">'.Yii::t('app',"INACTIVO").'</button>';
+                    }
+                }
+            ),
+        );
+        
+        //Indice
+        $primaryKey = "camp_id";
+        
+        //Tabla
+        $table = "campeonato";
+        
+        
+        if(isset($_GET['idDeporte'])){
+            //Filtramos para que solo traiga las fases del campeonato indicado
+            $_GET['columns'][5]['search']['value'] = $_GET['idDeporte'];
+        }
+        
+        echo json_encode(
+                datatables::simple( $_GET,$table, $primaryKey, $columns )
+        );
+
+    }
+    
+    /**
+     * Recibe una solicitud de tipo GET para crear un nuevo registro
+     */
+    public function actionEditar(){
+        
+            /**
+             * Consulta un registro
+             */
+            if(isset($_GET['id'])){ 
+                
+                $registro = \app\models\Campeonato::find()->where('camp_id = '.$_GET['id'])->one();
+                $escenarios = \app\models\CampeonatoTieneEscenarios::find()->where('camp_id = '.$registro->camp_id)->select('esc_id')->asArray()->all();
+                $data = $registro->attributes;
+                array_push($data, $escenarios);
+                $r = json_encode($data);
+                echo $r;
+            } 
+            /**
+             * Cambia el estado de un registro
+             */
+            else if(isset($_GET['idCampeonato'])){
+                $registro = \app\models\Campeonato::find()->where('camp_id = '.$_GET['idCampeonato'])->one();
+                $registro->camp_estado = $_GET['estado'];
+                $registro->save();
+            }
+            /**
+             * Crea un registro
+             */
+            else if(isset($_GET['prueb_id'])){
+                
+                /**
+                 * Valida que el campeonato con esa prueba no exista
+                 */
+                $temp = \app\models\Campeonato::find()
+                        ->where("eve_id = ".$_GET['eve_id']." and prueb_id = ".$_GET['prueb_id'])->one();
+                if($temp != null){
+                    echo "El campeonato ya existe";
+                    return;
+                } else {
+                    $registro = new \app\models\Campeonato();
+
+                    if(isset($_GET['idRegistro']) && $_GET['idRegistro'] != ""){
+                        $registro = \app\models\Campeonato::find()->where('camp_id = '.$_GET['idRegistro'])->one();
+
+                        //Eliminamos los escenarios actuales del evento
+                        \app\models\CampeonatoTieneEscenarios::deleteAll(['camp_id' => $registro->camp_id]);
+                    }    
+
+                    /**
+                     * Guarda los valores de las variables. 
+                     */
+                    foreach ($registro as $attribute => $value) {
+                        if(isset($_GET[$attribute])){
+                            $registro->$attribute = $_GET[$attribute];
+                        }
+                    }
+
+                    $deporte = \app\models\Deporte::find()->where('dep_id = '.$registro->dep_id)->one()->dep_nombre;
+                    $categoria = \app\models\Categoria::find()->where('cat_id = '.$registro->cat_id)->one()->cat_nombre;
+                    $genero = \app\models\Genero::find()->where('gen_id = '.$registro->genero_id)->one()->gen_nombre;
+                    $registro->camp_nombre = "Campeonato - ".$deporte." - ".$categoria." - ".$genero;
+
+                    if($registro->validate()){
+                        $registro->save();
+
+                        /**
+                         * Guarda los escenarios del campeonato
+                         */
+                        $escenario = $_GET['escenario'];
+                        for($i = 0; $i < count($escenario); $i++){
+                            $cte = new \app\models\CampeonatoTieneEscenarios();
+                            $cte->esc_id = $escenario[$i];
+                            $cte->camp_id = $registro->camp_id;
+                            if($cte->validate())
+                                $cte->save();
+                        }
+
+                        echo true;
+                    } else {
+                        echo false;
+                    } 
+                }
+            } else {
+                echo false;
+            }
+            
+    }
+    
+    /*
+     * Renderiza la vista listar fases de campeonato
+     */
+    public function actionListarfases(){
+        $idCampeonato = $_GET['idCamp'];
+        $campeonato = \app\models\Campeonato::find()->where('camp_id = '.$idCampeonato)->one();
+        $promocion = $campeonato->getEve()->one()->getProm()->one();
+        
+        /**
+         * Se calcula la totalidad de equipos participantes. 
+         * Si es la primera fase, la totalidad de equipos corresponde a todos los que estan en la promoción (promocion_tiene_equipos)
+         * Si es despues de la primera fase, la totalidad de equipos corresponde a los resultados de la fase anterior (fase_tiene_resultados)
+         */
+        $totalFases = \app\models\CampeonatoTieneFases::find()->where('camp_id = '.$idCampeonato)->count();
+        if($totalFases <= 1){ 
+            
+            $total_equipos_promocionados = \app\models\PromocionTieneEquipos::find()
+                    ->leftJoin('equipo', 'equipo.equi_id = promocion_tiene_equipos.equi_id')
+                    ->where('prom_id = '.$promocion->prom_id." and equipo.prueb_id = ".$campeonato->prueb_id)->count();
+        } else {
+            $total_equipos_promocionados = "<font color='red'>Sin resultados fase anterior</font>";
+        }
+        
+        return $this->render('listarfases', 
+                array(
+                    'campeonato' => $campeonato, 
+                    'total_equipos_promocionados' => $total_equipos_promocionados,
+                    'promocion' => $promocion,
+                )
+        );
+    }
+    
+    
+    /**
+     * Retorna lista con los registros. 
+     */
+    public function actionDatafases(){
+        
+        //Columnas a consultar
+        $columns = array(
+            array( 'db' => 'ctf_id', 'dt' => 0 ),
+            array( 'db' => 'camp_id', 'dt' => 1 ,
+                    'formatter' => function( $d, $row ) {
+                            return \app\models\Campeonato::find()->where('camp_id = '.$d)->one()->camp_nombre;
+                    }
+                ),
+            array( 'db' => 'ctf_nombre', 'dt' => 2), 
+            array( 'db' => 'ctf_tipo_eliminacion', 'dt' => 3, 
+                    'formatter' => function( $d, $row ) {
+                            $tiposElim = unserialize(TIPO_ELIMINACION);
+                            return $tiposElim[$d];
+                    }
+                ),
+            array( 'db' => 'ctf_ida_vuelta', 'dt' => 4 , 
+                    'formatter' => function( $d, $row ) {
+                            $tipos = unserialize(IDA_VUELTA);
+                            return $tipos[$d];
+                    }
+                ),
+            array( 'db' => 'ctf_ida_vuelta', 'dt' => 5 , 
+                    'formatter' => function( $d, $row ) {
+                            $url = "window.location.href = '".Url::to(['programacion/sorteo', 'ctf_id' => $row['ctf_id']])."'";
+                            return '<button class="btn btn-warning" onclick="'.$url.'">'.Yii::t('app',"PROGRAMACION").'</button>';
+                    }
+                ),
+            array( 'db' => 'ctf_ida_vuelta', 'dt' => 6 , 
+                    'formatter' => function( $d, $row ) {
+                    
+                            $maxFaseId = \app\models\CampeonatoTieneFases::find()
+                                ->where('camp_id = '.$_GET['camp_id'])
+                                ->select('max(ctf_id)') // we need only one column
+                                ->scalar();
+                    
+                            //Solo se puede eliminar la ultima fase
+                            if($maxFaseId == $row['ctf_id']){
+                                return '<button class="btn btn-danger" onclick="eliminarFase('.$row['ctf_id'].')">'.Yii::t('app',"ELIMINAR").'</button>';
+                            } else {
+                                return "";
+                            }
+                    }
+                ),
+        );
+        
+        //Indice
+        $primaryKey = "ctf_id";
+        
+        //Tabla
+        $table = "campeonato_tiene_fases";
+        
+        //Filtramos para que solo traiga las fases del campeonato indicado
+        $_GET['columns'][1]['search']['value'] = $_GET['camp_id'];
+        
+        echo json_encode(
+                datatables::simple( $_GET, $table, $primaryKey, $columns )
+        );
+
+    }
+    
+    /**
+     * Recibe una solicitud de tipo GET para crear un nuevo registro
+     */
+    public function actionEditarfases(){
+        
+            /**
+             * Consulta un registro
+             */
+            if(isset($_GET['id'])){ 
+                
+                $registro = \app\models\CampeonatoTieneFases::find()->where('ctf_id = '.$_GET['id'])->one();
+                $r = json_encode($registro->attributes);
+                echo $r;
+            } 
+            /**
+             * Elimina un registro
+             */
+            if(isset($_GET['idToDelete'])){ 
+                
+                $registro = \app\models\CampeonatoTieneFases::find()->where('ctf_id = '.$_GET['idToDelete'])->one();
+                try{
+                    $registro->delete();
+                    echo true;
+                } catch (Exception $ex) {
+                    echo false;
+                }
+                
+            } 
+           
+            /**
+             * Crea un registro
+             */
+            else if(isset($_GET['ctf_nombre'])){
+                
+                $registro = new \app\models\CampeonatoTieneFases();
+                
+                if(isset($_GET['idRegistro']) && $_GET['idRegistro'] != ""){
+                    $registro = \app\models\CampeonatoTieneFases::find()->where('ctf_id = '.$_GET['idRegistro'])->one();
+                    
+                    /**
+                     * Al editar se borrar los datos de fase_tiene_encuentros
+                     */
+                    \app\models\FaseTieneEncuentros::deleteAll(['ctf_id' => $_GET['idRegistro']]);
+                }              
+
+                /**
+                 * Guarda los valores de las variables. 
+                 */
+                foreach ($registro as $attribute => $value) {
+                    if(isset($_GET[$attribute])){
+                        $registro->$attribute = $_GET[$attribute];
+                    }
+                }
+                
+                /**
+                 * Cuando es eliminación directa, se forma un solo grupo y avanza la mitad...
+                 */
+                if($registro->ctf_tipo_eliminacion == ELIMINACION_DIRECTA){
+                    $numEquipos = $_GET['total_equipos_promocionados'];
+                    $registro->ctf_cantidad_grupos = 1;
+                    if($numEquipos % 2 == 0){
+                        $registro->ctf_clasificados_grupo = $numEquipos / 2;
+                    } else { //Si no es un número par, clasifica la mitad más uno
+                        $registro->ctf_clasificados_grupo = ($numEquipos + 1) / 2;
+                    }
+                }
+
+                if($registro->validate()){
+                    $registro->save();
+                    echo true;
+                } else {
+                    echo false;
+                } 
+            } else {
+                echo false;
+            }
+            
+    }
+}

@@ -1,0 +1,55 @@
+<?php
+
+namespace app\models;
+
+use Yii;
+
+/**
+ * This is the model class for table "evento_tiene_participantes".
+ *
+ * @property integer $etp_id
+ * @property integer $eve_id
+ *
+ * @property Evento $eve
+ */
+class EventoTieneParticipantes extends \yii\db\ActiveRecord
+{
+    /**
+     * @inheritdoc
+     */
+    public static function tableName()
+    {
+        return 'evento_tiene_participantes';
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function rules()
+    {
+        return [
+            [['eve_id'], 'required'],
+            [['eve_id'], 'integer'],
+            [['eve_id'], 'exist', 'skipOnError' => true, 'targetClass' => Evento::className(), 'targetAttribute' => ['eve_id' => 'eve_id']],
+        ];
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function attributeLabels()
+    {
+        return [
+            'etp_id' => Yii::t('app', 'PK'),
+            'eve_id' => Yii::t('app', 'Eve ID'),
+        ];
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getEve()
+    {
+        return $this->hasOne(Evento::className(), ['eve_id' => 'eve_id']);
+    }
+}

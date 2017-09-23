@@ -1,0 +1,520 @@
+/**
+ * Función para cargar y poder editar un escenario
+ */
+function editRow(id){
+    $("#crearEventoBtn").prop("disabled",true);
+    $('#modalVerEscenario').modal();
+    
+    $("#modal-editar").text("generando...");
+    $.ajax({
+        url: $("#urlModalEditar").val(),
+        data: "id="+id,
+        success:function(response){
+            response = JSON.parse(response);
+            $("#modal-editar").html(response);
+            $(".fecha").datepicker({format:'yyyy-mm-dd',autoclose: true,
+                todayBtn: 'linked',
+                changeMonth: true,
+                changeYear: true,});
+            $(".sel").selectpicker();
+            $(".selector").selectpicker();
+        },
+        error:function(error){
+            $("#modal-editar").text("error...");
+        }
+    });    
+}
+
+/**
+ * Limpia el formulario de eventos
+ * @returns {undefined}
+ */
+function cleanEscenario(){
+    //Limpiar campos 
+    $("#esc_nombre").val("");
+    $("#esc_direccion").val("");
+    $("#depa").val("");    
+    $("#depor").val("");
+    $("#ce_nombre").val("");
+    $("#ce_apellidos").val("");
+    $("#ce_telefono").val("");
+    $("#ce_celular").val("");
+    $("#email").val("");
+    $(".cuerpo-dis").text("");
+    $(".ciudad").text("");
+    $(".deportes").text("");
+    $("#msnNuevoEscenario").text("");
+    $('#msnContacto').text("");
+}
+
+
+/*
+    Modificación de un registro de la fecha de disponibilidad
+    para un escenario
+*/
+function modificarFecha(idDis,idEsc){
+    var idDis = idDis.replace("modif","");
+    var fechaIni = $("#fi"+idDis).val();
+    var fechaFin = $("#ff"+idDis).val();
+    if(fechaIni > fechaFin){
+        $("#ff"+idDis).focus();
+        return false;
+    }
+    var hora = "";
+    for(var i = 1; i <= 24; i++){
+        if($("#"+idDis+"hor"+i).is(":selected")){
+            hora+="&h"+i+"="+$("#"+idDis+"hor"+i).val();             
+        }
+    }
+    if(hora==""){
+        alert("seleccione al menos una hora");
+        return false;
+    }    
+    var data = "idDis="+idDis+"&idEsc="+idEsc+"&fi="+fechaIni+"&ff="+fechaFin;
+    var url = $("#urlModifDisp").val();            
+    data = data+hora;
+    if(idEsc == 0){
+        $(".cuerpo-dis").text("actualizando...");
+    }else{
+        $(".cuerpo-diss").text("actualizando...");
+    }
+    $.ajax({
+        url: url, 
+        data: data, 
+        success:function(response){                     
+            response = JSON.parse(response);
+            if(idEsc == 0){
+                $(".cuerpo-dis").html(response);    
+            }else{
+                $(".cuerpo-diss").html(response);
+            } 
+            $(".fecha").datepicker({format:'yyyy-mm-dd'});
+            $(".sel").selectpicker();            
+        }
+    });   
+}
+
+/*
+    Se borra un registro de fecha de la disponibilidad
+*/
+function borrarFecha(idDis, idEsc){
+    var idDis = idDis.replace("bor","");
+    var url = $("#urlBorrarDisp").val();    
+    if(idEsc == 0){
+        $(".cuerpo-dis").text("actualizando...");
+    }else{
+        $(".cuerpo-diss").text("actualizando...");
+    }    
+    $.ajax({
+        url: url,
+        data: "idDis="+idDis+"&idEsc="+idEsc,
+        success:function(response){
+            response = JSON.parse(response);
+            if(idEsc == 0){
+                $(".cuerpo-dis").html(response);    
+            }else{
+                $(".cuerpo-diss").html(response);
+            }            
+            $(".fecha").datepicker({format:'yyyy-mm-dd'});
+            $(".sel").selectpicker();
+        },
+        error:function(error){
+            alert(error);
+        }
+    });
+}
+
+/*
+    Se agrega una nueva fecha para la disponibilidad 
+*/
+function agregarFecha(id){
+    if(id == 0){
+        var fechaIni = $("#fecha-ini").val();
+        var fechaFin = $("#fecha-fin").val();
+        var hora = "";
+        var hSelect = false;
+
+        for(var i = 1; i <= 24; i++){
+            if($("#hor"+i).is(":selected")){
+                hora += "&h"+i+"="+$("#hor"+i).val();
+                hSelect = true;
+            }
+        }
+        $(".cuerpo-dis").text("actualizando..");             
+    }else{
+        var fechaIni = $("#fecha-inic").val();
+        var fechaFin = $("#fecha-fina").val();
+        var hora = "";
+        var hSelect = false;
+
+        for(var i = 1; i <= 24; i++){
+            if($("#ho"+i).is(":selected")){
+                hora += "&h"+i+"="+$("#ho"+i).val();
+                hSelect = true;
+            }
+        } 
+        if(!validarFormDisponibilidad()){
+            return false;
+        }                              
+        $(".cuerpo-diss").text("actualizando.."); 
+    }     
+    data = "idEsc="+id+"&fi="+fechaIni+"&ff="+fechaFin+hora;       
+    $.ajax({
+        url:$("#urlNuevaDisponibilidad").val(),
+        data:data,
+        success:function(response){            
+            response = JSON.parse(response);  
+            if(id == 0){
+                $(".cuerpo-dis").html(response);
+                $("#fecha-ini").val("");
+                $("#fecha-fin").val("");
+            }else{
+                $(".cuerpo-diss").html(response);
+                $("#fecha-inic").val("");
+                $("#fecha-fina").val("");
+            }                      
+                        
+            $(".fecha").datepicker({
+                format:'yyyy-mm-dd',
+                autoclose: true});
+            $(".sel").selectpicker();     
+            $(".selector").selectpicker('deselectAll');
+   
+        }
+    });
+}
+
+function validarFormDisponibilidad(){
+    var msn = "";
+    if(validarLongitudMin('fecha-inic',1) ){        
+        msn = FECHA_INICIO_DISPONIBILIDAD;
+    }else if(validarLongitudMin('fecha-fina',1)){
+        msn = FECHA_FIN_DISPONIBILIDAD;
+    }else if(validarFechaFinalMayor('fecha-inic','fecha-fina')){
+        msn = FECHA_INICIAL_FECHA_FINAL_VALIDACION;
+    }else if(validaSelect('horario')){
+        msn = HORARIO_NO_SELECCIONADO;
+    }   
+    if(msn != ""){        
+        $("#msnFechasValidar").css('font-weight','bold');
+        $("#msnFechasValidar").css('color','red');
+        $("#msnFechasValidar").text(msn);
+        return false;
+    }else{
+        $("#msnFechasValidar").text("");
+        return true;
+    }
+}
+
+/*
+*   Se guarda el escenario 
+*/
+function guardarEscenario(){
+    if(!validarFormEsc()){
+        return false;
+    }
+    event.preventDefault();
+    if(confirm("¿Guardar escenario?")==false){
+        return false;
+    }
+    $.ajax({
+        url:$("#urlNuevoEscenario").val(),
+        data:$("#form-add-escenario").serialize(),
+        success:function(response){
+            if(response == true){
+                $("#msnNuevoEscenario").css('color', 'green');
+                $("#msnNuevoEscenario").css('font-weight', 'bold');
+                $("#msnNuevoEscenario").css('font-size', '22px');
+                $("#msnNuevoEscenario").text(ESCENARIO_EXITO);
+                setTimeout(function(){
+                    $('#list-escenario').DataTable().ajax.reload();
+                    $('#modalForm').modal("hide");
+                    cleanEscenario();                
+                }, 2000); 
+            }
+                               
+        },
+        error:function(error){
+            alert(error);
+        }
+    });
+    
+}
+
+/*
+    Muestra las ciudades de acuerdo al departamento seleccionado
+*/
+function mostrarCiudad(id){
+    $(".ciudad").html("<select class='form-control'><option>Cargando...</option></select>");
+    $.ajax({
+        url:$("#urlMostrarCiudad").val(),
+        data: "id="+id,
+        success:function(response){
+            response = JSON.parse(response);
+            $(".ciudad").html(response);
+        }
+    });
+}
+
+/*
+    Muestra los deportes de acuerdo al tipo 
+    de deporte escogido (Individual/Conjunto)
+*/
+function mostrarDeporte(id){
+    $(".deportes").text("cargando...");
+    $.ajax({
+        // type: "POST",
+        url: $("#urlTipoDeporte").val(),
+        data: "tipo="+id,
+        success: function(response){ 
+            response = JSON.parse(response);                                                
+            $(".deportes").html(response);
+        },
+        error: function(error){
+            alert("error");
+        }
+    });
+}
+
+/*
+*   Valida los campos de guardar escenario con el 
+*   para luego permitir el registro en guardarEscenario()
+*/
+function validarFormEsc(){    
+    var msn = "";
+    if(validarLongitudMin('esc_nombre',5)){
+        msn = MIN_NOMBRE_ESCENARIO;         
+    } else if(validarLongitudMin('esc_direccion',1)){
+        msn = DIRECCION_ESCENARIO;
+    }else if(validarListaSeleccionada('depa')){
+        msn = DEPARTAMENTO_ESCENARIO;        
+    }else if(validarListaSeleccionada('ciud')){
+            msn = CIUDAD_ESCENARIO;
+    }else if(validarListaSeleccionada('depor')){
+        msn = TIPO_DEPORTE_ESCENARIO;
+    }else if(!$("input:checkbox[name='dep_id[]']").is(":checked")){
+        msn = DEPORTES_ESCENARIO;        
+    }else if(!$(".sel").is(":visible")){
+        msn = DISPONIBILIDAD_ESCENARIO;
+    }
+    
+    if(msn != ""){
+        $("#msnNuevoEscenario").css('color', 'red');
+        $("#msnNuevoEscenario").css('font-weight', 'bold');
+        $("#msnNuevoEscenario").text(msn);        
+        return false;
+    }else{
+        return true;
+    }
+}
+
+/*
+ * Función para validar los datos para ingresar un nuevo contacto
+ */
+function validarFormContact(nombre, apellido, telefono, celular, email){
+    if(nombre == "" || apellido == "" || telefono == "" || celular == "" || email ==""){
+        
+        return false;
+    }else{
+        return true;
+    }
+}
+
+/*
+*   En el modal de Campeonatos
+*   se hace el borrado de escenario
+*/
+function eliminarEscenario(id){
+    id = id.replace("bor","");
+    if(confirm("¿Eliminar?")==false){
+        return false;
+    }
+    $.ajax({
+        url: $("#urlBorrarEscenario").val(),
+        data: "id="+id.replace("bor",""),
+        success:function(response){
+
+        },
+        error:function(error){}
+    });
+}
+
+/*
+    Función para validar el tipo de texto introducido
+*/
+
+function validarNumero(e){
+    tecla = (document.all) ? e.keyCode : e.which;
+    //Tecla de retroceso para borrar, siempre la permite
+    if (tecla==8){
+        return true;
+    }
+    // Patron de entrada, en este caso solo acepta numeros
+    patron =/[0-9,-]/;
+    tecla_final = String.fromCharCode(tecla);
+    return patron.test(tecla_final);
+}
+
+function validarEmail(id){
+    
+    var validaEmail = /^[-\w.%+]{1,64}@(?:[A-Z0-9-]{1,63}\.){1,125}[A-Z]{2,63}$/i;
+    var email = document.getElementById(id).value;    
+    if(!validaEmail.test(email)){
+        document.getElementById(id).value = "";        
+        $("#"+id).css({'border-color': 'red'});
+        $("#msnValidacionEmail"+id).css('color', 'red');
+        $("#msnValidacionEmail"+id).css('font-weight', 'bold');
+        $("#msnValidacionEmail"+id).text(EMAIL_VALIDACION);
+    }else{
+        $("#"+id).css({'border-color': ''});
+        $("#msnValidacionEmail"+id).text("");
+    }
+}
+
+function activarFechaFin(val){
+    if(val != ""){
+        $("#fecha-fin").prop( "disabled", false );
+    }else{
+        $("#fecha-fin").prop( "disabled", true );
+    }    
+}
+
+function agregarContacto(id){
+    if(!validarFormContact($("#nombre").val(),$("#apellido").val(),$("#telefono").val(),$("#celular").val(),$("#memail").val())){
+        return false;
+    }        
+    $("#msnNuevoContacto").css('font-size','15px');    
+    $("#msnNuevoContacto").text(PROCESANDO);
+    $.ajax({
+        url:$("#urlNuevoContacto").val(),
+        data:"id="+id+"&n="+$("#nombre").val()+"&a="+$("#apellido").val()+"&t="+$("#telefono").val()+"&c="+$("#celular").val()+"&e="+$("#memail").val(),
+        success:function(response){ 
+            $("#msnNuevoContacto").css('font-weight', 'bold');
+            $("#msnNuevoContacto").css('font-size', '22px');                       
+            if(response == true){
+                $("#msnNuevoContacto").css('color', 'green');
+                
+                $("#msnNuevoContacto").text(CONTACTO_ESCENARIO_EXITO);
+                setTimeout(function(){
+                    $('#list-escenario').DataTable().ajax.reload();                                
+                    $("#msnNuevoContacto").text("");
+                }, 2000); 
+            }else{
+                $("#msnNuevoContacto").css('color', 'red');
+                $("#msnNuevoContacto").text(CONTACTO_ESCENARIO_ERROR);
+                setTimeout(function(){
+                    $("#msnNuevoContacto").text("");
+                },2000);
+            }                     
+        }
+    });
+}
+
+function editarEscenario(id){
+    event.preventDefault();  
+    $("#msnModifEscenario").css('font-size','15px');    
+    $("#msnModifEscenario").text(PROCESANDO);
+    $.ajax({        
+        url:$("#urlModificarEscenario").val(),    
+        data: "idEsc="+id+"&"+$("#form_escenario").serialize(),
+        success:function(response){            
+            if(response == true){
+                $("#msnModifEscenario").css('color', 'green');
+                $("#msnModifEscenario").css('font-weight', 'bold');
+                $("#msnModifEscenario").css('font-size', '22px');
+                $("#msnModifEscenario").text(ESCENARIO_EXITO_EDICION);
+                setTimeout(function(){
+                    $('#list-escenario').DataTable().ajax.reload();                                
+                    $("#msnModifEscenario").text("");    
+                },2000);
+            }                    
+        }
+    });
+}
+
+function borrarDeporteEscenario(idDep, idEsc){   
+    $("#msnDeportesEditar").css('font-size','15px');    
+    $("#msnDeportesEditar").text(PROCESANDO);  
+    $.ajax({
+        url:$("#urlBorrarDeporteEsc").val(),
+        data: "idEsc="+idEsc+"&idDep="+idDep,
+        success:function(response){            
+            $("#msnDeportesEditar").css('font-weight','bold');
+            $("#msnDeportesEditar").css('font-size','22px');
+            if(response == true){
+                $("#fila"+idDep).fadeOut(1000);
+                $("#msnDeportesEditar").css('color', 'green');
+                $("#msnDeportesEditar").css('font-weight','bold');
+                $("#msnDeportesEditar").css('font-size','22px');
+                $("#msnDeportesEditar").text(DEPORTE_ESCENARIO_BORRAR);
+                setTimeout(function(){
+                    $("#msnDeportesEditar").text("");
+                },2000);
+            }else{                
+                $("#msnDeportesEditar").css('color', 'red');
+                $("#msnDeportesEditar").text(DEPORTE_ESCENARIO_BORRAR_ERROR);
+                setTimeout(function(){
+                    $("#msnDeportesEditar").text("");
+                },2000);
+            }            
+        }
+    });
+}
+
+function agregarDeporteEscenario(idDep, idEsc){
+    if(idDep == 0){return false;}
+    $("#msnDeportesEditar").css('font-size','15px');     
+    $("#msnDeportesEditar").text(PROCESANDO); 
+    $.ajax({
+        url:$("#urlAgregarDeporteEscenario").val(),
+        data:"idDep="+idDep+"&idEsc="+idEsc,
+        success: function(response){
+            $("#msnDeportesEditar").css('font-weight','bold');
+            $("#msnDeportesEditar").css('font-size','22px');
+            if(response == true){
+                $("#msnDeportesEditar").css('color', 'green');                
+                $("#msnDeportesEditar").text(DEPORTE_ESCENARIO_AGREGAR);
+                setTimeout(function(){                     
+                    editRow(idEsc);    
+
+                },2000);
+            }else{
+                $("#msnDeportesEditar").css('color', 'red');                
+                $("#msnDeportesEditar").text(DEPORTE_ESCENARIO_AGREGAR_ERROR);
+                setTimeout(function(){
+                    $("#msnDeportesEditar").text("");
+                },2000);
+            }            
+        }
+    });
+}
+
+function cambiarLocacion(id){
+    $("#msnLocacionEditar").css('font-size','15px');    
+    $("#msnLocacionEditar").text(PROCESANDO);     
+    $.ajax({
+        url:$("#urlModificarLocacion").val(),
+        data:"idEsc="+id+"&idLoc="+$("#locac").val(),
+        success:function(response){
+            $("#msnLocacionEditar").css('font-weight','bold');
+            $("#msnLocacionEditar").css('font-size','22px');
+            if(response==true){
+                $("#msnLocacionEditar").css('color', 'green');
+                $("#msnLocacionEditar").text(LOCACION_EDITAR);
+                setTimeout(function(){
+                    $('#list-escenario').DataTable().ajax.reload();
+                    editRow(id);
+                    $("#msnLocacionEditar").text("");
+                },2000);
+            }else{
+                $("#msnLocacionEditar").css('color', 'red');
+                $("#msnLocacionEditar").text(LOCACION_EDITAR_ERROR);
+                setTimeout(function(){
+                    $("#msnLocacionEditar").text("");
+                },2000);
+            }
+
+        }
+    });
+}
+

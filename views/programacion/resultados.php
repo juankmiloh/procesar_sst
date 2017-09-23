@@ -1,0 +1,305 @@
+<?php
+    use yii\helpers\Html;
+    use yii\helpers\Url;
+?>
+
+<body class="background_images">
+
+    <div class="container-fluid">
+
+        <div class="dashboard-wrapper">
+
+            <!-- MIGA DE PAN -->
+            <nav class="navbar navbar-default">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                        <span class="sr-only">
+                            Toggle navigation</span>
+                        <span class="icon-bar">
+                        </span>
+                        <span class="icon-bar">
+                        </span>
+                        <span class="icon-bar">
+                        </span>
+                    </button>
+                </div>
+                <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                    <ul class="nav navbar-nav">
+                        <li>
+                            <?php
+                            echo Html::a('<i class="icon-graphic_eq"></i>' . Yii::t("app", "INICIO"), array("evento/index"));
+                            ?>
+                        </li>
+                        <li class="active">
+                            <?php
+                            echo Html::a('<i class="icon-graphic_eq"></i>' . Yii::t("app", "TORNEOS"), array("campeonato/torneos"));
+                            ?>
+                        </li>
+                        <li class="active">
+                            <?php
+                            echo Html::a('<i class="icon-graphic_eq"></i>' . Yii::t("app", "CAMPEONATO"), ["campeonato/listar", 'idDeporte' => $campeonato->dep_id]);
+                            ?>
+                        </li>
+                        <li class="active">
+                            <?php
+                            echo Html::a('<i class="icon-graphic_eq"></i>' . Yii::t("app", "FASES"), ["campeonato/listarfases", 'idCamp' => $fase->camp_id]);
+                            ?>
+                        </li>
+                        <li class="active">
+                            <a><i class="icon-graphic_eq"></i> <?= Yii::t("app", "PROGRAMACION") ?></a>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+
+            <!-- Barra Azul -->
+            <div class="top-bar clearfix">
+            </div>
+
+
+            <!-- EMPIEZA EL MENU EN TREE --> 
+            <div class="left-sidebar">
+
+
+                <div class="row gutter">
+                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                        <div class="panel panel-light">
+                            <div class="panel-heading">
+                                <h4><?= Yii::t("app", "RESULTADOS"); ?></h4>
+                            </div>
+
+                            <div class="row gutter">
+                                <div class="col-md-8 col-sm-6 col-xs-6">
+                                    <h3 class="page-title"><?= Yii::t('app', "FASES")." (".$campeonato->camp_nombre.")" ?></h3>
+                                    <h4 class="page-title"><?= Yii::t('app', "PROMOCION")." (".$promocion->prom_nombre.")" ?></h4>
+                                    <h4><?= Yii::t('app', "EVENTO_LOWWER").": ".$campeonato->getEve()->one()->eve_nombre; ?></h4>
+                                </div>
+                                <div class="col-lg-2 col-md-3 col-sm-4 col-xs-4">
+                                    <?=
+                                    Html::a('<img src="../img/sorteo.png" class="img-responsive" alt="SORTEOS"><h1>' . Yii::t("app", "SORTEO") . "</h1>", ["programacion/sorteo", 'ctf_id' => $fase->ctf_id], array("class" => "block-40 green-bg", "style" => "display: flex;"));
+                                    ?>
+                                </div>
+                                <div class="col-lg-2 col-md-3 col-sm-4 col-xs-4">
+                                    <?=
+                                    Html::a('<img src="../img/enuentros.png" class="img-responsive" alt="SORTEOS"><h1>' . Yii::t("app", "ENCUENTROS") . "</h1>", ["programacion/encuentros", 'ctf_id' => $fase->ctf_id], array("class" => "block-40 yellow-bg", "style" => "display: flex;"));
+                                    ?>
+                                </div>
+                                <div class="col-lg-2 col-md-3 col-sm-4 col-xs-4">
+                                    <a disabled="disabled" style="display: flex;" class="img-responsive block-40 grey-bg"><img src="../img/resultados.png" class="img-responsive " alt="<?= Yii::t("app", "RESULTADOS"); ?>"><h1><?= Yii::t("app", "RESULTADOS"); ?></h1></a>
+                                </div>
+                                <div class="col-lg-2 col-md-3 col-sm-4 col-xs-4">
+                                    <?=
+                                    Html::a('<img src="../img/medal.png" class="img-responsive" alt="RESULTADOS"><h1>' . Yii::t("app", "POSICIONES") . "</h1>", ["programacion/verresultados", 'ctf_id' => $fase->ctf_id], array("class" => "block-40 blue-bg", "style" => "display: flex;"));
+                                    ?>
+                                </div>
+                            </div>
+
+                            
+                            <input id="urlGuardar" type="hidden" value="<?= Url::toRoute(['programacion/guardarprogramacion']); ?>">
+                            <input id="urlConsultarJugadores" type="hidden" value="<?= Url::toRoute(['helper/getdeportistasequipo']); ?>">
+                            <input id="urlGuardarResultados" type="hidden" value="<?= Url::toRoute(['programacion/guardarresultado']); ?>">
+                            <input id="urlConsultarResultados" type="hidden" value="<?= Url::toRoute(['programacion/consultarresultado']); ?>">
+                            <input id="urlConsultarSucesos" type="hidden" value="<?= Url::toRoute(['programacion/getsucesos']); ?>">
+                            <input id="urlConsultarSucesosRol" type="hidden" value="<?= Url::toRoute(['helper/getsucesosrol']); ?>">
+                            <input id="urlEliminarSucesos" type="hidden" value="<?= Url::toRoute(['programacion/eliminarresultado']); ?>">
+                            <input id="urlArchivoResultados" type="hidden" value="<?= Url::toRoute(['programacion/archivoresultados']); ?>">
+                            
+                            <br>
+                            <div class="panel-group" id="leftSidebar" role="tablist" aria-multiselectable="true">
+                            <?php
+                            $fecha = 1;
+                            $i = 0;
+                            for (; $i < count($encuentros);) {
+                                $fecha = $encuentros[$i]->tfs_ronda;
+                                ?>
+                            
+                                <div class="panel">
+                                    <div class="panel-heading" role="tab" id="heading<?= $fecha; ?>">
+                                        <h4 class="panel-title">
+                                                <a class="collapsed" role="button" data-toggle="collapse" href="#collapse<?= $fecha; ?>" aria-expanded="false" aria-controls="collapse<?= $fecha; ?>"><?php  echo Yii::t("app", "FECHA")." ".$fecha ?>  <span class="label label-warning"><i class="icon-circle-down"></i></span></a>
+                                        </h4>
+                                    </div>
+                                    <div id="collapse<?= $fecha; ?>" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading<?= $fecha; ?>">
+                                        <div class="panel-body">
+                                            
+                                            <div class="panel-body center-text">
+                                                <div class="form-group">
+                                                    <div class="panel-body">
+                                                        <table class="table table-striped success no-margin" style="width: 90%">
+                                                            <thead>
+                                                                <tr>
+                                                                    <th class="col-md-2 col-xs-2" style="width: 5%">#</th>
+                                                                    <th class="col-md-2 col-xs-2" style="width: 5%"><?= Yii::t("app", "GRUPO") ?></th>
+                                                                    <th class="col-md-2 col-xs-2" ><?= Yii::t("app", "LOCAL") ?></th>
+                                                                    <th class="col-md-2 col-xs-2" style="width: 5%"><?= Yii::t("app", "GOLES") ?></th>
+                                                                    <th class="col-md-2 col-xs-2" style="width: 5%"></th>
+                                                                    <th class="col-md-2 col-xs-2" style="width: 5%">VS</th>
+                                                                    <th class="col-md-2 col-xs-2"><?= Yii::t("app", "VISITANTE") ?></th>
+                                                                    <th class="col-md-2 col-xs-2" style="width: 5%"><?= Yii::t("app", "GOLES") ?></th>
+                                                                    <th class="col-md-2 col-xs-2" style="width: 5%"></th>
+                                                                    <th class="col-md-2 col-xs-2" style="width: 5%"><?= Yii::t("app", "RESULTADOS") ?></th>
+                                                                </tr>
+                                                            </thead>
+                                                            <tbody>
+                                                            <?php while (isset($encuentros[$i]->tfs_ronda) && $fecha == $encuentros[$i]->tfs_ronda) { ?>
+                                                                    <tr>
+                                                                        <th scope="row"><?= ($i + 1); ?></th>
+                                                                        <!--<th scope="row"><?= $encuentros[$i]->fts_id; ?></th>-->
+                                                                        <th><?= $encuentros[$i]->fts_grupo; ?></th>
+                                                                        <td><?= $encuentros[$i]->getEquiId1()->one()->getEnt()->one()->ent_nombre . " "; ?></td>
+                                                                        <td id="equip1_<?= $encuentros[$i]->fts_id; ?>"><?= $encuentros[$i]->tfs_gf_1;?></td>
+                                                                        <td><span class="label label-warning" onclick="openModal(<?= $encuentros[$i]->getEquiId1()->one()->equi_id; ?>, 1, <?= $encuentros[$i]->fts_id; ?>, '<?= $encuentros[$i]->getEquiId1()->one()->getEnt()->one()->ent_nombre; ?>', <?= $campeonato->dep_id ?>)"><i class="icon-edit"></i></span></td>
+                                                                        <td>VS</td>
+                                                                        <td><?= $encuentros[$i]->getEquiId2()->one()->getEnt()->one()->ent_nombre . " "; ?></td>
+                                                                        <td id="equip2_<?= $encuentros[$i]->fts_id; ?>"><?= $encuentros[$i]->tfs_gf_2;?></td>
+                                                                        <td><span class="label label-warning" onclick="openModal(<?= $encuentros[$i]->getEquiId2()->one()->equi_id; ?>, 2, <?= $encuentros[$i]->fts_id; ?>, '<?= $encuentros[$i]->getEquiId2()->one()->getEnt()->one()->ent_nombre; ?>', <?= $campeonato->dep_id ?>)"><i class="icon-edit"></i></span></td>
+                                                                        <td>
+                                                                            <?php if($encuentros[$i]->tfs_archivo_resultado != null) { ?>
+                                                                            <input type="checkbox"  disabled="true" checked="true">
+                                                                            <?php } else { ?>    
+                                                                                <input type="checkbox" id="check<?php echo $encuentros[$i]->fts_id ?>" disabled="true">
+                                                                            <?php } ?>    
+                                                                            <input id="sortpicture<?php echo $encuentros[$i]->fts_id ?>" type="file" name="sortpic" />
+                                                                            <button type="button" class="btn btn-info" id="upload" onclick="cargarArchivoResultados(<?php echo $encuentros[$i]->fts_id ?>)" class="panel-group">Cargar</button>
+                                                                        </td>
+                                                                    </tr>
+                                                                <?php $i++;
+                                                            } ?>
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
+                                                </div>	
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+<?php } ?>
+                                </div>
+                        </div>
+                    </div>
+                </div>
+            </div>	
+            <!-- FIN EL MENU EN TREE -->
+
+        </div>
+    </div>
+
+
+
+    <!-- MODAL REGISTRO DE RESULTADOS-->
+    <div class="modal fade" id="modalRegResul" role="dialog" aria-labelledby="modalRegResul">
+        <div class="modal-dialog" role="document" STYLE="width:900px!important;">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    <h3 id="nombreEquipo"></h3>
+                    <h4 class="modal-title"><?= Yii::t("app", "RESULTADOS") ?></h4>
+                </div>
+                <div class="modal-body">
+                        <div class="form-group">
+                            
+                            <div class="row gutter">
+                                <div class="col-md-2">
+                                    <label for="message-texta" class="control-label"><?= Yii::t("app", "ROL_PARTICIPANTE") ?>:</label><br>
+                                    <?php 
+                                        echo Html::dropDownList('rol_p_id', 'rol_p_id', unserialize(ROLES_PARTICIPANTE), 
+                                            [   
+                                                'style' => 'width: 140px',
+                                                'class' => 'form-control',
+                                                'id' => 'rol_p_id',
+                                                'onchange' => 'buscarJugadores(this.value)',
+                                            ]);
+                                    ?>
+                                </div>
+                                <div class="col-md-2">
+                                    <label for="message-texta" class="control-label"><?= Yii::t("app", "PARTICIPANTES") ?>:</label><br>
+                                    <select id="dep_id" style='width: 140px' class = "form-control"></select>
+                                </div>
+                                <div class="col-md-2">
+                                    <label for="message-texta" class="control-label"><?= Yii::t("app", "SUCESO") ?>:</label>
+                                    <?php
+                                        $array = [];
+                                        echo Html::dropDownList('pts_id', 'pts_id', $array, 
+                                            [   'prompt' => Yii::t("app", "SELECCIONE"), 
+                                                'style' => 'width: 140px',
+                                                'class' => 'form-control',
+                                                'id' => 'pts_id'
+                                            ]);
+                                    ?>
+                                </div>
+                                <div class="col-md-1">
+                                    <label for="message-texta" class="control-label"><?= Yii::t("app", "MINUTO") ?>:</label>
+                                    <input type="number" class="form-control" id="minuto"/>
+                                </div>
+                                <div class="col-md-2">
+                                    <label for="message-texta" class="control-label"><?= Yii::t("app", "TIEMPO") ?>:</label>
+                                    <?php
+                                        echo Html::dropDownList('tiempo', 'tiempo', $tiempos, 
+                                            [   'prompt' => Yii::t("app", "SELECCIONE"), 
+                                                'style' => 'width: 140px',
+                                                'class' => 'form-control',
+                                                'id' => 'tiempo'
+                                            ]);
+                                    ?>
+                                </div>
+                                <div class="col-md-1">
+                                    <label for="message-texta" class="control-label"><?= Yii::t("app", "AGREGAR") ?></label><br>
+                                    <button type="button" class="btn btn-success" onclick="agregarJugadorGol()"><i class="icon-save"></i></button>
+                                </div>
+                            </div>
+                            <br>
+                            
+                            <div class="row gutter">
+                                <div class="cp_oculta" id="marcadorequipo1">
+                                    <!--  EMPIEZA EL  TAB DE CADA  MENU INTERNEO -->
+                                    <div class="row gutter">
+                                        <div class="panel panel-light">
+
+                                            <table class="table table-striped success no-margin" id="goles_equipo">
+                                                <thead>
+                                                    <tr>
+                                                        <th>#</th>
+                                                        <th class="col-md-5 col-xs-5"><?= Yii::t("app", "JUGADORES") ?></th>
+                                                        <th class="col-md-4 col-xs-4" style="width: 20%"><?= Yii::t("app", "SUCESO") ?></th>
+                                                        <th class="col-md-4 col-xs-4" style="width: 10%"><?= Yii::t("app", "MINUTO") ?></th>
+                                                        <th class="col-md-5 col-xs-5"><?= Yii::t("app", "TIEMPO") ?></th>
+                                                        <th class="col-md-5 col-xs-5"><?= Yii::t("app", "ELIMINAR") ?></th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+
+                                                </tbody>
+                                            </table>
+
+                                            <br>
+
+                                        </div>
+                                    </div>
+                                    <!--  FIN  DEL  TAB DE CADA  MENU INTERNEO -->
+                                </div>
+                            </div>
+                       
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal"><i class="icon-circle-with-cross icon-left"></i> Cerrar</button>
+                        </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+
+</body>
+
+<script src="../views/programacion/js/resultados.js"></script>
+
+<script>
+    
+    $(document).ready(function () {
+        $("#dep_id").select2();
+    });
+    
+</script>

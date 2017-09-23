@@ -1,0 +1,169 @@
+
+    /**
+     * Función para cargar y poder editar un evento
+     * @returns {undefined}
+     */
+    function editRow(id){
+        
+         //Esta linea remueve todo los roles asignados.... 
+        document.getElementById("multiselect_leftAll").click();
+        
+        $("#crearEventoBtn").prop("disabled",true);
+        $('#modalForm').modal();
+        var url = $("#urlEditarEvento").val();
+        $("#idEvento").val(id);
+        $("#msnEvento").text("");
+        $.ajax({
+                //type: 'POST',
+                url: url,
+                data: {id : id},
+                success: function (response) {
+                    
+                    var obj = jQuery.parseJSON( response );
+                    for (var key in obj) {
+                        if($("#"+key) != null){
+                            $("#"+key).val(obj[key]);
+                        }
+                    }
+                    
+                    /**
+                     * Llena la lista con los sedes del evento
+                     */
+                    var sedes = obj[0];
+                    for(var i = 0; i < sedes.length; i++){
+                        $('#multiselect_to').append($('<option>', {
+                            value: sedes[i]['sede_id'],
+                            text: $("#multiselect option[value='"+sedes[i]['sede_id']+"']").text()
+                        }));
+                        $("#multiselect option[value='"+sedes[i]['sede_id']+"']").remove();
+                    }
+                    
+                    $("#crearEventoBtn").prop("disabled",false);
+                },
+                error: function (error, tx) {
+                        console.log(tx);
+                }
+        });
+    }
+    
+    /**
+     * Cambia el estado del registro
+     * @returns {undefined}
+     */
+    function cambiarEstado(idRegistro, estado){
+        var url = $("#urlEditarEvento").val();
+        $.ajax({
+                url: url,
+                data: {idRegistro : idRegistro, estado : estado},
+                success: function (response) {
+                    $('#list-evento').DataTable().ajax.reload();
+                    
+                },
+                error: function (error, tx) {
+                        console.log(tx);
+                }
+        });
+    }
+    
+    /**
+     * Limpia el formulario de eventos
+     * @returns {undefined}
+     */
+    function cleanEvento(){
+        
+        //Limpiar campos 
+        var $inputs = $('#nuevo_evento_form  :input');
+        $inputs.each(function ()
+        {
+            $(this).val("");
+        });
+        
+        $("#msnEvento").text("");
+        $("#estado").val(1);
+        
+        //Esta linea remueve todo los roles asignados.... 
+        document.getElementById("multiselect_leftAll").click();
+    }
+
+    /*
+     * Función para crear un evento nuevo
+     * @returns {undefined}
+     */
+    function nuevoEvento(){
+        
+        event.preventDefault();
+        var msn = "";
+        
+        //Deshabilita el botón de guardar
+        $("#crearEventoBtn").prop("disabled",true);
+        
+        /*
+         * Validaciones del formulario
+         */
+        if(validarLongitudMax("eve_nombre", 100)){
+            msn = MAX_NOMBRE_EVENTO;
+        } else if (validarLongitudMin("eve_nombre", 5)){
+            msn = MIN_NOMBRE_EVENTO;
+        } else if(validarListaMultipleSeleccionada("multiselect_to")){
+            msn = SEDE_SELECT;
+        } else if(validarFechaNoVacia("eve_fecha_ini")){
+            msn = FECHA_INICIO_EVENTO;
+        } else if(validarFechaNoVacia("eve_fecha_fin")){
+            msn = FECHA_FINAL_EVENTO;
+        } else if(validarListaSeleccionada("prom_id")){
+            msn = PROMOCION_EVENTO;
+        } else if(validarLongitudMax("eve_detalle", 200)){
+            msn = DETALLE_EVENTO_MSN;
+        }
+        
+        
+        if(msn != ""){ //SI hubo errores muestre las alertas
+            $("#msnEvento").css('color', 'red');
+            $("#msnEvento").css('font-weight', 'bold');
+            $("#msnEvento").text(msn);
+            
+            //Habilita el botón de guardar
+            $("#crearEventoBtn").prop("disabled",false);
+            
+            return;
+        } else { //Si no hubo errores envie el formulario
+            
+            var data = $("#nuevo_evento_form").serialize();
+            var url = $("#urlCrearEvento").val();
+
+            $.ajax({
+                //type: 'POST',
+                url: url,
+                data: data,
+                success: function (response) {
+                    if(response == true){
+                        $("#msnEvento").css('color', 'green');
+                        $("#msnEvento").css('font-weight', 'bold');
+                        $("#msnEvento").css('font-size', '22px');
+                        
+                        if($("#idEvento").val() == ""){
+                            $("#msnEvento").text(EVENTO_EXITO);
+                        } else {
+                            $("#msnEvento").text(EVENTO_EXITO_EDICION);
+                        }
+                        
+                        
+                        
+                        
+                        setTimeout(function(){
+                            $('#list-evento').DataTable().ajax.reload();
+                            $('#modalForm').modal("hide");
+                            cleanEvento();
+                            $("#crearEventoBtn").prop("disabled",false);
+                        }, 1000);
+                    }
+                },
+                error: function (error, tx) {
+                        $("#msnEvento").css('color', 'red');
+                        $("#msnEvento").css('font-weight', 'bold');
+                        $("#msnEvento").css('font-size', '22px');
+                        $("#msnEvento").text(ERROR);
+                }
+            });
+        }
+    }

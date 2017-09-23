@@ -1,0 +1,76 @@
+<?php
+
+namespace app\models;
+
+use Yii;
+
+/**
+ * This is the model class for table "evento".
+ *
+ * @property integer $eve_id
+ * @property string $eve_nombre
+ * @property string $eve_fecha_ini
+ * @property string $eve_fecha_fin
+ * @property string $eve_sede
+ * @property integer $eve_tipo_evento
+ * @property string $eve_detalle
+ *
+ * @property EventoTieneDeportes[] $eventoTieneDeportes
+ * @property EventoTieneParticipantes[] $eventoTieneParticipantes
+ */
+class Evento extends \yii\db\ActiveRecord
+{
+    /**
+     * @inheritdoc
+     */
+    public static function tableName()
+    {
+        return 'evento';
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function rules()
+    {
+        return [
+            [['eve_nombre', 'eve_fecha_ini', 'eve_fecha_fin', 'eve_sede', 'eve_tipo_evento'], 'required'],
+            [['eve_fecha_ini', 'eve_fecha_fin'], 'safe'],
+            [['eve_tipo_evento'], 'integer'],
+            [['eve_nombre', 'eve_sede'], 'string', 'max' => 100],
+            [['eve_detalle'], 'string', 'max' => 200],
+        ];
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function attributeLabels()
+    {
+        return [
+            'eve_id' => Yii::t('app', 'PK'),
+            'eve_nombre' => Yii::t('app', 'Nombre del evento'),
+            'eve_fecha_ini' => Yii::t('app', 'Fecha inicio'),
+            'eve_fecha_fin' => Yii::t('app', 'Fecha fin'),
+            'eve_sede' => Yii::t('app', 'Sede'),
+            'eve_tipo_evento' => Yii::t('app', 'TIpo de evento'),
+            'eve_detalle' => Yii::t('app', 'Comentarios sobre el evento'),
+        ];
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getEventoTieneDeportes()
+    {
+        return $this->hasMany(EventoTieneDeportes::className(), ['eve_id' => 'eve_id']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getEventoTieneParticipantes()
+    {
+        return $this->hasMany(EventoTieneParticipantes::className(), ['eve_id' => 'eve_id']);
+    }
+}

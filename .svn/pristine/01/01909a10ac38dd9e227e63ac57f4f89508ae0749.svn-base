@@ -1,0 +1,179 @@
+<?php
+
+    /* @var $this \yii\web\View */
+    /* @var $content string */
+    use yii\helpers\Html;
+    use app\assets\AppAsset;
+
+
+    AppAsset::register($this);
+?>
+
+<?php $this->beginPage() ?>
+<!DOCTYPE html>
+<html lang="<?= Yii::$app->language ?>"> 
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width,initial-scale=1">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="description" content="Esquare Admin Panel">
+        <meta name="keywords" content="Admin, Dashboard, Bootstrap3, Sass, transform, CSS3, HTML5, Web design, UI Design, Responsive Dashboard, Responsive Admin, Admin Template, Best Admin UI, Bootstrap Template, Wrapbootstrap, Bootstrap"><meta name="author" content="Bootstrap Gallery">
+        <link rel="shortcut icon" href="../img\favicon.ico">
+        <title><?= Yii::t('app', "TITLE_EVENTO") ?></title>
+        <link href="../css\bootstrap.min.css" rel="stylesheet" media="screen">
+        <link href="../css\main.css" rel="stylesheet">
+        <link href="../css\main.css" rel="stylesheet" id="themeSwitcher">
+        <link href="../fonts\icomoon\icomoon.css" rel="stylesheet">
+        <link rel="stylesheet" href="../css\datepicker.css">
+        <link href="../css\c3\c3.css" rel="stylesheet">
+        <script src="../js\jquery.js"></script>
+        <script src="../js\bootstrap.min.js"></script>
+        <script src="../js\jquery-ui.min.js"></script>
+    
+        
+    </head>
+
+    <body>
+        <?php $this->beginBody() ?>
+
+        <!-- Menu horizontal -->
+        <header class="clearfix">
+            <div class="logo">
+                <img src="../img\logo.png" alt="Logo">
+            </div>
+            <div class="pull-right">
+                <ul id="header-actions" class="clearfix">
+                    <li class="list-box dropdown">
+                        <a id="drop1" href="#" role="button" class="dropdown-toggle" data-toggle="dropdown">
+                            <span class="info-label">7</span>
+                            <i class="icon-calendar2 info-icon text-success">
+                            </i>
+                        </a>
+                        <ul class="dropdown-menu imp-notify">
+                            <li>
+                                <div class="thumb">
+                                    <i class="icon-warning2"></i>
+                                </div>
+                                <div class="details">
+                                    <strong>ALERTAS DE CAMPEONATOS</strong>
+                                    <p>se cargan mensajes de campeonatos</p>
+                                    <small class="date">7 days ago at 5:15 pm</small>
+                                </div>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="list-box dropdown">
+                        <a id="drop10" href="#" role="button" class="dropdown-toggle" data-toggle="dropdown">
+                            <span class="info-label">4</span>
+                            <i class="icon-paper-clip info-icon text-warning">
+                            </i>
+                        </a>
+                        <div class="dropdown-menu">
+                            <section class="todo">
+                                <fieldset class="todo-list">
+                                    <label class="todo-list-item">
+                                        <input type="checkbox" class="todo-list-cb">
+                                        <span class="todo-list-mark">
+                                        </span>
+                                        <span class="todo-list-desc">HABILITAR EVENTOS</span>
+                                        <small class="scheduled">se habilitan las ventanas de  eventos</small>
+                                    </label>
+                                    <label class="todo-list-item">
+                                        <input type="checkbox" class="todo-list-cb">
+                                        <span class="todo-list-mark">
+                                        </span>
+                                        <span class="todo-list-desc">HABILITAR ESCENARIOS</span>
+                                        <small class="scheduled">se habilitan las ventanmas de escenarios</small>
+                                    </label>
+                                    <label class="todo-list-item">
+                                        <input type="checkbox" class="todo-list-cb">
+                                        <span class="todo-list-mark">
+                                        </span>
+                                        <span class="todo-list-desc">HABILITAR CAMPEONATO</span>
+                                        <small class="scheduled">se habilitan las ventanas de campeonato</small>
+                                    </label>
+                                    <label class="todo-list-item">
+                                        <input type="checkbox" class="todo-list-cb" checked="checked">
+                                        <span class="todo-list-mark">
+                                        </span>
+                                        <span class="todo-list-dec">HABILITAR PROGRAMACION</span>
+                                        <small class="scheduled">se habilitan las ventanas de programación</small>
+                                    </label>
+                                    <label class="todo-list-item">
+                                        <input type="checkbox" class="todo-list-cb overdue" checked="checked">
+                                        <span class="todo-list-mark">
+                                        </span>
+                                        <span class="todo-list-desc">HABILITAR RESULTADOS</span>
+                                        <small class="scheduled">se cargan las ventanas de resultados</small>
+                                    </label>
+                                </fieldset>
+                            </section>
+                        </div>
+                    </li>
+                    <li class="list-box user-admin dropdown">
+                        <div class="admin-details">
+                            <div class="name"><?= Yii::$app->user->identity->usu_apellidos." ".Yii::$app->user->identity->usu_nombres ?></div>
+                            <div class="designation">ADMINISTRADOR DEL SISTEMA</div>
+                        </div>
+                        <a id="drop4" href="#" role="button" class="dropdown-toggle" data-toggle="dropdown">
+                            <i class="icon-account_circle">
+                            </i>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li class="dropdown-content">
+                                <a href="#">
+                                    <i class="icon-warning2"></i><?=Yii::t('app', "ACCIONES")?><br>
+                                    <!--span>TIENE EVENTOS SIN REGISTRAR.</span-->
+                                </a>
+                                <a href="#"><?=Yii::t('app', "CAMBIAR_CLAVE")?></a>
+                                <a><?= Html::beginForm(['/site/logout'], 'post')
+                                    . Html::submitButton(
+                                        'Logout (' . Yii::$app->user->identity->usu_num_doc . ')',
+                                        ['class' => 'btn btn-link logout']
+                                    )
+                                    . Html::endForm() ?>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+            <a href="http://helpdesk-coldeportes.camaleon.com.co/" target="_blank" class="support"><?= Yii::t('app', "MESA_AYUDA") ?></a>
+            <div class="custom-search">
+                <input type="text" class="search-query" placeholder="<?= Yii::t('app', "BUSCAR") ?>">
+                <i class="icon-search4">
+                </i>
+            </div>
+        </header>
+
+
+        <?= $content ?>
+
+        <footer class="footer">
+            <div class="footer"></div>
+            <div class="copy">Copyright <a href="http://www.camaleon.com.co">Camaleon Multimedia SAS</a> V 1.1<span> 2017</span>.</div>
+        </footer>
+
+        <?php $this->endBody() ?>
+
+     
+    <script src="../js\scrollup.min.js"></script>
+    <script src="../js\flot\jquery.flot.min.js"></script>
+    <script src="../js\flot\jquery.flot.tooltip.min.js"></script>
+    <script src="../js\flot\jquery.flot.time.min.js"></script>
+    <script src="../js\flot\jquery.flot.resize.min.js"></script>
+    <script src="../js\flot\custom\multi-bar-chart.js"></script>
+    <script src="../js\flot\custom\profile-area.js"></script>
+    <script src="../js\jvectormap\jquery-jvectormap-2.0.3.min.js"></script>
+    <script src="../js\jvectormap\gdp-data.js"></script>
+    <script src="../js\jvectormap\usa.js"></script>
+    <script src="../js\jvectormap\custom\usa-profile.js"></script>
+    <script src="../js\d3.min.js"></script>
+    <script src="../js\c3\c3.min.js"></script>
+    <script src="../js\c3\c3.custom.js"></script>
+    <script src="../js\themeSwitcher.js"></script>
+    <script src="../js\common.js"></script>
+
+    </body>
+</html>
+<?php $this->endPage() ?>

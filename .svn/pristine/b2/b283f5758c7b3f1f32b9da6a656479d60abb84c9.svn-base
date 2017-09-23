@@ -1,0 +1,609 @@
+<?php
+
+namespace app\controllers;
+
+use yii\filters\AccessControl;
+use yii\web\Controller;
+use yii\helpers\ArrayHelper;
+use Yii;
+
+
+class ProgramacionController extends Controller
+{
+    public $escenario;
+    
+    /**
+     * Control de acceso
+     * @return type
+     */
+    public function behaviors()
+    {
+        return [
+            'access' => [
+                'class' => AccessControl::className(),
+                'rules' => [
+                    [
+                        'actions' => ['index', 'sorteo', 'encuentros', 'guardarsorteo', 
+                            'guardarprogramacion', 'resultados', 'guardarresultado', 
+                            'getsucesos', 'verresultados', 'publicarresultados', 'eliminarresultado',
+                            'publicarprogramacion', 'consultarresultado'], // add all actions to take guest to login page
+                        'allow' => true,
+                        'roles' => ['@'],
+                    ],
+                ],
+                'denyCallback' => function ($rule, $action) {
+                        $user = "NO AUTH USER";
+                        if(Yii::$app->user->identity != null){
+                            $user = Yii::$app->user->identity->usu_num_doc;
+                        }
+                    throw new \Exception('User '. $user .', not allowed to access controller: "'.$action->controller->id.'", action: '.$action->actionMethod);
+                }
+            ],
+        ];
+    }
+    
+    /**
+     * Publica la programcion de un campeonato_tiene_fase
+     */
+    public function actionPublicarprogramacion(){
+        $ctf_if = $_GET['ctf_if'];
+        $sql = "UPDATE fase_tiene_encuentros fte set tfs_publicar = 1 "
+                . "WHERE fte.ctf_id = ".$ctf_if." AND fte.tfs_fecha_hora is NOT null AND fte.esc_id is not NULL";
+        $connection = Yii::$app->getDb();
+        $connection->createCommand($sql)->execute();
+        echo true;
+    }
+    
+    /**
+     * Elimina un registro de la tabla encuentro_tiene_resultados
+     */
+    public function actionEliminarresultado(){
+        \app\models\EncuentrosTieneResultados::deleteAll(['etr_id' => $_GET['id']]);
+        echo true;
+    }
+    
+    /*
+     * Renderiza la vista listar
+     */
+    public function actionIndex(){
+        return $this->render('index');
+    }
+    
+    /**
+     * Publica los resultados 
+     */
+    public function actionPublicarresultados(){
+        if(isset($_GET['data'])){
+            $data = $_GET['data'];
+            for($i = 0; $i < count($data); $i++){
+
+                $resultado = \app\models\CampeonatoTieneResultados::find()
+                        ->where('ctf_id = '.$_GET['ctf_id']." and equi_id = ".$data[$i]['ID'])
+                        ->one();
+
+                if($resultado == null){
+                    $resultado = new \app\models\CampeonatoTieneResultados();
+                }
+
+
+                $resultado->ctf_id = $_GET['ctf_id'];
+                $resultado->equi_id = $data[$i]['ID'];
+                $resultado->ftr_puntos = $data[$i]['PUNTOS'];
+
+                $resultado->ftr_partidos_ganados = $data[$i]['PG'];
+                $resultado->ftr_partidos_perdidos = $data[$i]['PP'];
+                $resultado->ftr_partidos_emptados = $data[$i]['PE'];
+                $resultado->ftr_goles_favor = $data[$i]['GF'];
+                $resultado->ftr_goles_encontra = $data[$i]['GC'];
+                $resultado->ftr_juego_limpio = $data[$i]['JL'];
+                $resultado->ftr_clasifica = $data[$i]['AVANZA'] == "true" ? 1 : 0;
+                $resultado->ftr_grupo = $data[$i]['GRUPO'];
+
+                if($resultado->validate()){
+                    $resultado->save();
+                }
+            }
+        }
+        echo true;
+    }
+    
+    /*
+     * Renderiza la vista verresultados
+     */
+    public function actionVerresultados(){
+        $idFase = $_GET['ctf_id'];
+        $fase = \app\models\CampeonatoTieneFases::find()->where('ctf_id = '. $idFase)->one();
+        
+        $campeonato = \app\models\Campeonato::find()->where('camp_id = '. $fase->camp_id)->one();
+        $evento = \app\models\Evento::find()->where('eve_id = '.$campeonato->eve_id)->one();
+        $promocion = \app\models\Promocion::find()->where('prom_id = '.$evento->prom_id)->one();
+        
+        $deporte = $campeonato->getDep()->one();
+
+        $fasesAnteriores = \app\models\CampeonatoTieneFases::find()
+                       ->where('camp_id = '.$campeonato->camp_id)
+                       ->orderBy('ctf_id desc')
+                       ->all();
+        if(count($fasesAnteriores) >= 2 && $fasesAnteriores[0]->ctf_id == $idFase){
+            $equipos = \app\models\Equipo::find()
+                    ->leftJoin('campeonato_tiene_resultados ctr', 'equipo.equi_id = ctr.equi_id' )
+                    ->where('ctr.ctf_id = '.$fasesAnteriores[1]->ctf_id. " and ctr.ftr_clasifica = 1")
+                    ->all();
+        } else {
+            $equipos = \app\models\Equipo::find()
+                    ->leftJoin('promocion_tiene_equipos pte', 'equipo.equi_id = pte.equi_id' )
+                    ->where('pte.prom_id = '.$promocion->prom_id. " and equipo.prueb_id = ".$campeonato->prueb_id)
+                    ->all();
+        }
+   
+        
+        $encuentros = \app\models\FaseTieneEncuentros::find()->where('ctf_id = '. $idFase .' and tfs_fecha_hora < now()')->orderBy('tfs_ronda asc, fts_id asc')->all();
+        
+        $data = \app\models\ParametrizacionTieneSucesos::find()
+                ->leftJoin('parametrizacion_deportes', 'parametrizacion_deportes.param_id = parametrizacion_tiene_sucesos.param_id')
+                ->where('dep_id = '.$campeonato->dep_id)->all();
+        
+        $totalTablas = $fase->ctf_cantidad_grupos;
+        $alphas = HelperController::mkRange('A','ZZ');
+        
+        $programacion = [];
+        $connection = Yii::$app->getDb();
+        for($i = 0; $i < $totalTablas; $i++){
+            $sql = "SELECT  DISTINCT(p.equipo) FROM 
+                (SELECT DISTINCT(fte.equi_id_1) AS equipo, fte.fts_grupo, fts_id, fte.tfs_fecha_hora, fte.tfs_puntos_1 as puntos FROM fase_tiene_encuentros fte WHERE  ctf_id = ".$idFase."
+                  union  SELECT DISTINCT(fte.equi_id_2)  AS equipo, fte.fts_grupo, fts_id, fte.tfs_fecha_hora, fte.tfs_puntos_2 as puntos FROM fase_tiene_encuentros fte WHERE  ctf_id = ".$idFase.") "
+                    . "as p where  p.fts_grupo = '".$alphas[$i]."' and tfs_fecha_hora < now()";
+           $results = $connection->createCommand($sql)->queryAll();
+           
+            /*
+             * Ordeno por puntaje
+             */
+            for($k = 0; $k < count($results); $k++){
+                $sql = "SELECT sum(tfs_gf_1) as 'gf', sum(tfs_ge_1) as 'ge', sum(tfs_jl_1) as 'gl', sum(tfs_puntos_1) as 'pu' "
+                        . "FROM fase_tiene_encuentros fte WHERE fte.equi_id_1 = " . $results[$k]['equipo'] . " and tfs_fecha_hora < now() AND fte.ctf_id = " . $fase->ctf_id;
+                $results1 = $connection->createCommand($sql)->queryAll();
+                $sql = "SELECT sum(tfs_gf_2) as 'gf', sum(tfs_ge_2) as 'ge', sum(tfs_jl_2) as 'gl', sum(tfs_puntos_2) as 'pu' "
+                        . "FROM fase_tiene_encuentros fte WHERE fte.equi_id_2 = " . $results[$k]['equipo'] . " and tfs_fecha_hora < now() AND fte.ctf_id = " . $fase->ctf_id;
+                $results2 = $connection->createCommand($sql)->queryAll();
+
+                
+                $results[$k]['gf'] = (isset($results1[0]['gf']) ? intval($results1[0]['gf']) : 0) + (isset($results2[0]['gf']) ? intval($results2[0]['gf']) : 0);
+                $results[$k]['ge'] = (isset($results1[0]['ge']) ? intval($results1[0]['ge']) : 0) + (isset($results2[0]['ge']) ? intval($results2[0]['ge']) : 0);
+                $results[$k]['gl'] = (isset($results1[0]['gl']) ? intval($results1[0]['gl']) : 0) + (isset($results2[0]['gl']) ? intval($results2[0]['gl']) : 0);
+                $results[$k]['pu'] = (isset($results1[0]['pu']) ? intval($results1[0]['pu']) : 0) + (isset($results2[0]['pu']) ? intval($results2[0]['pu']) : 0);
+            }
+            
+            $res = array();
+            foreach ($results as $key => $row)
+            {
+                $res[$row['equipo']] = $row['pu'];
+            }
+            array_multisort($res, SORT_DESC, $results);
+            
+            /*
+             * Si hay empates ordena por juego limpio.
+             */
+            $res = array();
+            $ini = 0;
+            $fin = 0;
+            $count = 0;
+            for($dos = 0; $dos < 2; $dos++){ //Se realiza dos veces para asegurarnos que funcione en los casos de triple empate
+                for($lk = 0; $lk < count($results); $lk++)
+                {
+                    if(isset($results[$lk + 1]['pu']) && ($results[$lk]['pu'] == $results[$lk + 1]['pu'])){
+                        
+                        if(($results[$lk]['gl'] > $results[$lk + 1]['gl'])){ //Desempate por juego limpio
+                            $temp = $results[$lk];
+                            $results[$lk] =  $results[$lk + 1];
+                            $results[$lk + 1] = $temp;
+                        } else if($results[$lk]['gl'] == $results[$lk + 1]['gl']){ // Si juego limpio estan iguales se desempata por diferencia de goles
+                            $diff_goles_1 = $results[$lk]['gf'] - $results[$lk]['ge'];
+                            $diff_goles_2 = $results[$lk+1]['gf'] - $results[$lk+1]['ge'];
+                            
+                            if($diff_goles_1 == $diff_goles_2){ //Si DIFF de goles estan iguales se desempata por mayor # de goles
+                                if($results[$lk+1]['gf'] > $results[$lk]['gf']){
+                                    $temp = $results[$lk];
+                                    $results[$lk] =  $results[$lk + 1];
+                                    $results[$lk + 1] = $temp;
+                                }
+                            } else {
+                                if($diff_goles_2 > $diff_goles_1){
+                                    $temp = $results[$lk];
+                                    $results[$lk] =  $results[$lk + 1];
+                                    $results[$lk + 1] = $temp;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+           
+           
+           if($results != null){
+                $programacion[$i] = $results;
+           }
+        }
+        
+        $ultimoGrupo = count($equipos) % $fase->ctf_cantidad_grupos;
+        $ePGrupo = floor(count($equipos) / $fase->ctf_cantidad_grupos);
+        
+        for($i = 0; $i < $fase->ctf_cantidad_grupos; $i++){
+            if($ultimoGrupo > 0) {
+                $equiposPorGrupo[$i] = $ePGrupo + 1;
+                $ultimoGrupo--;
+            } else {
+                $equiposPorGrupo[$i] = $ePGrupo;
+            }
+        }
+        
+        $ultimoGrupo = count($equipos) % $fase->ctf_cantidad_grupos;
+        
+        return $this->render('verresultados', array('fase' => $fase, 'deporte' => $deporte,
+            'campeonato' => $campeonato, 'equipos' => $equipos, 'promocion' => $promocion, 
+            'totalTablas' => $totalTablas, 'alphas' => $alphas, 'programacion' => $programacion, 
+            'equiposPorGrupo' => $equiposPorGrupo, 'ultimoGrupo' => $ultimoGrupo, 'ePGrupo' => $ePGrupo));
+    }
+    
+    /**
+     * Consulta los sucesos de un encuentro, equipo 
+     */
+    public function actionGetsucesos(){
+        
+        $idEquipo = $_GET['idEquipo']; 
+        $fte  = $_GET['fte'];
+        $numEquipo = $_GET['numEquipo'];
+        
+        $sucesos = \app\models\EncuentrosTieneResultados::find()
+                ->leftJoin('usuario u', 'u.usu_id = encuentros_tiene_resultados.usu_id')
+                ->leftJoin('parametrizacion_tiene_sucesos pts', 'pts.pts_id = encuentros_tiene_resultados.pts_id')
+                ->leftJoin('parametrizacion_tiene_sucesos pts2', 'pts2.pts_id = encuentros_tiene_resultados.etr_tiempo')
+                ->where('fts_id = '.$fte." and equi_id_".$numEquipo." = ".$idEquipo)
+                ->select("CONCAT(u.usu_apellidos , `u`.`usu_nombres`) as nombre, pts.pts_suceso, etr_minuto, pts2.pts_suceso as etr_tiempo, etr_id")
+                ->asArray()
+                ->all();
+        echo json_encode($sucesos);
+    }
+    
+    /**
+     * Guarda los resultados (sucesos) de un encuentro
+     */
+    public function actionGuardarresultado(){
+        $idEquipo = $_GET['idEquipo']; 
+        $numEquipo = $_GET['numEquipo'];
+        $idJugador  = $_GET['idJugador'];
+        $fte  = $_GET['fte'];
+        $suceso = $_GET['suceso'];
+        $minuto = $_GET['minuto'];
+        $tiempo = $_GET['tiempo'];   
+                
+        
+        $sucesos = new \app\models\EncuentrosTieneResultados();
+        
+        $equipo = "equi_id_".$numEquipo;
+        $sucesos->$equipo = $idEquipo;
+        $sucesos->fts_id = $fte;
+        $sucesos->usu_id = $idJugador;
+        $sucesos->pts_id = $suceso;
+        $sucesos->etr_minuto = $minuto;
+        $sucesos->etr_tiempo = $tiempo;
+        
+        if($sucesos->validate()){
+            $sucesos->save();
+            echo $sucesos->etr_id;
+        } else {
+            echo false;
+        }
+    }
+    
+    /**
+     * Consulta el marcador de un encuentro dado
+     */
+    public function actionConsultarresultado(){
+        $faseEncuentro = $_GET['fte'];
+        $result = \app\models\FaseTieneEncuentros::find()
+                ->where('fts_id = '.$faseEncuentro)
+                ->select('tfs_gf_1, tfs_gf_2')
+                ->one()->attributes;
+        echo json_encode($result);
+    }
+    
+    /**
+     * Guarda la fecha y el escenario de un encuentro
+     */
+    public function actionGuardarprogramacion(){
+        
+        $id = $_GET['id'];
+        
+        
+        /**
+        * Se valida que el escenario no este siendo usado en ese mismo momento
+        */
+        if(isset($_GET['fechahora']) && $_GET['fechahora'] != "" && isset($_GET['escenario']) && $_GET['escenario'] != ""){
+            $reservar = \app\models\FaseTieneEncuentros::find()
+                    ->where('esc_id = '.$_GET['escenario']." and tfs_fecha_hora = '".$_GET['fechahora']."'")
+                    ->one();
+            if($reservar != null){
+                echo "El escenario esta reservado en la fecha: ".$_GET['fechahora'];
+                return;
+            }
+        } 
+        
+        
+            if(isset($_GET['fechahora']) && $_GET['fechahora'] != ""){
+                $encuentro = \app\models\FaseTieneEncuentros::find()->where('fts_id = '.$id)->one();
+                $encuentro->tfs_fecha_hora = $_GET['fechahora'];
+                if($encuentro->validate()){
+                    $encuentro->save();
+                } else {
+                    echo false;
+                }
+            }
+            if(isset($_GET['escenario']) && $_GET['escenario'] != ""){
+
+                $encuentro = \app\models\FaseTieneEncuentros::find()->where('fts_id = '.$id)->one();
+                $encuentro->esc_id = $_GET['escenario'];
+
+                if($encuentro->validate()){
+                    $encuentro->save();
+                } else {
+                    echo false;
+                }
+
+            }
+            echo true;
+        
+    }
+    
+    /**
+     * Guarda los resultados del sorte
+     */
+    public function actionGuardarsorteo(){
+        
+        $data = $_GET['data'];
+        $data = explode("&&&", $data);
+        $alphas = range('A', 'Z');
+        
+        //Eliminamos los encuentros de la fase
+        \app\models\FaseTieneEncuentros::deleteAll(['ctf_id' => $_GET['ctf_id']]);
+        
+        $campeonatoTieneFase = \app\models\CampeonatoTieneFases::find()->where('ctf_id = '. $_GET['ctf_id'])->one();
+        
+        try{
+            for($i = 1; $i < count($data); $i++){
+                $equipos = explode(";", $data[$i]);
+                if($campeonatoTieneFase->ctf_tipo_eliminacion == ELIMINACION_GRUPO){
+                    $encuentros = $this->scheduler($equipos);
+                } else {
+                    $encuentros = $this->schedulerDirect($equipos);
+                }
+
+                $fechas = 1;
+                //Cuando es ida y vuelta, programe dos veces los mismos encuentros
+                for($te = 0; $te < ($campeonatoTieneFase->ctf_ida_vuelta + 1); $te++){
+                    for($j = 0; $j < count($encuentros); $j++){
+
+                        for($k = 0; $k < count($encuentros[$j]); $k++){
+                            $fte = new \app\models\FaseTieneEncuentros();
+                            $fte->ctf_id = $_GET['ctf_id'];
+                            $fte->equi_id_1 = $encuentros[$j][$k]['Away'];
+                            $fte->equi_id_2 = $encuentros[$j][$k]['Home'];
+                            $fte->fts_grupo = $alphas[$i-1];
+                            $fte->tfs_ronda = $fechas;
+                            if($fte->validate()){
+                                $fte->save();
+                            }
+                        }
+                        if($campeonatoTieneFase->ctf_tipo_eliminacion == ELIMINACION_GRUPO){
+                            $fechas++;
+                        }
+                    }
+                }
+            }
+            echo true;
+        } catch (\yii\base\Exception $ee){
+            echo $ee;
+        }
+        echo true;
+    }
+    
+    /**
+     * Función para crear de forma aleatoria los encuentros.. 
+     * Eliminación directa
+     * @param type $teams
+     * @return type
+     */
+    public function schedulerDirect($teams){
+        if (count($teams)%2 != 0){
+            array_push($teams,"bye");
+        }
+        
+        $total = (count($teams)/2);
+        for ($i=0, $j = 0; $i < $total; $i++, $j = $j + 2){
+                $round[$i][0]["Home"]=$teams[$j];
+                $round[$i][0]["Away"]=$teams[$j+1];
+        }
+        return $round;
+    }
+    
+    /**
+     * Función para crear de forma aleatoria los encuentros.. 
+     * Eliminación por grupos
+     * @param type $teams
+     * @return type
+     */
+    public function scheduler($teams){
+        if (count($teams)%2 != 0){
+            array_push($teams,"bye");
+        }
+        $away = array_splice($teams,(count($teams)/2));
+        $home = $teams;
+        
+        
+        for ($i=0; $i < count($home)+count($away)-1; $i++){
+            for ($j=0; $j<count($home); $j++){
+                $round[$i][$j]["Home"]=$home[$j];
+                $round[$i][$j]["Away"]=$away[$j];
+            }
+            if(count($home)+count($away)-1 > 2){
+                array_unshift($away,current(array_splice($home,1,1)));
+                array_push($home,array_pop($away));
+            }
+        }
+        return $round;
+    }
+    
+    /*
+     * Renderiza la vista resultados
+     */
+    public function actionResultados(){
+        
+        $idFase = $_GET['ctf_id'];
+        $fase = \app\models\CampeonatoTieneFases::find()->where('ctf_id = '. $idFase)->one();
+        
+        $campeonato = \app\models\Campeonato::find()->where('camp_id = '. $fase->camp_id)->one();
+        $evento = \app\models\Evento::find()->where('eve_id = '.$campeonato->eve_id)->one();
+        $promocion = \app\models\Promocion::find()->where('prom_id = '.$evento->prom_id)->one();
+
+        $equipos = \app\models\PromocionTieneEquipos::find()->where('prom_id = '.$promocion->prom_id)->all();
+        $encuentros = \app\models\FaseTieneEncuentros::find()->where('ctf_id = '. $idFase .' and tfs_fecha_hora < now()')->orderBy('tfs_ronda asc, fts_id asc')->all();
+        
+        $data = \app\models\ParametrizacionTieneSucesos::find()
+                ->leftJoin('parametrizacion_deportes', 'parametrizacion_deportes.param_id = parametrizacion_tiene_sucesos.param_id')
+                ->where('dep_id = '.$campeonato->dep_id." and ts_id in (4)")->all();
+        
+        $tiempos = ArrayHelper::map($data,'pts_id','pts_suceso');
+        
+        $idGol = \app\models\ParametrizacionTieneSucesos::find()
+                ->leftJoin('parametrizacion_deportes', 'parametrizacion_deportes.param_id = parametrizacion_tiene_sucesos.param_id')
+                ->select('pts_id')
+                ->where('dep_id = '.$campeonato->dep_id." and ts_id = 1")->scalar();
+        
+        $autogol = \app\models\ParametrizacionTieneSucesos::find()
+                ->leftJoin('parametrizacion_deportes', 'parametrizacion_deportes.param_id = parametrizacion_tiene_sucesos.param_id')
+                ->where('dep_id = '.$campeonato->dep_id." and ts_id = 2")
+                ->select('pts_id')
+                ->scalar();
+        
+        
+        return $this->render('resultados', array('fase' => $fase, 'encuentros' => $encuentros, 
+            'campeonato' => $campeonato, 'equipos' => $equipos, 'promocion' => $promocion,
+             'tiempos' => $tiempos));
+    }
+    
+    /*
+     * Renderiza la vista listar
+     */
+    public function actionSorteo(){
+        
+        $idFase = $_GET['ctf_id'];
+        $fase = \app\models\CampeonatoTieneFases::find()->where('ctf_id = '. $idFase)->one();
+        
+        $campeonato = \app\models\Campeonato::find()->where('camp_id = '. $fase->camp_id)->one();
+        $evento = \app\models\Evento::find()->where('eve_id = '.$campeonato->eve_id)->one();
+        $promocion = \app\models\Promocion::find()->where('prom_id = '.$evento->prom_id)->one();
+
+//        $equipos = \app\models\PromocionTieneEquipos::find()
+//                    ->leftJoin('equipo', 'equipo.equi_id = promocion_tiene_equipos.equi_id')
+//                    ->where('prom_id = '.$promocion->prom_id." and equipo.prueb_id = ".$campeonato->prueb_id)->all();
+        
+        /**
+         * Si el campeonato ya tiene fases, los equipos se toman de las fases anteriores
+         * sino de la promocion
+         */
+        $fasesAnteriores = \app\models\CampeonatoTieneFases::find()
+                       ->where('camp_id = '.$campeonato->camp_id)
+                       ->orderBy('ctf_id desc')
+                       ->all();
+        if(count($fasesAnteriores) >= 2 && $fasesAnteriores[0]->ctf_id == $idFase){
+            $equipos = \app\models\Equipo::find()
+                    ->leftJoin('campeonato_tiene_resultados ctr', 'equipo.equi_id = ctr.equi_id' )
+                    ->where('ctr.ctf_id = '.$fasesAnteriores[1]->ctf_id. " and ctr.ftr_clasifica = 1")
+                    ->all();
+        } else {
+            $equipos = \app\models\Equipo::find()
+                    ->leftJoin('promocion_tiene_equipos pte', 'equipo.equi_id = pte.equi_id' )
+                    ->where('pte.prom_id = '.$promocion->prom_id. " and equipo.prueb_id = ".$campeonato->prueb_id)
+                    ->all();
+        }
+        
+        
+        $ePGrupo = floor(count($equipos) / $fase->ctf_cantidad_grupos);
+        $ultimoGrupo = count($equipos) % $fase->ctf_cantidad_grupos;
+        
+        for($i = 0; $i < $fase->ctf_cantidad_grupos; $i++){
+            if($ultimoGrupo > 0) {
+                $equiposPorGrupo[$i] = $ePGrupo + 1;
+                $ultimoGrupo--;
+            } else {
+                $equiposPorGrupo[$i] = $ePGrupo;
+            }
+        }
+        
+        $ultimoGrupo = count($equipos) % $fase->ctf_cantidad_grupos;
+        
+        /**
+         * Si todos los grupos no tiene la misma cantidad de equipos
+         */
+        if($ultimoGrupo != 0){
+            
+            $palabraGrupo1 = Yii::t("app", "GRUPOS");
+            if($ultimoGrupo == 1){
+                $palabraGrupo1 = Yii::t("app", "GRUPO");
+            }
+            
+            $distribucion = " ".count($equipos)." ". Yii::t("app", "EQUIPOS")." (".$ultimoGrupo." ". $palabraGrupo1 . " de ".($ePGrupo + 1)." ".Yii::t("app", "EQUIPOS");
+            $distribucion .= " y ".($fase->ctf_cantidad_grupos - $ultimoGrupo)." grupos de ".$ePGrupo." Equipos";
+        } else {
+            $distribucion = " ".count($equipos)." ". Yii::t("app", "EQUIPOS")." (".$fase->ctf_cantidad_grupos." ". Yii::t("app", "GRUPOS"). " de ".$ePGrupo." ".Yii::t("app", "EQUIPOS");
+        }
+        $distribucion .= ")";
+        
+        $totalTablas = $fase->ctf_cantidad_grupos;
+ 
+        
+        $alphas = HelperController::mkRange('A','ZZ');
+        
+        $programacion = [];
+        $connection = Yii::$app->getDb();
+        for($i = 0; $i < $totalTablas; $i++){
+            $sql = "SELECT  DISTINCT(p.equipo) FROM 
+                (SELECT DISTINCT(fte.equi_id_1) AS equipo, fte.fts_grupo, fts_id FROM fase_tiene_encuentros fte WHERE (fte.tfs_ronda = 1 OR fte.tfs_ronda = 2) and ctf_id = ".$idFase."
+                  union  SELECT DISTINCT(fte.equi_id_2)  AS equipo, fte.fts_grupo, fts_id FROM fase_tiene_encuentros fte WHERE (fte.tfs_ronda = 1 OR fte.tfs_ronda = 2) and ctf_id = ".$idFase.") as p where  p.fts_grupo = '".$alphas[$i]."'";
+           $results = $connection->createCommand($sql)->queryAll();
+           if($results != null){
+                $programacion[$i] = $results;
+           }
+        }
+        
+        
+        return $this->render('sorteo', array('fase' => $fase, 'alphas' => $alphas,
+            'campeonato' => $campeonato, 'equipos' => $equipos, 'promocion' => $promocion, 
+            'distribucion' => $distribucion, 'programacion' => $programacion, 'totalTablas' => $totalTablas,
+            'equiposPorGrupo' => $equiposPorGrupo));
+    }
+    
+    /*
+     * Renderiza la vista listar
+     */
+    public function actionEncuentros(){
+        
+        $idFase = $_GET['ctf_id'];
+        $fase = \app\models\CampeonatoTieneFases::find()->where('ctf_id = '. $idFase)->one();
+        
+        $campeonato = \app\models\Campeonato::find()->where('camp_id = '. $fase->camp_id)->one();
+        $evento = \app\models\Evento::find()->where('eve_id = '.$campeonato->eve_id)->one();
+        $promocion = \app\models\Promocion::find()->where('prom_id = '.$evento->prom_id)->one();
+
+        $equipos = \app\models\PromocionTieneEquipos::find()->where('prom_id = '.$promocion->prom_id)->all();
+        
+        $encuentros = \app\models\FaseTieneEncuentros::find()->where('ctf_id = '. $idFase)->orderBy('tfs_ronda asc, fts_id asc')->all();
+        
+        $escs = \app\models\Escenario::find()->leftJoin('campeonato_tiene_escenarios', 'campeonato_tiene_escenarios.esc_id = escenario.esc_id')->where(['campeonato_tiene_escenarios.camp_id' => $fase->camp_id])->all();
+        $escenarios = ArrayHelper::map($escs,'esc_id','esc_nombre');
+        
+        return $this->render('encuentros', array('fase' => $fase, 'encuentros' => $encuentros, 
+            'escenarios' => $escenarios, 'campeonato' => $campeonato, 
+            'equipos' => $equipos, 'promocion' => $promocion, 'evento' => $evento ));
+    }
+    
+}

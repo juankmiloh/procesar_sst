@@ -1,0 +1,76 @@
+
+
+
+    /*
+     * Función para crear un evento nuevo
+     * @returns {undefined}
+     */
+    function nuevoEvento(){
+        
+        event.preventDefault();
+        var msn = "";
+        
+        //Deshabilita el botón de guardar
+        $("#crearEventoBtn").prop("disabled",true);
+        
+        /*
+         * Validaciones del formulario
+         */
+        if(validarLongitudMax("nombre_evento", 100)){
+            msn = MAX_NOMBRE_EVENTO;
+        } else if (validarLongitudMin("nombre_evento", 5)){
+            msn = MIN_NOMBRE_EVENTO;
+        } else if(validarLongitudMax("sede_evento", 100)){
+            msn = MAX_SEDE_EVENTO;
+        } else if (validarLongitudMin("sede_evento", 5)){
+            msn = MIN_SEDE_EVENTO;
+        } else if(validarFechaNoVacia("date_inicio")){
+            msn = FECHA_INICIO_EVENTO;
+        } else if(validarFechaNoVacia("date_final")){
+            msn = FECHA_FINAL_EVENTO;
+        } else if(validarListaSeleccionada("promocion")){
+            msn = PROMOCION_EVENTO;
+        } else if(validarLongitudMax("detalle_evento", 200)){
+            msn = DETALLE_EVENTO_MSN;
+        }
+        
+        
+        if(msn != ""){ //SI hubo errores muestre las alertas
+            $("#msnEvento").css('color', 'red');
+            $("#msnEvento").css('font-weight', 'bold');
+            $("#msnEvento").text(msn);
+            
+            //Habilita el botón de guardar
+            $("#crearEventoBtn").prop("disabled",false);
+            
+            return;
+        } else { //Si no hubo errores envie el formulario
+            
+            
+            var data = $("#nuevo_evento_form").serialize();
+            var url = $("#urlCrearEvento").val();
+
+            $.ajax({
+                //type: 'POST',
+                url: url,
+                data: data,
+                success: function (response) {
+                    if(response == true){
+                        $("#msnEvento").css('color', 'green');
+                        $("#msnEvento").css('font-weight', 'bold');
+                        $("#msnEvento").css('font-size', '22px');
+                        $("#msnEvento").text(EVENTO_EXITO);
+                        setTimeout(function(){
+                            $('#list-evento').data.reload();
+                        }, 2500);
+                    }
+                },
+                error: function (error, tx) {
+                        $("#msnEvento").css('color', 'red');
+                        $("#msnEvento").css('font-weight', 'bold');
+                        $("#msnEvento").css('font-size', '22px');
+                        $("#msnEvento").text(ERROR);
+                }
+            });
+        }
+    }

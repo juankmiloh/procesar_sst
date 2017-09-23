@@ -1,0 +1,69 @@
+<?php
+
+namespace app\controllers;
+
+use yii\filters\AccessControl;
+use yii\web\Controller;
+use app\helpers\datatables;
+use Yii;
+
+
+class ProgramacionController extends Controller
+{
+    public $escenario;
+    
+    /**
+     * Control de acceso
+     * @return type
+     */
+    public function behaviors()
+    {
+        return [
+            'access' => [
+                'class' => AccessControl::className(),
+                'rules' => [
+                    [
+                        'actions' => ['index', 'sorteo', 'encuentros'], // add all actions to take guest to login page
+                        'allow' => true,
+                        'roles' => ['@'],
+                    ],
+                ],
+                'denyCallback' => function ($rule, $action) {
+                        $user = "NO AUTH USER";
+                        if(Yii::$app->user->identity != null){
+                            $user = Yii::$app->user->identity->usu_num_doc;
+                        }
+                    throw new \Exception('User '. $user .', not allowed to access controller: "'.$action->controller->id.'", action: '.$action->actionMethod);
+                }
+            ],
+        ];
+    }
+    
+    /*
+     * Renderiza la vista listar
+     */
+    public function actionIndex(){
+        return $this->render('index');
+    }
+    
+    /*
+     * Renderiza la vista listar
+     */
+    public function actionSorteo(){
+        
+        $idFase = $_GET['ctf_id'];
+        $fase = \app\models\CampeonatoTieneFases::find()->where('ctf_id = '. $idFase)->one();
+        
+        $campeonato = \app\models\Campeonato::find()->where('camp_id = '. $fase->camp_id)->one();
+        
+        return $this->render('sorteo', array('fase' => $fase, 'campeonato' => $campeonato));
+    }
+    
+    /*
+     * Renderiza la vista listar
+     */
+    public function actionEncuentros(){
+        return $this->render('encuentros');
+    }
+    
+}

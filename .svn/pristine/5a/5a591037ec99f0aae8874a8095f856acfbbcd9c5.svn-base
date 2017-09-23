@@ -1,0 +1,71 @@
+<?php
+
+namespace app\models;
+
+use Yii;
+
+/**
+ * This is the model class for table "parametrizacion_deportes".
+ *
+ * @property integer $param_id
+ * @property integer $param_juego_ganado
+ * @property integer $param_juego_empatado
+ * @property integer $param_juego_perdido
+ * @property integer $dep_id
+ *
+ * @property Deporte $dep
+ * @property ParametrizacionTieneSucesos[] $parametrizacionTieneSucesos
+ */
+class ParametrizacionDeportes extends \yii\db\ActiveRecord
+{
+    /**
+     * @inheritdoc
+     */
+    public static function tableName()
+    {
+        return 'parametrizacion_deportes';
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function rules()
+    {
+        return [
+            [['param_juego_ganado', 'param_juego_empatado', 'param_juego_perdido', 'dep_id'], 'required'],
+            [['param_juego_ganado', 'param_juego_empatado', 'param_juego_perdido', 'dep_id'], 'integer'],
+            [['dep_id'], 'unique'],
+            [['dep_id'], 'exist', 'skipOnError' => true, 'targetClass' => Deporte::className(), 'targetAttribute' => ['dep_id' => 'dep_id']],
+        ];
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function attributeLabels()
+    {
+        return [
+            'param_id' => Yii::t('app', 'Llave primaria'),
+            'param_juego_ganado' => Yii::t('app', 'Puntos por juego ganado'),
+            'param_juego_empatado' => Yii::t('app', 'Puntos por juego empatado'),
+            'param_juego_perdido' => Yii::t('app', 'Puntos por juego perdido'),
+            'dep_id' => Yii::t('app', 'Tabla deportes FK'),
+        ];
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getDep()
+    {
+        return $this->hasOne(Deporte::className(), ['dep_id' => 'dep_id']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getParametrizacionTieneSucesos()
+    {
+        return $this->hasMany(ParametrizacionTieneSucesos::className(), ['param_id' => 'param_id']);
+    }
+}

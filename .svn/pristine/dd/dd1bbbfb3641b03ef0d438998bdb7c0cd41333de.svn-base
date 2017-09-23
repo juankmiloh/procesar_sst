@@ -1,0 +1,271 @@
+
+/*
+    Modificación de un registro de la fecha de disponibilidad
+*/
+function modificarFecha(id){
+    var id = id.replace("modif","");
+    var fechaIni = $("#fi"+id).val();
+    var fechaFin = $("#ff"+id).val();
+    if(fechaIni > fechaFin){
+        $("#ff"+id).focus();
+        return false;
+    }
+    var hora = "";
+    for(var i = 1; i <= 24; i++){
+        if($("#"+id+"hor"+i).is(":selected")){
+            hora+="&h"+i+"="+$("#"+id+"hor"+i).val();             
+        }
+    }
+    if(hora==""){
+        alert("seleccione al menos una hora");
+        return false;
+    }    
+    var data = "id="+id+"&fi="+fechaIni+"&ff="+fechaFin;
+    var url = $("#urlModifDisp").val();        
+    if(confirm("Modificar?") == false){
+        return false;
+    }
+    data = data+hora;
+    $(".cuerpo-dis").text("actualizando...");
+    $.ajax({
+        url: url, 
+        data: data, 
+        success:function(response){
+            response = JSON.parse(response);
+            $(".cuerpo-dis").html(response);
+            $(".fecha").datepicker({format:'yyyy-mm-dd'});
+            $(".fecha").datepicker({format:'yyyy-mm-dd'});
+            $(".sel").selectpicker();
+            
+        },
+        error:function(error){
+            alert(error);
+        }
+    });   
+}
+
+/*
+    Se borra un registro de fecha de la disponibilidad
+*/
+function borrarFecha(id){
+    var id = id.replace("bor","");
+    var url = $("#urlBorrarDisp").val();
+    if(confirm("Borrar fecha?") == false){
+        return false;
+    }
+    $(".cuerpo-dis").text("actualizando...");
+    $.ajax({
+        url: url,
+        data: "id="+id,
+        success:function(response){
+            response = JSON.parse(response);
+            $(".cuerpo-dis").html(response);
+            $(".fecha").datepicker({format:'yyyy-mm-dd'});
+            $(".sel").selectpicker();
+        },
+        error:function(error){
+            alert(error);
+        }
+    });
+}
+
+/*
+    Se agrega una nueva fecha para la disponibilidad 
+*/
+function agregarFecha(){ 
+    var url = $("#urlNuevaDisponibilidad").val();
+    var fechaIni = $("#fecha-ini").val();
+    var fechaFin = $("#fecha-fin").val();
+    var hora = "";
+    var hSelect = false;
+
+    for(var i = 1; i <= 24; i++){
+        if($("#hor"+i).is(":selected")){
+            hora += "&h"+i+"="+$("#hor"+i).val();
+            hSelect = true;
+        }
+    }
+    if(!hSelect || fechaIni == "" || fechaFin == ""){
+        alert("Datos incompletos");
+        return false;
+    }
+    data = "fi="+fechaIni+"&ff="+fechaFin+hora;
+    if(confirm("Agregar?") == false){
+        return false;
+    }
+    $(".cuerpo-dis").text("actualizando...");
+    $.ajax({
+        url:url,
+        data:data,
+        success:function(response){            
+            response = JSON.parse(response);            
+            $(".cuerpo-dis").html(response);
+            $("#fecha-ini").val("");
+            $("#fecha-fin").val("");
+            $(".fecha").datepicker({
+                format:'yyyy-mm-dd',
+                autoclose: true});
+            $(".sel").selectpicker();     
+            $(".selector").selectpicker('deselectAll');
+   
+        },
+        error:function(error){
+            alert(error);
+        }
+    });
+}
+
+/*
+*   Se guarda el escenario 
+*/
+function guardarEscenario(){
+    if(!validarForm()){
+        return false;
+    }
+    event.preventDefault();
+    if(confirm("¿Guardar escenario?")==false){
+        return false;
+    }
+    $.ajax({
+        url:$("#urlNuevoEscenario").val(),
+        data:$("#form-add-escenario").serialize(),
+        success:function(response){
+            alert(response);
+            location.reload();
+        },
+        error:function(error){
+            alert(error);
+        }
+    });
+    
+}
+
+/*
+    Muestra las ciudades de acuerdo al departamento seleccionado
+*/
+function mostrarCiudad(id){
+    $(".ciudad").html("<select class='form-control'><option>Cargando...</option></select>");
+    $.ajax({
+        url:$("#urlMostrarCiudad").val(),
+        data: "id="+id,
+        success:function(response){
+            response = JSON.parse(response);
+            $(".ciudad").html(response);
+        },
+        error:function(error){
+            alert(error);
+        }
+    });
+}
+
+/*
+    Muestra los deportes de acuerdo al tipo 
+    de deporte escogido (Individual/Conjunto)
+*/
+function mostrarDeporte(id){
+    $(".deportes").text("cargando...");
+    $.ajax({
+        // type: "POST",
+        url: $("#urlTipoDeporte").val(),
+        data: "tipo="+id,
+        success: function(response){ 
+            response = JSON.parse(response);                                                
+            $(".deportes").html(response);
+        },
+        error: function(error){
+            alert("error");
+        }
+    });
+}
+
+/*
+*   Valida los campos de guardar escenario con el 
+*   para luego permitir el registro en guardarEscenario()
+*/
+function validarForm(){
+    if($("#esc_nombre").val() == ""){
+        alert("Ingrese un nombre");
+        $("#esc_nombre").focus();
+        return false;
+    }
+    if($("#esc_direccion").val() == ""){
+        alert("Ingrese una direccion");
+        $("#esc_direccion").focus();
+        return false;
+    }
+    if($("#depa").val() == ""){
+        alert("Seleccione departamento");
+        $("#depa").focus();
+        return false;
+    }else{
+        if($("#ciud").val() == ""){
+            alert("Seleccione ciudad");
+            $("#ciud").focus();
+            return false;
+        }
+    }
+    if($("#depor").val() == ""){
+        alert("Seleccione el tipo de deporte");
+        $("#depor").focus();
+        return false;
+    }else{
+        if(!$("input:checkbox[name='dep_id[]']").is(":checked")){
+            alert("Seleccione al menos un deporte");
+            return false;
+        }
+    }
+
+    if(!$(".sel").is(":visible")){
+        alert("Se deben poner fechas de disponibilidad");
+        return false;
+    }
+    return true;
+}
+
+/*
+*   En el modal de Campeonatos
+*   se hace el borrado de escenario
+*/
+function eliminarEscenario(id){
+    id = id.replace("bor","");
+    if(confirm("¿Eliminar?")==false){
+        return false;
+    }
+    $.ajax({
+        url: $("#urlBorrarEscenario").val(),
+        data: "id="+id.replace("bor",""),
+        success:function(response){
+
+        },
+        error:function(error){}
+    });
+}
+
+/*
+    Función para validar el tipo de texto introducido
+*/
+
+function validarNumero(e){
+    tecla = (document.all) ? e.keyCode : e.which;
+    //Tecla de retroceso para borrar, siempre la permite
+    if (tecla==8){
+        return true;
+    }
+    // Patron de entrada, en este caso solo acepta numeros
+    patron =/[0-9,-]/;
+    tecla_final = String.fromCharCode(tecla);
+    return patron.test(tecla_final);
+}
+
+function validarEmail(){
+    
+    var validaEmail = /^[-\w.%+]{1,64}@(?:[A-Z0-9-]{1,63}\.){1,125}[A-Z]{2,63}$/i;
+    var email = document.getElementById("email").value;
+    if(!validaEmail.test(email)){
+        document.getElementById("email").value = "";
+        alert("Direccion de Email no válida");
+    }
+    
+
+}
+

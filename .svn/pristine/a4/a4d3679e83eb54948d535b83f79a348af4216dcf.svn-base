@@ -1,0 +1,50 @@
+<?php
+
+namespace app\models;
+
+use Yii;
+
+/**
+ * This is the model class for table "menu".
+ *
+ * @property integer $menu_id
+ * @property string $menu_nombre
+ * @property string $menu_descripcion
+ * @property integer $menu_estado
+ */
+class Menu extends \yii\db\ActiveRecord
+{
+    /**
+     * @inheritdoc
+     */
+    public static function tableName()
+    {
+        return 'menu';
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function rules()
+    {
+        return [
+            [['menu_nombre'], 'required'],
+            [['menu_estado'], 'integer'],
+            [['menu_nombre'], 'string', 'max' => 25],
+            [['menu_descripcion'], 'string', 'max' => 255],
+        ];
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function attributeLabels()
+    {
+        return [
+            'menu_id' => Yii::t('app', 'PK'),
+            'menu_nombre' => Yii::t('app', 'Nombre del menu'),
+            'menu_descripcion' => Yii::t('app', 'Descripción del menu'),
+            'menu_estado' => Yii::t('app', '1 - Activo, 0 - Inactivo'),
+        ];
+    }
+}

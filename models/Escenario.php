@@ -1,0 +1,120 @@
+<?php
+
+namespace app\models;
+
+use Yii;
+
+/**
+ * This is the model class for table "escenario".
+ *
+ * @property integer $esc_id
+ * @property string $esc_nombre
+ * @property string $esc_direccion
+ * @property integer $loc_id
+ * @property string $esc_observaciones
+ * @property integer $ce_id
+ * @property integer $esc_activo
+ * @property string $esc_foto_ruta
+ *
+ * @property CampeonatoTieneEscenarios[] $campeonatoTieneEscenarios
+ * @property DisponibilidadEscenario[] $disponibilidadEscenarios
+ * @property ContactoEscenario $ce
+ * @property Municipios $loc
+ * @property EscenarioTieneDeportes[] $escenarioTieneDeportes
+ * @property FaseTieneEncuentros[] $faseTieneEncuentros
+ */
+class Escenario extends \yii\db\ActiveRecord
+{
+    /**
+     * @inheritdoc
+     */
+    public static function tableName()
+    {
+        return 'escenario';
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function rules()
+    {
+        return [
+            [['esc_nombre', 'esc_direccion', 'loc_id'], 'required'],
+            [['loc_id', 'ce_id', 'esc_activo'], 'integer'],
+            [['esc_nombre', 'esc_observaciones', 'esc_foto_ruta'], 'string', 'max' => 255],
+            [['esc_direccion'], 'string', 'max' => 55],
+            [['ce_id'], 'exist', 'skipOnError' => true, 'targetClass' => ContactoEscenario::className(), 'targetAttribute' => ['ce_id' => 'ce_id']],
+            [['loc_id'], 'exist', 'skipOnError' => true, 'targetClass' => Municipios::className(), 'targetAttribute' => ['loc_id' => 'municipios_id']],
+        ];
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function attributeLabels()
+    {
+        return [
+            'esc_id' => 'PK',
+            'esc_nombre' => 'Nombre del escenario',
+            'esc_direccion' => 'Dirección del escenario',
+            'loc_id' => 'Id de la locacion en la cual está el escenario',
+            'esc_observaciones' => 'Observaciones del escenario',
+            'ce_id' => 'Contacto encargado del escenario',
+            'esc_activo' => '1 - Activo, 0 - Inactivo',
+            'esc_foto_ruta' => 'Esc Foto Ruta',
+        ];
+    }
+    
+    public function getNombreUbicacion(){
+        $municipio = $this->getLoc()->one();
+        return $this->esc_nombre." - ".$municipio->getMunicipiosDptosCode()->one()->dptos_name." - ".$municipio->municipios_name;
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getCampeonatoTieneEscenarios()
+    {
+        return $this->hasMany(CampeonatoTieneEscenarios::className(), ['esc_id' => 'esc_id']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getDisponibilidadEscenarios()
+    {
+        return $this->hasMany(DisponibilidadEscenario::className(), ['esc_id' => 'esc_id']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getCe()
+    {
+        return $this->hasOne(ContactoEscenario::className(), ['ce_id' => 'ce_id']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getLoc()
+    {
+        return $this->hasOne(Municipios::className(), ['municipios_id' => 'loc_id']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getEscenarioTieneDeportes()
+    {
+        return $this->hasMany(EscenarioTieneDeportes::className(), ['esc_id' => 'esc_id']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getFaseTieneEncuentros()
+    {
+        return $this->hasMany(FaseTieneEncuentros::className(), ['esc_id' => 'esc_id']);
+    }
+}

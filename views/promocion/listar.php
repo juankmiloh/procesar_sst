@@ -1,0 +1,280 @@
+<?php
+    use yii\helpers\Html;
+    use yii\helpers\Url;
+    use yii\helpers\ArrayHelper;
+?>
+
+
+<body class="background_images">
+
+    <div class="container-fluid">
+
+        <div class="dashboard-wrapper">
+            
+            <!-- MIGA DE PAN -->
+            <nav class="navbar navbar-default">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                        <span class="sr-only">
+                            Toggle navigation</span>
+                        <span class="icon-bar">
+                        </span>
+                        <span class="icon-bar">
+                        </span>
+                        <span class="icon-bar">
+                        </span>
+                    </button>
+                </div>
+                <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                    <ul class="nav navbar-nav">
+                        <li>
+                            <?php
+                            echo Html::a('<i class="icon-graphic_eq"></i>' . Yii::t("app", "INICIO"), array("evento/index"));
+                            ?>
+                        </li>
+                        <li class="active">
+                            <a><i class="icon-graphic_eq"></i> <?= Yii::t("app", "PROMOCION_DEP_CONJUNTO") ?></a>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+            
+            <!-- Barra Azul -->
+            <div class="top-bar clearfix">
+            </div>
+
+            <!-- Botón CREAR -->
+            <div class="container-fluid">
+                <div class="row gutter">
+                    <div class="col-md-10 col-sm-6 col-xs-12">
+                        <h3 class="page-title"><?= Yii::t('app', "PROMOCION_DEP_CONJUNTO") ?></h3>
+                    </div>
+                    <div class="col-md-2 col-sm-6 col-xs-12">
+                        <ul class="tasks pull-right clearfix">
+                            <button type="button" class="btn teal-bg btn-block" onclick="cleanForm()" data-toggle="modal" data-target="#modalForm"><i class="icon-circle-plus icon-left"></i><?= Yii::t('app', "CREAR_PROMOCION") ?></button>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Listado -->
+            <table id="list-datos" class="display" cellspacing="0" width="90%">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th><?php echo Yii::t("app", "PERIODO_INSCRIPCIONES"); ?></th>
+                        <th><?php echo Yii::t("app", "PROMOCION"); ?></th>
+                        <th><?php echo Yii::t("app", "TIPO_FASE"); ?></th>
+                        <th><?php echo Yii::t("app", "PROMOCION_ANTERIOR"); ?></th>
+                        <th><?php echo Yii::t("app", "TOTAL-PROMOCIONADOS"); ?></th>
+                        <th><?php echo Yii::t("app", "EQUIPOS_PROMOCIONADOS"); ?></th>
+                        <th><?php echo Yii::t("app", "ESTADO"); ?></th>
+                        <th></th>
+                    </tr>
+                    <tr>
+                        <th>#</th>
+                        <th><?php echo Yii::t("app", "PERIODO_INSCRIPCIONES"); ?></th>
+                        <th></th>
+                        <th></th>
+                        <th></th>
+                        <th></th>
+                        <th></th>
+                        <th></th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tfoot>
+                    <tr>
+                        <th>#</th>
+                        <th><?php echo Yii::t("app", "PERIODO_INSCRIPCIONES"); ?></th>
+                        <th><?php echo Yii::t("app", "PROMOCION"); ?></th>
+                        <th><?php echo Yii::t("app", "TIPO_FASE"); ?></th>
+                        <th><?php echo Yii::t("app", "PROMOCION_ANTERIOR"); ?></th>
+                        <th><?php echo Yii::t("app", "TOTAL-PROMOCIONADOS"); ?></th>
+                        <th><?php echo Yii::t("app", "EQUIPOS_PROMOCIONADOS"); ?></th>
+                        <th><?php echo Yii::t("app", "ESTADO"); ?></th>
+                        <th></th>
+                    </tr>
+                </tfoot>
+                <tbody>
+                </tbody>
+            </table>
+            
+        </div>
+
+
+
+    </div>
+    
+    
+    <!-- CREAR/EDITAR MODAL -->
+    <input id="urlEditData" type="hidden" value="<?= Url::toRoute(['promocion/editar']); ?>">
+    <input id="urlVerPrmocionados" type="hidden" value="<?= Url::toRoute(['promocion/promocionadosconjunto']); ?>">
+    
+    <div class="modal fade" id="modalForm" role="dialog" aria-labelledby="modalForm">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    <h4 class="modal-title" id="title"><?= Yii::t('app', "CREAR_PROMOCION"); ?></h4>
+                </div>
+                <div class="modal-body">
+                    <p id="msn"></p> 
+                    <form id="formulario">
+                        <input id="idRegistro" name="idRegistro" type="hidden" value="0">
+                        <div class="form-group">
+                            <div class="row gutter">
+                                
+                                <div class="col-md-6">
+                                    <label class="control-label"><?= Yii::t('app', "NOMBRE") ?></label>
+                                    <input type="text" class="form-control" id="prom_nombre" name="prom_nombre" onkeypress="soloAlfanumerico(event);">
+
+                                    <label class="control-label"><?= Yii::t('app', "PERIODO_INSCRIPCIONES") ?></label><br>
+                                    <?php
+                                        echo Html::dropDownList('pi_id', 'pi_id', $periodos, 
+                                                [   'prompt' => Yii::t('app', "SELECCIONE"), 
+                                                    'style' => 'width: 375px;', 
+                                                    'class' => "form-control",
+                                                    'id' => 'pi_id',
+                                                ]);
+                                    ?>
+                                </div>
+                                
+                                <div class="col-md-6">
+                                    
+                                    <label class="control-label"><?= Yii::t('app', "FASES") ?></label>
+                                    <?php
+                                        echo Html::dropDownList('tipo_fase_id', 'tipo_fase_id', $tipoFase, 
+                                                [   'prompt' => Yii::t('app', "SELECCIONE"), 
+                                                    'style' => 'width: 375px; margin-bottom: 20px;',
+                                                    'class' => "form-control",
+                                                    'id' => 'tipo_fase_id',
+                                                ]);
+                                    ?>
+                                    
+                                    <label class="control-label"><?= Yii::t('app', "ESTADO") ?></label>
+                                    <?php
+                                        echo Html::dropDownList('prom_activo', 'prom_activo', 
+                                                array(ESTADO_ACTIVO => Yii::t('app', "ACTIVO"), ESTADO_INACTIVO => Yii::t('app', "INACTIVO")), [ 'class' => 'form-control', 'id' => 'prom_activo' ]);
+                                    ?>
+
+                                </div>
+                            </div>
+
+                        </div>
+                        
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal"><i class="icon-circle-with-cross icon-left"></i> <?= Yii::t('app', "CERRAR") ?></button>
+                            <button type="button" class="btn btn-info" onclick="nuevoRegistro();" id="botonCrear"><i class="icon-save icon-left"></i> <?= Yii::t('app', "GUARDAR") ?></button>
+                        </div>
+                    </form>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    
+</body>
+
+<script>
+    
+    
+    var ERROR = '<?php echo Yii::t("app", "ERROR") ?>'; 
+    var PROMOCION_NOMBRE_MIN = '<?php echo Yii::t("app", "PROMOCION_NOMBRE_MIN") ?>'; 
+    var PROMOCION_NOMBRE_MAX = '<?php echo Yii::t("app", "PROMOCION_NOMBRE_MAX") ?>'; 
+    var PROMOCION_FASE = '<?php echo Yii::t("app", "PROMOCION_FASE") ?>'; 
+    var PROMOCION_PI = '<?php echo Yii::t("app", "PROMOCION_PI") ?>'; 
+    var PROMOCION_EXITO = '<?php echo Yii::t("app", "PROMOCION_EXITO") ?>'; 
+    var EDITAR_PROMOCION = '<?php echo Yii::t("app", "EDITAR_PROMOCION") ?>'; 
+    var CREAR_PROMOCION = '<?php echo Yii::t("app", "CREAR_PROMOCION") ?>'; 
+    
+    
+    $(document).ready(function () {
+
+//        //Data table, lista eventos
+        var table = $('#list-datos').DataTable({
+            "processing": true,
+            "serverSide": true,
+            "order": [[ 0, "desc" ]],
+            "ajax": "<?php echo Url::toRoute(['promocion/data']); ?>",
+            "language": {
+                "lengthMenu": "<?php echo Yii::t("app", "DISPLAY_RESULT") ?>",
+                "zeroRecords": "<?php echo Yii::t("app", "NO_RESULT") ?>",
+                "info": "<?php echo Yii::t("app", "RES_PAG") ?>",
+                "infoEmpty": "<?php echo Yii::t("app", "NO_RESULT_SEARCH") ?>",
+                "infoFiltered": "<?php echo Yii::t("app", "FILTER_RESULT") ?>",
+                "loadingRecords": "<?php echo Yii::t("app", "CARGANDO") ?>",
+                "processing":     "<?php echo Yii::t("app", "PROCESANDO") ?>.",
+                "search":         "<?php echo Yii::t("app", "BUSCAR") ?>",
+                "zeroRecords":    "<?php echo Yii::t("app", "NO_RESULT_SEARCH") ?>",
+                "paginate": {
+                    "first":      "<?php echo Yii::t("app", "PRIMERO") ?>",
+                    "last":       "<?php echo Yii::t("app", "ULTIMO") ?>",
+                    "next":       "<?php echo Yii::t("app", "SIGUIENTE") ?>",
+                    "previous":   "<?php echo Yii::t("app", "ANTERIOR") ?>"
+                },
+
+            }
+        });
+        
+        
+        /**
+        * Lista de departamentos con campo de busqueda
+         */
+        $('#dpto_id').select2();
+        $('#muni_id').select2();
+        
+        
+        //Contador de columnas
+        $.fn.columnCount = function() {  
+            return $('th', $(this).find('tfoot')).length;  
+        }; 
+        
+       // Filtros por columnas
+        var column = 0;
+        $('#list-datos thead tr:eq(1) th').each( function () {
+            
+            //No agregue filtro para el registro ID
+            if(column > 0 && column < ($('#list-datos').columnCount() - 1)){ 
+                
+                if(column == 1){//Construye una lista 
+                    <?php
+                        $html = Html::dropDownList('eve_id2', 'eve_id2', $periodos, ['prompt' => Yii::t('app', ''), 'class' => 'form-control filter', 'id' => 'eve_id2', 'name' => 'eve_id2']);
+                        $html = preg_replace( "/\r|\n/", "", $html );;
+                        $data = "";
+                    ?>
+                    $(this).html( '<?php echo $html; ?>' );
+                    $('#eve_id2').select2();
+                } 
+                
+            }
+            column++;
+        }); 
+        
+        $('.filter, .select2').on('click', function(e){
+            e.stopPropagation();    
+        });
+        
+        // Buscar los valores ingresados
+        table.columns().every(function (index) {
+        
+            $('#list-datos thead tr:eq(1) th:eq(' + index + ') select').on('change', function () {
+                    table.column($(this).parent().index() + ':visible')
+                        .search(this.value).draw();
+            });
+            
+            $('#list-datos thead tr:eq(1) th:eq(' + index + ') input').on('keyup change', function () {
+                if(this.value.length > 3 || this.value.length == 0){
+                    table.column($(this).parent().index() + ':visible')
+                        .search(this.value).draw();
+                }
+            });
+            
+        });
+
+    });
+    
+</script>
+<script src="../views/promocion/js/promocion.js"></script>

@@ -1,0 +1,45 @@
+<?php
+
+namespace app\models;
+
+use Yii;
+
+/**
+ * This is the model class for table "equipo".
+ *
+ * @property integer $eq_id
+ * @property string $eq_nombre
+ */
+class Equipo extends \yii\db\ActiveRecord
+{
+    /**
+     * @inheritdoc
+     */
+    public static function tableName()
+    {
+        return 'equipo';
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function rules()
+    {
+        return [
+            [['eq_id', 'eq_nombre'], 'required'],
+            [['eq_id'], 'integer'],
+            [['eq_nombre'], 'string', 'max' => 55],
+        ];
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function attributeLabels()
+    {
+        return [
+            'eq_id' => 'Eq ID',
+            'eq_nombre' => 'Nombre del equipo',
+        ];
+    }
+}

@@ -1,0 +1,715 @@
+<?php
+namespace app\controllers;
+ 
+use yii\filters\AccessControl;
+use yii\web\Controller;
+use yii\filters\VerbFilter;
+use yii\helpers\ArrayHelper;
+use yii\helpers\Html;
+use app\models\Escenario;
+use app\models\DisponibilidadEscenario;
+use app\models\DisponibilidadTieneHora;
+use app\models\Hora;
+use app\models\ContactoEscenario;
+use app\models\EscenarioTieneDeportes;
+use app\helpers\datatables;
+use Yii;
+
+class EscenarioController extends Controller{
+
+	public function behaviors()
+    {
+        return [
+            'access' => [
+                'class' => AccessControl::className(),
+                'rules' => [
+                    [
+                        'actions' => ['crearescenario','agregardisponibilidad','borrardisponibilidad','modificardisponibilidad','listarciudades','listar','escenarios','agregarcontacto','modificarescenario','borrardeporteescenario','agregardeporteescenario','cambiarciudadescenario','cambiarestadoescenario','modalescenario', 'validarfechadisp','modificarfoto'], // add all actions to take guest to login page
+                        'allow' => true,
+                        'roles' => ['@'],
+                    ],
+                ],
+                'denyCallback' => function ($rule, $action) {
+                    $user = "NO AUTH USER";
+                    if (Yii::$app->user->identity != null) {
+                        $user = Yii::$app->user->identity->usu_num_doc;
+                    }
+                    throw new \Exception('User ' . $user . ', not allowed to access controller: "' . $action->controller->id . '", action: ' . $action->actionMethod);
+                }
+            ],
+        ];
+    }
+
+    public $enableCsrfValidation = false;
+    /*
+        Renderiza la vista listar
+    */ 
+    public function actionListar(){
+        $deportesActivos = ArrayHelper::map(\app\models\Deporte::find()->where(['dep_estado'=>ESTADO_ACTIVO])->orderBy('dep_nombre')->all(),'dep_id','dep_nombre');
+        $dptos = ArrayHelper::map(\app\models\Departamentos::find()->orderBy('dptos_name')->all(), 'dptos_id','dptos_name');
+        $horas = EscenarioController::listarHoras();
+        $ciudad = ArrayHelper::map(\app\models\Municipios::find()->orderBy('municipios_name')->all(),'municipios_id', 'municipios_name');
+        return $this->render('listar',
+            array(
+                'deportesActivos' => $deportesActivos,
+                'departamentos' => $dptos,
+                'horas' => $horas,
+                'municipios' => $ciudad,
+                )
+
+            );
+    }
+
+    /*
+     * llenar modal editar escenario
+     */
+    public function actionModalescenario(){
+    	$escenario = Escenario::find()->where(['esc_id' => $_GET['id']])->one();
+    	$contacto = ContactoEscenario::find()->where(['ce_id' => $escenario->ce_id])->one();
+    	$deportesEscenario = EscenarioController::listarDeportesEscenario($_GET['id']);    	     	
+    	$ciudadEscenario = \app\models\Municipios::find()->where(['municipios_id' => $escenario->loc_id])->one();
+    	$disponibilidad = EscenarioController::listarDisponibilidad($escenario->esc_id);
+    	$horas = \app\models\Hora::find()->all();
+    	$r = [];
+    	$r['escenario'] = $escenario->attributes;
+    	if(isset($contacto)){
+    		$r['contacto'] = $contacto->attributes;
+    	}    	    
+    	$num = 0;
+    	foreach ($deportesEscenario as $d) {
+    		$r['dep'.$num] = $d->attributes;
+    		$num++;
+    	}
+    	$num = 0;    	
+    	$num1 = 0;
+    	$r['ciudad'] = $ciudadEscenario->attributes;
+    	$r['depto'] = $ciudadEscenario->municipiosDptosCode->attributes;
+    	foreach ($disponibilidad as $dis) {
+    		$r['disp'.$num] = $dis->attributes;
+    		$dispTieneHora = \app\models\DisponibilidadTieneHora::find()->where(['de_id'=>$dis->de_id])->all();
+    		foreach ($dispTieneHora as $dth) {
+    			$r['disTiHo'.$num.$num1] = $dth->attributes;
+    			$num1++;
+    		}
+    		$num1 = 0;
+    		$num++;
+    	}
+    	$num = 0;
+    	foreach ($horas as $hora) {
+    		$r['horas'.$num] = $hora->attributes; 
+    		$num++;
+    	}
+    	$num = 0;
+    	echo json_encode($r);
+    }
+
+    /*
+     * Retorna la lista de los escenarios existentes
+     */
+    public function actionEscenarios(){        
+        //Columnas a consultar
+        $columns = array(
+            array('db' => 'esc_id', 'dt' => 0),
+            array('db' => 'esc_nombre', 'dt' => 1),
+            array('db' => 'esc_direccion', 'dt' => 2),
+            array(
+                'db' => 'loc_id', 
+                'dt' => 3,
+                'formatter' => function($d, $row){
+                	$ciudad = \app\models\Municipios::find()->where(['municipios_id' => $d])->one();  
+                    if(isset($ciudad)){
+                        return $ciudad->municipios_name." - ".$ciudad->municipiosDptosCode->dptos_name;     
+                    }else{
+                        return "";
+                    }
+                    
+                }
+            ),
+            array(
+                'db' => 'ce_id', 
+                'dt' => 4,
+                'formatter' => function($d, $row){
+                	// return ContactoEscenario::findOne($d)->ce_nombre;
+                    $contacto = ContactoEscenario::find()->where(['ce_id' => $d])->one();
+                    if(isset($contacto)){
+                    	return $contacto->ce_nombre." ".$contacto->ce_apellidos;
+                    }else{
+                    	return "";
+                    } 
+                }
+            ),            
+            array(
+                'db'        => 'esc_activo',
+                'dt'        => 5,
+                'formatter' => function( $d, $row ) {
+                    if($d == 1){
+                        return '<button class="btn btn-success" onclick="cambiarEstadoEscenario('.$row['esc_id'].','.$d.')">'.Yii::t('app',"ACTIVO").'</button>';
+                    }else{
+                        return '<button class="btn btn-warning" onclick="cambiarEstadoEscenario('.$row['esc_id'].','.$d.')">'.Yii::t('app',"INACTIVO").'</button>';
+                    }                    
+                }
+           )
+        );
+        //Indice
+        $primaryKey = "esc_id";
+        
+        //Tabla
+        $table = "escenario";
+
+        echo json_encode(
+            datatables::simple( $_GET,$table, $primaryKey, $columns)
+        );
+    }    
+
+    public function actionCrearescenario(){       
+
+        $esc_nombre = $_POST['esc_nombre'];
+        $esc_direccion = $_POST['esc_direccion'];        
+        $ciudad = $_POST['ciudad'];        
+        $dep_id = $_POST['dep_id'];
+        $ce_nombre = $_POST['ce_nombre'];
+        $ce_apellidos = $_POST['ce_apellidos'];
+        $ce_telefono = $_POST['ce_telefono'];
+        $ce_celular = $_POST['ce_celular'];
+        $ce_email = $_POST['ce_email'];
+        $esc_observaciones = $_POST['esc_observaciones'];
+        // // Se agregar el contacto tenieno en cuenta que se hallan llenado los datos de contacto
+        $contac = "";
+        if($ce_nombre != "" && $ce_apellidos != "" && $ce_celular != "" && $ce_email != ""){
+            $contacto = new ContactoEscenario();
+            $contacto->ce_nombre = $ce_nombre;
+            $contacto->ce_apellidos = $ce_apellidos;
+            $contacto->ce_telefono = $ce_telefono;
+            $contacto->ce_celular = $ce_celular;
+            $contacto->ce_email = $ce_email;
+            $contacto->insert();
+            $contac = ContactoEscenario::find()->orderBy('ce_id DESC')->one()->ce_id;                        
+        }
+        // // Se registra nuevo un escenario
+        $escenario = new Escenario();
+        $escenario->esc_nombre = $esc_nombre;
+        $escenario->esc_direccion = $esc_direccion;
+        $escenario->loc_id = $ciudad;
+        $escenario->esc_observaciones = $esc_observaciones;
+        $escenario->ce_id = $contac;        
+        $escenario->insert();     
+        $ultEsc = EscenarioController::ultimoEscenarioInsertado();
+        // // Actualiza el valor del escenario recien ingresado en la disponibilidad
+        EscenarioController::actualizarDisponibilidadPorEscenario($ultEsc);                   
+        // // Se agregan los deportes asociados al escenario
+        for($i = 0; $i < sizeof($dep_id); $i++){
+            $estd = new EscenarioTieneDeportes();
+            $estd->esc_id = $ultEsc;
+            $estd->dep_id = $dep_id[$i];
+            $estd->estd_activo = 1;
+            $estd->insert();                
+        }            
+        if(isset($_FILES['file']) && $_FILES['file']['name'] != ""){             
+            $allowed =  array('png', 'jpg', 'jpeg');
+            $filename = $_FILES['file']['name'];
+            $ext = pathinfo($filename, PATHINFO_EXTENSION);
+
+            if(!in_array($ext,$allowed) ) {
+                echo 'El archivo debe tener extension png, jpg o jpeg';exit;
+            }
+            elseif ( 0 < $_FILES['file']['error'] ) {
+                echo 'Error: ' . $_FILES['file']['error'] . '<br>';exit;
+            } 
+            else {
+                $path = '/uploads/escenarios/';
+                $uploaddir = Yii::getAlias('@webroot') . $path;
+
+                $filename = $ultEsc.$_FILES['file']['name'];
+                $uploadfile = $uploaddir.$filename;                
+                move_uploaded_file($_FILES['file']['tmp_name'], $uploadfile);
+                $escen = \app\models\Escenario::find()->orderBy('esc_id DESC')->one();
+                $escen->esc_foto_ruta = $path.$filename;
+                $escen->update();
+                echo true;
+            }            
+        }            
+    }
+
+    /*
+    * Función para agregar una nueva funcionalidad
+    * de agregar un escenario determinado
+    */
+    public function actionAgregardisponibilidad(){
+        $fechaInicio = $_GET['fi'];
+        $fechaFin = $_GET['ff'];
+        $horas = [];
+        for($i = 1; $i <= HORAS; $i++){
+            if(isset($_GET['h'.$i])){
+                $horas[] = $_GET['h'.$i];
+            }
+        }  
+        $disponibilidad = new DisponibilidadEscenario();
+        $disponibilidad->de_fecha_ini = $fechaInicio;
+        $disponibilidad->de_fecha_fin = $fechaFin;
+        if($_GET['idEsc'] != 0){
+            $disponibilidad->esc_id = $_GET['idEsc'];
+        }
+        $validacion = $disponibilidad->validate();
+        if($validacion){
+            $insert = $disponibilidad->insert();
+            if($insert){
+                $ultimo = $this->listarDisponibilidad(0);
+                for($j = 0; $j < sizeof($horas); $j++){
+                    $disp_hora = new DisponibilidadTieneHora();
+                    $disp_hora->hor_id = $horas[$j];
+                    $disp_hora->de_id = $ultimo;
+                    $disp_hora->insert();                    
+                }                             
+            }
+        }
+        if($_GET['idEsc'] == 0){
+            echo json_encode(EscenarioController::actualizarVisualizacion(-1));
+        }else{
+            echo json_encode(EscenarioController::actualizarVisualizacion($_GET['idEsc']));
+        }
+    }
+
+    /* 
+    * Borra una disponibilidad (fechas de escenario) que se 
+    * observan en la pantalla de crear escenario
+    */
+    public function actionBorrardisponibilidad(){
+        $id = $_GET['idDis'];
+        $de = DisponibilidadEscenario::find()->where(['de_id'=> $id])->one();
+        if($_GET['idEsc'] == '0'){
+            DisponibilidadTieneHora::deleteAll('de_id = '.$id);
+            $disponibilidad = DisponibilidadEscenario::findOne($id);
+            $borrar = $disponibilidad->delete();                        
+            echo json_encode(EscenarioController::actualizarVisualizacion(-1));            
+        }else{
+            if(sizeof(DisponibilidadEscenario::find()->where(['esc_id'=>$_GET['idEsc']])->all())==1){
+                $msj = "<tr id='msj-u'><td colspan='5'><p style='color:red;' id='msnDispMinima'>".Yii::t('app',"DISPONIBILIDAD_MINIMA_ERROR")."</p><br></td></tr>";
+                $msj.=EscenarioController::actualizarVisualizacion($_GET['idEsc']);
+                echo json_encode($msj);
+            }else{
+                DisponibilidadTieneHora::deleteAll('de_id = '.$id);
+                $disponibilidad = DisponibilidadEscenario::findOne($id);
+                $borrar = $disponibilidad->delete();                        
+                echo json_encode(EscenarioController::actualizarVisualizacion($_GET['idEsc'])); 
+            }
+        }        
+    }
+
+    /*
+    *   Modifica una disponibilidad en la ventana crear escenarios
+    *   actualizando su fecha inicial, fecha final y horario
+    */
+    public function actionModificardisponibilidad(){
+        $id = $_GET['idDis'];
+        $fi = $_GET['fi'];
+        $ff = $_GET['ff'];
+        $horas = [];        
+        for($i = 1; $i <= 24; $i++){
+            if(isset($_GET['h'.$i])){
+                $horas[] = $_GET['h'.$i];
+            }
+        }
+        $disponiHora = DisponibilidadTieneHora::find()->where(['de_id'=>$id])->all();
+        // Elementos a eliminar de la tabla disponibilidad tiene hora
+        foreach ($disponiHora as $dh) {
+            $cond = false;
+            for($j = 0; $j < sizeof($horas); $j++){
+                if($dh->hor_id == $horas[$j]){
+                    $cond = true;
+                }    
+            } 
+            if($cond==false){                
+                DisponibilidadTieneHora::deleteAll('de_id = '.$id.' AND hor_id ='.$dh->hor_id);
+            }
+        }
+        // Elementos a agregar en la tabla disponibilidad tiene hora
+        for($j = 0; $j < sizeof($horas); $j++){
+            $cond = false;
+            foreach ($disponiHora as $dh) {
+                if($dh->hor_id == $horas[$j]){
+                    $cond = true;
+                }
+            }
+            if($cond==false){
+                $dth = new DisponibilidadTieneHora();
+                $dth->de_id = $id;
+                $dth->hor_id = $horas[$j];
+                $dth->insert();
+            }
+        }
+        $disponibilidad = DisponibilidadEscenario::findOne($id);
+        $disponibilidad->de_fecha_ini = $fi;
+        $disponibilidad->de_fecha_fin = $ff;
+        $disponibilidad->update();
+        if($_GET['idEsc'] == '0'){
+            echo json_encode(EscenarioController::actualizarVisualizacion(-1));
+        }else{
+            echo json_encode(EscenarioController::actualizarVisualizacion($_GET['idEsc']));
+        }                
+    }
+
+    /*
+    *   Función para listar las ciudades asociadas a un departamento
+    */
+    public function actionListarciudades(){
+        $id = $_GET['id'];
+        $ciu = ArrayHelper::map(\app\models\Municipios::find()->where(['municipios_dptos_code'=>$id])->all(),'municipios_id','municipios_name');
+        if($_GET['tip'] == 1){
+            $msj = Html::dropDownList('ciudad', 'municipios_id', $ciu, ['prompt'=>Yii::t('app',"SELECCIONE"),'class'=>'form-control','id'=>'ciud']);
+        }else if($_GET['tip'] == 2){
+            $msj = Html::dropDownList('municipios', 'municipios_id', $ciu, ['prompt'=>Yii::t('app',"SELECCIONE"),'class'=>'form-control', 'id'=>'locac']);
+        }
+        echo json_encode($msj);
+    }
+
+    /*
+     * Función para agregar un nuevo contacto
+     * de un escenario ya existente
+     */
+    public function actionAgregarcontacto(){
+        if(sizeof(Escenario::find()->where('esc_id = :esc_id AND ce_id != :ce_id', array(':esc_id'=>$_GET['id'], ':ce_id'=>""))->all())==1){            
+            echo false;
+        }else{
+            $contacto = new ContactoEscenario();
+            $contacto->ce_nombre = $_GET['n'];
+            $contacto->ce_apellidos = $_GET['a'];
+            $contacto->ce_telefono = $_GET['t'];
+            $contacto->ce_celular = $_GET['c'];
+            $contacto->ce_email = $_GET['e'];
+            if($contacto->insert()){            
+                $escenario = Escenario::find()->where(['esc_id'=> $_GET['id']])->one();
+                $escenario->ce_id = ContactoEscenario::find()->orderBy('ce_id DESC')->one()->ce_id;
+                if($escenario->update()){
+                    echo true;
+                }else{
+                    echo false;
+                }
+            }else{
+                echo false;
+            }
+        }
+        
+    }
+
+    /*
+     * Función para editar los datos básicos de un escenario
+     */
+    public function actionModificarescenario(){
+        $escenario = Escenario::find()->where(['esc_id' => $_GET['idEsc']])->one();
+        $escenario->esc_nombre = $_GET['nombre_esc'];
+        $escenario->esc_direccion = $_GET['direccion_esc'];
+        $escenario->esc_observaciones = $_GET['observaciones_esc'];
+        $accionUpdateEsc = $escenario->update();
+        if($_GET['verificador'] == 1){
+            $contactoEsc = ContactoEscenario::find()->where(['ce_id' => $_GET['id_contact']])->one();
+            $contactoEsc->ce_nombre = $_GET['nombre_ce'];
+            $contactoEsc->ce_apellidos = $_GET['apellidos_ce'];
+            $contactoEsc->ce_telefono = $_GET['telefono_ce'];
+            $contactoEsc->ce_celular = $_GET['celular_ce'];
+            $contactoEsc->ce_email = $_GET['email_ce'];
+            $contactoEsc->update();            
+        }
+        echo true;
+    }
+
+    /*
+     * Función para borrar asociación de un deporte con un escenario
+     */
+    public function actionBorrardeporteescenario(){
+        if(sizeof(EscenarioTieneDeportes::find()->where(['esc_id'=>$_GET['idEsc'],'estd_activo'=>1])->all()) == 1){        
+            echo false;
+        }else{
+            $escTieneDep = EscenarioTieneDeportes::find()->where(['esc_id'=>$_GET['idEsc'], 'dep_id'=> $_GET['idDep']])->one();
+            if($escTieneDep->delete()){
+                echo true;
+            }else{
+                echo false;
+            }
+        }
+    }
+
+    /*
+     * Función para agregar deporte a escenario
+     */
+    public function actionAgregardeporteescenario(){
+        if(!EscenarioTieneDeportes::find()->where(['esc_id'=>$_GET['idEsc'],'dep_id'=>$_GET['idDep']])->one()){
+            // if(EscenarioTieneDeportes::find()->where(['esc_id'=>$_GET['idEsc'],'dep_id'=>$_GET['idDep'],'estd_activo'=>0])->one()){
+            //     $escenario = EscenarioTieneDeportes::find()->where(['esc_id'=>$_GET['idEsc'],'dep_id'=>$_GET['idDep'],'estd_activo'=>0])->one();
+            //     $escenario->estd_activo = 1;
+            //     if($escenario->update()){
+            //         echo true;
+            //     }else{
+            //         echo false;
+            //     }
+            // }else{
+            $etd = new EscenarioTieneDeportes();
+            $etd->esc_id = $_GET['idEsc'];
+            $etd->dep_id = $_GET['idDep'];
+            $etd->estd_activo = 1;
+            if($etd->insert()){
+                echo true;
+            }else{
+                echo false;
+            }
+            // }
+        }else{
+            echo false;  
+        }
+    }
+
+    /*
+     * Función para cambiar la ciudad a la cual pertenece un escenario
+     */
+    public function actionCambiarciudadescenario(){
+        $escenario = Escenario::find()->where(['esc_id'=>$_GET['idEsc']])->one();
+        $escenario->loc_id = $_GET['idLoc'];
+        if($escenario->update()){
+            echo true;
+        }else{
+            echo false;
+        }
+    }
+
+    /*
+     * Función para cambiar el estado de un escenario
+     */
+    public function actionCambiarestadoescenario(){
+        $escenario = Escenario::find()->where(['esc_id'=>$_GET['idEsc']])->one();
+        if($_GET['estAct'] == 1){
+            $escenario->esc_activo = 0;
+        }else{
+            $escenario->esc_activo = 1;
+        }
+        if($escenario->update()){
+            echo true;
+        }else{
+            echo false;
+        }
+    }    
+
+    /*
+     *  Función para validar una nueva fecha de disponibilidad
+     */
+    public function actionValidarfechadisp(){        
+        if($_GET['esc_id'] == 0){            
+            $esc = null;            
+        }else{          
+            $esc = $_GET['esc_id'];
+        }       
+
+        $r = []; 
+        $validador = true;        
+        $dispo = \app\models\DisponibilidadEscenario::find()->where(['esc_id' => $esc])->all();               
+        foreach ($dispo as $disp) {         
+            if($disp->de_id != $_GET['idDis']){                       
+                if($_GET['fi'] >= $disp->de_fecha_ini && $_GET['fi'] <= $disp->de_fecha_fin){                
+                    $validador = false;
+                }else if($_GET['ff'] >= $disp->de_fecha_ini && $_GET['ff'] <= $disp->de_fecha_fin){                
+                    $validador = false;
+                }else if($_GET['fi'] <= $disp->de_fecha_ini && $_GET['ff'] >= $disp->de_fecha_fin){                
+                    $validador = false;
+                }                    
+                if($validador == false){                
+                    $horas = \app\models\DisponibilidadTieneHora::find()->where(['de_id'=>$disp->de_id])->all();
+                    for($i = 1; $i <= HORAS; $i++){
+                        if(isset($_GET['h'.$i])){
+                            foreach ($horas as $h) {
+                                if($_GET['h'.$i] == $h->hor_id){                                
+                                    echo false;exit;
+                                }
+                            }
+                        }
+                    }                
+                }
+            }
+            $r[] = $disp->attributes;
+        }
+        // echo json_encode($r);
+        echo true;
+    }
+
+    /*
+     * Cambia la foto de un escenario
+     */
+    public function actionModificarfoto(){    	
+    	$escenario = \app\models\Escenario::find()->where(['esc_id' => $_POST['idEsc']])->one();
+    	if(isset($_FILES['file']) && $_FILES['file']['name'] != ""){ 
+            $allowed =  array('png', 'jpg', 'jpeg');
+            $filename = $_FILES['file']['name'];
+            $ext = pathinfo($filename, PATHINFO_EXTENSION);
+
+            if(!in_array($ext,$allowed) ) {
+                echo 'El archivo debe tener extension png, jpg o jpeg';exit;
+            }
+            elseif ( 0 < $_FILES['file']['error'] ) {
+                echo 'Error: ' . $_FILES['file']['error'] . '<br>';exit;
+            } 
+            else {
+                $path = '/uploads/escenarios/';
+                $uploaddir = Yii::getAlias('@webroot') . $path;
+
+                $filename = $escenario->esc_id.$_FILES['file']['name'];
+                $uploadfile = $uploaddir.$filename;
+                // $uploadfile = $uploaddir. $_FILES['file']['name'];
+                move_uploaded_file($_FILES['file']['tmp_name'], $uploadfile);
+            }            
+        }
+        $escenario->esc_foto_ruta = $path.$filename;
+        if($escenario->update()){
+        	echo true;
+        }else{
+        	echo false;
+        }        
+    }
+   
+    /*
+        Actualiza la visualización después de agregar,
+        borrar o modificar fechas de disponibilidad
+    */
+    public static function actualizarVisualizacion($idEsc){
+        $msj = "";
+        $num = 1;
+        $disp = EscenarioController::listarDisponibilidad($idEsc);
+        foreach ($disp as $d) {
+            $esc = "";
+            if($d->esc_id == null){
+                $esc = 0;
+            }else{
+                $esc = $d->esc_id;
+            }
+            $msj.="
+                <tr class='fil-disp'>
+                        <th scope='row'>$num</th>
+                        <td>
+                            <div class='input-group'>
+                                <input id='fi$d->de_id' class='form-control fecha' type=text value='$d->de_fecha_ini' readonly>
+                                <span class='input-group-addon'>
+                                    <span class='icon-calendar'></span>
+                                </span>
+                            </div>
+                        </td>
+                        <td>
+                            <div class='input-group'>
+                                <input id='ff$d->de_id' class='form-control fecha' type=text value='$d->de_fecha_fin' readonly>
+                                <span class='input-group-addon'>
+                                    <span class='icon-calendar'></span>
+                                </span>
+                            </div>
+                        </td>
+                        <td>
+                            <select id='sel$d->de_id' class='selectpicker sel' multiple multiple title='".Yii::t('app',"SELECCIONE")."'>
+                                ".EscenarioController::listarHorasPorFecha($d->de_id)."
+                            </select>
+                        </td>
+                        <td>
+                            <table>
+                                <tr>
+                                    <td>
+                                        <span id='modif$d->de_id'  class='btn btn-success btn-xs' onclick='modificarFecha(this.id,".$esc.");'>
+                                            <span class='icon-cached'></span>
+                                        </span> 
+                                    </td>
+                                    <td>&nbsp;</td>
+                                    <td>
+                                        <span id='bor$d->de_id' class='btn btn-danger btn-xs' onclick='borrarFecha(this.id,".$esc.");'>
+                                            <span class='icon-circle-with-cross'></span>
+                                        </span>
+                                    </td>
+                                </tr>
+                            </table>                            
+                        </td>
+                </tr>";
+            $num = $num+1;
+        }
+        return $msj;
+    }
+
+    /*
+        Lista la disponibilidad para cada caso, 1: todas las disponibilidades que no han
+        sido asignadas a un escenario, 2: el id de la última disponibilidad agregada, esto
+        con el fin de agregarle las horas relacionadas.
+    */
+    public static function listarDisponibilidad($opc){
+        if($opc == -1){
+            return DisponibilidadEscenario::find()->where(['esc_id' => null])->orderBy('de_id')->all();
+        }else if($opc == 0){
+            return  DisponibilidadEscenario::find()->orderBy('de_id DESC')->one()->de_id;            
+        }else{
+            return DisponibilidadEscenario::find()->where(['esc_id' => $opc])->orderBy('de_id')->all();
+        }
+    }
+
+    /*
+     *Función que muestra el último escenario insertado en la base de datos
+     */
+    public static function ultimoEscenarioInsertado(){
+        return Escenario::find()->orderBy('esc_id DESC')->one()->esc_id;
+    }
+
+    /*
+     *Borrar todas las fechas que no han sido asignadas a un escenario
+     */
+    public static function limpiarDisponibilidad(){
+        $disp = EscenarioController::listarDisponibilidad(-1);
+        foreach ($disp as $d) {
+            DisponibilidadTieneHora::deleteAll('de_id = '.$d->de_id);
+        }
+        $n = null;
+        DisponibilidadEscenario::deleteAll('esc_id is null ');   
+    }
+
+    /*
+    *   Función que asigna el escenario a las disponibilidades creadas
+    */
+    public static function actualizarDisponibilidadPorEscenario($idEsc){
+        $disponibilidad = DisponibilidadEscenario::find()->where(['esc_id'=>null])->all();
+        if(sizeof($disponibilidad) > 0){
+			foreach ($disponibilidad as $d) {
+	            $d->esc_id = $idEsc;
+	            $d->update();
+	        }
+        }
+        
+    }
+
+    /*
+    *   Lista todas las horas existentes
+    */
+    public static function listarHoras(){
+        return Hora::find()->all();
+    }
+
+    /*
+    *   Muestra las horas asociadas a cada disponibilidad
+    */
+    public static function listarHorasPorFecha($id){
+        $vista ="";
+        $horas = EscenarioController::listarHoras();
+        $horasDisp = DisponibilidadTieneHora::find()->where(['de_id'=>$id])->all();
+        // $vista .= "<select class='selectpicker' multiple>";
+        foreach ($horas as $hora) {
+            $vista .= "<option id='".$id."hor$hora->hor_id' value='$hora->hor_id' ";
+            foreach ($horasDisp as $horaD) {
+                if($hora->hor_id == $horaD->hor_id){
+                    $vista.="selected";
+                }
+            }
+            $vista .= ">$hora->hor_nombre_12_horas</option>";
+        }
+        // $vista .= "</select>";
+        return $vista;
+    }
+
+    /*
+    *   Lista de deportes asociados a un escenario
+    */
+    public static function listarDeportesEscenario($id){
+        $escTieneDeport = EscenarioTieneDeportes::find()->where(['esc_id'=> $id,'estd_activo'=>1])->all();
+        $deportes = [];
+        foreach ($escTieneDeport as $etd) {
+            $deportes[$etd->dep_id] = $etd->dep;
+        }
+        return (object) $deportes;
+    }
+}
+?>

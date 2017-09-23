@@ -1,0 +1,180 @@
+<?php
+    use yii\helpers\Html;
+    use yii\helpers\Url;
+    use yii\helpers\ArrayHelper;
+?>
+
+
+<body class="background_images">
+
+    <div class="container-fluid">
+
+        <div class="dashboard-wrapper">
+            
+            <!-- MIGA DE PAN -->
+            <nav class="navbar navbar-default">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                        <span class="sr-only">
+                            Toggle navigation</span>
+                        <span class="icon-bar">
+                        </span>
+                        <span class="icon-bar">
+                        </span>
+                        <span class="icon-bar">
+                        </span>
+                    </button>
+                </div>
+                <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                    <ul class="nav navbar-nav">
+                        <li>
+                            <?php
+                            echo Html::a('<i class="icon-graphic_eq"></i>' . Yii::t("app", "INICIO"), array("evento/index"));
+                            ?>
+                        </li>
+                        <li class="active">
+                            <?php
+                            echo Html::a('<i class="icon-graphic_eq"></i>' . Yii::t("app", "BITACORA"), array("bitacora/listar"));
+                            ?>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+            
+            <!-- Barra Azul -->
+            <div class="top-bar clearfix">
+            </div>
+
+            <!-- Listado -->
+            <table id="list-datos" class="display" cellspacing="0" width="90%">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th><?php echo Yii::t("app", "TABLA"); ?></th>
+                        <th><?php echo Yii::t("app", "USUARIO"); ?></th>
+                        <th><?php echo Yii::t("app", "FECHA"); ?></th>
+                        <th><?php echo Yii::t("app", "DESCRIPCION"); ?></th>
+                        <th></th>
+                    </tr>
+                    <tr>
+                        <th></th>
+                        <th><?php echo Yii::t("app", "TABLA"); ?></th>
+                        <th><?php echo Yii::t("app", "USUARIO"); ?></th>
+                        <th><?php echo Yii::t("app", "FECHA"); ?></th>
+                        <th><?php echo Yii::t("app", "DESCRIPCION"); ?></th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tfoot>
+                    <tr>
+                        <th>#</th>
+                        <th><?php echo Yii::t("app", "TABLA"); ?></th>
+                        <th><?php echo Yii::t("app", "USUARIO"); ?></th>
+                        <th><?php echo Yii::t("app", "FECHA"); ?></th>
+                        <th><?php echo Yii::t("app", "DESCRIPCION"); ?></th>
+                        <th></th>
+                    </tr>
+                </tfoot>
+                <tbody>
+                </tbody>
+            </table>
+            
+        </div>
+
+
+
+    </div>
+    
+</body>
+
+<script>
+    
+    $(document).ready(function () {
+        
+        var table = $('#list-datos').DataTable({
+            "processing": true,
+            "serverSide": true,
+            "order": [[ 0, "desc" ]],
+            "ajax": "<?php echo Url::toRoute(['bitacora/data']); ?>",
+            "language": {
+                "lengthMenu": "<?php echo Yii::t("app", "DISPLAY_RESULT") ?>",
+                "zeroRecords": "<?php echo Yii::t("app", "NO_RESULT") ?>",
+                "info": "<?php echo Yii::t("app", "RES_PAG") ?>",
+                "infoEmpty": "<?php echo Yii::t("app", "NO_RESULT_SEARCH") ?>",
+                "infoFiltered": "<?php echo Yii::t("app", "FILTER_RESULT") ?>",
+                "loadingRecords": "<?php echo Yii::t("app", "CARGANDO") ?>",
+                "processing":     "<?php echo Yii::t("app", "PROCESANDO") ?>.",
+                "search":         "<?php echo Yii::t("app", "BUSCAR") ?>",
+                "zeroRecords":    "<?php echo Yii::t("app", "NO_RESULT_SEARCH") ?>",
+                "paginate": {
+                    "first":      "<?php echo Yii::t("app", "PRIMERO") ?>",
+                    "last":       "<?php echo Yii::t("app", "ULTIMO") ?>",
+                    "next":       "<?php echo Yii::t("app", "SIGUIENTE") ?>",
+                    "previous":   "<?php echo Yii::t("app", "ANTERIOR") ?>"
+                },
+
+            }
+        });
+        
+        //Contador de columnas
+        $.fn.columnCount = function() {  
+            return $('th', $(this).find('tfoot')).length;  
+        }; 
+        
+        // Filtros por columnas
+        var column = 0;
+        $('#list-datos thead tr:eq(1) th').each( function () {
+            
+            //No agregue filtro para el registro ID
+            if(column > 0 && column < ($('#list-datos').columnCount() - 1)){ 
+                
+                if(column == 2){//Construye una lista 
+                    <?php
+                        $html = Html::dropDownList('usu_id', 'usu_id', $usuarios, ['prompt' => Yii::t('app', ''), 'class' => 'form-control filter', 'id' => 'usu_id', 'name' => 'usu_id']);
+                        $html = preg_replace( "/\r|\n/", "", $html );;
+                        $data = "";
+                    ?>
+                    $(this).html( '<?php echo $html; ?>' );
+                    $('#usu_id').select2();
+                }
+                else if(column == 3){ //Campo de fecha
+                    $(this).html( '<input class="form-control filter" style="height: 15px;" id="datapicker" type="text"  readonly/>' );
+                    $('#datapicker').datepicker({
+                        format:'yyyy-mm-dd',
+                        autoclose: true,
+                        todayBtn: 'linked',
+                        clearBtn: true,
+                        changeMonth: true,
+                        changeYear: true,
+                        endDate: new Date(),
+                    });
+                } else {
+                    $(this).html( '<input class="form-control filter" style="height: 15px;" id="" type="text"  />' );
+                }
+            }
+            column++;
+        }); 
+        
+        $('.filter, .select2').on('click', function(e){
+            e.stopPropagation();    
+        });
+        
+        // Buscar los valores ingresados
+        table.columns().every(function (index) {
+        
+            $('#list-datos thead tr:eq(1) th:eq(' + index + ') select').on('change', function () {
+                    table.column($(this).parent().index() + ':visible')
+                        .search(this.value).draw();
+            });
+            
+            $('#list-datos thead tr:eq(1) th:eq(' + index + ') input').on('keyup change', function () {
+                    table.column($(this).parent().index() + ':visible')
+                        .search(this.value).draw();
+            });
+            
+        });
+        
+    });
+    
+</script>
+<script src="../views/bitacora/js/bitacora.js"></script>

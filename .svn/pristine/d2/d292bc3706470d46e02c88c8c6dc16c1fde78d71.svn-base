@@ -1,0 +1,23 @@
+<?php
+
+    define("URL", 'My URL');
+    
+    define("ESTADO_ACTIVO", 1);
+    define("ESTADO_INACTIVO", 0);
+    
+    define("USUARIO_MODEL", "Usuario");
+    define("LOGIN_CORRECTO", "Autenticación exitosa");
+    
+    define("DIA", serialize (array(
+            'Lunes'     => Yii::t('app','Lunes'),
+            'Martes'     => Yii::t('app','Martes'),
+            'Miercoles'     => Yii::t('app','Miercoles'),
+            'Jueves'     => Yii::t('app','Jueves'),
+            'Viernes'     => Yii::t('app','Viernes'),
+            'Sabado'     => Yii::t('app','Sabado'),
+            'Domingo'     => Yii::t('app','Domingo'),
+        ))
+    );
+
+
+?>

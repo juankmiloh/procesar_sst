@@ -1,0 +1,1101 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <title>SUPERATE INTERCOLEGIADOS</title>
+	<link rel="icon" type="image/png" href="images/coldeportes.png" />
+    <!-- Css Files -->
+    <link href="../css\bootstrap.css" rel="stylesheet">
+    <link href="css\font-awesome.css" rel="stylesheet">
+    <link href="css\themetypo.css" rel="stylesheet">
+    <link href="style.css" rel="stylesheet">
+    <link href="css\widget.css" rel="stylesheet">
+    <link href="css\color.css" rel="stylesheet">
+    <link href="css\flexslider.css" rel="stylesheet">
+    <link href="css\owl.carousel.css" rel="stylesheet">
+	<link href="css\jquery.bxslider.css" rel="stylesheet">    
+	<link href="css\prettyphoto.css" rel="stylesheet">
+    <link href="css\responsive.css" rel="stylesheet">
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+    
+    <!--// Wrapper //-->
+    <div class="kode-wrapper">
+      <header id="mainheader" class="kode-header-absolute">
+
+        <!--// TopBaar //-->
+          <div class="kode-topbar">
+		  <div class="container">
+              <div class="row">
+                <div class="col-md-6 kode_bg_white">
+					<ul class="top_slider_bxslider">
+						<li><span class="kode-barinfo"><strong>Ultimas Noticias : </strong> Lorem ipsum dolor sit amet, cons ecte tuer adipiscing elit,</span></li>
+						<li><span class="kode-barinfo"><strong>Ultimas Noticias : </strong> Lorem ipsum dolor sit amet, cons ecte tuer adipiscing elit,</span></li>
+						<li><span class="kode-barinfo"><strong>Ultimas Noticias : </strong> Lorem ipsum dolor sit amet, cons ecte tuer adipiscing elit,</span></li>
+					</ul>
+				</div>
+                <div class="col-md-6">
+                  <ul class="kode-userinfo">
+                    <li><a href="#"><i class="fa fa-user"></i> Mi cuenta</a></li>
+                    <li><a href="#" data-toggle="modal" data-target="#myModal"><i class="fa fa-sign-in"></i> Login</a></li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+        <!--// TopBaar //-->
+		
+		<div class="header-8">
+			<div class="container">
+				<!--NAVIGATION START-->
+				<div class="kode-navigation pull-left">
+					<ul>
+						 <li><a href="index.html">INICIO</a></li>
+                          <li><a href="#">NOTICIAS</a>
+                            <ul class="children">
+                              <li><a href="blog-large.html">Blog Large</a></li>
+                              <li><a href="bloggrid-v2.html">Blog Grid</a></li>
+                              <li><a href="blog-detail.html">Blog Detail</a>
+                                <ul class="children">
+                                  <li><a href="blog-detail-soundcloud.html">Single SoundCloud</a></li>
+                                  <li><a href="blog-detail-video.html">Single Video</a></li>
+                                </ul>
+                              </li>
+                            </ul>
+                          </li>
+                          <li><a href="fixer-list.html">Fixture</a>
+                            <ul class="children">
+                              <li><a href="fixer_list.html">All Matches</a></li>
+                              <li><a href="fixer_list_view.html">List View</a></li>
+                              <li><a href="fixture_full_view.html">Full View</a></li>
+							  <li><a href="fixture-detail.html">Fixture detail</a></li>
+                            </ul>
+                          </li>
+						  <li><a href="gallery-full-width.html">Our Gallery</a>
+							<ul class="children">
+							  <li><a href="gallery-two.html">Gallery 2 Column</a></li>
+							  <li><a href="gallery-three.html">Gallery 3 Column</a></li>
+							  <li><a href="gallery-four.html">Gallery 4 Column</a></li>
+							   <li><a href="gallery-full-width.html">Gallery Full Width</a></li>
+							</ul>
+						  </li>
+							
+					</ul>
+				</div>
+				<!--NAVIGATION END--> 
+				<!--LOGO START-->	
+				<div class="logo">
+					<a href="index.html" class="logo"><img src="images\logo.png" alt=""></a>
+				</div>
+				<!--LOGO END-->	
+				<!--NAVIGATION START-->
+				<div class="kode-navigation">
+					<ul>
+						<li>
+							<a href="#">Team & Player</a>
+							<ul class="children">
+							  <li><a href="player-list.html">Players</a></li>
+							  <li><a href="player-detail.html">Player detail</a></li>
+							  <li><a href="team-detail.html">Team Detail</a></li>
+							</ul>
+						  </li>
+						  <!-- <li><a href="faq.html">Faq</a></li> -->
+						<li><a href="#">Shop</a>
+							<ul class="children">
+							  <li><a href="product-list.html">Product list</a></li>
+							  <li><a href="product-detail.html">Product Detail</a></li>
+							</ul>
+						  </li>
+                          <li><a href="#">ShortCode</a>
+                            <ul class="children">
+                              <li><a href="accordian.html">Accordion</a></li>
+                              <li><a href="button.html">Button</a></li>
+                              <li><a href="frame.html">Image Frame</a></li>
+                              <li><a href="list.html">List</a></li>
+                              <li><a href="map.html">Map</a></li>
+                              <li><a href="message.html">Message</a></li>
+                              <li><a href="sepratore.html">Separator</a></li>
+                              <li><a href="skills.html">Skills</a></li>
+                              <li><a href="table.html">Table</a></li>
+                              <li><a href="tabs.html">Tabs</a></li>
+                              <li><a href="video.html">Video</a></li>
+                            </ul>
+                          </li>
+                          <li class="last"><a href="#">contact</a>
+                            <ul class="children">
+                              <li><a href="contact-us.html">Contact V1</a></li>
+                              <li><a href="contact-ustwo.html">Contact V2</a></li>
+                            </ul>
+                          </li>
+					</ul>
+				</div>
+				<!--NAVIGATION END-->  
+				 <nav class="navbar navbar-default">
+                    
+                      <!-- Brand and toggle get grouped for better mobile display -->
+                      <div class="navbar-header">
+                        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse">
+                          <span class="sr-only">Toggle navigation</span>
+                          <span class="icon-bar"></span>
+                          <span class="icon-bar"></span>
+                          <span class="icon-bar"></span>
+                        </button>
+                      </div>
+
+                      <!-- Collect the nav links, forms, and other content for toggling -->
+                      <div class="collapse navbar-collapse" id="navbar-collapse">
+                        <ul class="nav navbar-nav">
+                           <li><a href="index.html">Home</a>
+						    <ul class="children">
+                              <li><a href="blog-large.html">Boxed Layout</a></li>
+                            </ul>
+						   </li>
+						 <li><a href="team-info.html">About Us</a></li>
+                          <li><a href="#">Blog</a>
+                            <ul class="children">
+                              <li><a href="bloggrid-v2.html">Blog Grid</a></li>
+							  <li><a href="blog-large.html">Blog Large</a></li>
+                              <li><a href="blog-detail.html">Blog Detail</a>
+                                <ul class="children">
+                                  <li><a href="blog-detail-soundcloud.html">Single SoundCloud</a></li>
+                                  <li><a href="blog-detail-video.html">Single Video</a></li>
+                                </ul>
+                              </li>
+                            </ul>
+                          </li>
+                          <li><a href="fixer-list.html">Fixture</a>
+                            <ul class="children">
+                              <li><a href="fixer_list.html">All Matches</a></li>
+                              <li><a href="fixer_list_view.html">List View</a></li>
+                              <li><a href="fixture_full_view.html">Full View</a></li>
+							  <li><a href="fixture-detail.html">Fixture detail</a></li>
+                            </ul>
+                          </li>
+						  <li><a href="gallery-two.html">Our Gallery</a>
+							<ul class="children">
+							  <li><a href="gallery-two.html">Gallery 2 Column</a></li>
+							  <li><a href="gallery-three.html">Gallery 3 Column</a></li>
+							  <li><a href="gallery-four.html">Gallery 4 Column</a></li>
+							  <li><a href="gallery-full-width.html">Gallery Full Width</a></li>
+							</ul>
+						  </li>
+						 <li>
+							<a href="#">Team & Player</a>
+							<ul class="children">
+							  <li><a href="player-list.html">Players</a></li>
+							  <li><a href="player-detail.html">Player detail</a></li>
+							  <li><a href="team-detail.html">Team Detail</a></li>
+							</ul>
+						  </li>
+						<li><a href="#">Shop</a>
+							<ul class="children">
+							  <li><a href="product-list.html">Product list</a></li>
+							  <li><a href="product-detail.html">Product Detail</a></li>
+							</ul>
+						  </li>
+                          <li><a href="#">ShortCode</a>
+                            <ul class="children">
+                              <li><a href="accordian.html">Accordion</a></li>
+                              <li><a href="button.html">Button</a></li>
+                              <li><a href="frame.html">Image Frame</a></li>
+							   <li><a href="faq.html">Faq</a></li>
+                              <li><a href="list.html">List</a></li>
+                              <li><a href="map.html">Map</a></li>
+                              <li><a href="message.html">Message</a></li>
+                              <li><a href="sepratore.html">Separator</a></li>
+                              <li><a href="skills.html">Skills</a></li>
+                              <li><a href="table.html">Table</a></li>
+                              <li><a href="tabs.html">Tabs</a></li>
+                              <li><a href="skills.html">Skills</a></li>
+                              <li><a href="video.html">Video</a></li>
+                            </ul>
+                          </li>
+                          <li class="last"><a href="#">contact Us</a>
+                            <ul class="children">
+                              <li><a href="contact-us.html">Contact V1</a></li>
+                              <li><a href="contact-ustwo.html">Contact V2</a></li>
+                            </ul>
+                          </li>
+                        </ul>
+                      </div><!-- /.navbar-collapse -->
+
+                  </nav>
+			</div>
+		</div>
+      </header>
+
+      <!--// Main Banner //-->
+      <div id="mainbanner">
+        <div class="flexslider">
+          <ul class="slides">
+            <li>
+              <img src="extra-images/slide1.jpg" alt="">
+              <div class="container">
+                <div class="kode-caption">       
+                	<h2>REGIONAL NACIONAL</h2>
+                    <div class="clearfix"></div>        
+                  <p>Departamento Administrativo del Deporte, <br>la Recreación, la Actividad Física y<br> el Aprovechamiento del Tiempo Libre</p>
+                  <div class="clearfix"></div>
+                  <!-- <a class="kode-modren-btn thbg-colortwo" href="#">Leer Más</a> -->
+                </div>
+              </div>
+            </li>
+            <li>
+              <img src="extra-images/slide2.jpg" alt="">
+              <div class="container">
+                <div class="kode-caption">       
+                	<h2>REGIONAL NACIONAL</h2> 
+                    <div class="clearfix"></div>          
+                  <p>Departamento Administrativo del Deporte, <br>la Recreación, la Actividad Física y<br> el Aprovechamiento del Tiempo Libre</p>
+                  <div class="clearfix"></div>
+                  <!-- <a class="kode-modren-btn thbg-colortwo" href="#">Leer Más</a> -->
+                </div>
+              </div>
+            </li>
+            <li>
+              <img src="extra-images/slide3.jpg" alt="">
+              <div class="container">
+                <div class="kode-caption">       
+                	<h2>REGIONAL NACIONAL</h2>
+                    <div class="clearfix"></div>        
+                  <p>Departamento Administrativo del Deporte, <br>la Recreación, la Actividad Física y<br> el Aprovechamiento del Tiempo Libre</p>
+                  <div class="clearfix"></div>
+                  <!-- <a class="kode-modren-btn thbg-colortwo" href="#">Leer Más</a> -->
+                </div>
+              </div>
+            </li>
+          </ul>
+        </div>
+      </div>
+      <!--// Main Banner //-->
+
+      <!--// Main Content //-->
+      <div class="kode-content">
+        
+		<section class="pick-event padding-30-topbottom margin-top-minus-40">
+        	<div class="container">
+            	<div class="heading">
+                    <h2>Buscar Deporte</h2>
+                </div>
+                <div class="form">
+                	<div class="cover">
+                    	<input type="text">
+                        <i class="fa fa-search"></i>
+                    </div>
+                    <div class="cover">
+                    	<input type="text">
+                        <i class="fa fa-calendar"></i>
+                    </div>
+                    <div class="cover">
+                        <div class="dropdown">
+                            <button aria-expanded="true" data-toggle="dropdown" id="dropdownMenu1" type="button" class="dropdown-toggle">
+                            Listado de Deporte
+                            <i class="fa fa-bars"></i>
+                            </button>
+                            <ul aria-labelledby="dropdownMenu1" role="menu" class="dropdown-menu">
+                                <li role="presentation"><a href="#" tabindex="-1" role="menuitem"><img src="images/BALONCESTO.png"> Baloncesto</a></li>
+								<li role="presentation"><a href="#" tabindex="-1" role="menuitem"><img src="images/FUTBOL.png"> Fútbol</a></li>
+                                <li role="presentation"><a href="#" tabindex="-1" role="menuitem"><img src="images/FUTBOL_SALA.png"> Fútbol de Salón</a></li>
+                                <li role="presentation"><a href="#" tabindex="-1" role="menuitem"><img src="images/FUTBOL_SALA.png"> Fútbol Sala</a></li>
+								<li role="presentation"><a href="#" tabindex="-1" role="menuitem"><img src="images/VOLEIBOL.png"> Voleibol Coliseo</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="cover">
+                    	<a class="kode-modren-btn thbg-colortwo">Buscar</a>
+                    </div>
+                </div>
+            </div>
+        </section>		
+
+        <!--// Page Content //-->
+        <section class="kode-pagesection padding-30-topbottom bg-white">
+          <div class="container">
+            <div class="row">
+
+              <div class="kode-result-list shape-view col-md-12">
+				<div class="heading heading-12 margin-top30-bottom80">
+					<p>RESULTADO EVENTO ANTERIOR</p>
+					<h2><span class="left"></span>RESULTADOS JORNADA 2 -  FÚTBOL <span class="right"></span></h2>
+				</div>
+				<div class="clear clearfix"></div>
+                <div class="row">
+                  <div class="col-md-6">
+                    <article>
+                      <span class="kode-result-count thbg-colortwo">3</span>
+                      <div class="kode-result-thumb">
+                        <a href="#"><img src="extra-images\result-logo1.png" alt=""></a>
+                      </div>
+                      <div class="kode-result-info">
+                        <h2><a href="#">HUILA</a> <span>Ganador</span></h2>
+                        <ul>
+                          <li>Perez <span>(17’)</span></li>
+                          <li>Rodriguez <span>(51’)</span></li>
+                          <li>Ramirez <span>(91’)</span></li>
+                        </ul>
+                      </div>
+                    </article>
+                  </div>
+                  <div class="col-md-6">
+                    <article class="kode-even">
+                      <span class="kode-result-count thbg-colortwo">2</span>
+                      <div class="kode-result-thumb">
+                        <a href="#"><img src="extra-images\result-logo2.png" alt=""></a>
+                      </div>
+                      <div class="kode-result-info">
+                        <h2><a href="#">PUTUMAYO</a> <span>Perdedor</span></h2>
+                        <ul>
+                          <li>Perez <span>(17’)</span></li>
+                          <li>Rodriguez <span>(51’)</span></li>
+                        </ul>
+                      </div>
+                    </article>
+                  </div>
+                </div>
+              </div>
+              
+            </div>
+          </div>
+        </section>
+        <!--// Page Content //-->
+		
+		 <!--// Page Content //-->
+        <section class="kode-pagesection kode-sport-section kode-parallax">
+          <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+					<div class="heading heading-12 margin-top5-bottom10-flat">
+						<p style="color:#FFF;">PROXIMO ENCUENTRO ENTRE DELEGACIONES</p>
+						<h2><span class="left"></span>EN FÚTBOL<span class="right"></span></h2>
+					</div>
+                  <div class="kode-fixer-counter">
+                    <div id="kodeCountdown"></div>
+                  </div>
+                  <div class="kode-team-match">
+                    <ul>
+                      <li><a href="#"><img src="extra-images/fixer-logo1.png" alt=""><BR><P style="color:#FFF;">CUNDINAMARCA</P></a></li>
+                      <li class="home-kode-vs"><a href="#" class="kode-modren-btn thbg-colortwo">vs</a></li>
+                      <li><a href="#"><img src="extra-images/fixer-logo2.png" alt=""><BR><P style="color:#FFF;">CAQUETÁ</P</a></li>
+                    </ul>
+                    <div class="clearfix"></div>
+                    <span class="kode-subtitle" style="color:#FFF;">ESTADIO DE TECHO 31 DICIEMBRE 2017, 12:00 - 00:01, BOGOTA D.C.</span>
+                  </div>
+
+                </div>
+              </div>
+            </div>
+        </section>
+        <!--// Page Content //-->
+		
+        <!--// Page Content //-->
+        <section class="kode-pagesection top_player_section">
+          <div class="container">
+            <div class="row">
+
+              <div class="col-md-12">
+                <div class="kode-section-title"> <h2>ESCENARIOS</h2> </div>
+
+                  <div class="owl-carousel-team owl-theme kode-team-list next-prev-style">
+                    <div class="item">
+                      <figure><a href="#" class="kode-team-thumb"><img src="extra-images/estadio1.jpg" alt=""></a>
+                        <figcaption>
+                          <ul class="kode-team-network">
+                            <li><a href="#" class="fa fa-facebook"></a></li>
+                            <li><a href="#" class="fa fa-twitter"></a></li>
+                            <li><a href="#" class="fa fa-linkedin"></a></li>
+                          </ul>
+                          <div class="clearfix"></div>
+                          <h2><a href="#">ESTADIO 1</a></h2>
+                          <a href="#" class="kode-modren-btn thbg-colortwo">Ver Detalles</a>
+                        </figcaption>
+                      </figure>
+                    </div>
+                    <div class="item">
+                      <figure><a href="#" class="kode-team-thumb"><img src="extra-images/estadio2.jpg" alt=""></a>
+                        <figcaption>
+                          <ul class="kode-team-network">
+                            <li><a href="#" class="fa fa-facebook"></a></li>
+                            <li><a href="#" class="fa fa-twitter"></a></li>
+                            <li><a href="#" class="fa fa-linkedin"></a></li>
+                          </ul>
+                          <div class="clearfix"></div>
+                          <h2><a href="#">ESTADIO 2</a></h2>
+                          <a href="#" class="kode-modren-btn thbg-colortwo">Ver Detalles</a>
+                        </figcaption>
+                      </figure>
+                    </div>
+                    <div class="item">
+                      <figure><a href="#" class="kode-team-thumb"><img src="extra-images/estadio3.jpg" alt=""></a>
+                        <figcaption>
+                          <ul class="kode-team-network">
+                            <li><a href="#" class="fa fa-facebook"></a></li>
+                            <li><a href="#" class="fa fa-twitter"></a></li>
+                            <li><a href="#" class="fa fa-linkedin"></a></li>
+                          </ul>
+                          <div class="clearfix"></div>
+                          <h2><a href="#">ESTADIO 3</a></h2>
+                          <a href="#" class="kode-modren-btn thbg-colortwo">Ver Detalles</a>
+                        </figcaption>
+                      </figure>
+                    </div>
+                    <div class="item">
+                      <figure><a href="#" class="kode-team-thumb"><img src="extra-images/estadio4.jpg" alt=""></a>
+                        <figcaption>
+                          <ul class="kode-team-network">
+                            <li><a href="#" class="fa fa-facebook"></a></li>
+                            <li><a href="#" class="fa fa-twitter"></a></li>
+                            <li><a href="#" class="fa fa-linkedin"></a></li>
+                          </ul>
+                          <div class="clearfix"></div>
+                          <h2><a href="#">ESTADIO 4</a></h2>
+                          <a href="#" class="kode-modren-btn thbg-colortwo">Ver Detalles</a>
+                        </figcaption>
+                      </figure>
+                    </div>
+                  </div>
+
+              </div>
+              
+            </div>
+          </div>
+        </section>
+        <!--// Page Content //-->
+		
+		<div class="kd-pagesection project_fact_inline">
+        <div class="container">
+          <div class="row">
+
+            <div class="col-md-12">
+
+              <!--// Counter Section //-->
+              <div class="kd-counter">
+                <ul class="row">
+                  <li class="col-md-4">
+                    <i class="fa fa-users fa-3x"></i>
+                    <span class="word-count">206</span>
+                    <small>TOTAL DE  DEPORTISTAS</small>
+                  </li>
+                  <li class="col-md-4">
+                    <i class="fa fa-flag fa-3x"></i>
+                    <span class="word-count">56</span>
+                    <small>TOTAL DE LIGAS</small>
+                  </li>
+                  <li class="col-md-4">
+                    <i class="fa fa-trophy fa-3x"></i>
+                    <span class="word-count">57</span>
+                    <small>TOTAL MEDALLERIA</small>
+                  </li>
+                </ul>
+              </div>
+              <!--// Counter Section //-->
+
+            </div>
+
+          </div>
+        </div>
+      </div>
+		
+
+		
+		
+		<section class="kode-pagesection kode-video-section kode-parallax kode-gallery-pretty">
+        	<div class="container">
+            	<h2>VIDEO DEL LOS EVENTOS</h2>
+                <a data-gal="prettyphoto" href="https://www.youtube.com/watch?v=qH1rDVjJsIU"><i class="fa fa-play"></i></a>
+                <h4>VIDEO : JUEGOS MUNDIALES</h4>
+                <p>FUENTE: Youtube, Vimeo</p>
+            </div>
+        </section>
+
+		 <!--// Page Content //-->
+        <section class="kode-pagesection margin-bottom-40">
+          <div class="container">
+            <div class="row">
+				<div class="col-md-12">
+					<div class="heading heading-12 margin-top30-bottom10">
+						<p>CLASIFICADOS</p>
+						<h2><span class="left"></span>RESUMEN DE ENCUENTROS -  MEDALLERIA<span class="right"></span></h2>
+					</div>
+				</div>	
+                <div class="col-md-8">
+                  
+                  <table class="kode-table">
+                    <thead>
+                      <tr>
+						<th>#</th>
+						<th>DEPORTE</th>
+                        <th>PROXIMOS EVENTOS</th>
+                        <th>FECHA</th>
+                        <th>LUGAR</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+						<td><img src="images/oro.png" alt="Medalla"></td>
+						<td>Baloncesto</td>
+						<td>Equipo 1 <span>VS</span>Equipo 2</td>
+                        <td>31/12/2017  4:30 - 6:00</td>
+                        <td>IE JORGE ELIECER GAITAN - ORITO</td>
+                      </tr>
+                       <tr>
+					   <td><img src="images/oro.png" alt="Medalla"></td>
+						<td>Fútbol</td>
+                        <td>Equipo 1 <span>VS</span>Equipo 2</td>
+                        <td>31/12/2017  4:30 - 6:00</td>
+                        <td>IE SAN JOSE DE ORITO - ORITO</td>
+                      </tr>
+                      <tr>
+					  <td><img src="images/oro.png" alt="Medalla"></td>
+						<td>Fútbol de Salón</td>
+                        <td>Equipo 1 <span>VS</span>Equipo 2</td>
+                        <td>31/12/2017  4:30 - 6:00</td>
+                        <td>INEM JULIAN MOTTA SALAS - NEIVA</td>
+                      </tr>
+                      <tr>
+					  <td><img src="images/oro.png" alt="Medalla"></td>
+						<td>Fútbol Sala</td>
+                        <td>Equipo 1 <span>VS</span>Equipo 2</td>
+                        <td>31/12/2017  4:30 - 6:00</td>
+                        <td>INST EDUC EXALUMNAS DE LA PRESENTACION - IBAGUÉ</td>
+                      </tr>
+                      <tr>
+					  <td><img src="images/oro.png" alt="Medalla"></td>
+						<td>Voleibol Coliseo</td>
+                        <td>Equipo 1 <span>VS</span>Equipo 2</td>
+                        <td>31/12/2017  4:30 - 6:00</td>
+                        <td>INST EDUC SAN SIMON - IBAGUÉ</td>
+                      </tr>
+                    </tbody>
+                 </table>
+
+                </div>
+				<div class="col-md-4">
+                  
+                  <table class="kode-table kode-table-v2">
+                    <thead>
+                      <tr>
+						<th>#</th>
+                        <th>Organizaciones</th>
+                        <th><img src="images/oro.png" alt="Medalla"></th>
+                        <th><img src="images/plata.png" alt="Medalla"></th>
+                        <th><img src="images/bronce.png" alt="Medalla"></th>
+                        <th>T</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+						<td>1</td>
+                        <td>TOLIMA</td>
+                        <td>11</td>
+                        <td>02</td>
+                        <td>03</td>
+                        <td>42</td>
+                      </tr>
+                       <tr>
+						<td>2</td>
+                        <td>CUNDINAMARCA</td>
+                        <td>11</td>
+                        <td>02</td>
+                        <td>03</td>
+                        <td>42</td>
+                      </tr>
+                      <tr>
+						<td>3</td>
+                        <td>PUTUMAYO</td>
+                        <td>11</td>
+                        <td>02</td>
+                        <td>03</td>
+                        <td>42</td>
+                      </tr>
+                      <tr>
+						<td>4</td>
+                        <td>HUILA</td>
+                        <td>11</td>
+                        <td>02</td>
+                        <td>03</td>
+                        <td>42</td>
+                      </tr>
+                      <tr>
+						<td>5</td>
+                        <td>CAQUETÁ</td>
+                        <td>11</td>
+                        <td>02</td>
+                        <td>03</td>
+                        <td>42</td>
+                      </tr>
+                    </tbody>
+                 </table>
+
+                </div>	
+               
+              </div>
+            </div>
+        </section>
+        <!--// Page Content //-->
+      
+	  
+		
+
+        <!--// Page Content //-->
+        <section class="kode-pagesection kode-parallax kode-dark-overlay kode-modern-expert-blogger">
+          <div class="container">
+            <div class="row">
+
+                <div class="col-md-12">
+					<div class="heading heading-12 margin-top-bottom-30" >
+						<p style="color:#fff;">Toda la Informacion detallada de los Eventos</p>
+						<h2 class="color-white" style="color:#fff;"><span class="left"></span>NOTICIAS DE LOS EVENTOS<span class="right"></span></h2>
+					</div>
+                  
+                  <div class="kode-blog-list kode-large-blog">
+                    <ul class="row">
+
+                      <li class="col-md-4">
+                        <div class="kode-time-zoon">
+                          <time datetime="2008-02-14 20:00">07 <span>may</span></time>
+                          <h5><a href="#">Noticia 1</a></h5>
+                        </div>
+                        <figure><a href="#"><img src="extra-images\bloggird-1.jpg" alt=""></a></figure>
+                        <div class="kode-blog-info">
+                          <p>Lorem ipsum dolor sit amet, cons ecte tuer adipiscing elit, sed diam non ummy nibh euismod tinc idunt ut laoreet dolore magna ali quam erat volutpat. Ut veniam, quis..</p>
+                          <a href="#" class="kode-blog-btn">Leer Más</a>
+                          <div class="clearfix"></div>
+                          <ul class="kode-team-network">
+                            <li><a class="fa fa-facebook" href="#"></a></li>
+                            <li><a class="fa fa-twitter" href="#"></a></li>
+                            <li><a class="fa fa-linkedin" href="#"></a></li>
+                          </ul>
+                        </div>
+                      </li>
+                      <li class="col-md-4">
+                        <div class="kode-time-zoon">
+                          <time datetime="2008-02-14 20:00">07 <span>may</span></time>
+                          <h5><a href="#">Noticia 2</a></h5>
+                        </div>
+                        <figure><a href="#"><img src="extra-images\bloggird-2.jpg" alt=""></a></figure>
+                        <div class="kode-blog-info">
+                          <p>Lorem ipsum dolor sit amet, cons ecte tuer adipiscing elit, sed diam non ummy nibh euismod tinc idunt ut laoreet dolore magna ali quam erat volutpat. Ut veniam, quis..</p>
+                          <a href="#" class="kode-blog-btn">Leer Más</a>
+                          <div class="clearfix"></div>
+                          <ul class="kode-team-network">
+                            <li><a class="fa fa-facebook" href="#"></a></li>
+                            <li><a class="fa fa-twitter" href="#"></a></li>
+                            <li><a class="fa fa-linkedin" href="#"></a></li>
+                          </ul>
+                        </div>
+                      </li>
+                      <li class="col-md-4">
+                        <div class="kode-time-zoon">
+                          <time datetime="2008-02-14 20:00">07 <span>may</span></time>
+                          <h5><a href="#">Noticia 3</a></h5>
+                        </div>
+                        <figure><a href="#"><img src="extra-images\bloggird-3.jpg" alt=""></a></figure>
+                        <div class="kode-blog-info">
+                          <p>Lorem ipsum dolor sit amet, cons ecte tuer adipiscing elit, sed diam non ummy nibh euismod tinc idunt ut laoreet dolore magna ali quam erat volutpat. Ut veniam, quis..</p>
+                          <a href="#" class="kode-blog-btn">Leer Más</a>
+                          <div class="clearfix"></div>
+                          <ul class="kode-team-network">
+                            <li><a class="fa fa-facebook" href="#"></a></li>
+                            <li><a class="fa fa-twitter" href="#"></a></li>
+                            <li><a class="fa fa-linkedin" href="#"></a></li>
+                          </ul>
+                        </div>
+                      </li>
+
+                    </ul>
+                    <div class="kode-align-btn"><a href="#" class="kode-modren-btn thbg-colortwo">Ver más</a></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+        </section>
+        <!--// Page Content //-->
+		  <!--// Page Content //-->
+		<section class="kode-pagesection kode-matches-gallery">
+			<div class="container">
+				<div class="row">
+					<div class="col-md-12">                  
+						<div class="heading heading-12 margin-bottom-50">
+							<p>Galeria de imagenes</p>
+							<h2 class="color-black"><span class="left"></span>GALERIA DEL PORTAL<span class="right"></span></h2>
+						</div>
+					</div>	
+					 <div class="kode-pagecontent col-md-12">
+
+                  <div class="kode-gallery kode-gallery-pretty">
+                    <ul class="row">
+                      <li class="col-md-4">
+                        <figure><a href="#"><img src="extra-images\gallery-list-1.jpg" alt=""></a>
+                          <figcaption><a data-gal="prettyphoto" href="extra-images\gallery-list-1.jpg" class="kode-gallery-hover thbg-color"><i class="fa fa-plus"></i></a></figcaption>
+                        </figure>
+
+                      </li>
+                      <li class="col-md-4">
+                        <figure><a href="#"><img src="extra-images\gallery-list-2.jpg" alt=""></a>
+                          <figcaption><a data-gal="prettyphoto" href="extra-images\gallery-list-1.jpg" class="kode-gallery-hover thbg-color"><i class="fa fa-plus"></i></a></figcaption>
+                        </figure>
+
+                      </li>
+                      <li class="col-md-4">
+                        <figure><a href="#"><img src="extra-images\gallery-list-3.jpg" alt=""></a>
+                          <figcaption><a data-gal="prettyphoto" href="extra-images\gallery-list-1.jpg" class="kode-gallery-hover thbg-color"><i class="fa fa-plus"></i></a></figcaption>
+                        </figure>
+
+                      </li>
+                      <li class="col-md-4">
+                        <figure><a href="#"><img src="extra-images\gallery-list-4.jpg" alt=""></a>
+                          <figcaption><a data-gal="prettyphoto" href="extra-images\gallery-list-1.jpg" class="kode-gallery-hover thbg-color"><i class="fa fa-plus"></i></a></figcaption>
+                        </figure>
+
+                      </li>
+                      <li class="col-md-4">
+                        <figure><a href="#"><img src="extra-images\gallery-list-5.jpg" alt=""></a>
+                          <figcaption><a data-gal="prettyphoto" href="extra-images\gallery-list-1.jpg" class="kode-gallery-hover thbg-color"><i class="fa fa-plus"></i></a></figcaption>
+                        </figure>
+
+                      </li>
+                      <li class="col-md-4">
+                        <figure><a data-ral="" href="#"><img src="extra-images\gallery-list-6.jpg" alt=""></a>
+                          <figcaption><a data-gal="prettyphoto" href="extra-images\gallery-list-1.jpg" class="kode-gallery-hover thbg-color"><i class="fa fa-plus"></i></a></figcaption>
+                        </figure>
+
+                      </li>
+                    </ul>
+                  </div>
+
+                </div>
+				<div class="kode-align-btn"><a class="kode-modren-btn thbg-colortwo" href="#">Ver Más</a></div>
+				</div>
+			</div>
+		</section>
+        <!--// Page Content //-->
+       
+		
+		<!--// Page Content //-->
+        <section class="kode-pagesection kode-parallax kode-dark-overlay kode-woo-products-style">
+          <div class="container">
+            <div class="row">
+
+              <div class="col-md-12">
+                <div class="kode-section-title kode-white"> <h2>DELEGACIONES</h2> </div>
+                <div class="kode-shop-list">
+
+                  <div class="owl-carousel owl-theme">
+                    <div class="item">
+                      <div class="kode-pro-inner">
+                        <figure><a href="#"><img src="extra-images/shop-product1.jpg" alt=""></a>
+                          <figcaption>
+                            <h4><a href="#">CAQUETÁ</a></h4>
+                            <p class="kode-pro-cat"><a href="#">VER MÁS</a></p>
+                          </figcaption>
+                        </figure>
+
+                      </div>
+                    </div>
+                    <div class="item">
+                      <div class="kode-pro-inner">
+                        <figure><a href="#"><img src="extra-images/shop-product2.jpg" alt=""></a>
+                          <figcaption>
+                            <h4><a href="#">CUNDINAMARCA</a></h4>
+                            <p class="kode-pro-cat"><a href="#">VER MÁS</a></p>
+                          </figcaption>
+                        </figure>
+
+                      </div>
+                    </div>
+                    <div class="item">
+                      <div class="kode-pro-inner">
+                        <figure><a href="#"><img src="extra-images/shop-product3.jpg" alt=""></a>
+                          <figcaption>
+                            <h4><a href="#">HUILA</a></h4>
+                            <p class="kode-pro-cat"><a href="#">VER MÁS</a></p>
+                          </figcaption>
+                        </figure>
+
+                      </div>
+                    </div>
+                    <div class="item">
+                      <div class="kode-pro-inner">
+                        <figure><a href="#"><img src="extra-images/shop-product4.jpg" alt=""></a>
+                          <figcaption>
+                            <h4><a href="#">PUTUMAYO</a></h4>
+                            <p class="kode-pro-cat"><a href="#">VER MÁS</a></p>
+                          </figcaption>
+                        </figure>
+
+                      </div>
+                    </div>
+                    <div class="item">
+                      <div class="kode-pro-inner">
+                        <figure><a href="#"><img src="extra-images/shop-product5.jpg" alt=""></a>
+                          <figcaption>
+                            <h4><a href="#">TOLIMA</a></h4>
+                            <p class="kode-pro-cat"><a href="#">VER MÁS</a></p>
+                          </figcaption>
+                        </figure>
+
+                      </div>
+                    </div>
+                  </div>
+
+                </div>
+              </div>
+              
+            </div>
+          </div>
+        </section>
+        <!--// Page Content //-->
+		
+		 <div class="kode-pagesection padding-top-bottom">
+          <div class="container">
+            <div class="row">
+
+                <div class="col-md-12">                  
+				  	<div class="heading heading-12 margin-bottom-50">
+						<p>Patrocinadores</p>
+						<h2 class="color-black"><span class="left"></span>APOYAN<span class="right"></span></h2>
+					</div>
+                  <!--TESTIMONIAL STYLE 1 START-->
+				<!-- <div class="kode-testimonials-6"> -->
+					
+					<!-- <ul class="bxslider"> -->
+						<!-- <li> -->
+							<!-- <div class="kode-text"> -->
+								<!-- <p>“Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco ut aliquip ex ea commodo consequat.”</p> -->
+								<!-- <div class="client-name"> -->
+									<!-- <h4>Jack, Freelauncer</h4> -->
+									<!-- <div class="kode-thumb"> -->
+										<!-- <img src="extra-images\testimonial-1.jpg" alt=""> -->
+									<!-- </div> -->
+								<!-- </div> -->
+							<!-- </div> -->
+						<!-- </li> -->
+						<!-- <li> -->
+							<!-- <div class="kode-text"> -->
+								<!-- <p>“Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.”</p> -->
+								<!-- <div class="client-name"> -->
+									<!-- <h4>Anna Doe, Freelauncer</h4> -->
+									<!-- <div class="kode-thumb"> -->
+										<!-- <img src="extra-images\testimonial-1.jpg" alt=""> -->
+									<!-- </div> -->
+								<!-- </div> -->
+							<!-- </div> -->
+						<!-- </li> -->
+						<!-- <li> -->
+							<!-- <div class="kode-text"> -->
+								<!-- <p>“Lorem ipsum dolor sit amet,  sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.”</p> -->
+								<!-- <div class="client-name"> -->
+									<!-- <h4>Ronaldo, Freelauncer</h4> -->
+									<!-- <div class="kode-thumb"> -->
+										<!-- <img src="extra-images\testimonial-1.jpg" alt=""> -->
+									<!-- </div> -->
+								<!-- </div> -->
+							<!-- </div> -->
+						<!-- </li> -->
+						<!-- <li> -->
+							<!-- <div class="kode-text"> -->
+								<!-- <p>“Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.”</p> -->
+								<!-- <div class="client-name"> -->
+									<!-- <h4>Anna Doe, Freelauncer</h4> -->
+									<!-- <div class="kode-thumb"> -->
+										<!-- <img src="extra-images\testimonial-1.jpg" alt=""> -->
+									<!-- </div> -->
+								<!-- </div> -->
+							<!-- </div> -->
+						<!-- </li> -->
+					<!-- </ul> -->
+				<!-- </div> -->
+				<!--TESTIMONIAL STYLE 1 END-->
+                </div>
+			   </div>
+            </div>
+        </div>
+		
+		<!--// Page Content //-->
+        <div class="kode-pagesection padding-top-bottom">
+          <div class="container">
+            <div class="row">
+
+                <div class="col-md-12">
+                  <div class="kode-partner">
+                    <ul class="row">
+                      <li class="col-md-3"><a href="#"><img src="extra-images\partner-logo2.jpg" alt=""></a></li>
+                      <li class="col-md-3"><a href="#"><img src="extra-images\partner-logo3.jpg" alt=""></a></li>
+                      <li class="col-md-3"><a href="#"><img src="extra-images\partner-logo4.jpg" alt=""></a></li>
+                      <li class="col-md-3"><a href="#"><img src="extra-images\partner-logo5.jpg" alt=""></a></li>
+                    </ul>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+        </div>
+        <!--// Page Content //-->
+		
+		
+		
+
+      </div>
+      <!--// Main Content //-->
+
+      <!--// NewsLatter //-->
+      <div class="kode-newslatter kode-bg-color">
+        <span class="kode-halfbg thbg-color"></span>
+        <div class="container">
+          <div class="row">
+
+          </div>
+        </div>
+      </div>
+      <!--// NewsLatter //-->
+	 <footer id="footer1" class="kode-parallax kode-dark-overlay kode-bg-pattern">
+		<!--Footer Medium-->
+		<div class="footer-medium">
+			<div class="container">
+				<div class="row">
+					<div class="col-md-4">
+						<div class="about-widget">
+							<!-- <h3>About Kickoff</h3> -->
+							<P>Departamento Administrativo del Deporte, la Recreación, la Actividad Física y el Aprovechamiento del Tiempo Libre</P>
+							 <ul class="kode-form-list"> 
+							  <li><i class="fa fa-home"></i> <p><strong>Dirección:</strong> Av. 68 No 55-65</p></li>
+							  <li><i class="fa fa-phone"></i> <p><strong>PBX:</strong> 57 - 1 437 70 30</p></li>
+							  <li><i class="fa fa-phone"></i> <p><strong>Línea Gratuita:</strong> 01 8000 910 237</p></li>
+							  <li><i class="fa fa-envelope-o"></i> <p><strong>Horario de Atención:</strong>  8:00 a.m. a 5:00 p.m.</p></li>
+							  <li><p><strong></strong>Lunes a Viernes no festivos:</p></li>
+							 </ul> 
+						</div>
+					</div>
+					
+					<div class="col-md-4">
+						<div class="widget widget-flickr kode-gallery-pretty">
+						<img src="images/logo-coldeportes2.png" alt="logos pie">
+							<!--<h3>Flickr</h3>
+							 <ul> -->
+								<!-- <li><a data-gal="prettyphoto" href="extra-images\widgetgallery-2.jpg"><img alt="" src="extra-images\widgetgallery-1.jpg"></a></li> -->
+								<!-- <li><a data-gal="prettyphoto" href="extra-images\widgetgallery-2.jpg"><img alt="" src="extra-images\widgetgallery-2.jpg"></a></li> -->
+								<!-- <li><a data-gal="prettyphoto" href="extra-images\widgetgallery-2.jpg"><img alt="" src="extra-images\widgetgallery-3.jpg"></a></li> -->
+								<!-- <li><a data-gal="prettyphoto" href="extra-images\widgetgallery-2.jpg"><img alt="" src="extra-images\widgetgallery-1.jpg"></a></li> -->
+								<!-- <li><a data-gal="prettyphoto" href="extra-images\widgetgallery-2.jpg"><img alt="" src="extra-images\widgetgallery-2.jpg"></a></li> -->
+								<!-- <li><a data-gal="prettyphoto" href="extra-images\widgetgallery-2.jpg"><img alt="" src="extra-images\widgetgallery-3.jpg"></a></li> -->
+								<!-- <li><a data-gal="prettyphoto" href="extra-images\widgetgallery-2.jpg"><img alt="" src="extra-images\widgetgallery-1.jpg"></a></li> -->
+								<!-- <li><a data-gal="prettyphoto" href="extra-images\widgetgallery-2.jpg"><img alt="" src="extra-images\widgetgallery-2.jpg"></a></li> -->
+							<!-- </ul> -->
+						</div>
+					</div>
+					<div class="col-md-4">
+						<div class="contact-us-widget">
+							<h3>Siganos</h3>
+							
+							<ul class="social-links1">
+								<li>
+									<a href="#" class="tw-bg1"><i class="fa fa-twitter"></i></a>
+								</li>
+								<li>
+									<a href="#" class="fb-bg1"><i class="fa fa-facebook"></i></a>
+								</li>
+								<li>
+									<a href="#" class="youtube-bg1"><i class="fa fa-youtube"></i></a>
+								</li>
+								<li>
+									<a href="#" class="linkedin-bg1"><i class="fa fa-linkedin"></i></a>
+								</li>
+								<li>
+									<a href="#" class="tw-bg1"><i class="fa fa-twitter"></i></a>
+								</li>
+								<li>
+									<a href="#" class="fb-bg1"><i class="fa fa-facebook"></i></a>
+								</li>
+							</ul>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!--Footer Medium End-->
+	
+    
+      </footer>
+      <!--// Contact Footer //-->
+
+      <div class="kode-bottom-footer">
+        <div class="container">
+          <div class="row">
+            <div class="col-md-6">
+              <p>©2017. Desarrollado por <a href="http://camaleon.com.co" target="_blank"><img src="images/logo_camaleon_footer.png" alt="Camaleon Multimedia" class="logo_cama"></a></p>
+            </div>
+            <div class="col-md-6">
+              <a href="#" id="kode-topbtn" class="thbg-colortwo"><i class="fa fa-angle-up"></i></a>
+            </div>
+          </div>
+        </div>      </div>
+<div class="clearfix clear"></div>
+    </div>
+    <!--// Wrapper //-->
+    <!-- Modal -->
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header thbg-color">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <h4 class="modal-title">Login To Your Account</h4>
+          </div>
+          <div class="modal-body">
+            <form class="kode-loginform">
+              <p><span>User Name</span> <input type="text" placeholder="User Name"></p>
+              <p><span>Password</span> <input type="password" placeholder="Password"></p>
+              <p><label><input type="checkbox"><span>Remember Me</span></label></p>
+              <p class="kode-submit"><a href="#">Lost Your Password</a> <input class="thbg-colortwo" type="submit" value="Sign in"></p>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Modal -->
+    <div class="modal fade" id="myModalTwo" tabindex="-1" role="dialog" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header thbg-color">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <h4 class="modal-title">Register</h4>
+          </div>
+          <div class="modal-body">
+            <form class="kode-loginform">
+              <p><span>Email</span> <input type="text" placeholder="Email"></p>
+              <p><span>Password</span> <input type="password" placeholder="Password"></p>
+              <p><span>Retype Password</span> <input type="password" placeholder="Retype Password"></p>
+              <p><label><input type="checkbox"><span>Remember Me</span></label></p>
+              <p class="kode-submit"><a href="#">Lost Your Password</a> <input class="thbg-colortwo" type="submit" value="Sign Up"></p>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- jQuery (necessary for JavaScript plugins) -->
+    <script src="js/jquery.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/jquery.flexslider.js"></script>
+    <script src="js/owl.carousel.min.js"></script>
+    <script src="js/jquery.countdown.js"></script>  
+    <script src="js/waypoints-min.js"></script>
+	<script src="js/jquery.bxslider.min.js"></script>
+	<script src="js/bootstrap-progressbar.js"></script>
+	<script src="js/jquery.accordion.js"></script>
+	<script src="js/jquery.circlechart.js"></script>
+	<script src="js/jquery.prettyphoto.js"></script>
+	<script src="js/kode_pp.js"></script>
+    <script src="js/functions.js"></script>
+
+  </body>
+</html>

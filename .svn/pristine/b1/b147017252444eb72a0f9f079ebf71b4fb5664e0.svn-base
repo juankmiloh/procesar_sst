@@ -1,0 +1,205 @@
+<?php
+namespace app\controllers;
+
+use yii\filters\AccessControl;
+use yii\web\Controller;
+use yii\filters\VerbFilter;
+use yii\helpers\ArrayHelper;
+use yii\helpers\Html;
+use app\models\Escenario;
+use app\models\Deporte;
+use app\models\DisponibilidadEscenario;
+use app\models\DisponibilidadTieneHora;
+
+class EscenarioController extends Controller{
+
+	public function behaviors()
+    {
+        return [
+            'access' => [
+                'class' => AccessControl::className(),
+                'rules' => [
+                    [
+                        'actions' => ['crearescenario','ej','borrarescenario','listardeportetipo','agregardisponibilidad'], // add all actions to take guest to login page
+                        'allow' => true,
+                        'roles' => ['@'],
+                    ],
+                ],
+            ],
+            'verbs' => [
+                'class' => VerbFilter::className(),
+                'actions' => [
+                    'logout' => ['post'],
+                ],
+            ],
+        ];
+    }
+
+    public function actionEj(){
+        return $this->render('ej');
+    }
+
+    public function actionCrearescenario(){
+        // Valores traidos por medio de Ajax 
+    		$nombre = $_GET['nombre'];
+    		$direccion = $_GET['direccion'];
+    		$ciudad = $_GET['ciudad'];
+    		$depto = $_GET['depto'];
+
+        // Se asignan los valores recibidos por medio del modelo
+            $escenario = new Escenario();
+            $escenario->esc_nombre = $nombre;
+            $escenario->esc_direccion = $direccion;
+            $escenario->ciu_id = $ciudad;
+            $escenario->depa_id = $depto;
+            $validacion = $escenario->validate();
+            
+        // Se valida que los datos recibidos cumplan las reglas del modelo
+            if($validacion){
+                // Se guarda un registro por medio de la funcion insert() de Yii2
+            	$insert = $escenario->insert();
+            	if($insert){
+            		 echo "Guardado";
+            	}else{
+            		echo "Error al guardar";
+            	}
+            }else{
+                echo "Algún dato no es válido";
+            	// print_r($escenario->errors);
+            }
+    }
+
+    public function actionBorrarescenario(){
+        $id = $_GET['id'];
+        $escenario = Escenario::findOne($id);
+        $accion = $escenario->delete();
+        if($accion){
+            echo "1";
+        }else{
+            echo "0";
+        }
+    }
+
+    /*
+    * Función para agregar una nueva funcionalidad ANTES
+    * de agregar un escenario determinado
+    */
+    public function actionAgregardisponibilidad(){
+        $fechaInicio = $_GET['fi'];
+        $fechaFin = $_GET['ff'];
+        $horas = [];
+        for($i = 1; $i <= 24; $i++){
+            if(isset($_GET['h'.$i])){
+                $horas[] = $_GET['h'.$i];
+            }
+        }  
+
+        $disponibilidad = new DisponibilidadEscenario();
+        $disponibilidad->de_fecha_ini = $fechaInicio;
+        $disponibilidad->de_fecha_fin = $fechaFin;
+        $validacion = $disponibilidad->validate();
+        if($validacion){
+            $insert = $disponibilidad->insert();
+            if($insert){
+                $ultimo = $this->listarDisponibilidad(2);
+                for($j = 0; $j < sizeof($horas); $j++){
+                    $disp_hora = new DisponibilidadTieneHora();
+                    $disp_hora->hor_id = $horas[$j];
+                    $disp_hora->de_id = $ultimo;
+                    $disp_hora->insert();                    
+                }
+
+                // Actualización de la visualización
+                $msj = "";
+                $num = 1;
+                $disp = $this->listarDisponibilidad(1);
+                foreach ($disp as $d) {
+                    $msj.="<tr>
+                                <th scope='row'>$num</th>
+                                <td>
+                                    <input class='form-control' type=text value='$d->de_fecha_ini'>
+                                </td>
+                                <td>
+                                    <input class='form-control' type=text value='$d->de_fecha_fin'>
+                                </td>
+                                <td>
+                                    <span class='b modif-fecha label label-success'>
+                                        <i class='icon-clock'></i></span>  <span class='b borrar-fecha label label-danger'><i class='icon-circle-with-cross'></i></span>
+                                </td>
+                                <td></td>
+                        </tr>";
+                    $num = $num+1;
+                }
+                echo json_encode($msj);
+                // echo json_encode($this->actualizarVisualizacion());
+            }else{
+                echo "Error al guardar";
+            }
+        }else{
+            echo "Algún dato no es válido";
+        }
+    }
+
+
+    public function actionListardeportetipo(){
+        $tipo = $_GET['tipo'];
+        $deportes = $this->listarDeportePorTipo($tipo);
+        $view = Html::CheckboxList('dep_nombre','dep_id', ArrayHelper::map($deportes,'dep_id','dep_nombre'));
+        echo json_encode($view);        
+    }
+
+   
+
+    public static function actualizarVisualizacion(){
+        $msj = "";
+        $num = 1;
+        $disp = $this->listarDisponibilidad(1);
+        foreach ($disp as $d) {
+            $msj.="<tr>
+                        <th scope='row'>$num</th>
+                        <td><input class='form-control' type=text value='$d->de_fecha_ini'></td>
+                        <td><input class='form-control' type=text value='$d->de_fecha_fin'></td>
+                        <td><span class='b modif-fecha label label-success'><i class='icon-clock'></i></span>  <span class='b borrar-fecha label label-danger'><i class='icon-circle-with-cross'></i></span></td>
+                        <td></td>
+                </tr>";
+            $num = $num+1;
+        }
+        return $msj;
+    }
+
+    public static function listarDisponibilidad($opc){
+        if($opc == 1){
+            return DisponibilidadEscenario::find()->where(['esc_id' => null])->orderBy('de_id')->all();
+        }else if($opc == 2){
+            $val = DisponibilidadEscenario::findBySql("SELECT * FROM disponibilidad_escenario ORDER BY de_id DESC LIMIT 1")->all();
+            foreach ($val as $v) {
+                return $v->de_id;;
+            }
+        }else{
+            return null;
+        }
+        
+    }
+
+    public static function mostrarEscenarios(){
+        $items = ArrayHelper::map(Escenario::find()->all(),'esc_id','esc_direccion','esc_nombre');
+        return $items;
+    }
+
+    public static function listarEscenarios(){
+        return Escenario::find()->orderBy('esc_id')->all();
+    }
+
+    public static function listarEscenarioPorId($id){
+        return Escenario::find()->where(['esc_id'=>$id])->orderBy('esc_id')->all();
+    }
+
+    public static function listarDeportePorTipo($tipo){
+        return Deporte::find()->where(['td_id'=>$tipo])->all();
+    }
+
+    public static function listarDeportes(){
+        return Deporte::find()->all();
+    }
+}
+?>

@@ -1,0 +1,108 @@
+<?php
+
+namespace app\controllers;
+
+use yii\filters\AccessControl;
+use yii\web\Controller;
+use yii\filters\VerbFilter;
+
+
+
+class EventoController extends Controller
+{
+    public $escenario;
+    
+    /**
+     * Control de acceso
+     * @return type
+     */
+    public function behaviors()
+    {
+        return [
+            'access' => [
+                'class' => AccessControl::className(),
+                'rules' => [
+                    [
+                        'actions' => ['login', 'error'],
+                        'allow' => true,
+                    ],
+                    [
+                        'actions' => ['logout', 'index', 'conjunto', 'crearevento', 'listar', 'eventos'], // add all actions to take guest to login page
+                        'allow' => true,
+                        'roles' => ['@'],
+                    ],
+                ],
+            ],
+            'verbs' => [
+                'class' => VerbFilter::className(),
+                'actions' => [
+                    'logout' => ['post'],
+                ],
+            ],
+        ];
+    }
+    
+    /*
+     * Renderiza la vista listar
+     */
+    public function actionListar(){
+        return $this->render('listar');
+    }
+    
+    /**
+     * Retorna lista con los datos de los eventos. 
+     */
+    public function actionEventos(){
+        $output = array(
+		"sEcho" => intval($_GET['sEcho']),
+		"iTotalRecords" => $iTotal,
+		"iTotalDisplayRecords" => $iFilteredTotal,
+		"aaData" => array()
+	);
+    }
+    
+    /*
+     * Renderiza la vista index
+     */
+    public function actionIndex()
+    {
+            return $this->render('index');
+    }
+    
+    /**
+     * Renderiza la vista crear evento
+     * @return type
+     */
+    public function actionConjunto()
+    {
+            return $this->render('conjunto');
+    }
+
+    /**
+     * Recibe una solicitud de tipo POST para crear un nuevo evento
+     */
+    public function actionCrearevento(){
+        
+            if(isset($_GET['date_final'])){
+                
+                $evento = new \app\models\Evento();
+                $evento->eve_nombre = $_GET['nombre_evento']; 
+                $evento->eve_fecha_ini = $_GET['date_inicio']; 
+                $evento->eve_fecha_fin = $_GET['date_final']; 
+                $evento->eve_sede = $_GET['sede_evento']; 
+                $evento->eve_detalle = $_GET['date_inicio']; 
+                $evento->prom_id = $_GET['promocion']; 
+                
+                if($evento->validate()){
+                    $evento->save();
+                    echo true;
+                    return;
+                } else {
+                    echo false;
+                }
+            } else {
+                echo false;
+            }
+            
+    }
+}

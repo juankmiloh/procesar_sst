@@ -1,0 +1,50 @@
+<!--// Page Content //-->
+        <section class="kode-pagesection padding-30-topbottom bg-white">
+          <div class="container">
+            <div class="row">
+
+              <div class="kode-result-list shape-view col-md-12">
+				<div class="heading heading-12 margin-top30-bottom80">
+					<p>RESULTADO EVENTO ANTERIOR</p>
+					<h2><span class="left"></span>RESULTADOS JORNADA 2 -  FÚTBOL <span class="right"></span></h2>
+				</div>
+				<div class="clear clearfix"></div>
+                <div class="row">
+                  <div class="col-md-6">
+                    <article>
+                      <span class="kode-result-count thbg-colortwo">3</span>
+                      <div class="kode-result-thumb">
+                        <a href="#"><img src="../views/resultados/extra-images/result-logo1.png" alt=""></a>
+                      </div>
+                      <div class="kode-result-info">
+                        <h2><a href="#">HUILA</a> <span>Ganador</span></h2>
+                        <ul>
+                          <li>Perez <span>(17’)</span></li>
+                          <li>Rodriguez <span>(51’)</span></li>
+                          <li>Ramirez <span>(91’)</span></li>
+                        </ul>
+                      </div>
+                    </article>
+                  </div>
+                  <div class="col-md-6">
+                    <article class="kode-even">
+                      <span class="kode-result-count thbg-colortwo">2</span>
+                      <div class="kode-result-thumb">
+                        <a href="#"><img src="../views/resultados/extra-images/result-logo2.png" alt=""></a>
+                      </div>
+                      <div class="kode-result-info">
+                        <h2><a href="#">PUTUMAYO</a> <span>Perdedor</span></h2>
+                        <ul>
+                          <li>Perez <span>(17’)</span></li>
+                          <li>Rodriguez <span>(51’)</span></li>
+                        </ul>
+                      </div>
+                    </article>
+                  </div>
+                </div>
+              </div>
+              
+            </div>
+          </div>
+        </section>
+        <!--// Page Content //-->

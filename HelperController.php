@@ -1,0 +1,373 @@
+<?php
+
+namespace app\controllers;
+
+use yii\web\Controller;
+use Yii;
+
+class HelperController extends Controller
+{
+
+    /**
+     * Escribe en la bitacora del sistema. 
+     * @param type $model
+     * @param type $msnEs
+     */
+    public static function writetolog($model, $msn, $usuid){
+        $bitacora = new \app\models\Bitacora();
+        $bitacora->usu_id = $usuid;
+        $bitacora->bit_model = $model;
+        $bitacora->bit_descripcion = $msn;
+        
+        $bitacora->save();
+    }
+    
+    
+    /**
+     * Envia correo electronico con los datos suminstrados
+     */
+    public static function sendMail($msn, $to, $asunto){
+        Yii::$app->mailer->compose()
+            ->setFrom('no-reply@coldeportes.gov.co')
+            ->setTo($to)
+            ->setSubject($asunto)
+            ->setHtmlBody($msn)
+            ->send();
+    }
+    
+    /**
+     * Retorna los deportes asociados a un evento
+     */
+    public function actionGetdeportesfromevento(){
+        $evento = $_GET['id'];
+        $deportes = \app\models\Deporte::find()
+                ->leftJoin('campeonato c', 'deporte.dep_id = c.dep_id')
+                ->where('c.eve_id = '.$evento)
+                ->select('deporte.dep_id, deporte.dep_nombre')
+                ->all();
+        echo "<option value=''>".Yii::t('app', "SELECCIONE")."</option>";
+        if($deportes != null){
+            foreach($deportes as $post){
+                echo "<option value='".$post->dep_id."'>".$post->dep_nombre."</option>";
+            }
+        }
+    }
+    
+    /**
+     * Retorna los campeonatos asociados a un deporte/evento
+     */
+    public function actionGetcampeonatospordeporte(){
+        $evento = $_GET['eve'];
+        $deporte = $_GET['dep'];
+        
+        $posts = \app\models\Campeonato::find()
+                ->where('eve_id = '.$evento." and dep_id = ".$deporte)
+                ->select('camp_id, camp_nombre')
+                ->all();
+        if($posts != null){
+            foreach($posts as $post){
+                echo "<option value='".$post->camp_id."'>".$post->camp_nombre."</option>";
+            }
+        }
+    }
+
+
+    /**
+     * Consulta los campeonatos de un evento especifico
+     */
+    public function actionGetcampeonatos(){
+        //Evento
+        $id = $_GET['id'];
+        
+        $posts = \app\models\Campeonato::find()
+                ->where(['eve_id' => $id, 'camp_estado' => ESTADO_ACTIVO])
+                ->orderBy('camp_nombre ASC')
+                ->all();
+ 
+        echo "<option value=''>".Yii::t('app', "SELECCIONE")."</option>";
+        if($posts != null){
+            foreach($posts as $post){
+                echo "<option value='".$post->camp_id."'>".$post->camp_nombre."</option>";
+            }
+        }
+    }
+    
+    /**
+     * Consulta las fases de un campeonato
+     */
+    public function actionGetfases(){
+        //Evento
+        $id = $_GET['id'];
+        
+        $posts = \app\models\CampeonatoTieneFases::find()
+                ->where(['camp_id' => $id])
+                ->orderBy('ctf_id DESC')
+                ->all();
+ 
+        echo "<option value=''>".Yii::t('app', "SELECCIONE")."</option>";
+        if($posts != null){
+            foreach($posts as $post){
+                echo "<option value='".$post->ctf_id."'>".$post->ctf_nombre."</option>";
+            }
+        }
+    }
+    
+    /**
+     * Consulta los encuentros deportivos acorde a los filtros indicados
+     */
+    public function actionBuscarprogramacion(){
+        if(isset($_GET['fase'])){
+            
+            $idFase = $_GET['fase'];
+            
+            $fecha = "CURDATE()";
+            if($_GET['fecha'] != ""){
+                $fecha = '"'.$_GET['fecha'].'"';
+            }
+            
+            $encuentros = \app\models\FaseTieneEncuentros::find()
+                    ->leftJoin('equipo e1', 'equi_id_1 = e1.equi_id')
+                    ->leftJoin('entidad en1', 'en1.ent_id = e1.ent_id')
+                    ->leftJoin('departamentos dpt1', 'dpt1.dptos_id = en1.ent_dpto')
+                    ->leftJoin('equipo e2', 'equi_id_2 = e2.equi_id')
+                    ->leftJoin('entidad en2', 'en2.ent_id = e2.ent_id')
+                    ->leftJoin('departamentos dpt2', 'dpt2.dptos_id = en2.ent_dpto')
+                    ->leftJoin('escenario esc', 'esc.esc_id = fase_tiene_encuentros.esc_id')
+                    ->where('ctf_id = '.$idFase.' and date(tfs_fecha_hora) = '.$fecha.' and tfs_publicar = 1')
+                    ->select('en1.ent_nombre n1, en2.ent_nombre n2, tfs_fecha_hora, esc.esc_nombre, fts_grupo, dpt1.dptos_name dp1, dpt2.dptos_name dp2')
+                    ->orderBy('tfs_fecha_hora asc')
+                    ->asArray()->all();
+            echo json_encode($encuentros);
+        }
+    }
+    
+    /**
+     * Consulta los resultados deportivos acorde a los filtros indicados
+     */
+    public function actionBuscarposiciones(){
+        
+        if(isset($_GET['fase'])){
+            $idFase = $_GET['fase'];
+            
+            $posiciones = \app\models\CampeonatoTieneResultados::find()
+                    ->leftJoin('equipo eq', 'eq.equi_id = campeonato_tiene_resultados.equi_id')
+                    ->leftJoin('entidad e', 'e.ent_id = eq.ent_id')
+                    ->leftJoin('departamentos dpto', 'dpto.dptos_id = e.ent_dpto')
+                    ->where('ctf_id = '.$idFase)
+                    ->select('dpto.dptos_name, e.ent_nombre, ftr_puntos, ftr_partidos_ganados, ftr_partidos_perdidos, ftr_partidos_emptados, ftr_goles_favor, ftr_goles_encontra, ftr_juego_limpio, ftr_clasifica, ftr_grupo')
+                    ->orderBy('ftr_grupo,  ftr_clasifica desc, ftr_puntos DESC, ftr_juego_limpio')
+                    ->asArray()
+                    ->all();
+            
+          
+            echo json_encode($posiciones);
+        }
+    }
+    
+    /**
+     * Consulta los resultados deportivos acorde a los filtros indicados
+     */
+    public function actionBuscarresultados(){
+        
+        if(isset($_GET['fase'])){
+            $idFase = $_GET['fase'];
+            $sql = "SELECT e.ent_nombre as equip1, e3.ent_nombre as equip2, fte.tfs_gf_1, fte.tfs_gf_2, fte.tfs_fecha_hora, fte.fts_grupo, e1.equi_id eq1, e2.equi_id eq2, fte.fts_id, dpto1.dptos_name dp1, dpto2.dptos_name dp2
+                FROM fase_tiene_encuentros fte 
+                    JOIN equipo e1 ON fte.equi_id_1 = e1.equi_id JOIN entidad e ON e1.ent_id = e.ent_id
+                    join departamentos dpto1 on dpto1.dptos_id = e.ent_dpto
+                    JOIN equipo e2 ON e2.equi_id = fte.equi_id_2 JOIN entidad e3 ON e2.ent_id = e3.ent_id  
+                    join departamentos dpto2 on dpto2.dptos_id = e3.ent_dpto
+                  WHERE fte.ctf_id = ".$idFase." AND fte.tfs_fecha_hora < now()";
+            $connection = Yii::$app->getDb();
+            $results = $connection->createCommand($sql)->queryAll();
+            
+//            $posiciones = \app\models\CampeonatoTieneResultados::find()
+//                    ->leftJoin('equipo eq', 'eq.equi_id = campeonato_tiene_resultados.equi_id')
+//                    ->leftJoin('entidad e', 'e.ent_id = eq.ent_id')
+//                    ->leftJoin('departamentos dpto', 'dpto.dptos_id = e.ent_dpto')
+//                    ->where('ctf_id = '.$idFase)
+//                    ->select('dpto.dptos_name, e.ent_nombre, ftr_puntos, ftr_partidos_ganados, ftr_partidos_perdidos, ftr_partidos_emptados, ftr_goles_favor, ftr_goles_encontra, ftr_juego_limpio, ftr_clasifica, ftr_grupo')
+//                    ->orderBy('ftr_grupo,  ftr_clasifica desc, ftr_puntos DESC, ftr_juego_limpio')
+//                    ->asArray()
+//                    ->all();
+            
+            if(isset($results[0])){
+                $sql2 = "SELECT p.dep_id FROM fase_tiene_encuentros fte 
+                    JOIN campeonato_tiene_fases ctf ON fte.ctf_id = ctf.ctf_id 
+                    JOIN campeonato c ON ctf.camp_id = c.camp_id
+                    JOIN prueba p ON c.prueb_id = p.prueb_id
+                      WHERE fte.fts_id = ".$results[0]['fts_id'];
+                $deporte = $connection->createCommand($sql2)->queryScalar();
+
+                $sql3 = "SELECT pts.pts_id FROM parametrizacion_tiene_sucesos pts
+                    JOIN parametrizacion_deportes pd ON pts.param_id = pd.param_id
+                      WHERE pts.ts_id = 1 AND pd.dep_id = ".$deporte." limit 1";
+                $idGol = $connection->createCommand($sql3)->queryScalar();
+                
+                $sql4 = "SELECT pts.pts_id FROM parametrizacion_tiene_sucesos pts
+                    JOIN parametrizacion_deportes pd ON pts.param_id = pd.param_id
+                      WHERE pts.ts_id = 2 AND pd.dep_id = ".$deporte." limit 1";
+                $idAutoGol = $connection->createCommand($sql4)->queryScalar();
+
+                for($i = 0; $i < count($results); $i++){
+                    $gol1 = \app\models\EncuentrosTieneResultados::find()
+                            ->leftJoin('deportistas dep', 'dep.dep_id = encuentros_tiene_resultados.dep_id')
+                            ->leftJoin('usuario u', 'u.usu_id = dep.usu_id')
+                            ->leftJoin('parametrizacion_tiene_sucesos pts', 'pts.pts_id = `encuentros_tiene_resultados`.etr_tiempo')
+                            ->where('fts_id = '.$results[$i]['fts_id']." and equi_id_1 = ".$results[$i]['eq1']." and `encuentros_tiene_resultados`.pts_id = ".$idGol)
+                            ->select('u.usu_nombres, u.usu_apellidos, etr_minuto, pts_suceso')
+                            ->asArray()->all();
+                    $autogol2 = \app\models\EncuentrosTieneResultados::find()
+                            ->leftJoin('deportistas dep', 'dep.dep_id = encuentros_tiene_resultados.dep_id')
+                            ->leftJoin('usuario u', 'u.usu_id = dep.usu_id')
+                            ->leftJoin('parametrizacion_tiene_sucesos pts', 'pts.pts_id = `encuentros_tiene_resultados`.etr_tiempo')
+                            ->where('fts_id = '.$results[$i]['fts_id']." and equi_id_2 = ".$results[$i]['eq2']." and `encuentros_tiene_resultados`.pts_id = ".$idAutoGol)
+                            ->select('u.usu_nombres, u.usu_apellidos, etr_minuto, pts_suceso')
+                            ->asArray()->all();
+                    
+                    $gol2 = \app\models\EncuentrosTieneResultados::find()
+                            ->leftJoin('deportistas dep', 'dep.dep_id = encuentros_tiene_resultados.dep_id')
+                            ->leftJoin('usuario u', 'u.usu_id = dep.usu_id')
+                            ->leftJoin('parametrizacion_tiene_sucesos pts', 'pts.pts_id = `encuentros_tiene_resultados`.etr_tiempo')
+                            //->where('fts_id = '.$results[$i]['fts_id']." and equi_id_1 = ".$results[$i]['eq1']." and pts_id = ".$idGol)
+                            ->select('u.usu_nombres, u.usu_apellidos, etr_minuto, pts_suceso')
+                            ->where('fts_id = '.$results[$i]['fts_id']." and equi_id_2 = ".$results[$i]['eq2']." and `encuentros_tiene_resultados`.pts_id = ".$idGol)->asArray()->all();
+                    
+                   $autogol1 = \app\models\EncuentrosTieneResultados::find()
+                            ->leftJoin('deportistas dep', 'dep.dep_id = encuentros_tiene_resultados.dep_id')
+                            ->leftJoin('usuario u', 'u.usu_id = dep.usu_id')
+                            ->leftJoin('parametrizacion_tiene_sucesos pts', 'pts.pts_id = `encuentros_tiene_resultados`.etr_tiempo')
+                            ->where('fts_id = '.$results[$i]['fts_id']." and equi_id_1 = ".$results[$i]['eq1']." and `encuentros_tiene_resultados`.pts_id = ".$idAutoGol)
+                            ->select('u.usu_nombres, u.usu_apellidos, etr_minuto, pts_suceso')
+                            ->asArray()->all(); 
+                    
+                    $results[$i][0] = array_merge($gol1, $autogol2);
+                    $results[$i][1] = array_merge($gol2, $autogol1);
+                }
+            }
+            //$results['posiciones'] = $posiciones;
+            echo json_encode($results);
+        }
+    }
+    
+    /**
+     * Consulta los municipios de un departamento dado
+     */
+    public function actionGetmunicipios(){
+ 
+        $id = $_GET['id'];
+        
+        $posts = \app\models\Municipios::find()
+                ->where(['municipios_dptos_code' => $id])
+                ->orderBy('municipios_name ASC')
+                ->all();
+ 
+        echo "<option value=''>".Yii::t('app', "SELECCIONE")."</option>";
+        if($posts != null){
+            foreach($posts as $post){
+                echo "<option value='".$post->municipios_id."'>".$post->municipios_name."</option>";
+            }
+        }
+        
+    }
+    
+    /**
+     * Retorna los deportes dado el tipo de deporte
+     */
+    public function actionGetdeportes(){
+        $id = $_GET['id'];
+        
+        $posts = \app\models\Deporte::find()
+                ->where(['td_id' => $id])
+                ->orderBy('dep_nombre ASC')
+                ->all();
+ 
+        echo "<option>".Yii::t('app', "SELECCIONE")."</option>";
+        if($posts != null){
+            foreach($posts as $post){
+                echo "<option value='".$post->dep_id."'>".$post->dep_nombre."</option>";
+            }
+        }
+    }
+    
+    /**
+     * Consulta los deportistas de un equipo dado. 
+     */
+    public function actionGetdeportistasequipo(){
+        $id = $_GET['id'];
+        $rol = $_GET['rol'];
+        
+        if($rol != 0){
+            $rol = " and equipo_tiene_deportistas.etd_rol = ".$rol;
+        } else {
+            $rol = "";
+        }
+        
+        $posts = \app\models\Deportistas::find()
+                ->leftJoin("equipo_tiene_deportistas", "equipo_tiene_deportistas.dep_id = deportistas.dep_id")
+                ->where('equipo_tiene_deportistas.equi_id ='. $id.$rol)
+                ->orderBy('datos_participante ASC')
+                ->all();
+ 
+        echo "<option value=''>".Yii::t('app', "SELECCIONE")."</option>";
+        if($posts != null){
+            foreach($posts as $post){
+                echo "<option value='".$post->dep_id."'>".$post->getUsu()->one()->usu_nombres." ".$post->getUsu()->one()->usu_apellidos."</option>";
+            }
+        }
+    }
+    
+    /**
+     * Retorna las pruebas de un deporte, genero, categoria, tipo de deporte seleccionado
+     */
+    public function actionGetpruebas(){
+        $deporte = $_GET['idDeporte'];
+        $genero = $_GET['idGenero'];
+        $categoria = $_GET['idCategoria'];
+        $tipodeporte = $_GET['tipoDeporte'];
+        
+        $arrayData = [];
+        if($deporte != ""){
+            $arrayData['dep_id'] = $deporte;
+        }
+        if($genero != ""){
+            $arrayData['prueb_genero'] = $genero;
+        }
+        if($categoria != ""){
+            $arrayData['cat_id'] = $categoria;
+        }
+        if($tipodeporte != ""){
+            $arrayData['tipo_deporte_id'] = $tipodeporte;
+        }
+        
+        $posts = \app\models\Prueba::find()
+                ->where($arrayData)
+                ->orderBy('prueb_nombre ASC')
+                ->all();
+ 
+        echo "<option>".Yii::t('app', "SELECCIONE")."</option>";
+        if($posts != null){
+            foreach($posts as $post){
+                echo "<option value='".$post->prueb_id."'>".$post->prueb_nombre."</option>";
+            }
+        }
+    }
+    
+    
+    static function mkRange($start,$end) {
+	$count = HelperController::strToInt($end) - HelperController::strToInt($start);
+	$r = array();
+	do {$r[] = $start++;} while ($count--);
+	return $r;
+}
+ 
+    static function strToInt($str) {
+            $str = strrev($str);
+            $dec = 0;
+            for ($i = 0; $i < strlen($str); $i++) {
+                    $dec += (base_convert($str[$i],36,10)-9) * pow(26,$i);
+            }
+            return $dec;
+    }
+    
+}

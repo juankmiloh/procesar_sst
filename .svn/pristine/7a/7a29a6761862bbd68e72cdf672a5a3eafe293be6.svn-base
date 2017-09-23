@@ -1,0 +1,270 @@
+<?php
+namespace app\controllers;
+
+use yii\filters\AccessControl;
+use yii\web\Controller;
+use yii\filters\VerbFilter;
+use yii\helpers\ArrayHelper;
+use yii\helpers\Html;
+use app\models\Escenario;
+use app\models\Deporte;
+use app\models\DisponibilidadEscenario;
+use app\models\DisponibilidadTieneHora;
+
+class EscenarioController extends Controller{
+
+	public function behaviors()
+    {
+        return [
+            'access' => [
+                'class' => AccessControl::className(),
+                'rules' => [
+                    [
+                        'actions' => ['crearescenario','ej','borrarescenario','listardeportetipo','agregardisponibilidad','borrardisponibilidad','modificardisponibilidad'], // add all actions to take guest to login page
+                        'allow' => true,
+                        'roles' => ['@'],
+                    ],
+                ],
+            ],
+            'verbs' => [
+                'class' => VerbFilter::className(),
+                'actions' => [
+                    'logout' => ['post'],
+                ],
+            ],
+        ];
+    }
+
+    public function actionEj(){
+        return $this->render('ej');
+    }
+
+    public function actionCrearescenario(){
+        // Valores traidos por medio de Ajax 
+    		$nombre = $_GET['nombre'];
+    		$direccion = $_GET['direccion'];
+    		$ciudad = $_GET['ciudad'];
+    		$depto = $_GET['depto'];
+
+        // Se asignan los valores recibidos por medio del modelo
+            $escenario = new Escenario();
+            $escenario->esc_nombre = $nombre;
+            $escenario->esc_direccion = $direccion;
+            $escenario->ciu_id = $ciudad;
+            $escenario->depa_id = $depto;
+            $validacion = $escenario->validate();
+            
+        // Se valida que los datos recibidos cumplan las reglas del modelo
+            if($validacion){
+                // Se guarda un registro por medio de la funcion insert() de Yii2
+            	$insert = $escenario->insert();
+            	if($insert){
+            		 echo "Guardado";
+            	}else{
+            		echo "Error al guardar";
+            	}
+            }else{
+                echo "Algún dato no es válido";
+            	// print_r($escenario->errors);
+            }
+    }
+
+    public function actionBorrarescenario(){
+        $id = $_GET['id'];
+        $escenario = Escenario::findOne($id);
+        $accion = $escenario->delete();
+        if($accion){
+            echo "1";
+        }else{
+            echo "0";
+        }
+    }
+
+    /*
+    * Función para agregar una nueva funcionalidad ANTES
+    * de agregar un escenario determinado
+    */
+    public function actionAgregardisponibilidad(){
+        $fechaInicio = $_GET['fi'];
+        $fechaFin = $_GET['ff'];
+        $horas = [];
+        for($i = 1; $i <= 24; $i++){
+            if(isset($_GET['h'.$i])){
+                $horas[] = $_GET['h'.$i];
+            }
+        }  
+
+        $disponibilidad = new DisponibilidadEscenario();
+        $disponibilidad->de_fecha_ini = $fechaInicio;
+        $disponibilidad->de_fecha_fin = $fechaFin;
+        $validacion = $disponibilidad->validate();
+        if($validacion){
+            $insert = $disponibilidad->insert();
+            if($insert){
+                $ultimo = $this->listarDisponibilidad(2);
+                for($j = 0; $j < sizeof($horas); $j++){
+                    $disp_hora = new DisponibilidadTieneHora();
+                    $disp_hora->hor_id = $horas[$j];
+                    $disp_hora->de_id = $ultimo;
+                    $disp_hora->insert();                    
+                }
+
+                // Actualización de la visualización                
+                echo json_encode($this->actualizarVisualizacion());
+            }else{
+                echo "Error al guardar";
+            }
+        }else{
+            echo "Algún dato no es válido";
+        }
+    }
+
+    /* 
+    * Lista los deportes por tipo y actualizasu respectiva visualización
+    * de acuerdo al desplegable en el cual se selecciona el tipo
+    */
+    public function actionListardeportetipo(){
+        $tipo = $_GET['tipo'];
+        $deportes = $this->listarDeportePorTipo($tipo);
+        $view = Html::CheckboxList('dep_nombre','dep_id', ArrayHelper::map($deportes,'dep_id','dep_nombre'));
+        echo json_encode($view);        
+    }
+
+    /* 
+    * Borra una disponibilidad (fechas de escenario) que se 
+    * observan en la pantalla de crear escenario
+    */
+    public function actionBorrardisponibilidad(){
+        $id = $_GET['id'];
+        DisponibilidadTieneHora::deleteAll('de_id = '.$id);
+        $disponibilidad = DisponibilidadEscenario::findOne($id);
+        $borrar = $disponibilidad->delete();
+        if($borrar){
+            // Actualización de la visualización
+            echo json_encode($this->actualizarVisualizacion());
+        }else{
+            echo "Fallo al borrar";
+        }
+    }
+
+    public function actionModificardisponibilidad(){
+        $id = $_GET['id'];
+        $fi = $_GET['fi'];
+        $ff = $_GET['ff'];
+        $disponibilidad = DisponibilidadEscenario::findOne($id);
+        $disponibilidad->de_fecha_ini = $fi;
+        $disponibilidad->de_fecha_fin = $ff;
+        $actualizar = $disponibilidad->update();
+        if($actualizar){
+            echo json_encode($this->actualizarVisualizacion());
+        }else{
+            echo "Error al modificar";
+        }
+    }
+
+   
+    /*
+        Actualiza la visualización después de agregar,
+        borrar o modificar fechas de disponibilidad
+    */
+    public static function actualizarVisualizacion(){
+        $msj = "";
+        $num = 1;
+        $disp = EscenarioController::listarDisponibilidad(1);
+        foreach ($disp as $d) {
+            $msj.="<tr>
+                        <th scope='row'>$num</th>
+                        <td>
+                            <div class='input-group'>
+                                <input id='fi$d->de_id' class='form-control fecha' type=text value='$d->de_fecha_ini'>
+                                <span class='input-group-addon'>
+                                    <span class='icon-calendar'></span>
+                                </span>
+                            </div>
+                        </td>
+                        <td>
+                            <div class='input-group'>
+                                <input id='ff$d->de_id' class='form-control fecha' type=text value='$d->de_fecha_fin'>
+                                <span class='input-group-addon'>
+                                    <span class='icon-calendar'></span>
+                                </span>
+                            </div>
+                        </td>
+                        <td>
+                            <span id='modif$d->de_id'  class='b label label-success' onclick='modificarFecha(this.id);'>
+                                <i class='icon-clock'></i></span>&nbsp;
+                                <span id='bor$d->de_id' class='b label label-danger' onclick='borrarFecha(this.id);'>
+                                    <i class='icon-circle-with-cross'></i>
+                                </span>
+                        </td>
+                        <td></td>
+                </tr>";
+            $num = $num+1;
+        }
+        return $msj;
+    }
+
+    /*
+        Lista la disponibilidad para cada caso, 1: todas las disponibilidades que no han
+        sido asignadas a un escenario, 2: el id de la última disponibilidad agregada, esto
+        con el fin de agregarle las horas relacionadas.
+    */
+    public static function listarDisponibilidad($opc){
+        if($opc == 1){
+            return DisponibilidadEscenario::find()->where(['esc_id' => null])->orderBy('de_id')->all();
+        }else if($opc == 2){
+            $val = DisponibilidadEscenario::findBySql("SELECT * FROM disponibilidad_escenario ORDER BY de_id DESC LIMIT 1")->all();
+            foreach ($val as $v) {
+                return $v->de_id;;
+            }
+        }else{
+            return null;
+        }
+        
+    }
+
+    /*
+        Borrar todas las fechas que no han sido asignadas a un escenario
+    */
+    public static function limpiarDisponibilidad(){
+        $disp = EscenarioController::listarDisponibilidad(1);
+        foreach ($disp as $d) {
+            DisponibilidadTieneHora::deleteAll('de_id = '.$d->de_id);
+        }
+        $n = null;
+        DisponibilidadEscenario::deleteAll('esc_id is null ');   
+    }
+
+    /* 
+        Lista los deportes de acuerdo a su tipo 
+        Conjunto/Individual
+    */
+    public static function listarDeportePorTipo($tipo){
+        return Deporte::find()->where(['td_id'=>$tipo])->all();
+    }
+
+
+
+    /*  (NO USADA) */
+    public static function mostrarEscenarios(){
+        $items = ArrayHelper::map(Escenario::find()->all(),'esc_id','esc_direccion','esc_nombre');
+        return $items;
+    }
+
+    /*  (NO USADA)  */
+    public static function listarEscenarios(){
+        return Escenario::find()->orderBy('esc_id')->all();
+    }
+
+    /*  (NO USADA)  */
+    public static function listarEscenarioPorId($id){
+        return Escenario::find()->where(['esc_id'=>$id])->orderBy('esc_id')->all();
+    }
+
+    
+    /*  (NO USADA)  */
+    public static function listarDeportes(){
+        return Deporte::find()->all();
+    }
+}
+?>

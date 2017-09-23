@@ -1,0 +1,1128 @@
+2017-06-16 03:36:07 [::1][-][-][error][yii\base\InvalidConfigException] exception 'yii\base\InvalidConfigException' with message 'yii\web\Request::cookieValidationKey must be configured with a secret key.' in C:\xampp2\htdocs\competencias\vendor\yiisoft\yii2\web\Request.php:1292
+Stack trace:
+#0 C:\xampp2\htdocs\competencias\vendor\yiisoft\yii2\web\Request.php(1274): yii\web\Request->loadCookies()
+#1 C:\xampp2\htdocs\competencias\vendor\yiisoft\yii2\web\Request.php(1355): yii\web\Request->getCookies()
+#2 C:\xampp2\htdocs\competencias\vendor\yiisoft\yii2\web\Request.php(1338): yii\web\Request->loadCsrfToken()
+#3 C:\xampp2\htdocs\competencias\vendor\yiisoft\yii2\helpers\BaseHtml.php(302): yii\web\Request->getCsrfToken()
+#4 C:\xampp2\htdocs\competencias\views\layouts\main.php(21): yii\helpers\BaseHtml::csrfMetaTags()
+#5 C:\xampp2\htdocs\competencias\vendor\yiisoft\yii2\base\View.php(330): require('C:\\xampp2\\htdoc...')
+#6 C:\xampp2\htdocs\competencias\vendor\yiisoft\yii2\base\View.php(250): yii\base\View->renderPhpFile('C:\\xampp2\\htdoc...', Array)
+#7 C:\xampp2\htdocs\competencias\vendor\yiisoft\yii2\base\Controller.php(396): yii\base\View->renderFile('C:\\xampp2\\htdoc...', Array, Object(app\controllers\SiteController))
+#8 C:\xampp2\htdocs\competencias\vendor\yiisoft\yii2\base\Controller.php(382): yii\base\Controller->renderContent('<div class="sit...')
+#9 C:\xampp2\htdocs\competencias\controllers\SiteController.php(64): yii\base\Controller->render('index')
+#10 [internal function]: app\controllers\SiteController->actionIndex()
+#11 C:\xampp2\htdocs\competencias\vendor\yiisoft\yii2\base\InlineAction.php(57): call_user_func_array(Array, Array)
+#12 C:\xampp2\htdocs\competencias\vendor\yiisoft\yii2\base\Controller.php(156): yii\base\InlineAction->runWithParams(Array)
+#13 C:\xampp2\htdocs\competencias\vendor\yiisoft\yii2\base\Module.php(523): yii\base\Controller->runAction('', Array)
+#14 C:\xampp2\htdocs\competencias\vendor\yiisoft\yii2\web\Application.php(102): yii\base\Module->runAction('', Array)
+#15 C:\xampp2\htdocs\competencias\vendor\yiisoft\yii2\base\Application.php(380): yii\web\Application->handleRequest(Object(yii\web\Request))
+#16 C:\xampp2\htdocs\competencias\web\index.php(12): yii\base\Application->run()
+#17 {main}
+2017-06-16 03:36:07 [::1][-][-][info][application] $_COOKIE = [
+    'all_RyEgsSBXVzZXJzGICAgMb3ycQJDA-site_visit_time' => '1492606607016'
+    'all_RyEgsSBXVzZXJzGICAgMb3ycQJDA-clickdesk_referrer' => 'http://localhost/iedmac/atenea/index.php?r=site/login'
+    '__RequestVerificationToken' => 'cPyLTjDb8CYm1cASA6lU5brgZu4jvAIhCxaYCAANSrHvk4Dd4a8YvqmD-NdIaZDEcpjlKQbRcgqoRbx4efk-6EMKvVkdFFjcji8uw7tj7_I1'
+    'ASP_NET_SessionId' => 'lfqtheavxraymvpgfv5njfis'
+    'all_RyEgsSBXVzZXJzGICAgMb3ycQJDA-cd_pubnub_visitor' => '1492876983850'
+    'primer_ingreso' => '1'
+    'all_RyEgsSBXVzZXJzGICAgMb3ycQJDA-visit_count' => '{\"website_count\":375}'
+    '_ASPXAUTH' => 'CC3BA7E18CF01F2AA7F80F3FEC2B3741C7CB33CEBD82EAFE7B2100D19A41FB834DC47D29D33328E88CF41EEAD0309D0E0E8FCCC6F55723D7BA3186856AB8B87CBF4C94595B53186A06CD4ED5BD3DDF739F45907D5D9B3A0E1BF975B64B362D07'
+    'user' => 'admin'
+    'perfil' => '1'
+    'sede' => '1'
+    'clave' => 'Admin123'
+    'PHPSESSID' => 'o28akrvcgfugjkvt50ns7va833'
+]
+
+$_SERVER = [
+    'MIBDIRS' => 'C:/xampp2/php/extras/mibs'
+    'MYSQL_HOME' => '\\xampp\\mysql\\bin'
+    'OPENSSL_CONF' => 'C:/xampp2/apache/bin/openssl.cnf'
+    'PHP_PEAR_SYSCONF_DIR' => '\\xampp\\php'
+    'PHPRC' => '\\xampp\\php'
+    'TMP' => '\\xampp\\tmp'
+    'HTTP_HOST' => 'localhost'
+    'HTTP_CONNECTION' => 'keep-alive'
+    'HTTP_UPGRADE_INSECURE_REQUESTS' => '1'
+    'HTTP_USER_AGENT' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.36'
+    'HTTP_ACCEPT' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8'
+    'HTTP_REFERER' => 'http://localhost/competencias/'
+    'HTTP_ACCEPT_ENCODING' => 'gzip, deflate, sdch, br'
+    'HTTP_ACCEPT_LANGUAGE' => 'en-US,en;q=0.8,es;q=0.6'
+    'HTTP_COOKIE' => 'all_RyEgsSBXVzZXJzGICAgMb3ycQJDA-site_visit_time=1492606607016; all_RyEgsSBXVzZXJzGICAgMb3ycQJDA-clickdesk_referrer=http%3A//localhost/iedmac/atenea/index.php%3Fr%3Dsite/login; __RequestVerificationToken=cPyLTjDb8CYm1cASA6lU5brgZu4jvAIhCxaYCAANSrHvk4Dd4a8YvqmD-NdIaZDEcpjlKQbRcgqoRbx4efk-6EMKvVkdFFjcji8uw7tj7_I1; ASP.NET_SessionId=lfqtheavxraymvpgfv5njfis; all_RyEgsSBXVzZXJzGICAgMb3ycQJDA-cd_pubnub_visitor=1492876983850; primer_ingreso=1; all_RyEgsSBXVzZXJzGICAgMb3ycQJDA-visit_count=%7B%22website_count%22%3A375%7D; .ASPXAUTH=CC3BA7E18CF01F2AA7F80F3FEC2B3741C7CB33CEBD82EAFE7B2100D19A41FB834DC47D29D33328E88CF41EEAD0309D0E0E8FCCC6F55723D7BA3186856AB8B87CBF4C94595B53186A06CD4ED5BD3DDF739F45907D5D9B3A0E1BF975B64B362D07; user=admin; perfil=1; sede=1; clave=Admin123; PHPSESSID=o28akrvcgfugjkvt50ns7va833'
+    'PATH' => 'C:\\Program Files (x86)\\Common Files\\Intel\\Shared Files\\cpp\\bin\\Intel64;C:\\ProgramData\\Oracle\\Java\\javapath;C:\\WINDOWS\\system32;C:\\WINDOWS;C:\\WINDOWS\\System32\\Wbem;C:\\WINDOWS\\System32\\WindowsPowerShell\\v1.0;C:\\Program Files\\Intel\\WiFi\\bin;C:\\Program Files\\Common Files\\Intel\\WirelessCommon;C:\\Program Files (x86)\\Intel\\OpenCL SDK\\3.0\\bin\\x86;C:\\Program Files (x86)\\Intel\\OpenCL SDK\\3.0\\bin\\x64;C:\\Program Files (x86)\\Skype\\Phone;C:\\Program Files (x86)\\Microsoft ASP.NET\\ASP.NET Web Pages\\v1.0;C:\\Program Files\\Microsoft SQL Server\\110\\Tools\\Binn;C:\\Program Files\\TortoiseSVN\\bin;C:\\Program Files\\Microsoft\\Web Platform Installer;C:\\ant\\bin;C:\\Program Files\\nodejs;C:\\Users\\Le\\AppData\\Local\\Android\\android-sdk\\platform-tools;C:\\Users\\Le\\.dnx\\bin;C:\\Program Files\\Microsoft DNX\\Dnvm;C:\\Program Files (x86)\\Windows Kits\\10\\Windows Performance Toolkit;C:\\Program Files\\Microsoft SQL Server\\120\\Tools\\Binn;C:\\Program Files\\Java\\jdk1.8.0_73\\bin;C:\\Users\\Le\\AppData\\Local\\Android\\android-sdk\\build-tools\\23.0.2;C:\\Program Files (x86)\\Microsoft SQL Server\\Client SDK\\ODBC\\130\\Tools\\Binn;C:\\Program Files (x86)\\Microsoft SQL Server\\130\\Tools\\Binn;C:\\Program Files (x86)\\Microsoft SQL Server\\130\\DTS\\Binn;C:\\Program Files (x86)\\Microsoft SQL Server\\130\\Tools\\Binn\\ManagementStudio;C:\\PROGRA~2\\Griaule\\FINGER~1\\bin;C:\\Program Files (x86)\\Microsoft SQL Server\\Client SDK\\ODBC\\130\\Tools\\Binn\\;C:\\Program Files (x86)\\Microsoft SQL Server\\130\\Tools\\Binn\\;C:\\Program Files (x86)\\Microsoft SQL Server\\130\\DTS\\Binn\\;C:\\Program Files (x86)\\Microsoft SQL Server\\130\\Tools\\Binn\\ManagementStudio\\;C:\\Program Files (x86)\\NVIDIA Corporation\\PhysX\\Common;C:\\Program Files (x86)\\QuickTime\\QTSystem\\;C:\\WINDOWS\\system32;C:\\WINDOWS;C:\\WINDOWS\\System32\\Wbem;C:\\WINDOWS\\System32\\WindowsPowerShell\\v1.0\\;C:\\xampp2\\php;C:\\ProgramData\\ComposerSetup\\bin;C:\\Program Files\\nodejs\\;C:\\Program Files (x86)\\Skype\\Phone\\;C:\\Program Files (x86)\\GtkSharp\\2.12\\bin;C:\\Program Files\\Intel\\WiFi\\bin\\;C:\\Program Files\\Common Files\\Intel\\WirelessCommon\\;C:\\Program Files\\Git\\bin;C:\\Users\\Le\\AppData\\Local\\Microsoft\\WindowsApps;C:\\Users\\Le\\AppData\\Roaming\\Composer\\vendor\\bin;C:\\Users\\Le\\AppData\\Roaming\\npm;C:\\Users\\Le\\AppData\\Local\\Google\\Cloud SDK\\google-cloud-sdk\\bin'
+    'SystemRoot' => 'C:\\WINDOWS'
+    'COMSPEC' => 'C:\\WINDOWS\\system32\\cmd.exe'
+    'PATHEXT' => '.COM;.EXE;.BAT;.CMD;.VBS;.VBE;.JS;.JSE;.WSF;.WSH;.MSC'
+    'WINDIR' => 'C:\\WINDOWS'
+    'SERVER_SIGNATURE' => '<address>Apache/2.4.17 (Win32) OpenSSL/1.0.2d PHP/5.5.34 Server at localhost Port 80</address>
+'
+    'SERVER_SOFTWARE' => 'Apache/2.4.17 (Win32) OpenSSL/1.0.2d PHP/5.5.34'
+    'SERVER_NAME' => 'localhost'
+    'SERVER_ADDR' => '::1'
+    'SERVER_PORT' => '80'
+    'REMOTE_ADDR' => '::1'
+    'DOCUMENT_ROOT' => 'C:/xampp2/htdocs'
+    'REQUEST_SCHEME' => 'http'
+    'CONTEXT_PREFIX' => ''
+    'CONTEXT_DOCUMENT_ROOT' => 'C:/xampp2/htdocs'
+    'SERVER_ADMIN' => 'postmaster@localhost'
+    'SCRIPT_FILENAME' => 'C:/xampp2/htdocs/competencias/web/index.php'
+    'REMOTE_PORT' => '61147'
+    'GATEWAY_INTERFACE' => 'CGI/1.1'
+    'SERVER_PROTOCOL' => 'HTTP/1.1'
+    'REQUEST_METHOD' => 'GET'
+    'QUERY_STRING' => ''
+    'REQUEST_URI' => '/competencias/web/'
+    'SCRIPT_NAME' => '/competencias/web/index.php'
+    'PHP_SELF' => '/competencias/web/index.php'
+    'REQUEST_TIME_FLOAT' => 1497576967.076
+    'REQUEST_TIME' => 1497576967
+]
+2017-06-16 03:36:07 [::1][-][o28akrvcgfugjkvt50ns7va833][warning][yii\log\Dispatcher::dispatch] Unable to send log via yii\debug\LogTarget: Exception (Invalid Configuration) 'yii\base\InvalidConfigException' with message 'yii\web\Request::cookieValidationKey must be configured with a secret key.' 
+
+in C:\xampp2\htdocs\competencias\vendor\yiisoft\yii2\web\Request.php:1292
+
+Stack trace:
+#0 C:\xampp2\htdocs\competencias\vendor\yiisoft\yii2\web\Request.php(1274): yii\web\Request->loadCookies()
+#1 C:\xampp2\htdocs\competencias\vendor\yiisoft\yii2\web\User.php(555): yii\web\Request->getCookies()
+#2 C:\xampp2\htdocs\competencias\vendor\yiisoft\yii2\web\User.php(287): yii\web\User->getIdentityAndDurationFromCookie()
+#3 C:\xampp2\htdocs\competencias\vendor\yiisoft\yii2\web\User.php(674): yii\web\User->loginByCookie()
+#4 C:\xampp2\htdocs\competencias\vendor\yiisoft\yii2\web\User.php(188): yii\web\User->renewAuthStatus()
+#5 C:\xampp2\htdocs\competencias\vendor\yiisoft\yii2\base\Component.php(132): yii\web\User->getIdentity()
+#6 C:\xampp2\htdocs\competencias\vendor\yiisoft\yii2-debug\panels\UserPanel.php(54): yii\base\Component->__get('identity')
+#7 C:\xampp2\htdocs\competencias\vendor\yiisoft\yii2-debug\LogTarget.php(54): yii\debug\panels\UserPanel->save()
+#8 C:\xampp2\htdocs\competencias\vendor\yiisoft\yii2-debug\LogTarget.php(118): yii\debug\LogTarget->export()
+#9 C:\xampp2\htdocs\competencias\vendor\yiisoft\yii2\log\Dispatcher.php(188): yii\debug\LogTarget->collect(Array, true)
+#10 C:\xampp2\htdocs\competencias\vendor\yiisoft\yii2\log\Logger.php(177): yii\log\Dispatcher->dispatch(Array, true)
+#11 C:\xampp2\htdocs\competencias\vendor\yiisoft\yii2\base\ErrorHandler.php(113): yii\log\Logger->flush(true)
+#12 [internal function]: yii\base\ErrorHandler->handleException(Object(yii\base\InvalidConfigException))
+#13 {main}
+2017-06-16 03:36:07 [::1][-][o28akrvcgfugjkvt50ns7va833][info][application] $_COOKIE = [
+    'all_RyEgsSBXVzZXJzGICAgMb3ycQJDA-site_visit_time' => '1492606607016'
+    'all_RyEgsSBXVzZXJzGICAgMb3ycQJDA-clickdesk_referrer' => 'http://localhost/iedmac/atenea/index.php?r=site/login'
+    '__RequestVerificationToken' => 'cPyLTjDb8CYm1cASA6lU5brgZu4jvAIhCxaYCAANSrHvk4Dd4a8YvqmD-NdIaZDEcpjlKQbRcgqoRbx4efk-6EMKvVkdFFjcji8uw7tj7_I1'
+    'ASP_NET_SessionId' => 'lfqtheavxraymvpgfv5njfis'
+    'all_RyEgsSBXVzZXJzGICAgMb3ycQJDA-cd_pubnub_visitor' => '1492876983850'
+    'primer_ingreso' => '1'
+    'all_RyEgsSBXVzZXJzGICAgMb3ycQJDA-visit_count' => '{\"website_count\":375}'
+    '_ASPXAUTH' => 'CC3BA7E18CF01F2AA7F80F3FEC2B3741C7CB33CEBD82EAFE7B2100D19A41FB834DC47D29D33328E88CF41EEAD0309D0E0E8FCCC6F55723D7BA3186856AB8B87CBF4C94595B53186A06CD4ED5BD3DDF739F45907D5D9B3A0E1BF975B64B362D07'
+    'user' => 'admin'
+    'perfil' => '1'
+    'sede' => '1'
+    'clave' => 'Admin123'
+    'PHPSESSID' => 'o28akrvcgfugjkvt50ns7va833'
+]
+
+$_SESSION = [
+    '__flash' => []
+]
+
+$_SERVER = [
+    'MIBDIRS' => 'C:/xampp2/php/extras/mibs'
+    'MYSQL_HOME' => '\\xampp\\mysql\\bin'
+    'OPENSSL_CONF' => 'C:/xampp2/apache/bin/openssl.cnf'
+    'PHP_PEAR_SYSCONF_DIR' => '\\xampp\\php'
+    'PHPRC' => '\\xampp\\php'
+    'TMP' => '\\xampp\\tmp'
+    'HTTP_HOST' => 'localhost'
+    'HTTP_CONNECTION' => 'keep-alive'
+    'HTTP_UPGRADE_INSECURE_REQUESTS' => '1'
+    'HTTP_USER_AGENT' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.36'
+    'HTTP_ACCEPT' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8'
+    'HTTP_REFERER' => 'http://localhost/competencias/'
+    'HTTP_ACCEPT_ENCODING' => 'gzip, deflate, sdch, br'
+    'HTTP_ACCEPT_LANGUAGE' => 'en-US,en;q=0.8,es;q=0.6'
+    'HTTP_COOKIE' => 'all_RyEgsSBXVzZXJzGICAgMb3ycQJDA-site_visit_time=1492606607016; all_RyEgsSBXVzZXJzGICAgMb3ycQJDA-clickdesk_referrer=http%3A//localhost/iedmac/atenea/index.php%3Fr%3Dsite/login; __RequestVerificationToken=cPyLTjDb8CYm1cASA6lU5brgZu4jvAIhCxaYCAANSrHvk4Dd4a8YvqmD-NdIaZDEcpjlKQbRcgqoRbx4efk-6EMKvVkdFFjcji8uw7tj7_I1; ASP.NET_SessionId=lfqtheavxraymvpgfv5njfis; all_RyEgsSBXVzZXJzGICAgMb3ycQJDA-cd_pubnub_visitor=1492876983850; primer_ingreso=1; all_RyEgsSBXVzZXJzGICAgMb3ycQJDA-visit_count=%7B%22website_count%22%3A375%7D; .ASPXAUTH=CC3BA7E18CF01F2AA7F80F3FEC2B3741C7CB33CEBD82EAFE7B2100D19A41FB834DC47D29D33328E88CF41EEAD0309D0E0E8FCCC6F55723D7BA3186856AB8B87CBF4C94595B53186A06CD4ED5BD3DDF739F45907D5D9B3A0E1BF975B64B362D07; user=admin; perfil=1; sede=1; clave=Admin123; PHPSESSID=o28akrvcgfugjkvt50ns7va833'
+    'PATH' => 'C:\\Program Files (x86)\\Common Files\\Intel\\Shared Files\\cpp\\bin\\Intel64;C:\\ProgramData\\Oracle\\Java\\javapath;C:\\WINDOWS\\system32;C:\\WINDOWS;C:\\WINDOWS\\System32\\Wbem;C:\\WINDOWS\\System32\\WindowsPowerShell\\v1.0;C:\\Program Files\\Intel\\WiFi\\bin;C:\\Program Files\\Common Files\\Intel\\WirelessCommon;C:\\Program Files (x86)\\Intel\\OpenCL SDK\\3.0\\bin\\x86;C:\\Program Files (x86)\\Intel\\OpenCL SDK\\3.0\\bin\\x64;C:\\Program Files (x86)\\Skype\\Phone;C:\\Program Files (x86)\\Microsoft ASP.NET\\ASP.NET Web Pages\\v1.0;C:\\Program Files\\Microsoft SQL Server\\110\\Tools\\Binn;C:\\Program Files\\TortoiseSVN\\bin;C:\\Program Files\\Microsoft\\Web Platform Installer;C:\\ant\\bin;C:\\Program Files\\nodejs;C:\\Users\\Le\\AppData\\Local\\Android\\android-sdk\\platform-tools;C:\\Users\\Le\\.dnx\\bin;C:\\Program Files\\Microsoft DNX\\Dnvm;C:\\Program Files (x86)\\Windows Kits\\10\\Windows Performance Toolkit;C:\\Program Files\\Microsoft SQL Server\\120\\Tools\\Binn;C:\\Program Files\\Java\\jdk1.8.0_73\\bin;C:\\Users\\Le\\AppData\\Local\\Android\\android-sdk\\build-tools\\23.0.2;C:\\Program Files (x86)\\Microsoft SQL Server\\Client SDK\\ODBC\\130\\Tools\\Binn;C:\\Program Files (x86)\\Microsoft SQL Server\\130\\Tools\\Binn;C:\\Program Files (x86)\\Microsoft SQL Server\\130\\DTS\\Binn;C:\\Program Files (x86)\\Microsoft SQL Server\\130\\Tools\\Binn\\ManagementStudio;C:\\PROGRA~2\\Griaule\\FINGER~1\\bin;C:\\Program Files (x86)\\Microsoft SQL Server\\Client SDK\\ODBC\\130\\Tools\\Binn\\;C:\\Program Files (x86)\\Microsoft SQL Server\\130\\Tools\\Binn\\;C:\\Program Files (x86)\\Microsoft SQL Server\\130\\DTS\\Binn\\;C:\\Program Files (x86)\\Microsoft SQL Server\\130\\Tools\\Binn\\ManagementStudio\\;C:\\Program Files (x86)\\NVIDIA Corporation\\PhysX\\Common;C:\\Program Files (x86)\\QuickTime\\QTSystem\\;C:\\WINDOWS\\system32;C:\\WINDOWS;C:\\WINDOWS\\System32\\Wbem;C:\\WINDOWS\\System32\\WindowsPowerShell\\v1.0\\;C:\\xampp2\\php;C:\\ProgramData\\ComposerSetup\\bin;C:\\Program Files\\nodejs\\;C:\\Program Files (x86)\\Skype\\Phone\\;C:\\Program Files (x86)\\GtkSharp\\2.12\\bin;C:\\Program Files\\Intel\\WiFi\\bin\\;C:\\Program Files\\Common Files\\Intel\\WirelessCommon\\;C:\\Program Files\\Git\\bin;C:\\Users\\Le\\AppData\\Local\\Microsoft\\WindowsApps;C:\\Users\\Le\\AppData\\Roaming\\Composer\\vendor\\bin;C:\\Users\\Le\\AppData\\Roaming\\npm;C:\\Users\\Le\\AppData\\Local\\Google\\Cloud SDK\\google-cloud-sdk\\bin'
+    'SystemRoot' => 'C:\\WINDOWS'
+    'COMSPEC' => 'C:\\WINDOWS\\system32\\cmd.exe'
+    'PATHEXT' => '.COM;.EXE;.BAT;.CMD;.VBS;.VBE;.JS;.JSE;.WSF;.WSH;.MSC'
+    'WINDIR' => 'C:\\WINDOWS'
+    'SERVER_SIGNATURE' => '<address>Apache/2.4.17 (Win32) OpenSSL/1.0.2d PHP/5.5.34 Server at localhost Port 80</address>
+'
+    'SERVER_SOFTWARE' => 'Apache/2.4.17 (Win32) OpenSSL/1.0.2d PHP/5.5.34'
+    'SERVER_NAME' => 'localhost'
+    'SERVER_ADDR' => '::1'
+    'SERVER_PORT' => '80'
+    'REMOTE_ADDR' => '::1'
+    'DOCUMENT_ROOT' => 'C:/xampp2/htdocs'
+    'REQUEST_SCHEME' => 'http'
+    'CONTEXT_PREFIX' => ''
+    'CONTEXT_DOCUMENT_ROOT' => 'C:/xampp2/htdocs'
+    'SERVER_ADMIN' => 'postmaster@localhost'
+    'SCRIPT_FILENAME' => 'C:/xampp2/htdocs/competencias/web/index.php'
+    'REMOTE_PORT' => '61147'
+    'GATEWAY_INTERFACE' => 'CGI/1.1'
+    'SERVER_PROTOCOL' => 'HTTP/1.1'
+    'REQUEST_METHOD' => 'GET'
+    'QUERY_STRING' => ''
+    'REQUEST_URI' => '/competencias/web/'
+    'SCRIPT_NAME' => '/competencias/web/index.php'
+    'PHP_SELF' => '/competencias/web/index.php'
+    'REQUEST_TIME_FLOAT' => 1497576967.076
+    'REQUEST_TIME' => 1497576967
+]
+2017-06-16 03:42:19 [::1][-][-][error][yii\base\InvalidConfigException] exception 'yii\base\InvalidConfigException' with message 'yii\web\Request::cookieValidationKey must be configured with a secret key.' in C:\xampp2\htdocs\competencias\vendor\yiisoft\yii2\web\Request.php:1292
+Stack trace:
+#0 C:\xampp2\htdocs\competencias\vendor\yiisoft\yii2\web\Request.php(1274): yii\web\Request->loadCookies()
+#1 C:\xampp2\htdocs\competencias\vendor\yiisoft\yii2\web\Request.php(1355): yii\web\Request->getCookies()
+#2 C:\xampp2\htdocs\competencias\vendor\yiisoft\yii2\web\Request.php(1338): yii\web\Request->loadCsrfToken()
+#3 C:\xampp2\htdocs\competencias\vendor\yiisoft\yii2\helpers\BaseHtml.php(302): yii\web\Request->getCsrfToken()
+#4 C:\xampp2\htdocs\competencias\views\layouts\main.php(21): yii\helpers\BaseHtml::csrfMetaTags()
+#5 C:\xampp2\htdocs\competencias\vendor\yiisoft\yii2\base\View.php(330): require('C:\\xampp2\\htdoc...')
+#6 C:\xampp2\htdocs\competencias\vendor\yiisoft\yii2\base\View.php(250): yii\base\View->renderPhpFile('C:\\xampp2\\htdoc...', Array)
+#7 C:\xampp2\htdocs\competencias\vendor\yiisoft\yii2\base\Controller.php(396): yii\base\View->renderFile('C:\\xampp2\\htdoc...', Array, Object(app\controllers\SiteController))
+#8 C:\xampp2\htdocs\competencias\vendor\yiisoft\yii2\base\Controller.php(382): yii\base\Controller->renderContent('<div class="sit...')
+#9 C:\xampp2\htdocs\competencias\controllers\SiteController.php(64): yii\base\Controller->render('index')
+#10 [internal function]: app\controllers\SiteController->actionIndex()
+#11 C:\xampp2\htdocs\competencias\vendor\yiisoft\yii2\base\InlineAction.php(57): call_user_func_array(Array, Array)
+#12 C:\xampp2\htdocs\competencias\vendor\yiisoft\yii2\base\Controller.php(156): yii\base\InlineAction->runWithParams(Array)
+#13 C:\xampp2\htdocs\competencias\vendor\yiisoft\yii2\base\Module.php(523): yii\base\Controller->runAction('', Array)
+#14 C:\xampp2\htdocs\competencias\vendor\yiisoft\yii2\web\Application.php(102): yii\base\Module->runAction('', Array)
+#15 C:\xampp2\htdocs\competencias\vendor\yiisoft\yii2\base\Application.php(380): yii\web\Application->handleRequest(Object(yii\web\Request))
+#16 C:\xampp2\htdocs\competencias\web\index.php(12): yii\base\Application->run()
+#17 {main}
+2017-06-16 03:42:19 [::1][-][-][info][application] $_COOKIE = [
+    'all_RyEgsSBXVzZXJzGICAgMb3ycQJDA-site_visit_time' => '1492606607016'
+    'all_RyEgsSBXVzZXJzGICAgMb3ycQJDA-clickdesk_referrer' => 'http://localhost/iedmac/atenea/index.php?r=site/login'
+    '__RequestVerificationToken' => 'cPyLTjDb8CYm1cASA6lU5brgZu4jvAIhCxaYCAANSrHvk4Dd4a8YvqmD-NdIaZDEcpjlKQbRcgqoRbx4efk-6EMKvVkdFFjcji8uw7tj7_I1'
+    'ASP_NET_SessionId' => 'lfqtheavxraymvpgfv5njfis'
+    'all_RyEgsSBXVzZXJzGICAgMb3ycQJDA-cd_pubnub_visitor' => '1492876983850'
+    'primer_ingreso' => '1'
+    'all_RyEgsSBXVzZXJzGICAgMb3ycQJDA-visit_count' => '{\"website_count\":375}'
+    '_ASPXAUTH' => 'CC3BA7E18CF01F2AA7F80F3FEC2B3741C7CB33CEBD82EAFE7B2100D19A41FB834DC47D29D33328E88CF41EEAD0309D0E0E8FCCC6F55723D7BA3186856AB8B87CBF4C94595B53186A06CD4ED5BD3DDF739F45907D5D9B3A0E1BF975B64B362D07'
+    'user' => 'admin'
+    'perfil' => '1'
+    'sede' => '1'
+    'clave' => 'Admin123'
+    'PHPSESSID' => 'o28akrvcgfugjkvt50ns7va833'
+]
+
+$_SERVER = [
+    'MIBDIRS' => 'C:/xampp2/php/extras/mibs'
+    'MYSQL_HOME' => '\\xampp\\mysql\\bin'
+    'OPENSSL_CONF' => 'C:/xampp2/apache/bin/openssl.cnf'
+    'PHP_PEAR_SYSCONF_DIR' => '\\xampp\\php'
+    'PHPRC' => '\\xampp\\php'
+    'TMP' => '\\xampp\\tmp'
+    'HTTP_HOST' => 'localhost'
+    'HTTP_CONNECTION' => 'keep-alive'
+    'HTTP_UPGRADE_INSECURE_REQUESTS' => '1'
+    'HTTP_USER_AGENT' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.36'
+    'HTTP_ACCEPT' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8'
+    'HTTP_REFERER' => 'http://localhost/competencias/'
+    'HTTP_ACCEPT_ENCODING' => 'gzip, deflate, sdch, br'
+    'HTTP_ACCEPT_LANGUAGE' => 'en-US,en;q=0.8,es;q=0.6'
+    'HTTP_COOKIE' => 'all_RyEgsSBXVzZXJzGICAgMb3ycQJDA-site_visit_time=1492606607016; all_RyEgsSBXVzZXJzGICAgMb3ycQJDA-clickdesk_referrer=http%3A//localhost/iedmac/atenea/index.php%3Fr%3Dsite/login; __RequestVerificationToken=cPyLTjDb8CYm1cASA6lU5brgZu4jvAIhCxaYCAANSrHvk4Dd4a8YvqmD-NdIaZDEcpjlKQbRcgqoRbx4efk-6EMKvVkdFFjcji8uw7tj7_I1; ASP.NET_SessionId=lfqtheavxraymvpgfv5njfis; all_RyEgsSBXVzZXJzGICAgMb3ycQJDA-cd_pubnub_visitor=1492876983850; primer_ingreso=1; all_RyEgsSBXVzZXJzGICAgMb3ycQJDA-visit_count=%7B%22website_count%22%3A375%7D; .ASPXAUTH=CC3BA7E18CF01F2AA7F80F3FEC2B3741C7CB33CEBD82EAFE7B2100D19A41FB834DC47D29D33328E88CF41EEAD0309D0E0E8FCCC6F55723D7BA3186856AB8B87CBF4C94595B53186A06CD4ED5BD3DDF739F45907D5D9B3A0E1BF975B64B362D07; user=admin; perfil=1; sede=1; clave=Admin123; PHPSESSID=o28akrvcgfugjkvt50ns7va833'
+    'PATH' => 'C:\\Program Files (x86)\\Common Files\\Intel\\Shared Files\\cpp\\bin\\Intel64;C:\\ProgramData\\Oracle\\Java\\javapath;C:\\WINDOWS\\system32;C:\\WINDOWS;C:\\WINDOWS\\System32\\Wbem;C:\\WINDOWS\\System32\\WindowsPowerShell\\v1.0;C:\\Program Files\\Intel\\WiFi\\bin;C:\\Program Files\\Common Files\\Intel\\WirelessCommon;C:\\Program Files (x86)\\Intel\\OpenCL SDK\\3.0\\bin\\x86;C:\\Program Files (x86)\\Intel\\OpenCL SDK\\3.0\\bin\\x64;C:\\Program Files (x86)\\Skype\\Phone;C:\\Program Files (x86)\\Microsoft ASP.NET\\ASP.NET Web Pages\\v1.0;C:\\Program Files\\Microsoft SQL Server\\110\\Tools\\Binn;C:\\Program Files\\TortoiseSVN\\bin;C:\\Program Files\\Microsoft\\Web Platform Installer;C:\\ant\\bin;C:\\Program Files\\nodejs;C:\\Users\\Le\\AppData\\Local\\Android\\android-sdk\\platform-tools;C:\\Users\\Le\\.dnx\\bin;C:\\Program Files\\Microsoft DNX\\Dnvm;C:\\Program Files (x86)\\Windows Kits\\10\\Windows Performance Toolkit;C:\\Program Files\\Microsoft SQL Server\\120\\Tools\\Binn;C:\\Program Files\\Java\\jdk1.8.0_73\\bin;C:\\Users\\Le\\AppData\\Local\\Android\\android-sdk\\build-tools\\23.0.2;C:\\Program Files (x86)\\Microsoft SQL Server\\Client SDK\\ODBC\\130\\Tools\\Binn;C:\\Program Files (x86)\\Microsoft SQL Server\\130\\Tools\\Binn;C:\\Program Files (x86)\\Microsoft SQL Server\\130\\DTS\\Binn;C:\\Program Files (x86)\\Microsoft SQL Server\\130\\Tools\\Binn\\ManagementStudio;C:\\PROGRA~2\\Griaule\\FINGER~1\\bin;C:\\Program Files (x86)\\Microsoft SQL Server\\Client SDK\\ODBC\\130\\Tools\\Binn\\;C:\\Program Files (x86)\\Microsoft SQL Server\\130\\Tools\\Binn\\;C:\\Program Files (x86)\\Microsoft SQL Server\\130\\DTS\\Binn\\;C:\\Program Files (x86)\\Microsoft SQL Server\\130\\Tools\\Binn\\ManagementStudio\\;C:\\Program Files (x86)\\NVIDIA Corporation\\PhysX\\Common;C:\\Program Files (x86)\\QuickTime\\QTSystem\\;C:\\WINDOWS\\system32;C:\\WINDOWS;C:\\WINDOWS\\System32\\Wbem;C:\\WINDOWS\\System32\\WindowsPowerShell\\v1.0\\;C:\\xampp2\\php;C:\\ProgramData\\ComposerSetup\\bin;C:\\Program Files\\nodejs\\;C:\\Program Files (x86)\\Skype\\Phone\\;C:\\Program Files (x86)\\GtkSharp\\2.12\\bin;C:\\Program Files\\Intel\\WiFi\\bin\\;C:\\Program Files\\Common Files\\Intel\\WirelessCommon\\;C:\\Program Files\\Git\\bin;C:\\Users\\Le\\AppData\\Local\\Microsoft\\WindowsApps;C:\\Users\\Le\\AppData\\Roaming\\Composer\\vendor\\bin;C:\\Users\\Le\\AppData\\Roaming\\npm;C:\\Users\\Le\\AppData\\Local\\Google\\Cloud SDK\\google-cloud-sdk\\bin'
+    'SystemRoot' => 'C:\\WINDOWS'
+    'COMSPEC' => 'C:\\WINDOWS\\system32\\cmd.exe'
+    'PATHEXT' => '.COM;.EXE;.BAT;.CMD;.VBS;.VBE;.JS;.JSE;.WSF;.WSH;.MSC'
+    'WINDIR' => 'C:\\WINDOWS'
+    'SERVER_SIGNATURE' => '<address>Apache/2.4.17 (Win32) OpenSSL/1.0.2d PHP/5.5.34 Server at localhost Port 80</address>
+'
+    'SERVER_SOFTWARE' => 'Apache/2.4.17 (Win32) OpenSSL/1.0.2d PHP/5.5.34'
+    'SERVER_NAME' => 'localhost'
+    'SERVER_ADDR' => '::1'
+    'SERVER_PORT' => '80'
+    'REMOTE_ADDR' => '::1'
+    'DOCUMENT_ROOT' => 'C:/xampp2/htdocs'
+    'REQUEST_SCHEME' => 'http'
+    'CONTEXT_PREFIX' => ''
+    'CONTEXT_DOCUMENT_ROOT' => 'C:/xampp2/htdocs'
+    'SERVER_ADMIN' => 'postmaster@localhost'
+    'SCRIPT_FILENAME' => 'C:/xampp2/htdocs/competencias/web/index.php'
+    'REMOTE_PORT' => '61225'
+    'GATEWAY_INTERFACE' => 'CGI/1.1'
+    'SERVER_PROTOCOL' => 'HTTP/1.1'
+    'REQUEST_METHOD' => 'GET'
+    'QUERY_STRING' => ''
+    'REQUEST_URI' => '/competencias/web/'
+    'SCRIPT_NAME' => '/competencias/web/index.php'
+    'PHP_SELF' => '/competencias/web/index.php'
+    'REQUEST_TIME_FLOAT' => 1497577339.263
+    'REQUEST_TIME' => 1497577339
+]
+2017-06-16 03:42:19 [::1][-][o28akrvcgfugjkvt50ns7va833][warning][yii\log\Dispatcher::dispatch] Unable to send log via yii\debug\LogTarget: Exception (Invalid Configuration) 'yii\base\InvalidConfigException' with message 'yii\web\Request::cookieValidationKey must be configured with a secret key.' 
+
+in C:\xampp2\htdocs\competencias\vendor\yiisoft\yii2\web\Request.php:1292
+
+Stack trace:
+#0 C:\xampp2\htdocs\competencias\vendor\yiisoft\yii2\web\Request.php(1274): yii\web\Request->loadCookies()
+#1 C:\xampp2\htdocs\competencias\vendor\yiisoft\yii2\web\User.php(555): yii\web\Request->getCookies()
+#2 C:\xampp2\htdocs\competencias\vendor\yiisoft\yii2\web\User.php(287): yii\web\User->getIdentityAndDurationFromCookie()
+#3 C:\xampp2\htdocs\competencias\vendor\yiisoft\yii2\web\User.php(674): yii\web\User->loginByCookie()
+#4 C:\xampp2\htdocs\competencias\vendor\yiisoft\yii2\web\User.php(188): yii\web\User->renewAuthStatus()
+#5 C:\xampp2\htdocs\competencias\vendor\yiisoft\yii2\base\Component.php(132): yii\web\User->getIdentity()
+#6 C:\xampp2\htdocs\competencias\vendor\yiisoft\yii2-debug\panels\UserPanel.php(54): yii\base\Component->__get('identity')
+#7 C:\xampp2\htdocs\competencias\vendor\yiisoft\yii2-debug\LogTarget.php(54): yii\debug\panels\UserPanel->save()
+#8 C:\xampp2\htdocs\competencias\vendor\yiisoft\yii2-debug\LogTarget.php(118): yii\debug\LogTarget->export()
+#9 C:\xampp2\htdocs\competencias\vendor\yiisoft\yii2\log\Dispatcher.php(188): yii\debug\LogTarget->collect(Array, true)
+#10 C:\xampp2\htdocs\competencias\vendor\yiisoft\yii2\log\Logger.php(177): yii\log\Dispatcher->dispatch(Array, true)
+#11 C:\xampp2\htdocs\competencias\vendor\yiisoft\yii2\base\ErrorHandler.php(113): yii\log\Logger->flush(true)
+#12 [internal function]: yii\base\ErrorHandler->handleException(Object(yii\base\InvalidConfigException))
+#13 {main}
+2017-06-16 03:42:19 [::1][-][o28akrvcgfugjkvt50ns7va833][info][application] $_COOKIE = [
+    'all_RyEgsSBXVzZXJzGICAgMb3ycQJDA-site_visit_time' => '1492606607016'
+    'all_RyEgsSBXVzZXJzGICAgMb3ycQJDA-clickdesk_referrer' => 'http://localhost/iedmac/atenea/index.php?r=site/login'
+    '__RequestVerificationToken' => 'cPyLTjDb8CYm1cASA6lU5brgZu4jvAIhCxaYCAANSrHvk4Dd4a8YvqmD-NdIaZDEcpjlKQbRcgqoRbx4efk-6EMKvVkdFFjcji8uw7tj7_I1'
+    'ASP_NET_SessionId' => 'lfqtheavxraymvpgfv5njfis'
+    'all_RyEgsSBXVzZXJzGICAgMb3ycQJDA-cd_pubnub_visitor' => '1492876983850'
+    'primer_ingreso' => '1'
+    'all_RyEgsSBXVzZXJzGICAgMb3ycQJDA-visit_count' => '{\"website_count\":375}'
+    '_ASPXAUTH' => 'CC3BA7E18CF01F2AA7F80F3FEC2B3741C7CB33CEBD82EAFE7B2100D19A41FB834DC47D29D33328E88CF41EEAD0309D0E0E8FCCC6F55723D7BA3186856AB8B87CBF4C94595B53186A06CD4ED5BD3DDF739F45907D5D9B3A0E1BF975B64B362D07'
+    'user' => 'admin'
+    'perfil' => '1'
+    'sede' => '1'
+    'clave' => 'Admin123'
+    'PHPSESSID' => 'o28akrvcgfugjkvt50ns7va833'
+]
+
+$_SESSION = [
+    '__flash' => []
+]
+
+$_SERVER = [
+    'MIBDIRS' => 'C:/xampp2/php/extras/mibs'
+    'MYSQL_HOME' => '\\xampp\\mysql\\bin'
+    'OPENSSL_CONF' => 'C:/xampp2/apache/bin/openssl.cnf'
+    'PHP_PEAR_SYSCONF_DIR' => '\\xampp\\php'
+    'PHPRC' => '\\xampp\\php'
+    'TMP' => '\\xampp\\tmp'
+    'HTTP_HOST' => 'localhost'
+    'HTTP_CONNECTION' => 'keep-alive'
+    'HTTP_UPGRADE_INSECURE_REQUESTS' => '1'
+    'HTTP_USER_AGENT' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.36'
+    'HTTP_ACCEPT' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8'
+    'HTTP_REFERER' => 'http://localhost/competencias/'
+    'HTTP_ACCEPT_ENCODING' => 'gzip, deflate, sdch, br'
+    'HTTP_ACCEPT_LANGUAGE' => 'en-US,en;q=0.8,es;q=0.6'
+    'HTTP_COOKIE' => 'all_RyEgsSBXVzZXJzGICAgMb3ycQJDA-site_visit_time=1492606607016; all_RyEgsSBXVzZXJzGICAgMb3ycQJDA-clickdesk_referrer=http%3A//localhost/iedmac/atenea/index.php%3Fr%3Dsite/login; __RequestVerificationToken=cPyLTjDb8CYm1cASA6lU5brgZu4jvAIhCxaYCAANSrHvk4Dd4a8YvqmD-NdIaZDEcpjlKQbRcgqoRbx4efk-6EMKvVkdFFjcji8uw7tj7_I1; ASP.NET_SessionId=lfqtheavxraymvpgfv5njfis; all_RyEgsSBXVzZXJzGICAgMb3ycQJDA-cd_pubnub_visitor=1492876983850; primer_ingreso=1; all_RyEgsSBXVzZXJzGICAgMb3ycQJDA-visit_count=%7B%22website_count%22%3A375%7D; .ASPXAUTH=CC3BA7E18CF01F2AA7F80F3FEC2B3741C7CB33CEBD82EAFE7B2100D19A41FB834DC47D29D33328E88CF41EEAD0309D0E0E8FCCC6F55723D7BA3186856AB8B87CBF4C94595B53186A06CD4ED5BD3DDF739F45907D5D9B3A0E1BF975B64B362D07; user=admin; perfil=1; sede=1; clave=Admin123; PHPSESSID=o28akrvcgfugjkvt50ns7va833'
+    'PATH' => 'C:\\Program Files (x86)\\Common Files\\Intel\\Shared Files\\cpp\\bin\\Intel64;C:\\ProgramData\\Oracle\\Java\\javapath;C:\\WINDOWS\\system32;C:\\WINDOWS;C:\\WINDOWS\\System32\\Wbem;C:\\WINDOWS\\System32\\WindowsPowerShell\\v1.0;C:\\Program Files\\Intel\\WiFi\\bin;C:\\Program Files\\Common Files\\Intel\\WirelessCommon;C:\\Program Files (x86)\\Intel\\OpenCL SDK\\3.0\\bin\\x86;C:\\Program Files (x86)\\Intel\\OpenCL SDK\\3.0\\bin\\x64;C:\\Program Files (x86)\\Skype\\Phone;C:\\Program Files (x86)\\Microsoft ASP.NET\\ASP.NET Web Pages\\v1.0;C:\\Program Files\\Microsoft SQL Server\\110\\Tools\\Binn;C:\\Program Files\\TortoiseSVN\\bin;C:\\Program Files\\Microsoft\\Web Platform Installer;C:\\ant\\bin;C:\\Program Files\\nodejs;C:\\Users\\Le\\AppData\\Local\\Android\\android-sdk\\platform-tools;C:\\Users\\Le\\.dnx\\bin;C:\\Program Files\\Microsoft DNX\\Dnvm;C:\\Program Files (x86)\\Windows Kits\\10\\Windows Performance Toolkit;C:\\Program Files\\Microsoft SQL Server\\120\\Tools\\Binn;C:\\Program Files\\Java\\jdk1.8.0_73\\bin;C:\\Users\\Le\\AppData\\Local\\Android\\android-sdk\\build-tools\\23.0.2;C:\\Program Files (x86)\\Microsoft SQL Server\\Client SDK\\ODBC\\130\\Tools\\Binn;C:\\Program Files (x86)\\Microsoft SQL Server\\130\\Tools\\Binn;C:\\Program Files (x86)\\Microsoft SQL Server\\130\\DTS\\Binn;C:\\Program Files (x86)\\Microsoft SQL Server\\130\\Tools\\Binn\\ManagementStudio;C:\\PROGRA~2\\Griaule\\FINGER~1\\bin;C:\\Program Files (x86)\\Microsoft SQL Server\\Client SDK\\ODBC\\130\\Tools\\Binn\\;C:\\Program Files (x86)\\Microsoft SQL Server\\130\\Tools\\Binn\\;C:\\Program Files (x86)\\Microsoft SQL Server\\130\\DTS\\Binn\\;C:\\Program Files (x86)\\Microsoft SQL Server\\130\\Tools\\Binn\\ManagementStudio\\;C:\\Program Files (x86)\\NVIDIA Corporation\\PhysX\\Common;C:\\Program Files (x86)\\QuickTime\\QTSystem\\;C:\\WINDOWS\\system32;C:\\WINDOWS;C:\\WINDOWS\\System32\\Wbem;C:\\WINDOWS\\System32\\WindowsPowerShell\\v1.0\\;C:\\xampp2\\php;C:\\ProgramData\\ComposerSetup\\bin;C:\\Program Files\\nodejs\\;C:\\Program Files (x86)\\Skype\\Phone\\;C:\\Program Files (x86)\\GtkSharp\\2.12\\bin;C:\\Program Files\\Intel\\WiFi\\bin\\;C:\\Program Files\\Common Files\\Intel\\WirelessCommon\\;C:\\Program Files\\Git\\bin;C:\\Users\\Le\\AppData\\Local\\Microsoft\\WindowsApps;C:\\Users\\Le\\AppData\\Roaming\\Composer\\vendor\\bin;C:\\Users\\Le\\AppData\\Roaming\\npm;C:\\Users\\Le\\AppData\\Local\\Google\\Cloud SDK\\google-cloud-sdk\\bin'
+    'SystemRoot' => 'C:\\WINDOWS'
+    'COMSPEC' => 'C:\\WINDOWS\\system32\\cmd.exe'
+    'PATHEXT' => '.COM;.EXE;.BAT;.CMD;.VBS;.VBE;.JS;.JSE;.WSF;.WSH;.MSC'
+    'WINDIR' => 'C:\\WINDOWS'
+    'SERVER_SIGNATURE' => '<address>Apache/2.4.17 (Win32) OpenSSL/1.0.2d PHP/5.5.34 Server at localhost Port 80</address>
+'
+    'SERVER_SOFTWARE' => 'Apache/2.4.17 (Win32) OpenSSL/1.0.2d PHP/5.5.34'
+    'SERVER_NAME' => 'localhost'
+    'SERVER_ADDR' => '::1'
+    'SERVER_PORT' => '80'
+    'REMOTE_ADDR' => '::1'
+    'DOCUMENT_ROOT' => 'C:/xampp2/htdocs'
+    'REQUEST_SCHEME' => 'http'
+    'CONTEXT_PREFIX' => ''
+    'CONTEXT_DOCUMENT_ROOT' => 'C:/xampp2/htdocs'
+    'SERVER_ADMIN' => 'postmaster@localhost'
+    'SCRIPT_FILENAME' => 'C:/xampp2/htdocs/competencias/web/index.php'
+    'REMOTE_PORT' => '61225'
+    'GATEWAY_INTERFACE' => 'CGI/1.1'
+    'SERVER_PROTOCOL' => 'HTTP/1.1'
+    'REQUEST_METHOD' => 'GET'
+    'QUERY_STRING' => ''
+    'REQUEST_URI' => '/competencias/web/'
+    'SCRIPT_NAME' => '/competencias/web/index.php'
+    'PHP_SELF' => '/competencias/web/index.php'
+    'REQUEST_TIME_FLOAT' => 1497577339.263
+    'REQUEST_TIME' => 1497577339
+]
+2017-06-16 03:42:58 [::1][-][-][error][yii\base\InvalidConfigException] exception 'yii\base\InvalidConfigException' with message 'yii\web\Request::cookieValidationKey must be configured with a secret key.' in C:\xampp2\htdocs\competencias\vendor\yiisoft\yii2\web\Request.php:1292
+Stack trace:
+#0 C:\xampp2\htdocs\competencias\vendor\yiisoft\yii2\web\Request.php(1274): yii\web\Request->loadCookies()
+#1 C:\xampp2\htdocs\competencias\vendor\yiisoft\yii2\web\Request.php(1355): yii\web\Request->getCookies()
+#2 C:\xampp2\htdocs\competencias\vendor\yiisoft\yii2\web\Request.php(1338): yii\web\Request->loadCsrfToken()
+#3 C:\xampp2\htdocs\competencias\vendor\yiisoft\yii2\helpers\BaseHtml.php(302): yii\web\Request->getCsrfToken()
+#4 C:\xampp2\htdocs\competencias\views\layouts\main.php(21): yii\helpers\BaseHtml::csrfMetaTags()
+#5 C:\xampp2\htdocs\competencias\vendor\yiisoft\yii2\base\View.php(330): require('C:\\xampp2\\htdoc...')
+#6 C:\xampp2\htdocs\competencias\vendor\yiisoft\yii2\base\View.php(250): yii\base\View->renderPhpFile('C:\\xampp2\\htdoc...', Array)
+#7 C:\xampp2\htdocs\competencias\vendor\yiisoft\yii2\base\Controller.php(396): yii\base\View->renderFile('C:\\xampp2\\htdoc...', Array, Object(app\controllers\SiteController))
+#8 C:\xampp2\htdocs\competencias\vendor\yiisoft\yii2\base\Controller.php(382): yii\base\Controller->renderContent('<div class="sit...')
+#9 C:\xampp2\htdocs\competencias\controllers\SiteController.php(64): yii\base\Controller->render('index')
+#10 [internal function]: app\controllers\SiteController->actionIndex()
+#11 C:\xampp2\htdocs\competencias\vendor\yiisoft\yii2\base\InlineAction.php(57): call_user_func_array(Array, Array)
+#12 C:\xampp2\htdocs\competencias\vendor\yiisoft\yii2\base\Controller.php(156): yii\base\InlineAction->runWithParams(Array)
+#13 C:\xampp2\htdocs\competencias\vendor\yiisoft\yii2\base\Module.php(523): yii\base\Controller->runAction('', Array)
+#14 C:\xampp2\htdocs\competencias\vendor\yiisoft\yii2\web\Application.php(102): yii\base\Module->runAction('', Array)
+#15 C:\xampp2\htdocs\competencias\vendor\yiisoft\yii2\base\Application.php(380): yii\web\Application->handleRequest(Object(yii\web\Request))
+#16 C:\xampp2\htdocs\competencias\web\index.php(12): yii\base\Application->run()
+#17 {main}
+2017-06-16 03:42:58 [::1][-][-][info][application] $_COOKIE = [
+    'all_RyEgsSBXVzZXJzGICAgMb3ycQJDA-site_visit_time' => '1492606607016'
+    'all_RyEgsSBXVzZXJzGICAgMb3ycQJDA-clickdesk_referrer' => 'http://localhost/iedmac/atenea/index.php?r=site/login'
+    '__RequestVerificationToken' => 'cPyLTjDb8CYm1cASA6lU5brgZu4jvAIhCxaYCAANSrHvk4Dd4a8YvqmD-NdIaZDEcpjlKQbRcgqoRbx4efk-6EMKvVkdFFjcji8uw7tj7_I1'
+    'ASP_NET_SessionId' => 'lfqtheavxraymvpgfv5njfis'
+    'all_RyEgsSBXVzZXJzGICAgMb3ycQJDA-cd_pubnub_visitor' => '1492876983850'
+    'primer_ingreso' => '1'
+    'all_RyEgsSBXVzZXJzGICAgMb3ycQJDA-visit_count' => '{\"website_count\":375}'
+    '_ASPXAUTH' => 'CC3BA7E18CF01F2AA7F80F3FEC2B3741C7CB33CEBD82EAFE7B2100D19A41FB834DC47D29D33328E88CF41EEAD0309D0E0E8FCCC6F55723D7BA3186856AB8B87CBF4C94595B53186A06CD4ED5BD3DDF739F45907D5D9B3A0E1BF975B64B362D07'
+    'user' => 'admin'
+    'perfil' => '1'
+    'sede' => '1'
+    'clave' => 'Admin123'
+    'PHPSESSID' => 'o28akrvcgfugjkvt50ns7va833'
+]
+
+$_SERVER = [
+    'MIBDIRS' => 'C:/xampp2/php/extras/mibs'
+    'MYSQL_HOME' => '\\xampp\\mysql\\bin'
+    'OPENSSL_CONF' => 'C:/xampp2/apache/bin/openssl.cnf'
+    'PHP_PEAR_SYSCONF_DIR' => '\\xampp\\php'
+    'PHPRC' => '\\xampp\\php'
+    'TMP' => '\\xampp\\tmp'
+    'HTTP_HOST' => 'localhost'
+    'HTTP_CONNECTION' => 'keep-alive'
+    'HTTP_CACHE_CONTROL' => 'max-age=0'
+    'HTTP_UPGRADE_INSECURE_REQUESTS' => '1'
+    'HTTP_USER_AGENT' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.36'
+    'HTTP_ACCEPT' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8'
+    'HTTP_REFERER' => 'http://localhost/competencias/'
+    'HTTP_ACCEPT_ENCODING' => 'gzip, deflate, sdch, br'
+    'HTTP_ACCEPT_LANGUAGE' => 'en-US,en;q=0.8,es;q=0.6'
+    'HTTP_COOKIE' => 'all_RyEgsSBXVzZXJzGICAgMb3ycQJDA-site_visit_time=1492606607016; all_RyEgsSBXVzZXJzGICAgMb3ycQJDA-clickdesk_referrer=http%3A//localhost/iedmac/atenea/index.php%3Fr%3Dsite/login; __RequestVerificationToken=cPyLTjDb8CYm1cASA6lU5brgZu4jvAIhCxaYCAANSrHvk4Dd4a8YvqmD-NdIaZDEcpjlKQbRcgqoRbx4efk-6EMKvVkdFFjcji8uw7tj7_I1; ASP.NET_SessionId=lfqtheavxraymvpgfv5njfis; all_RyEgsSBXVzZXJzGICAgMb3ycQJDA-cd_pubnub_visitor=1492876983850; primer_ingreso=1; all_RyEgsSBXVzZXJzGICAgMb3ycQJDA-visit_count=%7B%22website_count%22%3A375%7D; .ASPXAUTH=CC3BA7E18CF01F2AA7F80F3FEC2B3741C7CB33CEBD82EAFE7B2100D19A41FB834DC47D29D33328E88CF41EEAD0309D0E0E8FCCC6F55723D7BA3186856AB8B87CBF4C94595B53186A06CD4ED5BD3DDF739F45907D5D9B3A0E1BF975B64B362D07; user=admin; perfil=1; sede=1; clave=Admin123; PHPSESSID=o28akrvcgfugjkvt50ns7va833'
+    'PATH' => 'C:\\Program Files (x86)\\Common Files\\Intel\\Shared Files\\cpp\\bin\\Intel64;C:\\ProgramData\\Oracle\\Java\\javapath;C:\\WINDOWS\\system32;C:\\WINDOWS;C:\\WINDOWS\\System32\\Wbem;C:\\WINDOWS\\System32\\WindowsPowerShell\\v1.0;C:\\Program Files\\Intel\\WiFi\\bin;C:\\Program Files\\Common Files\\Intel\\WirelessCommon;C:\\Program Files (x86)\\Intel\\OpenCL SDK\\3.0\\bin\\x86;C:\\Program Files (x86)\\Intel\\OpenCL SDK\\3.0\\bin\\x64;C:\\Program Files (x86)\\Skype\\Phone;C:\\Program Files (x86)\\Microsoft ASP.NET\\ASP.NET Web Pages\\v1.0;C:\\Program Files\\Microsoft SQL Server\\110\\Tools\\Binn;C:\\Program Files\\TortoiseSVN\\bin;C:\\Program Files\\Microsoft\\Web Platform Installer;C:\\ant\\bin;C:\\Program Files\\nodejs;C:\\Users\\Le\\AppData\\Local\\Android\\android-sdk\\platform-tools;C:\\Users\\Le\\.dnx\\bin;C:\\Program Files\\Microsoft DNX\\Dnvm;C:\\Program Files (x86)\\Windows Kits\\10\\Windows Performance Toolkit;C:\\Program Files\\Microsoft SQL Server\\120\\Tools\\Binn;C:\\Program Files\\Java\\jdk1.8.0_73\\bin;C:\\Users\\Le\\AppData\\Local\\Android\\android-sdk\\build-tools\\23.0.2;C:\\Program Files (x86)\\Microsoft SQL Server\\Client SDK\\ODBC\\130\\Tools\\Binn;C:\\Program Files (x86)\\Microsoft SQL Server\\130\\Tools\\Binn;C:\\Program Files (x86)\\Microsoft SQL Server\\130\\DTS\\Binn;C:\\Program Files (x86)\\Microsoft SQL Server\\130\\Tools\\Binn\\ManagementStudio;C:\\PROGRA~2\\Griaule\\FINGER~1\\bin;C:\\Program Files (x86)\\Microsoft SQL Server\\Client SDK\\ODBC\\130\\Tools\\Binn\\;C:\\Program Files (x86)\\Microsoft SQL Server\\130\\Tools\\Binn\\;C:\\Program Files (x86)\\Microsoft SQL Server\\130\\DTS\\Binn\\;C:\\Program Files (x86)\\Microsoft SQL Server\\130\\Tools\\Binn\\ManagementStudio\\;C:\\Program Files (x86)\\NVIDIA Corporation\\PhysX\\Common;C:\\Program Files (x86)\\QuickTime\\QTSystem\\;C:\\WINDOWS\\system32;C:\\WINDOWS;C:\\WINDOWS\\System32\\Wbem;C:\\WINDOWS\\System32\\WindowsPowerShell\\v1.0\\;C:\\xampp2\\php;C:\\ProgramData\\ComposerSetup\\bin;C:\\Program Files\\nodejs\\;C:\\Program Files (x86)\\Skype\\Phone\\;C:\\Program Files (x86)\\GtkSharp\\2.12\\bin;C:\\Program Files\\Intel\\WiFi\\bin\\;C:\\Program Files\\Common Files\\Intel\\WirelessCommon\\;C:\\Program Files\\Git\\bin;C:\\Users\\Le\\AppData\\Local\\Microsoft\\WindowsApps;C:\\Users\\Le\\AppData\\Roaming\\Composer\\vendor\\bin;C:\\Users\\Le\\AppData\\Roaming\\npm;C:\\Users\\Le\\AppData\\Local\\Google\\Cloud SDK\\google-cloud-sdk\\bin'
+    'SystemRoot' => 'C:\\WINDOWS'
+    'COMSPEC' => 'C:\\WINDOWS\\system32\\cmd.exe'
+    'PATHEXT' => '.COM;.EXE;.BAT;.CMD;.VBS;.VBE;.JS;.JSE;.WSF;.WSH;.MSC'
+    'WINDIR' => 'C:\\WINDOWS'
+    'SERVER_SIGNATURE' => '<address>Apache/2.4.17 (Win32) OpenSSL/1.0.2d PHP/5.5.34 Server at localhost Port 80</address>
+'
+    'SERVER_SOFTWARE' => 'Apache/2.4.17 (Win32) OpenSSL/1.0.2d PHP/5.5.34'
+    'SERVER_NAME' => 'localhost'
+    'SERVER_ADDR' => '::1'
+    'SERVER_PORT' => '80'
+    'REMOTE_ADDR' => '::1'
+    'DOCUMENT_ROOT' => 'C:/xampp2/htdocs'
+    'REQUEST_SCHEME' => 'http'
+    'CONTEXT_PREFIX' => ''
+    'CONTEXT_DOCUMENT_ROOT' => 'C:/xampp2/htdocs'
+    'SERVER_ADMIN' => 'postmaster@localhost'
+    'SCRIPT_FILENAME' => 'C:/xampp2/htdocs/competencias/web/index.php'
+    'REMOTE_PORT' => '61229'
+    'GATEWAY_INTERFACE' => 'CGI/1.1'
+    'SERVER_PROTOCOL' => 'HTTP/1.1'
+    'REQUEST_METHOD' => 'GET'
+    'QUERY_STRING' => ''
+    'REQUEST_URI' => '/competencias/web/'
+    'SCRIPT_NAME' => '/competencias/web/index.php'
+    'PHP_SELF' => '/competencias/web/index.php'
+    'REQUEST_TIME_FLOAT' => 1497577378.01
+    'REQUEST_TIME' => 1497577378
+]
+2017-06-16 03:42:58 [::1][-][o28akrvcgfugjkvt50ns7va833][warning][yii\log\Dispatcher::dispatch] Unable to send log via yii\debug\LogTarget: Exception (Invalid Configuration) 'yii\base\InvalidConfigException' with message 'yii\web\Request::cookieValidationKey must be configured with a secret key.' 
+
+in C:\xampp2\htdocs\competencias\vendor\yiisoft\yii2\web\Request.php:1292
+
+Stack trace:
+#0 C:\xampp2\htdocs\competencias\vendor\yiisoft\yii2\web\Request.php(1274): yii\web\Request->loadCookies()
+#1 C:\xampp2\htdocs\competencias\vendor\yiisoft\yii2\web\User.php(555): yii\web\Request->getCookies()
+#2 C:\xampp2\htdocs\competencias\vendor\yiisoft\yii2\web\User.php(287): yii\web\User->getIdentityAndDurationFromCookie()
+#3 C:\xampp2\htdocs\competencias\vendor\yiisoft\yii2\web\User.php(674): yii\web\User->loginByCookie()
+#4 C:\xampp2\htdocs\competencias\vendor\yiisoft\yii2\web\User.php(188): yii\web\User->renewAuthStatus()
+#5 C:\xampp2\htdocs\competencias\vendor\yiisoft\yii2\base\Component.php(132): yii\web\User->getIdentity()
+#6 C:\xampp2\htdocs\competencias\vendor\yiisoft\yii2-debug\panels\UserPanel.php(54): yii\base\Component->__get('identity')
+#7 C:\xampp2\htdocs\competencias\vendor\yiisoft\yii2-debug\LogTarget.php(54): yii\debug\panels\UserPanel->save()
+#8 C:\xampp2\htdocs\competencias\vendor\yiisoft\yii2-debug\LogTarget.php(118): yii\debug\LogTarget->export()
+#9 C:\xampp2\htdocs\competencias\vendor\yiisoft\yii2\log\Dispatcher.php(188): yii\debug\LogTarget->collect(Array, true)
+#10 C:\xampp2\htdocs\competencias\vendor\yiisoft\yii2\log\Logger.php(177): yii\log\Dispatcher->dispatch(Array, true)
+#11 C:\xampp2\htdocs\competencias\vendor\yiisoft\yii2\base\ErrorHandler.php(113): yii\log\Logger->flush(true)
+#12 [internal function]: yii\base\ErrorHandler->handleException(Object(yii\base\InvalidConfigException))
+#13 {main}
+2017-06-16 03:42:58 [::1][-][o28akrvcgfugjkvt50ns7va833][info][application] $_COOKIE = [
+    'all_RyEgsSBXVzZXJzGICAgMb3ycQJDA-site_visit_time' => '1492606607016'
+    'all_RyEgsSBXVzZXJzGICAgMb3ycQJDA-clickdesk_referrer' => 'http://localhost/iedmac/atenea/index.php?r=site/login'
+    '__RequestVerificationToken' => 'cPyLTjDb8CYm1cASA6lU5brgZu4jvAIhCxaYCAANSrHvk4Dd4a8YvqmD-NdIaZDEcpjlKQbRcgqoRbx4efk-6EMKvVkdFFjcji8uw7tj7_I1'
+    'ASP_NET_SessionId' => 'lfqtheavxraymvpgfv5njfis'
+    'all_RyEgsSBXVzZXJzGICAgMb3ycQJDA-cd_pubnub_visitor' => '1492876983850'
+    'primer_ingreso' => '1'
+    'all_RyEgsSBXVzZXJzGICAgMb3ycQJDA-visit_count' => '{\"website_count\":375}'
+    '_ASPXAUTH' => 'CC3BA7E18CF01F2AA7F80F3FEC2B3741C7CB33CEBD82EAFE7B2100D19A41FB834DC47D29D33328E88CF41EEAD0309D0E0E8FCCC6F55723D7BA3186856AB8B87CBF4C94595B53186A06CD4ED5BD3DDF739F45907D5D9B3A0E1BF975B64B362D07'
+    'user' => 'admin'
+    'perfil' => '1'
+    'sede' => '1'
+    'clave' => 'Admin123'
+    'PHPSESSID' => 'o28akrvcgfugjkvt50ns7va833'
+]
+
+$_SESSION = [
+    '__flash' => []
+]
+
+$_SERVER = [
+    'MIBDIRS' => 'C:/xampp2/php/extras/mibs'
+    'MYSQL_HOME' => '\\xampp\\mysql\\bin'
+    'OPENSSL_CONF' => 'C:/xampp2/apache/bin/openssl.cnf'
+    'PHP_PEAR_SYSCONF_DIR' => '\\xampp\\php'
+    'PHPRC' => '\\xampp\\php'
+    'TMP' => '\\xampp\\tmp'
+    'HTTP_HOST' => 'localhost'
+    'HTTP_CONNECTION' => 'keep-alive'
+    'HTTP_CACHE_CONTROL' => 'max-age=0'
+    'HTTP_UPGRADE_INSECURE_REQUESTS' => '1'
+    'HTTP_USER_AGENT' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.36'
+    'HTTP_ACCEPT' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8'
+    'HTTP_REFERER' => 'http://localhost/competencias/'
+    'HTTP_ACCEPT_ENCODING' => 'gzip, deflate, sdch, br'
+    'HTTP_ACCEPT_LANGUAGE' => 'en-US,en;q=0.8,es;q=0.6'
+    'HTTP_COOKIE' => 'all_RyEgsSBXVzZXJzGICAgMb3ycQJDA-site_visit_time=1492606607016; all_RyEgsSBXVzZXJzGICAgMb3ycQJDA-clickdesk_referrer=http%3A//localhost/iedmac/atenea/index.php%3Fr%3Dsite/login; __RequestVerificationToken=cPyLTjDb8CYm1cASA6lU5brgZu4jvAIhCxaYCAANSrHvk4Dd4a8YvqmD-NdIaZDEcpjlKQbRcgqoRbx4efk-6EMKvVkdFFjcji8uw7tj7_I1; ASP.NET_SessionId=lfqtheavxraymvpgfv5njfis; all_RyEgsSBXVzZXJzGICAgMb3ycQJDA-cd_pubnub_visitor=1492876983850; primer_ingreso=1; all_RyEgsSBXVzZXJzGICAgMb3ycQJDA-visit_count=%7B%22website_count%22%3A375%7D; .ASPXAUTH=CC3BA7E18CF01F2AA7F80F3FEC2B3741C7CB33CEBD82EAFE7B2100D19A41FB834DC47D29D33328E88CF41EEAD0309D0E0E8FCCC6F55723D7BA3186856AB8B87CBF4C94595B53186A06CD4ED5BD3DDF739F45907D5D9B3A0E1BF975B64B362D07; user=admin; perfil=1; sede=1; clave=Admin123; PHPSESSID=o28akrvcgfugjkvt50ns7va833'
+    'PATH' => 'C:\\Program Files (x86)\\Common Files\\Intel\\Shared Files\\cpp\\bin\\Intel64;C:\\ProgramData\\Oracle\\Java\\javapath;C:\\WINDOWS\\system32;C:\\WINDOWS;C:\\WINDOWS\\System32\\Wbem;C:\\WINDOWS\\System32\\WindowsPowerShell\\v1.0;C:\\Program Files\\Intel\\WiFi\\bin;C:\\Program Files\\Common Files\\Intel\\WirelessCommon;C:\\Program Files (x86)\\Intel\\OpenCL SDK\\3.0\\bin\\x86;C:\\Program Files (x86)\\Intel\\OpenCL SDK\\3.0\\bin\\x64;C:\\Program Files (x86)\\Skype\\Phone;C:\\Program Files (x86)\\Microsoft ASP.NET\\ASP.NET Web Pages\\v1.0;C:\\Program Files\\Microsoft SQL Server\\110\\Tools\\Binn;C:\\Program Files\\TortoiseSVN\\bin;C:\\Program Files\\Microsoft\\Web Platform Installer;C:\\ant\\bin;C:\\Program Files\\nodejs;C:\\Users\\Le\\AppData\\Local\\Android\\android-sdk\\platform-tools;C:\\Users\\Le\\.dnx\\bin;C:\\Program Files\\Microsoft DNX\\Dnvm;C:\\Program Files (x86)\\Windows Kits\\10\\Windows Performance Toolkit;C:\\Program Files\\Microsoft SQL Server\\120\\Tools\\Binn;C:\\Program Files\\Java\\jdk1.8.0_73\\bin;C:\\Users\\Le\\AppData\\Local\\Android\\android-sdk\\build-tools\\23.0.2;C:\\Program Files (x86)\\Microsoft SQL Server\\Client SDK\\ODBC\\130\\Tools\\Binn;C:\\Program Files (x86)\\Microsoft SQL Server\\130\\Tools\\Binn;C:\\Program Files (x86)\\Microsoft SQL Server\\130\\DTS\\Binn;C:\\Program Files (x86)\\Microsoft SQL Server\\130\\Tools\\Binn\\ManagementStudio;C:\\PROGRA~2\\Griaule\\FINGER~1\\bin;C:\\Program Files (x86)\\Microsoft SQL Server\\Client SDK\\ODBC\\130\\Tools\\Binn\\;C:\\Program Files (x86)\\Microsoft SQL Server\\130\\Tools\\Binn\\;C:\\Program Files (x86)\\Microsoft SQL Server\\130\\DTS\\Binn\\;C:\\Program Files (x86)\\Microsoft SQL Server\\130\\Tools\\Binn\\ManagementStudio\\;C:\\Program Files (x86)\\NVIDIA Corporation\\PhysX\\Common;C:\\Program Files (x86)\\QuickTime\\QTSystem\\;C:\\WINDOWS\\system32;C:\\WINDOWS;C:\\WINDOWS\\System32\\Wbem;C:\\WINDOWS\\System32\\WindowsPowerShell\\v1.0\\;C:\\xampp2\\php;C:\\ProgramData\\ComposerSetup\\bin;C:\\Program Files\\nodejs\\;C:\\Program Files (x86)\\Skype\\Phone\\;C:\\Program Files (x86)\\GtkSharp\\2.12\\bin;C:\\Program Files\\Intel\\WiFi\\bin\\;C:\\Program Files\\Common Files\\Intel\\WirelessCommon\\;C:\\Program Files\\Git\\bin;C:\\Users\\Le\\AppData\\Local\\Microsoft\\WindowsApps;C:\\Users\\Le\\AppData\\Roaming\\Composer\\vendor\\bin;C:\\Users\\Le\\AppData\\Roaming\\npm;C:\\Users\\Le\\AppData\\Local\\Google\\Cloud SDK\\google-cloud-sdk\\bin'
+    'SystemRoot' => 'C:\\WINDOWS'
+    'COMSPEC' => 'C:\\WINDOWS\\system32\\cmd.exe'
+    'PATHEXT' => '.COM;.EXE;.BAT;.CMD;.VBS;.VBE;.JS;.JSE;.WSF;.WSH;.MSC'
+    'WINDIR' => 'C:\\WINDOWS'
+    'SERVER_SIGNATURE' => '<address>Apache/2.4.17 (Win32) OpenSSL/1.0.2d PHP/5.5.34 Server at localhost Port 80</address>
+'
+    'SERVER_SOFTWARE' => 'Apache/2.4.17 (Win32) OpenSSL/1.0.2d PHP/5.5.34'
+    'SERVER_NAME' => 'localhost'
+    'SERVER_ADDR' => '::1'
+    'SERVER_PORT' => '80'
+    'REMOTE_ADDR' => '::1'
+    'DOCUMENT_ROOT' => 'C:/xampp2/htdocs'
+    'REQUEST_SCHEME' => 'http'
+    'CONTEXT_PREFIX' => ''
+    'CONTEXT_DOCUMENT_ROOT' => 'C:/xampp2/htdocs'
+    'SERVER_ADMIN' => 'postmaster@localhost'
+    'SCRIPT_FILENAME' => 'C:/xampp2/htdocs/competencias/web/index.php'
+    'REMOTE_PORT' => '61229'
+    'GATEWAY_INTERFACE' => 'CGI/1.1'
+    'SERVER_PROTOCOL' => 'HTTP/1.1'
+    'REQUEST_METHOD' => 'GET'
+    'QUERY_STRING' => ''
+    'REQUEST_URI' => '/competencias/web/'
+    'SCRIPT_NAME' => '/competencias/web/index.php'
+    'PHP_SELF' => '/competencias/web/index.php'
+    'REQUEST_TIME_FLOAT' => 1497577378.01
+    'REQUEST_TIME' => 1497577378
+]
+2017-06-16 03:49:55 [::1][-][-][error][yii\base\InvalidConfigException] exception 'yii\base\InvalidConfigException' with message 'yii\web\Request::cookieValidationKey must be configured with a secret key.' in C:\xampp2\htdocs\competencias\vendor\yiisoft\yii2\web\Request.php:1292
+Stack trace:
+#0 C:\xampp2\htdocs\competencias\vendor\yiisoft\yii2\web\Request.php(1274): yii\web\Request->loadCookies()
+#1 C:\xampp2\htdocs\competencias\vendor\yiisoft\yii2\web\Request.php(1355): yii\web\Request->getCookies()
+#2 C:\xampp2\htdocs\competencias\vendor\yiisoft\yii2\web\Request.php(1338): yii\web\Request->loadCsrfToken()
+#3 C:\xampp2\htdocs\competencias\vendor\yiisoft\yii2\helpers\BaseHtml.php(302): yii\web\Request->getCsrfToken()
+#4 C:\xampp2\htdocs\competencias\views\layouts\main.php(21): yii\helpers\BaseHtml::csrfMetaTags()
+#5 C:\xampp2\htdocs\competencias\vendor\yiisoft\yii2\base\View.php(330): require('C:\\xampp2\\htdoc...')
+#6 C:\xampp2\htdocs\competencias\vendor\yiisoft\yii2\base\View.php(250): yii\base\View->renderPhpFile('C:\\xampp2\\htdoc...', Array)
+#7 C:\xampp2\htdocs\competencias\vendor\yiisoft\yii2\base\Controller.php(396): yii\base\View->renderFile('C:\\xampp2\\htdoc...', Array, Object(app\controllers\SiteController))
+#8 C:\xampp2\htdocs\competencias\vendor\yiisoft\yii2\base\Controller.php(382): yii\base\Controller->renderContent('<div class="sit...')
+#9 C:\xampp2\htdocs\competencias\controllers\SiteController.php(64): yii\base\Controller->render('index')
+#10 [internal function]: app\controllers\SiteController->actionIndex()
+#11 C:\xampp2\htdocs\competencias\vendor\yiisoft\yii2\base\InlineAction.php(57): call_user_func_array(Array, Array)
+#12 C:\xampp2\htdocs\competencias\vendor\yiisoft\yii2\base\Controller.php(156): yii\base\InlineAction->runWithParams(Array)
+#13 C:\xampp2\htdocs\competencias\vendor\yiisoft\yii2\base\Module.php(523): yii\base\Controller->runAction('', Array)
+#14 C:\xampp2\htdocs\competencias\vendor\yiisoft\yii2\web\Application.php(102): yii\base\Module->runAction('', Array)
+#15 C:\xampp2\htdocs\competencias\vendor\yiisoft\yii2\base\Application.php(380): yii\web\Application->handleRequest(Object(yii\web\Request))
+#16 C:\xampp2\htdocs\competencias\web\index.php(12): yii\base\Application->run()
+#17 {main}
+2017-06-16 03:49:55 [::1][-][-][info][application] $_COOKIE = [
+    'all_RyEgsSBXVzZXJzGICAgMb3ycQJDA-site_visit_time' => '1492606607016'
+    'all_RyEgsSBXVzZXJzGICAgMb3ycQJDA-clickdesk_referrer' => 'http://localhost/iedmac/atenea/index.php?r=site/login'
+    '__RequestVerificationToken' => 'cPyLTjDb8CYm1cASA6lU5brgZu4jvAIhCxaYCAANSrHvk4Dd4a8YvqmD-NdIaZDEcpjlKQbRcgqoRbx4efk-6EMKvVkdFFjcji8uw7tj7_I1'
+    'ASP_NET_SessionId' => 'lfqtheavxraymvpgfv5njfis'
+    'all_RyEgsSBXVzZXJzGICAgMb3ycQJDA-cd_pubnub_visitor' => '1492876983850'
+    'primer_ingreso' => '1'
+    'all_RyEgsSBXVzZXJzGICAgMb3ycQJDA-visit_count' => '{\"website_count\":375}'
+    '_ASPXAUTH' => 'CC3BA7E18CF01F2AA7F80F3FEC2B3741C7CB33CEBD82EAFE7B2100D19A41FB834DC47D29D33328E88CF41EEAD0309D0E0E8FCCC6F55723D7BA3186856AB8B87CBF4C94595B53186A06CD4ED5BD3DDF739F45907D5D9B3A0E1BF975B64B362D07'
+    'user' => 'admin'
+    'perfil' => '1'
+    'sede' => '1'
+    'clave' => 'Admin123'
+    'PHPSESSID' => 'o28akrvcgfugjkvt50ns7va833'
+]
+
+$_SERVER = [
+    'DOCUMENT_ROOT' => 'C:\\xampp2\\htdocs\\competencias\\web'
+    'REMOTE_ADDR' => '::1'
+    'REMOTE_PORT' => '61376'
+    'SERVER_SOFTWARE' => 'PHP 5.5.34 Development Server'
+    'SERVER_PROTOCOL' => 'HTTP/1.1'
+    'SERVER_NAME' => 'localhost'
+    'SERVER_PORT' => '8080'
+    'REQUEST_URI' => '/'
+    'REQUEST_METHOD' => 'GET'
+    'SCRIPT_NAME' => '/index.php'
+    'SCRIPT_FILENAME' => 'C:\\xampp2\\htdocs\\competencias\\web\\index.php'
+    'PATH_INFO' => '/'
+    'PHP_SELF' => '/index.php/'
+    'HTTP_HOST' => 'localhost:8080'
+    'HTTP_CONNECTION' => 'keep-alive'
+    'HTTP_UPGRADE_INSECURE_REQUESTS' => '1'
+    'HTTP_USER_AGENT' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.36'
+    'HTTP_ACCEPT' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8'
+    'HTTP_ACCEPT_ENCODING' => 'gzip, deflate, sdch, br'
+    'HTTP_ACCEPT_LANGUAGE' => 'en-US,en;q=0.8,es;q=0.6'
+    'HTTP_COOKIE' => 'all_RyEgsSBXVzZXJzGICAgMb3ycQJDA-site_visit_time=1492606607016; all_RyEgsSBXVzZXJzGICAgMb3ycQJDA-clickdesk_referrer=http%3A//localhost/iedmac/atenea/index.php%3Fr%3Dsite/login; __RequestVerificationToken=cPyLTjDb8CYm1cASA6lU5brgZu4jvAIhCxaYCAANSrHvk4Dd4a8YvqmD-NdIaZDEcpjlKQbRcgqoRbx4efk-6EMKvVkdFFjcji8uw7tj7_I1; ASP.NET_SessionId=lfqtheavxraymvpgfv5njfis; all_RyEgsSBXVzZXJzGICAgMb3ycQJDA-cd_pubnub_visitor=1492876983850; primer_ingreso=1; all_RyEgsSBXVzZXJzGICAgMb3ycQJDA-visit_count=%7B%22website_count%22%3A375%7D; .ASPXAUTH=CC3BA7E18CF01F2AA7F80F3FEC2B3741C7CB33CEBD82EAFE7B2100D19A41FB834DC47D29D33328E88CF41EEAD0309D0E0E8FCCC6F55723D7BA3186856AB8B87CBF4C94595B53186A06CD4ED5BD3DDF739F45907D5D9B3A0E1BF975B64B362D07; user=admin; perfil=1; sede=1; clave=Admin123; PHPSESSID=o28akrvcgfugjkvt50ns7va833'
+    'REQUEST_TIME_FLOAT' => 1497577795.1915
+    'REQUEST_TIME' => 1497577795
+]
+2017-06-16 03:49:55 [::1][-][o28akrvcgfugjkvt50ns7va833][warning][yii\log\Dispatcher::dispatch] Unable to send log via yii\debug\LogTarget: Exception (Invalid Configuration) 'yii\base\InvalidConfigException' with message 'yii\web\Request::cookieValidationKey must be configured with a secret key.' 
+
+in C:\xampp2\htdocs\competencias\vendor\yiisoft\yii2\web\Request.php:1292
+
+Stack trace:
+#0 C:\xampp2\htdocs\competencias\vendor\yiisoft\yii2\web\Request.php(1274): yii\web\Request->loadCookies()
+#1 C:\xampp2\htdocs\competencias\vendor\yiisoft\yii2\web\User.php(555): yii\web\Request->getCookies()
+#2 C:\xampp2\htdocs\competencias\vendor\yiisoft\yii2\web\User.php(287): yii\web\User->getIdentityAndDurationFromCookie()
+#3 C:\xampp2\htdocs\competencias\vendor\yiisoft\yii2\web\User.php(674): yii\web\User->loginByCookie()
+#4 C:\xampp2\htdocs\competencias\vendor\yiisoft\yii2\web\User.php(188): yii\web\User->renewAuthStatus()
+#5 C:\xampp2\htdocs\competencias\vendor\yiisoft\yii2\base\Component.php(132): yii\web\User->getIdentity()
+#6 C:\xampp2\htdocs\competencias\vendor\yiisoft\yii2-debug\panels\UserPanel.php(54): yii\base\Component->__get('identity')
+#7 C:\xampp2\htdocs\competencias\vendor\yiisoft\yii2-debug\LogTarget.php(54): yii\debug\panels\UserPanel->save()
+#8 C:\xampp2\htdocs\competencias\vendor\yiisoft\yii2-debug\LogTarget.php(118): yii\debug\LogTarget->export()
+#9 C:\xampp2\htdocs\competencias\vendor\yiisoft\yii2\log\Dispatcher.php(188): yii\debug\LogTarget->collect(Array, true)
+#10 C:\xampp2\htdocs\competencias\vendor\yiisoft\yii2\log\Logger.php(177): yii\log\Dispatcher->dispatch(Array, true)
+#11 C:\xampp2\htdocs\competencias\vendor\yiisoft\yii2\base\ErrorHandler.php(113): yii\log\Logger->flush(true)
+#12 [internal function]: yii\base\ErrorHandler->handleException(Object(yii\base\InvalidConfigException))
+#13 {main}
+2017-06-16 03:49:55 [::1][-][o28akrvcgfugjkvt50ns7va833][info][application] $_COOKIE = [
+    'all_RyEgsSBXVzZXJzGICAgMb3ycQJDA-site_visit_time' => '1492606607016'
+    'all_RyEgsSBXVzZXJzGICAgMb3ycQJDA-clickdesk_referrer' => 'http://localhost/iedmac/atenea/index.php?r=site/login'
+    '__RequestVerificationToken' => 'cPyLTjDb8CYm1cASA6lU5brgZu4jvAIhCxaYCAANSrHvk4Dd4a8YvqmD-NdIaZDEcpjlKQbRcgqoRbx4efk-6EMKvVkdFFjcji8uw7tj7_I1'
+    'ASP_NET_SessionId' => 'lfqtheavxraymvpgfv5njfis'
+    'all_RyEgsSBXVzZXJzGICAgMb3ycQJDA-cd_pubnub_visitor' => '1492876983850'
+    'primer_ingreso' => '1'
+    'all_RyEgsSBXVzZXJzGICAgMb3ycQJDA-visit_count' => '{\"website_count\":375}'
+    '_ASPXAUTH' => 'CC3BA7E18CF01F2AA7F80F3FEC2B3741C7CB33CEBD82EAFE7B2100D19A41FB834DC47D29D33328E88CF41EEAD0309D0E0E8FCCC6F55723D7BA3186856AB8B87CBF4C94595B53186A06CD4ED5BD3DDF739F45907D5D9B3A0E1BF975B64B362D07'
+    'user' => 'admin'
+    'perfil' => '1'
+    'sede' => '1'
+    'clave' => 'Admin123'
+    'PHPSESSID' => 'o28akrvcgfugjkvt50ns7va833'
+]
+
+$_SESSION = [
+    '__flash' => []
+]
+
+$_SERVER = [
+    'DOCUMENT_ROOT' => 'C:\\xampp2\\htdocs\\competencias\\web'
+    'REMOTE_ADDR' => '::1'
+    'REMOTE_PORT' => '61376'
+    'SERVER_SOFTWARE' => 'PHP 5.5.34 Development Server'
+    'SERVER_PROTOCOL' => 'HTTP/1.1'
+    'SERVER_NAME' => 'localhost'
+    'SERVER_PORT' => '8080'
+    'REQUEST_URI' => '/'
+    'REQUEST_METHOD' => 'GET'
+    'SCRIPT_NAME' => '/index.php'
+    'SCRIPT_FILENAME' => 'C:\\xampp2\\htdocs\\competencias\\web\\index.php'
+    'PATH_INFO' => '/'
+    'PHP_SELF' => '/index.php/'
+    'HTTP_HOST' => 'localhost:8080'
+    'HTTP_CONNECTION' => 'keep-alive'
+    'HTTP_UPGRADE_INSECURE_REQUESTS' => '1'
+    'HTTP_USER_AGENT' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.36'
+    'HTTP_ACCEPT' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8'
+    'HTTP_ACCEPT_ENCODING' => 'gzip, deflate, sdch, br'
+    'HTTP_ACCEPT_LANGUAGE' => 'en-US,en;q=0.8,es;q=0.6'
+    'HTTP_COOKIE' => 'all_RyEgsSBXVzZXJzGICAgMb3ycQJDA-site_visit_time=1492606607016; all_RyEgsSBXVzZXJzGICAgMb3ycQJDA-clickdesk_referrer=http%3A//localhost/iedmac/atenea/index.php%3Fr%3Dsite/login; __RequestVerificationToken=cPyLTjDb8CYm1cASA6lU5brgZu4jvAIhCxaYCAANSrHvk4Dd4a8YvqmD-NdIaZDEcpjlKQbRcgqoRbx4efk-6EMKvVkdFFjcji8uw7tj7_I1; ASP.NET_SessionId=lfqtheavxraymvpgfv5njfis; all_RyEgsSBXVzZXJzGICAgMb3ycQJDA-cd_pubnub_visitor=1492876983850; primer_ingreso=1; all_RyEgsSBXVzZXJzGICAgMb3ycQJDA-visit_count=%7B%22website_count%22%3A375%7D; .ASPXAUTH=CC3BA7E18CF01F2AA7F80F3FEC2B3741C7CB33CEBD82EAFE7B2100D19A41FB834DC47D29D33328E88CF41EEAD0309D0E0E8FCCC6F55723D7BA3186856AB8B87CBF4C94595B53186A06CD4ED5BD3DDF739F45907D5D9B3A0E1BF975B64B362D07; user=admin; perfil=1; sede=1; clave=Admin123; PHPSESSID=o28akrvcgfugjkvt50ns7va833'
+    'REQUEST_TIME_FLOAT' => 1497577795.1915
+    'REQUEST_TIME' => 1497577795
+]
+2017-06-16 03:50:02 [::1][-][-][error][yii\base\InvalidConfigException] exception 'yii\base\InvalidConfigException' with message 'yii\web\Request::cookieValidationKey must be configured with a secret key.' in C:\xampp2\htdocs\competencias\vendor\yiisoft\yii2\web\Request.php:1292
+Stack trace:
+#0 C:\xampp2\htdocs\competencias\vendor\yiisoft\yii2\web\Request.php(1274): yii\web\Request->loadCookies()
+#1 C:\xampp2\htdocs\competencias\vendor\yiisoft\yii2\web\Request.php(1355): yii\web\Request->getCookies()
+#2 C:\xampp2\htdocs\competencias\vendor\yiisoft\yii2\web\Request.php(1338): yii\web\Request->loadCsrfToken()
+#3 C:\xampp2\htdocs\competencias\vendor\yiisoft\yii2\helpers\BaseHtml.php(302): yii\web\Request->getCsrfToken()
+#4 C:\xampp2\htdocs\competencias\views\layouts\main.php(21): yii\helpers\BaseHtml::csrfMetaTags()
+#5 C:\xampp2\htdocs\competencias\vendor\yiisoft\yii2\base\View.php(330): require('C:\\xampp2\\htdoc...')
+#6 C:\xampp2\htdocs\competencias\vendor\yiisoft\yii2\base\View.php(250): yii\base\View->renderPhpFile('C:\\xampp2\\htdoc...', Array)
+#7 C:\xampp2\htdocs\competencias\vendor\yiisoft\yii2\base\Controller.php(396): yii\base\View->renderFile('C:\\xampp2\\htdoc...', Array, Object(app\controllers\SiteController))
+#8 C:\xampp2\htdocs\competencias\vendor\yiisoft\yii2\base\Controller.php(382): yii\base\Controller->renderContent('<div class="sit...')
+#9 C:\xampp2\htdocs\competencias\controllers\SiteController.php(64): yii\base\Controller->render('index')
+#10 [internal function]: app\controllers\SiteController->actionIndex()
+#11 C:\xampp2\htdocs\competencias\vendor\yiisoft\yii2\base\InlineAction.php(57): call_user_func_array(Array, Array)
+#12 C:\xampp2\htdocs\competencias\vendor\yiisoft\yii2\base\Controller.php(156): yii\base\InlineAction->runWithParams(Array)
+#13 C:\xampp2\htdocs\competencias\vendor\yiisoft\yii2\base\Module.php(523): yii\base\Controller->runAction('', Array)
+#14 C:\xampp2\htdocs\competencias\vendor\yiisoft\yii2\web\Application.php(102): yii\base\Module->runAction('', Array)
+#15 C:\xampp2\htdocs\competencias\vendor\yiisoft\yii2\base\Application.php(380): yii\web\Application->handleRequest(Object(yii\web\Request))
+#16 C:\xampp2\htdocs\competencias\web\index.php(12): yii\base\Application->run()
+#17 {main}
+2017-06-16 03:50:02 [::1][-][-][info][application] $_COOKIE = [
+    'all_RyEgsSBXVzZXJzGICAgMb3ycQJDA-site_visit_time' => '1492606607016'
+    'all_RyEgsSBXVzZXJzGICAgMb3ycQJDA-clickdesk_referrer' => 'http://localhost/iedmac/atenea/index.php?r=site/login'
+    '__RequestVerificationToken' => 'cPyLTjDb8CYm1cASA6lU5brgZu4jvAIhCxaYCAANSrHvk4Dd4a8YvqmD-NdIaZDEcpjlKQbRcgqoRbx4efk-6EMKvVkdFFjcji8uw7tj7_I1'
+    'ASP_NET_SessionId' => 'lfqtheavxraymvpgfv5njfis'
+    'all_RyEgsSBXVzZXJzGICAgMb3ycQJDA-cd_pubnub_visitor' => '1492876983850'
+    'primer_ingreso' => '1'
+    'all_RyEgsSBXVzZXJzGICAgMb3ycQJDA-visit_count' => '{\"website_count\":375}'
+    '_ASPXAUTH' => 'CC3BA7E18CF01F2AA7F80F3FEC2B3741C7CB33CEBD82EAFE7B2100D19A41FB834DC47D29D33328E88CF41EEAD0309D0E0E8FCCC6F55723D7BA3186856AB8B87CBF4C94595B53186A06CD4ED5BD3DDF739F45907D5D9B3A0E1BF975B64B362D07'
+    'user' => 'admin'
+    'perfil' => '1'
+    'sede' => '1'
+    'clave' => 'Admin123'
+    'PHPSESSID' => 'o28akrvcgfugjkvt50ns7va833'
+]
+
+$_SERVER = [
+    'DOCUMENT_ROOT' => 'C:\\xampp2\\htdocs\\competencias\\web'
+    'REMOTE_ADDR' => '::1'
+    'REMOTE_PORT' => '61381'
+    'SERVER_SOFTWARE' => 'PHP 5.5.34 Development Server'
+    'SERVER_PROTOCOL' => 'HTTP/1.1'
+    'SERVER_NAME' => 'localhost'
+    'SERVER_PORT' => '8080'
+    'REQUEST_URI' => '/web'
+    'REQUEST_METHOD' => 'GET'
+    'SCRIPT_NAME' => '/index.php'
+    'SCRIPT_FILENAME' => 'C:\\xampp2\\htdocs\\competencias\\web\\index.php'
+    'PATH_INFO' => '/web'
+    'PHP_SELF' => '/index.php/web'
+    'HTTP_HOST' => 'localhost:8080'
+    'HTTP_CONNECTION' => 'keep-alive'
+    'HTTP_UPGRADE_INSECURE_REQUESTS' => '1'
+    'HTTP_USER_AGENT' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.36'
+    'HTTP_ACCEPT' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8'
+    'HTTP_ACCEPT_ENCODING' => 'gzip, deflate, sdch, br'
+    'HTTP_ACCEPT_LANGUAGE' => 'en-US,en;q=0.8,es;q=0.6'
+    'HTTP_COOKIE' => 'all_RyEgsSBXVzZXJzGICAgMb3ycQJDA-site_visit_time=1492606607016; all_RyEgsSBXVzZXJzGICAgMb3ycQJDA-clickdesk_referrer=http%3A//localhost/iedmac/atenea/index.php%3Fr%3Dsite/login; __RequestVerificationToken=cPyLTjDb8CYm1cASA6lU5brgZu4jvAIhCxaYCAANSrHvk4Dd4a8YvqmD-NdIaZDEcpjlKQbRcgqoRbx4efk-6EMKvVkdFFjcji8uw7tj7_I1; ASP.NET_SessionId=lfqtheavxraymvpgfv5njfis; all_RyEgsSBXVzZXJzGICAgMb3ycQJDA-cd_pubnub_visitor=1492876983850; primer_ingreso=1; all_RyEgsSBXVzZXJzGICAgMb3ycQJDA-visit_count=%7B%22website_count%22%3A375%7D; .ASPXAUTH=CC3BA7E18CF01F2AA7F80F3FEC2B3741C7CB33CEBD82EAFE7B2100D19A41FB834DC47D29D33328E88CF41EEAD0309D0E0E8FCCC6F55723D7BA3186856AB8B87CBF4C94595B53186A06CD4ED5BD3DDF739F45907D5D9B3A0E1BF975B64B362D07; user=admin; perfil=1; sede=1; clave=Admin123; PHPSESSID=o28akrvcgfugjkvt50ns7va833'
+    'REQUEST_TIME_FLOAT' => 1497577802.547
+    'REQUEST_TIME' => 1497577802
+]
+2017-06-16 03:50:02 [::1][-][o28akrvcgfugjkvt50ns7va833][warning][yii\log\Dispatcher::dispatch] Unable to send log via yii\debug\LogTarget: Exception (Invalid Configuration) 'yii\base\InvalidConfigException' with message 'yii\web\Request::cookieValidationKey must be configured with a secret key.' 
+
+in C:\xampp2\htdocs\competencias\vendor\yiisoft\yii2\web\Request.php:1292
+
+Stack trace:
+#0 C:\xampp2\htdocs\competencias\vendor\yiisoft\yii2\web\Request.php(1274): yii\web\Request->loadCookies()
+#1 C:\xampp2\htdocs\competencias\vendor\yiisoft\yii2\web\User.php(555): yii\web\Request->getCookies()
+#2 C:\xampp2\htdocs\competencias\vendor\yiisoft\yii2\web\User.php(287): yii\web\User->getIdentityAndDurationFromCookie()
+#3 C:\xampp2\htdocs\competencias\vendor\yiisoft\yii2\web\User.php(674): yii\web\User->loginByCookie()
+#4 C:\xampp2\htdocs\competencias\vendor\yiisoft\yii2\web\User.php(188): yii\web\User->renewAuthStatus()
+#5 C:\xampp2\htdocs\competencias\vendor\yiisoft\yii2\base\Component.php(132): yii\web\User->getIdentity()
+#6 C:\xampp2\htdocs\competencias\vendor\yiisoft\yii2-debug\panels\UserPanel.php(54): yii\base\Component->__get('identity')
+#7 C:\xampp2\htdocs\competencias\vendor\yiisoft\yii2-debug\LogTarget.php(54): yii\debug\panels\UserPanel->save()
+#8 C:\xampp2\htdocs\competencias\vendor\yiisoft\yii2-debug\LogTarget.php(118): yii\debug\LogTarget->export()
+#9 C:\xampp2\htdocs\competencias\vendor\yiisoft\yii2\log\Dispatcher.php(188): yii\debug\LogTarget->collect(Array, true)
+#10 C:\xampp2\htdocs\competencias\vendor\yiisoft\yii2\log\Logger.php(177): yii\log\Dispatcher->dispatch(Array, true)
+#11 C:\xampp2\htdocs\competencias\vendor\yiisoft\yii2\base\ErrorHandler.php(113): yii\log\Logger->flush(true)
+#12 [internal function]: yii\base\ErrorHandler->handleException(Object(yii\base\InvalidConfigException))
+#13 {main}
+2017-06-16 03:50:02 [::1][-][o28akrvcgfugjkvt50ns7va833][info][application] $_COOKIE = [
+    'all_RyEgsSBXVzZXJzGICAgMb3ycQJDA-site_visit_time' => '1492606607016'
+    'all_RyEgsSBXVzZXJzGICAgMb3ycQJDA-clickdesk_referrer' => 'http://localhost/iedmac/atenea/index.php?r=site/login'
+    '__RequestVerificationToken' => 'cPyLTjDb8CYm1cASA6lU5brgZu4jvAIhCxaYCAANSrHvk4Dd4a8YvqmD-NdIaZDEcpjlKQbRcgqoRbx4efk-6EMKvVkdFFjcji8uw7tj7_I1'
+    'ASP_NET_SessionId' => 'lfqtheavxraymvpgfv5njfis'
+    'all_RyEgsSBXVzZXJzGICAgMb3ycQJDA-cd_pubnub_visitor' => '1492876983850'
+    'primer_ingreso' => '1'
+    'all_RyEgsSBXVzZXJzGICAgMb3ycQJDA-visit_count' => '{\"website_count\":375}'
+    '_ASPXAUTH' => 'CC3BA7E18CF01F2AA7F80F3FEC2B3741C7CB33CEBD82EAFE7B2100D19A41FB834DC47D29D33328E88CF41EEAD0309D0E0E8FCCC6F55723D7BA3186856AB8B87CBF4C94595B53186A06CD4ED5BD3DDF739F45907D5D9B3A0E1BF975B64B362D07'
+    'user' => 'admin'
+    'perfil' => '1'
+    'sede' => '1'
+    'clave' => 'Admin123'
+    'PHPSESSID' => 'o28akrvcgfugjkvt50ns7va833'
+]
+
+$_SESSION = [
+    '__flash' => []
+]
+
+$_SERVER = [
+    'DOCUMENT_ROOT' => 'C:\\xampp2\\htdocs\\competencias\\web'
+    'REMOTE_ADDR' => '::1'
+    'REMOTE_PORT' => '61381'
+    'SERVER_SOFTWARE' => 'PHP 5.5.34 Development Server'
+    'SERVER_PROTOCOL' => 'HTTP/1.1'
+    'SERVER_NAME' => 'localhost'
+    'SERVER_PORT' => '8080'
+    'REQUEST_URI' => '/web'
+    'REQUEST_METHOD' => 'GET'
+    'SCRIPT_NAME' => '/index.php'
+    'SCRIPT_FILENAME' => 'C:\\xampp2\\htdocs\\competencias\\web\\index.php'
+    'PATH_INFO' => '/web'
+    'PHP_SELF' => '/index.php/web'
+    'HTTP_HOST' => 'localhost:8080'
+    'HTTP_CONNECTION' => 'keep-alive'
+    'HTTP_UPGRADE_INSECURE_REQUESTS' => '1'
+    'HTTP_USER_AGENT' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.36'
+    'HTTP_ACCEPT' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8'
+    'HTTP_ACCEPT_ENCODING' => 'gzip, deflate, sdch, br'
+    'HTTP_ACCEPT_LANGUAGE' => 'en-US,en;q=0.8,es;q=0.6'
+    'HTTP_COOKIE' => 'all_RyEgsSBXVzZXJzGICAgMb3ycQJDA-site_visit_time=1492606607016; all_RyEgsSBXVzZXJzGICAgMb3ycQJDA-clickdesk_referrer=http%3A//localhost/iedmac/atenea/index.php%3Fr%3Dsite/login; __RequestVerificationToken=cPyLTjDb8CYm1cASA6lU5brgZu4jvAIhCxaYCAANSrHvk4Dd4a8YvqmD-NdIaZDEcpjlKQbRcgqoRbx4efk-6EMKvVkdFFjcji8uw7tj7_I1; ASP.NET_SessionId=lfqtheavxraymvpgfv5njfis; all_RyEgsSBXVzZXJzGICAgMb3ycQJDA-cd_pubnub_visitor=1492876983850; primer_ingreso=1; all_RyEgsSBXVzZXJzGICAgMb3ycQJDA-visit_count=%7B%22website_count%22%3A375%7D; .ASPXAUTH=CC3BA7E18CF01F2AA7F80F3FEC2B3741C7CB33CEBD82EAFE7B2100D19A41FB834DC47D29D33328E88CF41EEAD0309D0E0E8FCCC6F55723D7BA3186856AB8B87CBF4C94595B53186A06CD4ED5BD3DDF739F45907D5D9B3A0E1BF975B64B362D07; user=admin; perfil=1; sede=1; clave=Admin123; PHPSESSID=o28akrvcgfugjkvt50ns7va833'
+    'REQUEST_TIME_FLOAT' => 1497577802.547
+    'REQUEST_TIME' => 1497577802
+]
+2017-06-16 03:51:45 [::1][-][-][error][yii\base\InvalidConfigException] exception 'yii\base\InvalidConfigException' with message 'yii\web\Request::cookieValidationKey must be configured with a secret key.' in C:\xampp2\htdocs\competencias\vendor\yiisoft\yii2\web\Request.php:1292
+Stack trace:
+#0 C:\xampp2\htdocs\competencias\vendor\yiisoft\yii2\web\Request.php(1274): yii\web\Request->loadCookies()
+#1 C:\xampp2\htdocs\competencias\vendor\yiisoft\yii2\web\Request.php(1355): yii\web\Request->getCookies()
+#2 C:\xampp2\htdocs\competencias\vendor\yiisoft\yii2\web\Request.php(1338): yii\web\Request->loadCsrfToken()
+#3 C:\xampp2\htdocs\competencias\vendor\yiisoft\yii2\helpers\BaseHtml.php(302): yii\web\Request->getCsrfToken()
+#4 C:\xampp2\htdocs\competencias\views\layouts\main.php(21): yii\helpers\BaseHtml::csrfMetaTags()
+#5 C:\xampp2\htdocs\competencias\vendor\yiisoft\yii2\base\View.php(330): require('C:\\xampp2\\htdoc...')
+#6 C:\xampp2\htdocs\competencias\vendor\yiisoft\yii2\base\View.php(250): yii\base\View->renderPhpFile('C:\\xampp2\\htdoc...', Array)
+#7 C:\xampp2\htdocs\competencias\vendor\yiisoft\yii2\base\Controller.php(396): yii\base\View->renderFile('C:\\xampp2\\htdoc...', Array, Object(app\controllers\SiteController))
+#8 C:\xampp2\htdocs\competencias\vendor\yiisoft\yii2\base\Controller.php(382): yii\base\Controller->renderContent('<div class="sit...')
+#9 C:\xampp2\htdocs\competencias\controllers\SiteController.php(64): yii\base\Controller->render('index')
+#10 [internal function]: app\controllers\SiteController->actionIndex()
+#11 C:\xampp2\htdocs\competencias\vendor\yiisoft\yii2\base\InlineAction.php(57): call_user_func_array(Array, Array)
+#12 C:\xampp2\htdocs\competencias\vendor\yiisoft\yii2\base\Controller.php(156): yii\base\InlineAction->runWithParams(Array)
+#13 C:\xampp2\htdocs\competencias\vendor\yiisoft\yii2\base\Module.php(523): yii\base\Controller->runAction('', Array)
+#14 C:\xampp2\htdocs\competencias\vendor\yiisoft\yii2\web\Application.php(102): yii\base\Module->runAction('', Array)
+#15 C:\xampp2\htdocs\competencias\vendor\yiisoft\yii2\base\Application.php(380): yii\web\Application->handleRequest(Object(yii\web\Request))
+#16 C:\xampp2\htdocs\competencias\web\index.php(12): yii\base\Application->run()
+#17 {main}
+2017-06-16 03:51:45 [::1][-][-][info][application] $_COOKIE = [
+    'all_RyEgsSBXVzZXJzGICAgMb3ycQJDA-site_visit_time' => '1492606607016'
+    'all_RyEgsSBXVzZXJzGICAgMb3ycQJDA-clickdesk_referrer' => 'http://localhost/iedmac/atenea/index.php?r=site/login'
+    '__RequestVerificationToken' => 'cPyLTjDb8CYm1cASA6lU5brgZu4jvAIhCxaYCAANSrHvk4Dd4a8YvqmD-NdIaZDEcpjlKQbRcgqoRbx4efk-6EMKvVkdFFjcji8uw7tj7_I1'
+    'ASP_NET_SessionId' => 'lfqtheavxraymvpgfv5njfis'
+    'all_RyEgsSBXVzZXJzGICAgMb3ycQJDA-cd_pubnub_visitor' => '1492876983850'
+    'primer_ingreso' => '1'
+    'all_RyEgsSBXVzZXJzGICAgMb3ycQJDA-visit_count' => '{\"website_count\":375}'
+    '_ASPXAUTH' => 'CC3BA7E18CF01F2AA7F80F3FEC2B3741C7CB33CEBD82EAFE7B2100D19A41FB834DC47D29D33328E88CF41EEAD0309D0E0E8FCCC6F55723D7BA3186856AB8B87CBF4C94595B53186A06CD4ED5BD3DDF739F45907D5D9B3A0E1BF975B64B362D07'
+    'user' => 'admin'
+    'perfil' => '1'
+    'sede' => '1'
+    'clave' => 'Admin123'
+    'PHPSESSID' => 'o28akrvcgfugjkvt50ns7va833'
+]
+
+$_SERVER = [
+    'DOCUMENT_ROOT' => 'C:\\xampp2\\htdocs\\competencias\\web'
+    'REMOTE_ADDR' => '::1'
+    'REMOTE_PORT' => '61442'
+    'SERVER_SOFTWARE' => 'PHP 5.5.34 Development Server'
+    'SERVER_PROTOCOL' => 'HTTP/1.1'
+    'SERVER_NAME' => 'localhost'
+    'SERVER_PORT' => '8080'
+    'REQUEST_URI' => '/'
+    'REQUEST_METHOD' => 'GET'
+    'SCRIPT_NAME' => '/index.php'
+    'SCRIPT_FILENAME' => 'C:\\xampp2\\htdocs\\competencias\\web\\index.php'
+    'PATH_INFO' => '/'
+    'PHP_SELF' => '/index.php/'
+    'HTTP_HOST' => 'localhost:8080'
+    'HTTP_CONNECTION' => 'keep-alive'
+    'HTTP_CACHE_CONTROL' => 'max-age=0'
+    'HTTP_UPGRADE_INSECURE_REQUESTS' => '1'
+    'HTTP_USER_AGENT' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.36'
+    'HTTP_ACCEPT' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8'
+    'HTTP_ACCEPT_ENCODING' => 'gzip, deflate, sdch, br'
+    'HTTP_ACCEPT_LANGUAGE' => 'en-US,en;q=0.8,es;q=0.6'
+    'HTTP_COOKIE' => 'all_RyEgsSBXVzZXJzGICAgMb3ycQJDA-site_visit_time=1492606607016; all_RyEgsSBXVzZXJzGICAgMb3ycQJDA-clickdesk_referrer=http%3A//localhost/iedmac/atenea/index.php%3Fr%3Dsite/login; __RequestVerificationToken=cPyLTjDb8CYm1cASA6lU5brgZu4jvAIhCxaYCAANSrHvk4Dd4a8YvqmD-NdIaZDEcpjlKQbRcgqoRbx4efk-6EMKvVkdFFjcji8uw7tj7_I1; ASP.NET_SessionId=lfqtheavxraymvpgfv5njfis; all_RyEgsSBXVzZXJzGICAgMb3ycQJDA-cd_pubnub_visitor=1492876983850; primer_ingreso=1; all_RyEgsSBXVzZXJzGICAgMb3ycQJDA-visit_count=%7B%22website_count%22%3A375%7D; .ASPXAUTH=CC3BA7E18CF01F2AA7F80F3FEC2B3741C7CB33CEBD82EAFE7B2100D19A41FB834DC47D29D33328E88CF41EEAD0309D0E0E8FCCC6F55723D7BA3186856AB8B87CBF4C94595B53186A06CD4ED5BD3DDF739F45907D5D9B3A0E1BF975B64B362D07; user=admin; perfil=1; sede=1; clave=Admin123; PHPSESSID=o28akrvcgfugjkvt50ns7va833'
+    'REQUEST_TIME_FLOAT' => 1497577905.8245
+    'REQUEST_TIME' => 1497577905
+]
+2017-06-16 03:51:45 [::1][-][o28akrvcgfugjkvt50ns7va833][warning][yii\log\Dispatcher::dispatch] Unable to send log via yii\debug\LogTarget: Exception (Invalid Configuration) 'yii\base\InvalidConfigException' with message 'yii\web\Request::cookieValidationKey must be configured with a secret key.' 
+
+in C:\xampp2\htdocs\competencias\vendor\yiisoft\yii2\web\Request.php:1292
+
+Stack trace:
+#0 C:\xampp2\htdocs\competencias\vendor\yiisoft\yii2\web\Request.php(1274): yii\web\Request->loadCookies()
+#1 C:\xampp2\htdocs\competencias\vendor\yiisoft\yii2\web\User.php(555): yii\web\Request->getCookies()
+#2 C:\xampp2\htdocs\competencias\vendor\yiisoft\yii2\web\User.php(287): yii\web\User->getIdentityAndDurationFromCookie()
+#3 C:\xampp2\htdocs\competencias\vendor\yiisoft\yii2\web\User.php(674): yii\web\User->loginByCookie()
+#4 C:\xampp2\htdocs\competencias\vendor\yiisoft\yii2\web\User.php(188): yii\web\User->renewAuthStatus()
+#5 C:\xampp2\htdocs\competencias\vendor\yiisoft\yii2\base\Component.php(132): yii\web\User->getIdentity()
+#6 C:\xampp2\htdocs\competencias\vendor\yiisoft\yii2-debug\panels\UserPanel.php(54): yii\base\Component->__get('identity')
+#7 C:\xampp2\htdocs\competencias\vendor\yiisoft\yii2-debug\LogTarget.php(54): yii\debug\panels\UserPanel->save()
+#8 C:\xampp2\htdocs\competencias\vendor\yiisoft\yii2-debug\LogTarget.php(118): yii\debug\LogTarget->export()
+#9 C:\xampp2\htdocs\competencias\vendor\yiisoft\yii2\log\Dispatcher.php(188): yii\debug\LogTarget->collect(Array, true)
+#10 C:\xampp2\htdocs\competencias\vendor\yiisoft\yii2\log\Logger.php(177): yii\log\Dispatcher->dispatch(Array, true)
+#11 C:\xampp2\htdocs\competencias\vendor\yiisoft\yii2\base\ErrorHandler.php(113): yii\log\Logger->flush(true)
+#12 [internal function]: yii\base\ErrorHandler->handleException(Object(yii\base\InvalidConfigException))
+#13 {main}
+2017-06-16 03:51:45 [::1][-][o28akrvcgfugjkvt50ns7va833][info][application] $_COOKIE = [
+    'all_RyEgsSBXVzZXJzGICAgMb3ycQJDA-site_visit_time' => '1492606607016'
+    'all_RyEgsSBXVzZXJzGICAgMb3ycQJDA-clickdesk_referrer' => 'http://localhost/iedmac/atenea/index.php?r=site/login'
+    '__RequestVerificationToken' => 'cPyLTjDb8CYm1cASA6lU5brgZu4jvAIhCxaYCAANSrHvk4Dd4a8YvqmD-NdIaZDEcpjlKQbRcgqoRbx4efk-6EMKvVkdFFjcji8uw7tj7_I1'
+    'ASP_NET_SessionId' => 'lfqtheavxraymvpgfv5njfis'
+    'all_RyEgsSBXVzZXJzGICAgMb3ycQJDA-cd_pubnub_visitor' => '1492876983850'
+    'primer_ingreso' => '1'
+    'all_RyEgsSBXVzZXJzGICAgMb3ycQJDA-visit_count' => '{\"website_count\":375}'
+    '_ASPXAUTH' => 'CC3BA7E18CF01F2AA7F80F3FEC2B3741C7CB33CEBD82EAFE7B2100D19A41FB834DC47D29D33328E88CF41EEAD0309D0E0E8FCCC6F55723D7BA3186856AB8B87CBF4C94595B53186A06CD4ED5BD3DDF739F45907D5D9B3A0E1BF975B64B362D07'
+    'user' => 'admin'
+    'perfil' => '1'
+    'sede' => '1'
+    'clave' => 'Admin123'
+    'PHPSESSID' => 'o28akrvcgfugjkvt50ns7va833'
+]
+
+$_SESSION = [
+    '__flash' => []
+]
+
+$_SERVER = [
+    'DOCUMENT_ROOT' => 'C:\\xampp2\\htdocs\\competencias\\web'
+    'REMOTE_ADDR' => '::1'
+    'REMOTE_PORT' => '61442'
+    'SERVER_SOFTWARE' => 'PHP 5.5.34 Development Server'
+    'SERVER_PROTOCOL' => 'HTTP/1.1'
+    'SERVER_NAME' => 'localhost'
+    'SERVER_PORT' => '8080'
+    'REQUEST_URI' => '/'
+    'REQUEST_METHOD' => 'GET'
+    'SCRIPT_NAME' => '/index.php'
+    'SCRIPT_FILENAME' => 'C:\\xampp2\\htdocs\\competencias\\web\\index.php'
+    'PATH_INFO' => '/'
+    'PHP_SELF' => '/index.php/'
+    'HTTP_HOST' => 'localhost:8080'
+    'HTTP_CONNECTION' => 'keep-alive'
+    'HTTP_CACHE_CONTROL' => 'max-age=0'
+    'HTTP_UPGRADE_INSECURE_REQUESTS' => '1'
+    'HTTP_USER_AGENT' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.36'
+    'HTTP_ACCEPT' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8'
+    'HTTP_ACCEPT_ENCODING' => 'gzip, deflate, sdch, br'
+    'HTTP_ACCEPT_LANGUAGE' => 'en-US,en;q=0.8,es;q=0.6'
+    'HTTP_COOKIE' => 'all_RyEgsSBXVzZXJzGICAgMb3ycQJDA-site_visit_time=1492606607016; all_RyEgsSBXVzZXJzGICAgMb3ycQJDA-clickdesk_referrer=http%3A//localhost/iedmac/atenea/index.php%3Fr%3Dsite/login; __RequestVerificationToken=cPyLTjDb8CYm1cASA6lU5brgZu4jvAIhCxaYCAANSrHvk4Dd4a8YvqmD-NdIaZDEcpjlKQbRcgqoRbx4efk-6EMKvVkdFFjcji8uw7tj7_I1; ASP.NET_SessionId=lfqtheavxraymvpgfv5njfis; all_RyEgsSBXVzZXJzGICAgMb3ycQJDA-cd_pubnub_visitor=1492876983850; primer_ingreso=1; all_RyEgsSBXVzZXJzGICAgMb3ycQJDA-visit_count=%7B%22website_count%22%3A375%7D; .ASPXAUTH=CC3BA7E18CF01F2AA7F80F3FEC2B3741C7CB33CEBD82EAFE7B2100D19A41FB834DC47D29D33328E88CF41EEAD0309D0E0E8FCCC6F55723D7BA3186856AB8B87CBF4C94595B53186A06CD4ED5BD3DDF739F45907D5D9B3A0E1BF975B64B362D07; user=admin; perfil=1; sede=1; clave=Admin123; PHPSESSID=o28akrvcgfugjkvt50ns7va833'
+    'REQUEST_TIME_FLOAT' => 1497577905.8245
+    'REQUEST_TIME' => 1497577905
+]
+2017-06-16 03:51:52 [::1][-][-][error][yii\base\InvalidConfigException] exception 'yii\base\InvalidConfigException' with message 'yii\web\Request::cookieValidationKey must be configured with a secret key.' in C:\xampp2\htdocs\competencias\vendor\yiisoft\yii2\web\Request.php:1292
+Stack trace:
+#0 C:\xampp2\htdocs\competencias\vendor\yiisoft\yii2\web\Request.php(1274): yii\web\Request->loadCookies()
+#1 C:\xampp2\htdocs\competencias\vendor\yiisoft\yii2\web\Request.php(1355): yii\web\Request->getCookies()
+#2 C:\xampp2\htdocs\competencias\vendor\yiisoft\yii2\web\Request.php(1338): yii\web\Request->loadCsrfToken()
+#3 C:\xampp2\htdocs\competencias\vendor\yiisoft\yii2\helpers\BaseHtml.php(302): yii\web\Request->getCsrfToken()
+#4 C:\xampp2\htdocs\competencias\views\layouts\main.php(21): yii\helpers\BaseHtml::csrfMetaTags()
+#5 C:\xampp2\htdocs\competencias\vendor\yiisoft\yii2\base\View.php(330): require('C:\\xampp2\\htdoc...')
+#6 C:\xampp2\htdocs\competencias\vendor\yiisoft\yii2\base\View.php(250): yii\base\View->renderPhpFile('C:\\xampp2\\htdoc...', Array)
+#7 C:\xampp2\htdocs\competencias\vendor\yiisoft\yii2\base\Controller.php(396): yii\base\View->renderFile('C:\\xampp2\\htdoc...', Array, Object(app\controllers\SiteController))
+#8 C:\xampp2\htdocs\competencias\vendor\yiisoft\yii2\base\Controller.php(382): yii\base\Controller->renderContent('<div class="sit...')
+#9 C:\xampp2\htdocs\competencias\controllers\SiteController.php(64): yii\base\Controller->render('index')
+#10 [internal function]: app\controllers\SiteController->actionIndex()
+#11 C:\xampp2\htdocs\competencias\vendor\yiisoft\yii2\base\InlineAction.php(57): call_user_func_array(Array, Array)
+#12 C:\xampp2\htdocs\competencias\vendor\yiisoft\yii2\base\Controller.php(156): yii\base\InlineAction->runWithParams(Array)
+#13 C:\xampp2\htdocs\competencias\vendor\yiisoft\yii2\base\Module.php(523): yii\base\Controller->runAction('', Array)
+#14 C:\xampp2\htdocs\competencias\vendor\yiisoft\yii2\web\Application.php(102): yii\base\Module->runAction('', Array)
+#15 C:\xampp2\htdocs\competencias\vendor\yiisoft\yii2\base\Application.php(380): yii\web\Application->handleRequest(Object(yii\web\Request))
+#16 C:\xampp2\htdocs\competencias\web\index.php(12): yii\base\Application->run()
+#17 {main}
+2017-06-16 03:51:52 [::1][-][-][info][application] $_COOKIE = [
+    'all_RyEgsSBXVzZXJzGICAgMb3ycQJDA-site_visit_time' => '1492606607016'
+    'all_RyEgsSBXVzZXJzGICAgMb3ycQJDA-clickdesk_referrer' => 'http://localhost/iedmac/atenea/index.php?r=site/login'
+    '__RequestVerificationToken' => 'cPyLTjDb8CYm1cASA6lU5brgZu4jvAIhCxaYCAANSrHvk4Dd4a8YvqmD-NdIaZDEcpjlKQbRcgqoRbx4efk-6EMKvVkdFFjcji8uw7tj7_I1'
+    'ASP_NET_SessionId' => 'lfqtheavxraymvpgfv5njfis'
+    'all_RyEgsSBXVzZXJzGICAgMb3ycQJDA-cd_pubnub_visitor' => '1492876983850'
+    'primer_ingreso' => '1'
+    'all_RyEgsSBXVzZXJzGICAgMb3ycQJDA-visit_count' => '{\"website_count\":375}'
+    '_ASPXAUTH' => 'CC3BA7E18CF01F2AA7F80F3FEC2B3741C7CB33CEBD82EAFE7B2100D19A41FB834DC47D29D33328E88CF41EEAD0309D0E0E8FCCC6F55723D7BA3186856AB8B87CBF4C94595B53186A06CD4ED5BD3DDF739F45907D5D9B3A0E1BF975B64B362D07'
+    'user' => 'admin'
+    'perfil' => '1'
+    'sede' => '1'
+    'clave' => 'Admin123'
+    'PHPSESSID' => 'o28akrvcgfugjkvt50ns7va833'
+]
+
+$_SERVER = [
+    'DOCUMENT_ROOT' => 'C:\\xampp2\\htdocs\\competencias\\web'
+    'REMOTE_ADDR' => '::1'
+    'REMOTE_PORT' => '61446'
+    'SERVER_SOFTWARE' => 'PHP 5.5.34 Development Server'
+    'SERVER_PROTOCOL' => 'HTTP/1.1'
+    'SERVER_NAME' => 'localhost'
+    'SERVER_PORT' => '8080'
+    'REQUEST_URI' => '/'
+    'REQUEST_METHOD' => 'GET'
+    'SCRIPT_NAME' => '/index.php'
+    'SCRIPT_FILENAME' => 'C:\\xampp2\\htdocs\\competencias\\web\\index.php'
+    'PATH_INFO' => '/'
+    'PHP_SELF' => '/index.php/'
+    'HTTP_HOST' => 'localhost:8080'
+    'HTTP_CONNECTION' => 'keep-alive'
+    'HTTP_CACHE_CONTROL' => 'max-age=0'
+    'HTTP_UPGRADE_INSECURE_REQUESTS' => '1'
+    'HTTP_USER_AGENT' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.36'
+    'HTTP_ACCEPT' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8'
+    'HTTP_ACCEPT_ENCODING' => 'gzip, deflate, sdch, br'
+    'HTTP_ACCEPT_LANGUAGE' => 'en-US,en;q=0.8,es;q=0.6'
+    'HTTP_COOKIE' => 'all_RyEgsSBXVzZXJzGICAgMb3ycQJDA-site_visit_time=1492606607016; all_RyEgsSBXVzZXJzGICAgMb3ycQJDA-clickdesk_referrer=http%3A//localhost/iedmac/atenea/index.php%3Fr%3Dsite/login; __RequestVerificationToken=cPyLTjDb8CYm1cASA6lU5brgZu4jvAIhCxaYCAANSrHvk4Dd4a8YvqmD-NdIaZDEcpjlKQbRcgqoRbx4efk-6EMKvVkdFFjcji8uw7tj7_I1; ASP.NET_SessionId=lfqtheavxraymvpgfv5njfis; all_RyEgsSBXVzZXJzGICAgMb3ycQJDA-cd_pubnub_visitor=1492876983850; primer_ingreso=1; all_RyEgsSBXVzZXJzGICAgMb3ycQJDA-visit_count=%7B%22website_count%22%3A375%7D; .ASPXAUTH=CC3BA7E18CF01F2AA7F80F3FEC2B3741C7CB33CEBD82EAFE7B2100D19A41FB834DC47D29D33328E88CF41EEAD0309D0E0E8FCCC6F55723D7BA3186856AB8B87CBF4C94595B53186A06CD4ED5BD3DDF739F45907D5D9B3A0E1BF975B64B362D07; user=admin; perfil=1; sede=1; clave=Admin123; PHPSESSID=o28akrvcgfugjkvt50ns7va833'
+    'REQUEST_TIME_FLOAT' => 1497577912.1305
+    'REQUEST_TIME' => 1497577912
+]
+2017-06-16 03:51:52 [::1][-][o28akrvcgfugjkvt50ns7va833][warning][yii\log\Dispatcher::dispatch] Unable to send log via yii\debug\LogTarget: Exception (Invalid Configuration) 'yii\base\InvalidConfigException' with message 'yii\web\Request::cookieValidationKey must be configured with a secret key.' 
+
+in C:\xampp2\htdocs\competencias\vendor\yiisoft\yii2\web\Request.php:1292
+
+Stack trace:
+#0 C:\xampp2\htdocs\competencias\vendor\yiisoft\yii2\web\Request.php(1274): yii\web\Request->loadCookies()
+#1 C:\xampp2\htdocs\competencias\vendor\yiisoft\yii2\web\User.php(555): yii\web\Request->getCookies()
+#2 C:\xampp2\htdocs\competencias\vendor\yiisoft\yii2\web\User.php(287): yii\web\User->getIdentityAndDurationFromCookie()
+#3 C:\xampp2\htdocs\competencias\vendor\yiisoft\yii2\web\User.php(674): yii\web\User->loginByCookie()
+#4 C:\xampp2\htdocs\competencias\vendor\yiisoft\yii2\web\User.php(188): yii\web\User->renewAuthStatus()
+#5 C:\xampp2\htdocs\competencias\vendor\yiisoft\yii2\base\Component.php(132): yii\web\User->getIdentity()
+#6 C:\xampp2\htdocs\competencias\vendor\yiisoft\yii2-debug\panels\UserPanel.php(54): yii\base\Component->__get('identity')
+#7 C:\xampp2\htdocs\competencias\vendor\yiisoft\yii2-debug\LogTarget.php(54): yii\debug\panels\UserPanel->save()
+#8 C:\xampp2\htdocs\competencias\vendor\yiisoft\yii2-debug\LogTarget.php(118): yii\debug\LogTarget->export()
+#9 C:\xampp2\htdocs\competencias\vendor\yiisoft\yii2\log\Dispatcher.php(188): yii\debug\LogTarget->collect(Array, true)
+#10 C:\xampp2\htdocs\competencias\vendor\yiisoft\yii2\log\Logger.php(177): yii\log\Dispatcher->dispatch(Array, true)
+#11 C:\xampp2\htdocs\competencias\vendor\yiisoft\yii2\base\ErrorHandler.php(113): yii\log\Logger->flush(true)
+#12 [internal function]: yii\base\ErrorHandler->handleException(Object(yii\base\InvalidConfigException))
+#13 {main}
+2017-06-16 03:51:52 [::1][-][o28akrvcgfugjkvt50ns7va833][info][application] $_COOKIE = [
+    'all_RyEgsSBXVzZXJzGICAgMb3ycQJDA-site_visit_time' => '1492606607016'
+    'all_RyEgsSBXVzZXJzGICAgMb3ycQJDA-clickdesk_referrer' => 'http://localhost/iedmac/atenea/index.php?r=site/login'
+    '__RequestVerificationToken' => 'cPyLTjDb8CYm1cASA6lU5brgZu4jvAIhCxaYCAANSrHvk4Dd4a8YvqmD-NdIaZDEcpjlKQbRcgqoRbx4efk-6EMKvVkdFFjcji8uw7tj7_I1'
+    'ASP_NET_SessionId' => 'lfqtheavxraymvpgfv5njfis'
+    'all_RyEgsSBXVzZXJzGICAgMb3ycQJDA-cd_pubnub_visitor' => '1492876983850'
+    'primer_ingreso' => '1'
+    'all_RyEgsSBXVzZXJzGICAgMb3ycQJDA-visit_count' => '{\"website_count\":375}'
+    '_ASPXAUTH' => 'CC3BA7E18CF01F2AA7F80F3FEC2B3741C7CB33CEBD82EAFE7B2100D19A41FB834DC47D29D33328E88CF41EEAD0309D0E0E8FCCC6F55723D7BA3186856AB8B87CBF4C94595B53186A06CD4ED5BD3DDF739F45907D5D9B3A0E1BF975B64B362D07'
+    'user' => 'admin'
+    'perfil' => '1'
+    'sede' => '1'
+    'clave' => 'Admin123'
+    'PHPSESSID' => 'o28akrvcgfugjkvt50ns7va833'
+]
+
+$_SESSION = [
+    '__flash' => []
+]
+
+$_SERVER = [
+    'DOCUMENT_ROOT' => 'C:\\xampp2\\htdocs\\competencias\\web'
+    'REMOTE_ADDR' => '::1'
+    'REMOTE_PORT' => '61446'
+    'SERVER_SOFTWARE' => 'PHP 5.5.34 Development Server'
+    'SERVER_PROTOCOL' => 'HTTP/1.1'
+    'SERVER_NAME' => 'localhost'
+    'SERVER_PORT' => '8080'
+    'REQUEST_URI' => '/'
+    'REQUEST_METHOD' => 'GET'
+    'SCRIPT_NAME' => '/index.php'
+    'SCRIPT_FILENAME' => 'C:\\xampp2\\htdocs\\competencias\\web\\index.php'
+    'PATH_INFO' => '/'
+    'PHP_SELF' => '/index.php/'
+    'HTTP_HOST' => 'localhost:8080'
+    'HTTP_CONNECTION' => 'keep-alive'
+    'HTTP_CACHE_CONTROL' => 'max-age=0'
+    'HTTP_UPGRADE_INSECURE_REQUESTS' => '1'
+    'HTTP_USER_AGENT' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.36'
+    'HTTP_ACCEPT' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8'
+    'HTTP_ACCEPT_ENCODING' => 'gzip, deflate, sdch, br'
+    'HTTP_ACCEPT_LANGUAGE' => 'en-US,en;q=0.8,es;q=0.6'
+    'HTTP_COOKIE' => 'all_RyEgsSBXVzZXJzGICAgMb3ycQJDA-site_visit_time=1492606607016; all_RyEgsSBXVzZXJzGICAgMb3ycQJDA-clickdesk_referrer=http%3A//localhost/iedmac/atenea/index.php%3Fr%3Dsite/login; __RequestVerificationToken=cPyLTjDb8CYm1cASA6lU5brgZu4jvAIhCxaYCAANSrHvk4Dd4a8YvqmD-NdIaZDEcpjlKQbRcgqoRbx4efk-6EMKvVkdFFjcji8uw7tj7_I1; ASP.NET_SessionId=lfqtheavxraymvpgfv5njfis; all_RyEgsSBXVzZXJzGICAgMb3ycQJDA-cd_pubnub_visitor=1492876983850; primer_ingreso=1; all_RyEgsSBXVzZXJzGICAgMb3ycQJDA-visit_count=%7B%22website_count%22%3A375%7D; .ASPXAUTH=CC3BA7E18CF01F2AA7F80F3FEC2B3741C7CB33CEBD82EAFE7B2100D19A41FB834DC47D29D33328E88CF41EEAD0309D0E0E8FCCC6F55723D7BA3186856AB8B87CBF4C94595B53186A06CD4ED5BD3DDF739F45907D5D9B3A0E1BF975B64B362D07; user=admin; perfil=1; sede=1; clave=Admin123; PHPSESSID=o28akrvcgfugjkvt50ns7va833'
+    'REQUEST_TIME_FLOAT' => 1497577912.1305
+    'REQUEST_TIME' => 1497577912
+]
+2017-06-16 03:54:01 [::1][-][-][error][yii\base\InvalidConfigException] exception 'yii\base\InvalidConfigException' with message 'yii\web\Request::cookieValidationKey must be configured with a secret key.' in C:\xampp2\htdocs\competencias\vendor\yiisoft\yii2\web\Request.php:1292
+Stack trace:
+#0 C:\xampp2\htdocs\competencias\vendor\yiisoft\yii2\web\Request.php(1274): yii\web\Request->loadCookies()
+#1 C:\xampp2\htdocs\competencias\vendor\yiisoft\yii2\web\Request.php(1355): yii\web\Request->getCookies()
+#2 C:\xampp2\htdocs\competencias\vendor\yiisoft\yii2\web\Request.php(1338): yii\web\Request->loadCsrfToken()
+#3 C:\xampp2\htdocs\competencias\vendor\yiisoft\yii2\helpers\BaseHtml.php(302): yii\web\Request->getCsrfToken()
+#4 C:\xampp2\htdocs\competencias\views\layouts\main.php(21): yii\helpers\BaseHtml::csrfMetaTags()
+#5 C:\xampp2\htdocs\competencias\vendor\yiisoft\yii2\base\View.php(330): require('C:\\xampp2\\htdoc...')
+#6 C:\xampp2\htdocs\competencias\vendor\yiisoft\yii2\base\View.php(250): yii\base\View->renderPhpFile('C:\\xampp2\\htdoc...', Array)
+#7 C:\xampp2\htdocs\competencias\vendor\yiisoft\yii2\base\Controller.php(396): yii\base\View->renderFile('C:\\xampp2\\htdoc...', Array, Object(app\controllers\SiteController))
+#8 C:\xampp2\htdocs\competencias\vendor\yiisoft\yii2\base\Controller.php(382): yii\base\Controller->renderContent('<div class="sit...')
+#9 C:\xampp2\htdocs\competencias\controllers\SiteController.php(64): yii\base\Controller->render('index')
+#10 [internal function]: app\controllers\SiteController->actionIndex()
+#11 C:\xampp2\htdocs\competencias\vendor\yiisoft\yii2\base\InlineAction.php(57): call_user_func_array(Array, Array)
+#12 C:\xampp2\htdocs\competencias\vendor\yiisoft\yii2\base\Controller.php(156): yii\base\InlineAction->runWithParams(Array)
+#13 C:\xampp2\htdocs\competencias\vendor\yiisoft\yii2\base\Module.php(523): yii\base\Controller->runAction('', Array)
+#14 C:\xampp2\htdocs\competencias\vendor\yiisoft\yii2\web\Application.php(102): yii\base\Module->runAction('', Array)
+#15 C:\xampp2\htdocs\competencias\vendor\yiisoft\yii2\base\Application.php(380): yii\web\Application->handleRequest(Object(yii\web\Request))
+#16 C:\xampp2\htdocs\competencias\web\index.php(12): yii\base\Application->run()
+#17 {main}
+2017-06-16 03:54:01 [::1][-][-][info][application] $_COOKIE = [
+    'all_RyEgsSBXVzZXJzGICAgMb3ycQJDA-site_visit_time' => '1492606607016'
+    'all_RyEgsSBXVzZXJzGICAgMb3ycQJDA-clickdesk_referrer' => 'http://localhost/iedmac/atenea/index.php?r=site/login'
+    '__RequestVerificationToken' => 'cPyLTjDb8CYm1cASA6lU5brgZu4jvAIhCxaYCAANSrHvk4Dd4a8YvqmD-NdIaZDEcpjlKQbRcgqoRbx4efk-6EMKvVkdFFjcji8uw7tj7_I1'
+    'ASP_NET_SessionId' => 'lfqtheavxraymvpgfv5njfis'
+    'all_RyEgsSBXVzZXJzGICAgMb3ycQJDA-cd_pubnub_visitor' => '1492876983850'
+    'primer_ingreso' => '1'
+    'all_RyEgsSBXVzZXJzGICAgMb3ycQJDA-visit_count' => '{\"website_count\":375}'
+    '_ASPXAUTH' => 'CC3BA7E18CF01F2AA7F80F3FEC2B3741C7CB33CEBD82EAFE7B2100D19A41FB834DC47D29D33328E88CF41EEAD0309D0E0E8FCCC6F55723D7BA3186856AB8B87CBF4C94595B53186A06CD4ED5BD3DDF739F45907D5D9B3A0E1BF975B64B362D07'
+    'user' => 'admin'
+    'perfil' => '1'
+    'sede' => '1'
+    'clave' => 'Admin123'
+    'PHPSESSID' => 'o28akrvcgfugjkvt50ns7va833'
+]
+
+$_SERVER = [
+    'DOCUMENT_ROOT' => 'C:\\xampp2\\htdocs\\competencias\\web'
+    'REMOTE_ADDR' => '::1'
+    'REMOTE_PORT' => '61455'
+    'SERVER_SOFTWARE' => 'PHP 5.5.34 Development Server'
+    'SERVER_PROTOCOL' => 'HTTP/1.1'
+    'SERVER_NAME' => 'localhost'
+    'SERVER_PORT' => '8080'
+    'REQUEST_URI' => '/'
+    'REQUEST_METHOD' => 'GET'
+    'SCRIPT_NAME' => '/index.php'
+    'SCRIPT_FILENAME' => 'C:\\xampp2\\htdocs\\competencias\\web\\index.php'
+    'PATH_INFO' => '/'
+    'PHP_SELF' => '/index.php/'
+    'HTTP_HOST' => 'localhost:8080'
+    'HTTP_CONNECTION' => 'keep-alive'
+    'HTTP_CACHE_CONTROL' => 'max-age=0'
+    'HTTP_UPGRADE_INSECURE_REQUESTS' => '1'
+    'HTTP_USER_AGENT' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.36'
+    'HTTP_ACCEPT' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8'
+    'HTTP_ACCEPT_ENCODING' => 'gzip, deflate, sdch, br'
+    'HTTP_ACCEPT_LANGUAGE' => 'en-US,en;q=0.8,es;q=0.6'
+    'HTTP_COOKIE' => 'all_RyEgsSBXVzZXJzGICAgMb3ycQJDA-site_visit_time=1492606607016; all_RyEgsSBXVzZXJzGICAgMb3ycQJDA-clickdesk_referrer=http%3A//localhost/iedmac/atenea/index.php%3Fr%3Dsite/login; __RequestVerificationToken=cPyLTjDb8CYm1cASA6lU5brgZu4jvAIhCxaYCAANSrHvk4Dd4a8YvqmD-NdIaZDEcpjlKQbRcgqoRbx4efk-6EMKvVkdFFjcji8uw7tj7_I1; ASP.NET_SessionId=lfqtheavxraymvpgfv5njfis; all_RyEgsSBXVzZXJzGICAgMb3ycQJDA-cd_pubnub_visitor=1492876983850; primer_ingreso=1; all_RyEgsSBXVzZXJzGICAgMb3ycQJDA-visit_count=%7B%22website_count%22%3A375%7D; .ASPXAUTH=CC3BA7E18CF01F2AA7F80F3FEC2B3741C7CB33CEBD82EAFE7B2100D19A41FB834DC47D29D33328E88CF41EEAD0309D0E0E8FCCC6F55723D7BA3186856AB8B87CBF4C94595B53186A06CD4ED5BD3DDF739F45907D5D9B3A0E1BF975B64B362D07; user=admin; perfil=1; sede=1; clave=Admin123; PHPSESSID=o28akrvcgfugjkvt50ns7va833'
+    'REQUEST_TIME_FLOAT' => 1497578041.3298
+    'REQUEST_TIME' => 1497578041
+]
+2017-06-16 03:54:01 [::1][-][o28akrvcgfugjkvt50ns7va833][warning][yii\log\Dispatcher::dispatch] Unable to send log via yii\debug\LogTarget: Exception (Invalid Configuration) 'yii\base\InvalidConfigException' with message 'yii\web\Request::cookieValidationKey must be configured with a secret key.' 
+
+in C:\xampp2\htdocs\competencias\vendor\yiisoft\yii2\web\Request.php:1292
+
+Stack trace:
+#0 C:\xampp2\htdocs\competencias\vendor\yiisoft\yii2\web\Request.php(1274): yii\web\Request->loadCookies()
+#1 C:\xampp2\htdocs\competencias\vendor\yiisoft\yii2\web\User.php(555): yii\web\Request->getCookies()
+#2 C:\xampp2\htdocs\competencias\vendor\yiisoft\yii2\web\User.php(287): yii\web\User->getIdentityAndDurationFromCookie()
+#3 C:\xampp2\htdocs\competencias\vendor\yiisoft\yii2\web\User.php(674): yii\web\User->loginByCookie()
+#4 C:\xampp2\htdocs\competencias\vendor\yiisoft\yii2\web\User.php(188): yii\web\User->renewAuthStatus()
+#5 C:\xampp2\htdocs\competencias\vendor\yiisoft\yii2\base\Component.php(132): yii\web\User->getIdentity()
+#6 C:\xampp2\htdocs\competencias\vendor\yiisoft\yii2-debug\panels\UserPanel.php(54): yii\base\Component->__get('identity')
+#7 C:\xampp2\htdocs\competencias\vendor\yiisoft\yii2-debug\LogTarget.php(54): yii\debug\panels\UserPanel->save()
+#8 C:\xampp2\htdocs\competencias\vendor\yiisoft\yii2-debug\LogTarget.php(118): yii\debug\LogTarget->export()
+#9 C:\xampp2\htdocs\competencias\vendor\yiisoft\yii2\log\Dispatcher.php(188): yii\debug\LogTarget->collect(Array, true)
+#10 C:\xampp2\htdocs\competencias\vendor\yiisoft\yii2\log\Logger.php(177): yii\log\Dispatcher->dispatch(Array, true)
+#11 C:\xampp2\htdocs\competencias\vendor\yiisoft\yii2\base\ErrorHandler.php(113): yii\log\Logger->flush(true)
+#12 [internal function]: yii\base\ErrorHandler->handleException(Object(yii\base\InvalidConfigException))
+#13 {main}
+2017-06-16 03:54:01 [::1][-][o28akrvcgfugjkvt50ns7va833][info][application] $_COOKIE = [
+    'all_RyEgsSBXVzZXJzGICAgMb3ycQJDA-site_visit_time' => '1492606607016'
+    'all_RyEgsSBXVzZXJzGICAgMb3ycQJDA-clickdesk_referrer' => 'http://localhost/iedmac/atenea/index.php?r=site/login'
+    '__RequestVerificationToken' => 'cPyLTjDb8CYm1cASA6lU5brgZu4jvAIhCxaYCAANSrHvk4Dd4a8YvqmD-NdIaZDEcpjlKQbRcgqoRbx4efk-6EMKvVkdFFjcji8uw7tj7_I1'
+    'ASP_NET_SessionId' => 'lfqtheavxraymvpgfv5njfis'
+    'all_RyEgsSBXVzZXJzGICAgMb3ycQJDA-cd_pubnub_visitor' => '1492876983850'
+    'primer_ingreso' => '1'
+    'all_RyEgsSBXVzZXJzGICAgMb3ycQJDA-visit_count' => '{\"website_count\":375}'
+    '_ASPXAUTH' => 'CC3BA7E18CF01F2AA7F80F3FEC2B3741C7CB33CEBD82EAFE7B2100D19A41FB834DC47D29D33328E88CF41EEAD0309D0E0E8FCCC6F55723D7BA3186856AB8B87CBF4C94595B53186A06CD4ED5BD3DDF739F45907D5D9B3A0E1BF975B64B362D07'
+    'user' => 'admin'
+    'perfil' => '1'
+    'sede' => '1'
+    'clave' => 'Admin123'
+    'PHPSESSID' => 'o28akrvcgfugjkvt50ns7va833'
+]
+
+$_SESSION = [
+    '__flash' => []
+]
+
+$_SERVER = [
+    'DOCUMENT_ROOT' => 'C:\\xampp2\\htdocs\\competencias\\web'
+    'REMOTE_ADDR' => '::1'
+    'REMOTE_PORT' => '61455'
+    'SERVER_SOFTWARE' => 'PHP 5.5.34 Development Server'
+    'SERVER_PROTOCOL' => 'HTTP/1.1'
+    'SERVER_NAME' => 'localhost'
+    'SERVER_PORT' => '8080'
+    'REQUEST_URI' => '/'
+    'REQUEST_METHOD' => 'GET'
+    'SCRIPT_NAME' => '/index.php'
+    'SCRIPT_FILENAME' => 'C:\\xampp2\\htdocs\\competencias\\web\\index.php'
+    'PATH_INFO' => '/'
+    'PHP_SELF' => '/index.php/'
+    'HTTP_HOST' => 'localhost:8080'
+    'HTTP_CONNECTION' => 'keep-alive'
+    'HTTP_CACHE_CONTROL' => 'max-age=0'
+    'HTTP_UPGRADE_INSECURE_REQUESTS' => '1'
+    'HTTP_USER_AGENT' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.36'
+    'HTTP_ACCEPT' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8'
+    'HTTP_ACCEPT_ENCODING' => 'gzip, deflate, sdch, br'
+    'HTTP_ACCEPT_LANGUAGE' => 'en-US,en;q=0.8,es;q=0.6'
+    'HTTP_COOKIE' => 'all_RyEgsSBXVzZXJzGICAgMb3ycQJDA-site_visit_time=1492606607016; all_RyEgsSBXVzZXJzGICAgMb3ycQJDA-clickdesk_referrer=http%3A//localhost/iedmac/atenea/index.php%3Fr%3Dsite/login; __RequestVerificationToken=cPyLTjDb8CYm1cASA6lU5brgZu4jvAIhCxaYCAANSrHvk4Dd4a8YvqmD-NdIaZDEcpjlKQbRcgqoRbx4efk-6EMKvVkdFFjcji8uw7tj7_I1; ASP.NET_SessionId=lfqtheavxraymvpgfv5njfis; all_RyEgsSBXVzZXJzGICAgMb3ycQJDA-cd_pubnub_visitor=1492876983850; primer_ingreso=1; all_RyEgsSBXVzZXJzGICAgMb3ycQJDA-visit_count=%7B%22website_count%22%3A375%7D; .ASPXAUTH=CC3BA7E18CF01F2AA7F80F3FEC2B3741C7CB33CEBD82EAFE7B2100D19A41FB834DC47D29D33328E88CF41EEAD0309D0E0E8FCCC6F55723D7BA3186856AB8B87CBF4C94595B53186A06CD4ED5BD3DDF739F45907D5D9B3A0E1BF975B64B362D07; user=admin; perfil=1; sede=1; clave=Admin123; PHPSESSID=o28akrvcgfugjkvt50ns7va833'
+    'REQUEST_TIME_FLOAT' => 1497578041.3298
+    'REQUEST_TIME' => 1497578041
+]

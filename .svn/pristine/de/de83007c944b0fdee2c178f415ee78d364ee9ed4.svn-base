@@ -1,0 +1,58 @@
+<?php
+
+namespace app\models;
+
+use Yii;
+
+/**
+ * This is the model class for table "departamentos".
+ *
+ * @property integer $dptos_id
+ * @property string $dptos_name
+ * @property integer $dptos_code
+ *
+ * @property Municipios[] $municipios
+ */
+class Departamentos extends \yii\db\ActiveRecord
+{
+    /**
+     * @inheritdoc
+     */
+    public static function tableName()
+    {
+        return 'departamentos';
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function rules()
+    {
+        return [
+            [['dptos_name', 'dptos_code'], 'required'],
+            [['dptos_code'], 'integer'],
+            [['dptos_name'], 'string', 'max' => 50],
+            [['dptos_code'], 'unique'],
+        ];
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function attributeLabels()
+    {
+        return [
+            'dptos_id' => 'Dptos ID',
+            'dptos_name' => 'Dptos Name',
+            'dptos_code' => 'Dptos Code',
+        ];
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getMunicipios()
+    {
+        return $this->hasMany(Municipios::className(), ['municipios_dptos_code' => 'dptos_code']);
+    }
+}

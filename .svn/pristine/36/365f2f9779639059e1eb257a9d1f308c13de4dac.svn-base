@@ -1,0 +1,44 @@
+<?php
+
+namespace app\models;
+
+use Yii;
+
+/**
+ * This is the model class for table "ciudad".
+ *
+ * @property integer $ciu_id
+ * @property string $ciu_nombre
+ */
+class Ciudad extends \yii\db\ActiveRecord
+{
+    /**
+     * @inheritdoc
+     */
+    public static function tableName()
+    {
+        return 'ciudad';
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function rules()
+    {
+        return [
+            [['ciu_nombre'], 'required'],
+            [['ciu_nombre'], 'string', 'max' => 55],
+        ];
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function attributeLabels()
+    {
+        return [
+            'ciu_id' => 'PK',
+            'ciu_nombre' => 'Nombre de la ciudad',
+        ];
+    }
+}

@@ -1,0 +1,60 @@
+<?php
+
+namespace app\models;
+
+use Yii;
+
+/**
+ * This is the model class for table "parametrizacion_tiene_sucesos".
+ *
+ * @property integer $pts_id
+ * @property integer $param_id
+ * @property string $pts_suceso
+ * @property integer $pts_suceso_valor
+ *
+ * @property ParametrizacionDeportes $param
+ */
+class ParametrizacionTieneSucesos extends \yii\db\ActiveRecord
+{
+    /**
+     * @inheritdoc
+     */
+    public static function tableName()
+    {
+        return 'parametrizacion_tiene_sucesos';
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function rules()
+    {
+        return [
+            [['param_id', 'pts_suceso', 'pts_suceso_valor'], 'required'],
+            [['param_id', 'pts_suceso_valor'], 'integer'],
+            [['pts_suceso'], 'string', 'max' => 100],
+            [['param_id'], 'exist', 'skipOnError' => true, 'targetClass' => ParametrizacionDeportes::className(), 'targetAttribute' => ['param_id' => 'param_id']],
+        ];
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function attributeLabels()
+    {
+        return [
+            'pts_id' => Yii::t('app', 'Pts ID'),
+            'param_id' => Yii::t('app', 'Tabla parametrización deportes'),
+            'pts_suceso' => Yii::t('app', 'Nombre del suceso. Falta, gol, autogol, set'),
+            'pts_suceso_valor' => Yii::t('app', 'Valor del suceso. Puntos que suma o resta'),
+        ];
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getParam()
+    {
+        return $this->hasOne(ParametrizacionDeportes::className(), ['param_id' => 'param_id']);
+    }
+}

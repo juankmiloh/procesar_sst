@@ -1,0 +1,362 @@
+<?php
+    use yii\helpers\Html;
+    use yii\helpers\Url;
+    use yii\helpers\ArrayHelper;
+?>
+
+
+<body class="background_images">
+
+    <div class="container-fluid">
+
+        <div class="dashboard-wrapper">
+            
+            <!-- MIGA DE PAN -->
+            <nav class="navbar navbar-default">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                        <span class="sr-only">
+                            Toggle navigation</span>
+                        <span class="icon-bar">
+                        </span>
+                        <span class="icon-bar">
+                        </span>
+                        <span class="icon-bar">
+                        </span>
+                    </button>
+                </div>
+                <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                    <ul class="nav navbar-nav">
+                        <li>
+                            <?php
+                            echo Html::a('<i class="icon-graphic_eq"></i>' . Yii::t("app", "INICIO"), array("evento/index"));
+                            ?>
+                        </li>
+                        <li>
+                            <?php
+                            echo Html::a('<i class="icon-graphic_eq"></i>' . Yii::t("app", "CONJUNTO"), array("evento/conjunto"));
+                            ?>
+                        </li>
+                        <li class="active">
+                            <?php
+                            echo Html::a('<i class="icon-graphic_eq"></i>' . Yii::t("app", "ESCENARIOS"), array("evento/listar"));
+                            ?>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+            
+            <!-- Barra Azul -->
+            <div class="top-bar clearfix">
+            </div>
+
+            <!-- Botón CREAR -->
+            <div class="container-fluid">
+                <div class="row gutter">
+                    <div class="col-md-10 col-sm-6 col-xs-12">
+                        <h3 class="page-title"><?php echo Yii::t('app', "SISTEMA_COMPETENCIA"); ?></h3>
+                    </div>
+                    <div class="col-md-2 col-sm-6 col-xs-12">
+                        <ul class="tasks pull-right clearfix">
+                            <button type="button" class="btn teal-bg btn-block" onclick="cleanEvento()" data-toggle="modal" data-target="#modalForm"><i class="icon-circle-plus icon-left"></i> <?php echo Yii::t('app',"CREAR_ESCENARIO")?></button>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Listado -->
+            <table id="list-escenario" class="display" cellspacing="0" width="100%">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th><?php echo Yii::t("app", "ESCENARIOS"); ?></th>
+                        <th><?php echo Yii::t("app", "DIRECCION"); ?></th>
+                        <th><?php echo Yii::t("app", "CIUDAD"); ?></th>
+                        <th><?php echo Yii::t("app", "CONTACTO"); ?></th>
+                        <th><?php echo Yii::t("app", "OBSERVACIONES"); ?></th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tfoot>
+                    <tr>
+                        <th>#</th>
+                        <th><?php echo Yii::t("app", "ESCENARIOS"); ?></th>
+                        <th><?php echo Yii::t("app", "DIRECCION"); ?></th>
+                        <th><?php echo Yii::t("app", "CIUDAD"); ?></th>
+                        <th><?php echo Yii::t("app", "CONTACTO"); ?></th>
+                        <th><?php echo Yii::t("app", "OBSERVACIONES"); ?></th>
+                        <th></th>
+                    </tr>
+                </tfoot>
+                <tbody>
+                    
+                    
+                </tbody>
+            </table>
+            
+        </div>
+    </div>
+    
+    
+    <!-- CREAR ESCENARIO MODAL -->
+    <div class="modal fade" id="modalForm" tabindex="-1" role="dialog" aria-labelledby="modalForm2">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    <h4 class="modal-title"><?php echo Yii::t('app',"NUEVO_ESCENARIO")?></h4>
+                </div>
+                <div class="modal-body">
+                	<p id="msnNuevoEscenario"></p>
+                    <form id="form-add-escenario" action="eventos_fin3.html" onsubmit="return confirm('Desea enviar formulario)">
+                        <div class="form-group">
+                            <div class="row gutter">
+                                <div class="col-md-6">
+                                    <label class="control-label"><?php echo Yii::t('app',"NOMBRE")?></label>
+                                    <input type="url" class="form-control" id="esc_nombre" name="esc_nombre">
+
+                                    <label class="control-label"><?php echo Yii::t('app',"DIRECCION")?></label>
+                                    <input type="url" class="form-control" id="esc_direccion" name="esc_direccion">
+                                </div>
+                                <div class="col-md-6">
+                                	<input id="urlMostrarCiudad" type="hidden" value="<?= Url::toRoute(['escenario/listarciudades']); ?>">
+                                	<label class="control-label"><?= Yii::t('app',"DEPARTAMENTO") ?></label>
+                                    <?php
+                                    	$items = ArrayHelper::map(\app\models\Locacion::find()->where(['tl_id'=>1])->all(), 'loc_id','loc_nombre');
+                                    	echo Html::dropDownList('departamento', 'loc_id', $items, ['prompt'=>'Seleccione','class'=>'form-control', 'onchange'=>'mostrarCiudad(this.value);','id'=>'depa']);
+                                    ?>
+                                    <label class="control-label"><?= Yii::t('app',"CIUDAD") ?></label>
+                                    <div class="ciudad">
+                                    	
+                                    </div>                            
+                                </div>
+                            </div>
+                            <div class="row gutter">
+                                <div class="col-md-6">
+                                    <label class="control-label"><?= Yii::t('app',"DEPORTES") ?></label>
+                                    <?php
+                                    	$items = ArrayHelper::map(\app\models\TipoDeporte::find()->all(), 'td_id','td_nombre');
+                                    	echo Html::dropDownList('td_id', 'td_id', $items, ['prompt' =>'Seleccione', 'class'=>'form-control','onchange'=>'mostrarDeporte(this.value);','id'=>'depor']); 
+                                    ?>
+                                </div>
+                                <div class="col-md-6">
+
+                                <input id="urlTipoDeporte" type="hidden" value="<?= Url::toRoute(['escenario/listardeportetipo']); ?>">
+                                    <div class="checkbox deportes">                                      
+                                        
+                                    </div>
+                                </div>                                
+                                <div class="col-md-12">
+                                    <div class="form-group"><br>
+                                    	<p id="msnContacto" style="color:red;font-weight: bold;"></p> 
+                                        <label class="control-label"><?php echo Yii::t('app',"CONTACTO")?></label>
+                                        <div class="row gutter">
+                                            <div class="col-md-4">
+                                                <label class="control-label"><?php echo Yii::t('app',"NOMBRE")?></label>
+                                                <input type="text" class="form-control" id="ce_nombre" name="ce_nombre" maxlength="54" onfocus="$('#msnContacto').text(ADVERTENCIA_CONTACTO)">
+                                            </div>
+                                            <div class="col-md-4">
+                                                <label class="control-label"><?php echo Yii::t('app',"APELLIDOS")?></label>
+                                                <input type="text" class="form-control" id="ce_apellidos" name="ce_apellidos" maxlength="54">
+                                            </div>
+                                            <div class="col-md-4">
+                                                <label class="control-label"><?php echo Yii::t('app',"TELEFONO")?></label>
+                                                <input type="text" class="form-control" id="ce_telefono" name="ce_telefono" maxlength="12" onkeypress="return validarNumero(event);">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row gutter">
+                                        <div class="col-md-6">
+                                            <label class="control-label"><?php echo Yii::t('app',"CELULAR")?></label>
+                                            <input type="text" class="form-control" id="ce_celular" name="ce_celular" maxlength="12" onkeypress="return validarNumero(event);">
+                                        </div>
+                                        <div class="col-md-6">
+                                            <label class="control-label"><?php echo Yii::t('app',"EMAIL")?></label>
+                                            <input type="email" class="form-control" id="email" name="ce_email" onchange="validarEmail(this.id);" maxlength="54">
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="message-texta" class="control-label"><?php echo Yii::t('app',"OBSERVACIONES")?>:</label>
+                            <textarea class="form-control" id="message-texta" name="esc_observaciones" maxlength="254"></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label for="message-texta" class="control-label"><?php echo Yii::t('app',"DISPONIBILIDAD")?>:</label>
+                            <div class="panel-body">
+                                <table class="table table-striped success no-margin">
+                                    <thead>
+                                        <tr>
+                                            <th>#</th>
+                                            <th class="col-md-5 col-xs-5"><?php echo Yii::t("app", "FECHA_INICIO"); ?></th>
+                                            <th class="col-md-5 col-xs-5"><?php echo Yii::t("app", "FECHA_FINAL"); ?></th>
+                                            <th class="col-md-4 col-xs-4"><?php echo Yii::t("app", "HORARIO"); ?></th>
+                                            <th class="col-md-5 col-xs-5"><?php echo Yii::t("app", "OPCIONES"); ?></th>
+                                        </tr>
+                                    </thead>                                    
+                                    <input id="urlBorrarDisp" type="hidden" value="<?= Url::toRoute(['escenario/borrardisponibilidad']);?>">
+                                    <input id="urlModifDisp" type="hidden" value="<?= Url::toRoute(['escenario/modificardisponibilidad']); ?>">
+                                    <tbody class="cuerpo-dis">
+                                    	<?php
+                                    		\app\controllers\EscenarioController::limpiarDisponibilidad();
+                                    	?>
+                                    </tbody>
+                                </table>
+                                <table class="table success no-margin"> 
+                                	<tr>
+                                        <th scope="row"></th>
+                                        <td>
+                                        	<div class="input-group">
+                                        		<input type="text" id="fecha-ini" class="form-control fecha" placeholder="a-m-d" readonly onchange="activarFechaFin();"> 
+                                        		<span class="input-group-addon">
+                                        			<span class="icon-calendar"></span>
+                                        		</span>
+                                        	</div>
+                                        </td>
+                                        <td>
+                                        	<div class="input-group">
+                                        		<input type="text" id="fecha-fin" class="form-control fecha" placeholder="a-m-d" readonly> 
+                                        		<span class="input-group-addon">
+                                        			<span class="icon-calendar"></span>
+                                        		</span>
+                                        	</div>
+                                        </td>
+                                        <td>
+                                        	<?php
+                                        		 
+                                    			$horas = \app\controllers\EscenarioController::listarHoras();
+                                        		?>
+                                        		<select class="selector selectpicker" multiple>
+                                        		<?php
+                                        		foreach ($horas as $hora) {
+                                        			?>
+                                        			<option id="hor<?php echo $hora->hor_id ?>" value="<?php echo $hora->hor_id ?>"><?php echo $hora->hor_nombre_12_horas ?></option>
+                                        			<?php
+                                        		}                                        		
+                                        	?>
+                                        		</select>	
+                                        </td>
+                                        <td>
+                                            <input id="urlNuevaDisponibilidad" type="hidden" value="<?= Url::toRoute(['escenario/agregardisponibilidad'])?>">
+                                        	<span class="icon-add_box b" onclick="agregarFecha()"></span>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
+                        
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal"><i class="icon-circle-with-cross icon-left"></i> <?php echo Yii::t('app',"CERRAR"); ?></button>
+                            <input id="urlNuevoEscenario" type="hidden" value="<?= Url::toRoute(['escenario/crearescenario'])?>">
+                            <button type="button" class="btn btn-info" onclick="guardarEscenario();"><i class="icon-save icon-left"></i> <?php echo Yii::t('app',"GUARDAR")?></button>
+                            <!-- data-dismiss="modal" -->
+                        </div>
+                    </form>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <!-- FIN CREAR ESCENARIO MODAL -->
+
+
+    <!-- VER/EDITAR ESCENARIO MODAL -->
+
+    <input type="hidden" id="urlModalEditar" value="<?php echo Url::toRoute(['escenario/modaleditarescenario']); ?>">
+    <div class="modal fade" id="modalVerEscenario" tabindex="-1" role="dialog" aria-labelledby="modalVerEscenario">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    <h4 class="modal-title">EDITAR ESCENARIO</h4>
+                </div>
+                <div class="modal-body" id="modal-editar">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- FIN VER/EDITAR ESCENARIO MODAL -->
+</body>
+<style>
+	.b{cursor: pointer;}
+</style>
+<script type="text/javascript">
+	var MAX_NOMBRE_ESCENARIO = '<?php echo Yii::t('app','MAX_NOMBRE_ESCENARIO') ?>';
+	var MIN_NOMBRE_ESCENARIO = '<?php echo Yii::t('app','MIN_NOMBRE_ESCENARIO') ?>';
+	var DEPARTAMENTO_ESCENARIO = '<?php echo Yii::t('app','DEPARTAMENTO_ESCENARIO') ?>';
+	var CIUDAD_ESCENARIO = '<?php echo Yii::t('app','CIUDAD_ESCENARIO') ?>';
+	var DIRECCION_ESCENARIO = '<?php echo Yii::t('app','DIRECCION_ESCENARIO') ?>';
+	var TIPO_DEPORTE_ESCENARIO = '<?php echo Yii::t('app','TIPO_DEPORTE_ESCENARIO') ?>';
+	var DEPORTES_ESCENARIO = '<?php echo Yii::t('app','DEPORTES_ESCENARIO') ?>';
+	var DISPONIBILIDAD_ESCENARIO = '<?php echo Yii::t('app','DISPONIBILIDAD_ESCENARIO') ?>';
+	var ESCENARIO_EXITO = '<?php echo Yii::t('app','ESCENARIO_EXITO') ?>';
+	var EMAIL_VALIDACION = '<?php echo Yii::t('app','EMAIL_VALIDACION') ?>';
+	var ADVERTENCIA_CONTACTO = '<?php echo Yii::t('app','ADVERTENCIA_CONTACTO') ?>';
+	var CONTACTO_ESCENARIO_EXITO = '<?php echo Yii::t('app','CONTACTO_ESCENARIO_EXITO') ?>';
+	var ESCENARIO_EXITO_EDICION = '<?php echo Yii::t('app','ESCENARIO_EXITO_EDICION') ?>';
+
+</script>
+<script src="../views/escenario/js/escenario.js"></script>
+<script>
+	$(document).ready(function(){
+		$("#list-escenario").DataTable({
+            "processing": true,
+            "serverSide": true,
+            "order": [[ 0, "desc" ]],
+            "ajax": "<?php echo Url::toRoute(['escenario/escenarios']); ?>",
+            "language": {
+                "lengthMenu": "<?php echo Yii::t("app", "DISPLAY_RESULT") ?>",
+                "zeroRecords": "<?php echo Yii::t("app", "NO_RESULT") ?>",
+                "info": "<?php echo Yii::t("app", "RES_PAG") ?>",
+                "infoEmpty": "<?php echo Yii::t("app", "NO_RESULT_SEARCH") ?>",
+                "infoFiltered": "<?php echo Yii::t("app", "FILTER_RESULT") ?>",
+                "loadingRecords": "<?php echo Yii::t("app", "CARGANDO") ?>",
+                "processing":     "<?php echo Yii::t("app", "PROCESANDO") ?>.",
+                "search":         "<?php echo Yii::t("app", "BUSCAR") ?>",
+                "zeroRecords":    "<?php echo Yii::t("app", "NO_RESULT_SEARCH") ?>",
+                "paginate": {
+                    "first":      "<?php echo Yii::t("app", "PRIMERO") ?>",
+                    "last":       "<?php echo Yii::t("app", "ULTIMO") ?>",
+                    "next":       "<?php echo Yii::t("app", "SIGUIENTE") ?>",
+                    "previous":   "<?php echo Yii::t("app", "ANTERIOR") ?>"
+                },
+
+            }
+        });
+		
+       	//Fecha inicial (Crear evento)
+        $("#fecha-ini").datepicker({
+            format:'yyyy-mm-dd',
+                autoclose: true,
+                todayBtn: 'linked',
+                changeMonth: true,
+                changeYear: true,
+                startDate: new Date(),
+        }).on('changeDate', function (selected) {
+            var minDate = new Date(selected.date.valueOf());
+            $('#fecha-fin').datepicker('setStartDate', minDate);
+        });
+
+        //Fecha final (Crear evento)
+        $("#fecha-fin").datepicker({
+            format:'yyyy-mm-dd',
+                autoclose: true,
+                changeMonth: true,
+                changeYear: true,
+                startDate: $("#fecha-ini").datepicker("getDate"),
+        }).on('changeDate', function (selected) {
+            var maxDate = new Date(selected.date.valueOf());
+            $('#fecha-ini').datepicker('setEndDate', maxDate);
+        });
+
+        $("#fecha-fin").prop( "disabled", true );
+
+	});
+</script>

@@ -1,0 +1,209 @@
+<?php
+
+namespace app\controllers;
+
+use yii\filters\AccessControl;
+use yii\web\Controller;
+use app\helpers\datatables;
+use Yii;
+use \DateTime;
+
+class ContenidoController extends Controller {
+
+    /**
+     * Control de acceso
+     * @return type
+     */
+    public function behaviors() {
+        return [
+            'access' => [
+                'class' => AccessControl::className(),
+                'rules' => [
+                    [
+                        'actions' => ['index', 'data', 'deletefoto'], // add all actions to take guest to login page
+                        'allow' => true,
+                        'roles' => ['@'],
+                    ],
+                ],
+                'denyCallback' => function ($rule, $action) {
+            $user = "NO AUTH USER";
+            if (Yii::$app->user->identity != null) {
+                $user = Yii::$app->user->identity->usu_num_doc;
+            }
+            throw new \Exception('User ' . $user . ', not allowed to access controller: "' . $action->controller->id . '", action: ' . $action->actionMethod);
+        }
+            ],
+        ];
+    }
+    
+    /**
+     * Retorna lista con los registros. 
+     */
+    public function actionData(){
+        
+        $uploaddir = Yii::getAlias('@webroot');
+        
+        //Columnas a consultar
+        $columns = array(
+            array( 'db' => 'foto_id', 'dt' => 0),
+            array( 'db' => 'foto_ruta', 'dt' => 1,
+                'formatter' => function( $d, $row ) {
+                    $uploaddir = Yii::getAlias('@webroot');
+                    $ruta = explode(".", $d);
+                    $html = "<img src='../web$ruta[0]_small.$ruta[1]' style='width: 100px'>";
+                    return $html;
+                }
+            ),
+            array( 'db' => 'foto_ruta', 'dt' => 2),
+            array( 'db' => 'foto_fecha', 'dt' => 3),
+            array( 'db' => 'foto_id', 'dt' => 4,
+                'formatter' => function( $d, $row ) {
+                    return '<button class="btn btn-danger" onclick="deleteRow('.$row['foto_id'].')">'.Yii::t('app',"ELIMINAR").'</button>';
+                }
+            ),
+        );
+        
+        //Indice
+        $primaryKey = "foto_id";
+        
+        //Tabla
+        $table = "fotos";
+        
+        echo json_encode(
+                datatables::simple( $_GET,$table, $primaryKey, $columns )
+        );
+
+    }
+    
+    /**
+     * Elimina una foto
+     */
+    public function actionDeletefoto(){
+        
+        $id = $_GET['id'];
+        $foto = \app\models\Fotos::find()
+                ->where('foto_id = '.$id)
+                ->one();
+        
+        
+        $uploaddir = Yii::getAlias('@webroot');
+        $filePathToDelete = $uploaddir.$foto->foto_ruta;
+        
+        //Elimina la foto asociada..
+        unlink($filePathToDelete);
+        $ruta = explode(".", $foto->foto_ruta);
+        unlink($uploaddir.$ruta[0]."_small.".$ruta[1]);
+        
+        $foto->delete();
+        echo true;
+    }
+    
+    function generateRandomString($length = 10) {
+        $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+        $charactersLength = strlen($characters);
+        $randomString = '';
+        for ($i = 0; $i < $length; $i++) {
+            $randomString .= $characters[rand(0, $charactersLength - 1)];
+        }
+        return $randomString;
+    }
+
+    /*
+     * Renderiza la vista listar
+     */
+    public function actionIndex() {
+        if (!empty($_FILES) && isset($_FILES['file'])) {
+            $uploaddir = Yii::getAlias('@webroot') . '/uploads/fotos/';
+            $path = '/uploads/fotos/';
+
+            $file_parts = pathinfo(basename($_FILES['file']['name']));
+
+            $resp = array();
+
+            if ($file_parts['extension'] == "jpeg" || $file_parts['extension'] == "jpg" || $file_parts['extension'] == "png") {
+
+                $data = $this->generateRandomString();
+
+                $uploadfile = $uploaddir . $data . "." . $file_parts['extension'];
+
+                if ($_FILES['file']['error'] != 0) {
+                    if ($_FILES['file']['error'] == 1) {
+                        $resp['error'] = 'El fichero subido excede la directiva upload_max_filesize de php.ini';
+                    } else if ($_FILES['file']['error'] == 2) {
+                        $resp['error'] = "El fichero subido excede la directiva MAX_FILE_SIZE especificada en el formulario HTML";
+                    } else if ($_FILES['file']['error'] == 3) {
+                        $resp['error'] = "El fichero fue sólo parcialmente subido";
+                    } else if ($_FILES['file']['error'] == 4) {
+                        $resp['error'] = "No se subió ningún fichero.";
+                    } else if ($_FILES['file']['error'] == 6) {
+                        $resp['error'] = "Falta la carpeta temporal.";
+                    } else if ($_FILES['file']['error'] == 7) {
+                        $resp['error'] = "No se pudo escribir el fichero en el disco.";
+                    } else if ($_FILES['file']['error'] == 8) {
+                        $resp['error'] = "Una extensión de PHP detuvo la subida de ficheros.";
+                    }
+                    if (function_exists('http_response_code'))
+                        http_response_code(400);
+                }
+                else if (move_uploaded_file($_FILES['file']['tmp_name'], $uploadfile)) {
+
+                    $what = getimagesize($uploadfile);
+                    list($width, $height) = getimagesize($uploadfile);
+                    $r = $width / $height;
+
+                    $w = 200;
+                    $h = 200;
+
+                    if ($w / $h > $r) {
+                        $newwidth = $h * $r;
+                        $newheight = $h;
+                    } else {
+                        $newheight = $w / $r;
+                        $newwidth = $w;
+                    }
+
+
+                    switch (strtolower($what['mime'])) {
+
+                        case 'image/png':
+                            $img = imagecreatefrompng($uploadfile);
+                            $new = imagecreatetruecolor($newwidth, $newheight);
+                            imagecopyresampled($new, $img, 0, 0, 0, 0, $newwidth, $newheight, $width, $height);
+                            header('Content-Type: image/png');
+                            imagepng($new, $uploaddir . $data . "_small.png", 9);
+                            imagedestroy($new);
+                            break;
+                        case 'image/jpeg':
+                            $img = imagecreatefromjpeg($uploadfile);
+                            $new = imagecreatetruecolor($newwidth, $newheight);
+                            imagecopyresampled($new, $img, 0, 0, 0, 0, $newwidth, $newheight, $width, $height);
+                            header('Content-Type: image/jpeg');
+                            imagejpeg($new, $uploaddir . $data . "_small.jpg");
+                            imagedestroy($new);
+                            break;
+
+                        default: die();
+                    }
+
+                    $foto = new \app\models\Fotos();
+                    $foto->foto_ruta = $path . $data . "." . $file_parts['extension'];
+                    if ($foto->validate()) {
+                        $foto->save();
+                    }
+
+                    http_response_code(200);
+                } else {
+                    http_response_code(400);
+                }
+            } else {
+                $resp['error'] = "Formato no soportado";
+                http_response_code(400);
+            }
+            header('Content-Type: application/json');
+            echo json_encode($resp);
+        } else {
+            return $this->render('index');
+        }
+    }
+
+}

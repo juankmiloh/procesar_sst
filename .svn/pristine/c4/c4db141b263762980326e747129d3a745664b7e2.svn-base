@@ -1,0 +1,51 @@
+   
+    /**
+     * Verifica que el sorteo este realizado y guarda los resultados
+     */
+    function guardarEncuentro(idFaseTieneEncuentros, fechahora){
+        
+        //console.log(idFaseTieneEncuentros+", "+fechahora);
+        
+        $.ajax({
+            url: $("#urlGuardar").val(),
+            data: {id : idFaseTieneEncuentros, fechahora : fechahora},
+            success: function (response) {
+                if(response != "1")
+                    alert("ERROR: La fecha no fue registrada !");
+            },
+            error: function (error, tx) {
+                    console.log(tx);
+            }
+        });
+        
+    }
+    
+    function guardarEncuentroEsc(idFaseTieneEncuentros, escenario){
+        
+        //console.log(idFaseTieneEncuentros+", "+escenario);
+        
+        $.ajax({
+            url: $("#urlGuardar").val(),
+            data: {id : idFaseTieneEncuentros, escenario : escenario},
+            success: function (response) {
+                if(response != "1")
+                    alert("ERROR: El escenario no fue registrada !");
+            },
+            error: function (error, tx) {
+                    console.log(tx);
+            }
+        });
+        
+    }
+    
+    /**
+     * Define el formato de la fecha para el datetime picker
+     * @param {type} date
+     * @returns {String}
+     */
+    function getFormattedDate(date) {
+        var day = date.getDate();
+        var month = date.getMonth() + 1;
+        var year = date.getFullYear().toString().slice(2);
+        return day + '-' + month + '-' + year;
+    }

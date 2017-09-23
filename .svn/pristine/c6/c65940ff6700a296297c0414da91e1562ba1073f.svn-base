@@ -1,0 +1,55 @@
+<?php
+
+namespace app\controllers;
+
+use yii\filters\AccessControl;
+use yii\web\Controller;
+use yii\filters\VerbFilter;
+
+
+class EventoController extends Controller
+{
+    
+    public function behaviors()
+    {
+        return [
+            'access' => [
+                'class' => AccessControl::className(),
+                'rules' => [
+                    [
+                        'actions' => ['login', 'error'],
+                        'allow' => true,
+                    ],
+                    [
+                        'actions' => ['logout', 'index', 'conjunto', 'crearevento'], // add all actions to take guest to login page
+                        'allow' => true,
+                        'roles' => ['@'],
+                    ],
+                ],
+            ],
+            'verbs' => [
+                'class' => VerbFilter::className(),
+                'actions' => [
+                    'logout' => ['post'],
+                ],
+            ],
+        ];
+    }
+    
+    public function actionIndex()
+    {
+            return $this->render('index');
+    }
+    
+    public function actionConjunto()
+    {
+            return $this->render('conjunto');
+    }
+    
+    public function actionCrearevento(){
+            $evento = new \app\models\Evento();
+            $evento->eve_nombre = "";
+            
+    }
+
+}

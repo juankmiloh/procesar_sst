@@ -1,0 +1,67 @@
+<?php
+
+namespace app\models;
+
+use Yii;
+
+/**
+ * This is the model class for table "evento_tiene_deportes".
+ *
+ * @property integer $etd_id
+ * @property integer $eve_id
+ * @property integer $dep_id
+ *
+ * @property Evento $eve
+ * @property Deporte $dep
+ */
+class EventoTieneDeportes extends \yii\db\ActiveRecord
+{
+    /**
+     * @inheritdoc
+     */
+    public static function tableName()
+    {
+        return 'evento_tiene_deportes';
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function rules()
+    {
+        return [
+            [['eve_id', 'dep_id'], 'required'],
+            [['eve_id', 'dep_id'], 'integer'],
+            [['eve_id'], 'exist', 'skipOnError' => true, 'targetClass' => Evento::className(), 'targetAttribute' => ['eve_id' => 'eve_id']],
+            [['dep_id'], 'exist', 'skipOnError' => true, 'targetClass' => Deporte::className(), 'targetAttribute' => ['dep_id' => 'dep_id']],
+        ];
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function attributeLabels()
+    {
+        return [
+            'etd_id' => Yii::t('app', 'PK'),
+            'eve_id' => Yii::t('app', 'Evento'),
+            'dep_id' => Yii::t('app', 'Deporte'),
+        ];
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getEve()
+    {
+        return $this->hasOne(Evento::className(), ['eve_id' => 'eve_id']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getDep()
+    {
+        return $this->hasOne(Deporte::className(), ['dep_id' => 'dep_id']);
+    }
+}

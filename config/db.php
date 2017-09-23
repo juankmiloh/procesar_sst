@@ -4,22 +4,14 @@ return [
     'class' => 'yii\db\Connection',
     
 
-    // 'dsn' => 'mysql:host=localhost;dbname=_coldeportes',
+
+    // 'dsn' => 'mysql:host=localhost;dbname=ejemplo',
     // 'username' => 'root',
-    // 'password' => 'macl123456',
+    // 'password' => '',
 
-    'dsn' => 'mysql:host=localhost;dbname=ejemplo',
-    'username' => 'root',
-    'password' => '',
-
-
-   // 'dsn' => 'mysql:host=79.143.176.219:3326;dbname=_coldeportes',
-   // 'username' => 'user_coldeportes2017',
-   // 'password' => 'user_coldeportes2017',
-
-    // 'dsn' => 'mysql:host=79.143.176.219:3326;dbname=_coldeportes',
-    // 'username' => 'user_coldeportes2017',
-    // 'password' => 'user_coldeportes2017',
+    'dsn' => 'mysql:host=www.montajesyprocesos.com:3306;dbname=montajes_procesar_sst',
+    'username' => 'montajes_admin',
+    'password' => 'montajes',
 
     
     'charset' => 'utf8',
